@@ -236,11 +236,11 @@ a.nav-link.active{
 	&::after{
 		-webkit-animation: 8s linear 0s infinite normal running currentPage;
 		        animation: 8s linear 0s infinite normal running currentPage;
-		background-image:url('../images/wavy-line-celeste.svg');
+		background-image:url('/wavy-line-celeste.svg');
 	}
 
 	&:hover::after{
-		background-image:url('../images/wavy-line-celeste.svg') !important;
+		background-image:url('/wavy-line-celeste.svg') !important;
 	}
 }
 
