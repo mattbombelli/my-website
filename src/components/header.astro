@@ -1,7 +1,7 @@
 ---
 
 import '../styles/global.scss';
-import logo from '../assets/icon.png';
+import logo from '../assets/logo.gif';
 const wavyLine = 'url(/wavy-line.svg)';
 const wavyLineWhite = 'url(/wavy-line-white.svg)';
 
@@ -151,7 +151,7 @@ const currentPath = pathname.slice(1);
 <section class="site-header">
     <div class="site-header-wrapper">
         <a href="/" class="logo">
-            <Picture src={logo} alt="Logo" class="logo" loading="eager"/>
+            <img src={logo.src} alt="Mattia Bombelli" class="logo" loading="eager"/>
         </a>
         <Hamburger />
         <section class="mobile-navbar">
