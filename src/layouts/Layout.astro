@@ -1,4 +1,80 @@
-<!doctype html>
+---
+
+const { page,
+        facebook='../assets/facebook.png',
+        whatsapp='../assets/whatsapp.png',
+        twitter='../assets/twitter.png',
+        bodyColor="initial",
+        textColor="initial",
+        isHomepage=false,
+        isIllustration=false,
+        theme
+    } = Astro.props;
+
+// Social Media Link Images
+const facebookImage = new URL(facebook, Astro.url);
+const whatsappImage = new URL(whatsapp, Astro.url);
+const twitterImage = new URL(twitter, Astro.url);
+
+let title = `${page} | Mattia Bombelli`;
+
+---
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{title}</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Mattia Bombelli - Illustrations, UI Design & More" />
+        {/* Open Graph tags. Remember to add og:locale:alternate for when I will have translations available! */}
+        <meta property="og:title" content={title} />
+		<meta property="og:url" content={Astro.url} />
+        <meta property="og:description" content="Mattia Bombelli - Illustrations, UI Design & More" />
+		<meta property="og:type" content="website" />
+        {/* Facebook Link Image */}
+        <meta property="og:image" content={facebookImage} />
+		<meta property="og:image:type" content="image/png" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+        {/* Twitter Card tags. */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+		<meta name="twitter:url" content={Astro.url} />
+        <meta name="twitter:description" content="Mattia Bombelli - Illustrations, UI Design & More" />
+		<meta name="twitter:image" content={twitterImage} />
+        {/* Whatsapp Link Image */}
+        <meta property="og:image" content={whatsappImage} />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="400" />
+        <meta property="og:image:height" content="400" />
+
+        {/* Favicons */}
+        <link rel="icon" type="image/png" href="/icons/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
+        <link rel="shortcut icon" href="/icons/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+        <meta name="apple-mobile-web-app-title" content="Mattia Bombelli" />
+        <link rel="manifest" href="/icons/site.webmanifest" />
+
+        {theme &&
+            <meta content={theme} name="theme-color" />
+        }
+
+        <style define:vars={{bodyColor, textColor}} lang="scss">
+            body{
+                background-color:var(--bodyColor);
+                
+            }
+        </style>
+
+    </head>
+    <body class:list={[{homepage: isHomepage},{"illustration-project": isIllustration}]}>
+        <slot />
+    </body>
+</html>
+
+<!-- <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
@@ -19,4 +95,5 @@
 		width: 100%;
 		height: 100%;
 	}
-</style>
+</style> -->
+

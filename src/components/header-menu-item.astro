@@ -1,0 +1,51 @@
+---
+
+const { link, text } = Astro.props;
+const wavyLine = 'url(/wavy-line.svg)';
+
+---
+
+<style lang="scss" define:vars={{wavyLine}}>
+    @use '../styles/_breakpoints.scss' as device;
+
+    li.item{
+        a.nav-link{
+            font-size:var(--h1);
+            font-size:16.4vw;
+            border-bottom:10px solid var(--dark-gray);
+            border-bottom:2.6vw solid var(--dark-gray);
+        }
+
+        a.nav-link.mobile-link{
+            border-bottom:2.6vw solid var(--light-gray);
+        }
+
+        @media only screen and (min-width: device.$tablet) {
+            a.nav-link{
+                line-height:90%;
+                border-bottom-width:17px;
+                position:relative;
+                font-size:15vw;
+
+                &::after{
+                    bottom:-28px;
+                    height:45px;
+                    background-size: 750px;
+                }
+                @media (hover: hover) and (pointer: fine) {
+                    &:hover{
+                        border-bottom:17px solid transparent;
+                    }
+                    &:hover::after{
+                        background-image:var(--wavyLine);
+                        background-repeat:repeat;
+                    }
+                }
+            }
+        }
+    }
+</style>
+
+<li class="item">
+    <a href={link} class="nav-link">{text}</a>
+</li>

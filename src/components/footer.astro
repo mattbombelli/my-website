@@ -1,0 +1,100 @@
+---
+
+import '../styles/global.scss';
+
+---
+
+<style lang="scss">
+	@use '../styles/_breakpoints.scss' as device;
+
+    .site-footer{
+        padding-top:50px;
+        padding-bottom: 80px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap:20px 0;
+
+	.nav-link{
+		border-bottom:0;
+
+		&.e{
+			direction:rtl !important;
+			unicode-bidi: bidi-override !important;
+			cursor: pointer;
+		}
+
+		&:after{
+			display:none;
+		}
+
+		&:hover{
+			border-bottom:0;
+		}
+	}
+
+	p{
+		margin:0;
+		font-size: var(--h6);
+		width:100%;
+		text-align: center;
+		b{
+			display: none !important;
+		}
+		
+
+		&.social{
+			max-width: 189px;
+			flex:0 1 50%;
+		}
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		.e:hover,
+		.social a:hover{
+			color:var(--munsell);
+		}
+	}
+
+	@media only screen and (min-width: device.$tablet) {
+		padding-top:75px;
+		padding-bottom:105px;
+		gap:60px 0;
+		justify-content: space-between;
+
+		p{
+			width:auto;
+
+			&.copyright{
+				flex:1 0 100%;
+			}
+
+			&.social{
+				flex:initial;
+				max-width: unset;
+			}
+		}
+	}
+
+	@media only screen and (min-width: device.$laptop) {
+		p{
+			font-size: var(--p);
+		}
+
+		p.copyright{
+			flex:unset;
+		}
+	}
+    }
+</style>
+<section class="site-footer">
+    <p class="copyright">&copy; Mattia Bombelli</p>
+    <p class="nav-link"><a class="nav-link e">moc.<b>illebmobaittam</b>illebmobaittam@<b>olleh</b>olleh</a></p>
+    <p class="social"><a class="nav-link" target="_blank" rel="noreferrer" href='https://www.behance.net/mattiabombelli'>Behance</a></p>
+	<p class="social"><a class="nav-link" target="_blank" rel="noreferrer" href='https://dribbble.com/mattiabombelli'>Dribbble</a></p>
+</section>
+
+<script>
+	import '../scripts/footer.js';
+</script>

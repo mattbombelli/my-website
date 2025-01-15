@@ -1,0 +1,111 @@
+---
+
+import { getCollection, render } from "astro:content";
+
+import IllustrationHeader from '../../components/illustration-project-header.astro';
+import IllustrationFooter from '../../components/illustration-project-footer.astro';
+import Layout from '../../layouts/Layout.astro';
+
+import '../../styles/global.scss';
+
+// Retrieving content from collection
+export async function getStaticPaths() {
+    const illustrations = await getCollection('illustration');
+    return illustrations.map(illustration => ({
+        params: {
+            id: illustration.id,
+            slug: illustration.data.slug
+        },
+        props: { illustration },
+    }));
+}
+
+export const prerender = true;
+
+const { illustration } = Astro.props;
+const { Content } = await render(illustration);
+
+// Colors retrieved from Markdown file
+const background = illustration.data.background;
+let textColor = illustration.data.text;
+
+(textColor === "light") ? textColor = "var(--light-gray)" : textColor = "var(--dark-gray)";
+
+---
+
+<style define:vars={{background, textColor}} lang="scss">
+    @use '../../styles/_breakpoints.scss' as device;
+
+    main.project{
+        :global(*,p,a){
+		    color:var(--textColor);
+		    border-color: var(--textColor);
+	    }
+
+        :global(a){
+            text-decoration:underline;
+        }
+
+        :global(.text-slide){
+            padding:30px 20px;
+        }
+
+        @media only screen and (min-width: device.$tablet) {
+            section:last-of-type{
+                scroll-snap-align:end;
+                padding-bottom:100px;
+            }
+
+            :global(.text-slide){
+				padding:30px 100px;
+			}
+        }
+        @media only screen and (min-width: device.$laptop) {
+            max-width:1440px;
+			margin:0 auto;
+
+			display:-ms-grid;
+			display:grid;
+
+			grid-template-areas:"header header header header header header"								
+								"one two three four five six";
+
+			-ms-grid-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+			grid-template-columns:repeat(6,1fr);
+
+			-ms-grid-rows: auto;
+			grid-template-rows:auto;
+
+			-ms-flex-line-pack:start;
+			align-content:start;
+        }
+
+        @media only screen and (min-width: device.$laptop) {
+            :global(.text-slide){
+                padding:30px 100px;
+            }
+        }
+    }
+
+</style>
+
+<style is:global lang="scss" define:vars={{background}}>
+    div.background-color{
+        position: absolute;
+        top:0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background:var(--background);
+        pointer-events: none;
+        visibility: hidden;
+    }
+</style>
+
+<Layout bodyColor={illustration.data.background} textColor={textColor} theme={illustration.data.background} page={illustration.data.title} isIllustration=true>
+    <main class="project">
+        <IllustrationHeader title={illustration.data.title}/>
+        <Content />
+        <IllustrationFooter />
+    </main>
+</Layout>

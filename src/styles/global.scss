@@ -1,0 +1,546 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
+/*BREAKPOINTS
+
+tablet: 810px
+laptop: 1200px
+desktop: 1440px
+
+*/
+
+/* ========== VARIABLES ========== */
+@use './breakpoints' as device;
+
+:root{
+	/* ---- COLORS ---- */
+	--dark-gray:#444545;
+	--light-gray:#FAF4F1;
+/*	--light-gray:#F2F6F7;*/
+	--celeste:#0067A5;
+	--yellow:#DFFF00;
+	--salmon:#0067A5;
+	--giallo:#8FBC8F;
+	--light-blue:#A2D5F3;
+	--pink:#ffc3ab;
+	--tomato:#FF7455;
+	--dogwood:#FAD6C6;
+	--munsell:#EB0042;
+	--polynesian:#004997;
+
+	--h1:4.0625rem;
+	--h2:2.8125rem;
+	--h3:2.5rem;
+	--h4:2.1875rem;
+	--h5:1.75rem;
+	--h6:1.5625rem;
+	--p:1rem;
+}
+
+@media only screen and (min-width: device.$tablet) {		
+	:root{
+		--h1:9.375rem;
+		--h2:3.5rem;
+		--h3:2.5rem;
+		--h4:2.1875rem;
+		--h5:1.875rem;
+		--h6:1.5625rem;
+		--p:1rem;
+	}
+}
+/* ========== END OF VARIABLES ========== */
+
+/* ========== VREMENA GROTESK FONT ========== */
+/* BOLD */
+@font-face {
+    font-family: 'vremena-grotesk-bold';
+    src: url(/fonts/vremenagrotesk/vremenagroteskbold-webfont.woff) format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* BOLD ITALIC */
+@font-face {
+    font-family: 'vremena-grotesk-bold-italic';
+    src: url(/fonts/vremenagrotesk/vremenagroteskbolditalic-webfont.woff) format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* MEDIUM */
+@font-face {
+    font-family: 'vremena-grotesk-medium';
+    src: url(/fonts/vremenagrotesk/vremenagroteskmedium-webfont.woff) format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* MEDIUM ITALIC */
+@font-face {
+    font-family: 'vremena-grotesk-medium-italic';
+    src: url(/fonts/vremenagrotesk/vremenagroteskmediumitalic-webfont.woff) format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* REGULAR */
+@font-face {
+    font-family: 'vremena-grotesk-regular';
+    src: url(/fonts/vremenagrotesk/vremenagrotesk-webfont.woff) format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* REGULAR ITALIC */
+@font-face {
+    font-family: 'vremena-grotesk-regular-italic';
+    src: url(/fonts/vremenagrotesk/vremenagroteskitalic-webfont.woff) format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* BOOK */
+@font-face {
+    font-family: 'vremena-grotesk-book';
+    src: url(/fonts/vremenagrotesk/vremenagroteskbook-webfont.woff) format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* BOOK ITALIC */
+@font-face {
+    font-family: 'vremena-grotesk-book-italic';
+    src: url(/fonts/vremenagrotesk/vremenagroteskbookitalic-webfont.woff) format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* ========== END OF VREMENA GROTESK FONT ========== */
+
+/* ========== PIXEL COWBOY FONT ========== */
+@font-face {
+	font-family:'pixel-cowboy';
+	src: url(/fonts/pixelcowboy/pixel-cowboy.otf) format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+/* ========== END OF PIXEL COWBOY FONT ========== */
+
+/* ========== SYNE FONT ========== */
+@font-face {
+	font-family:'syne-extrabold';
+	src: url(/fonts/syne/Syne-ExtraBold.ttf) format('truetype');
+	font-weight: normal;
+}
+/* ========== END OF SYNE FONT ========== */
+
+
+/* ========== FONT SIZES ========== */
+h1, .h1-size{
+	font-size:var(--h1);
+}
+
+h2, .h2-size{
+	font-size:var(--h2);
+}
+
+h3, .h3-size{
+	font-size:var(--h3);
+}
+
+h4, .h4-size{
+	font-size:var(--h4);
+}
+
+h5, .h5-size{
+	font-size:var(--h5);
+}
+
+h6, .h6-size{
+	font-size:var(--h6);
+}
+
+p, .p-size{
+	font-size:var(--p);
+}
+
+/* ========== END OF FONT SIZES ========== */
+
+/* ========== GENERAL RULES ========== */
+
+*{
+	font-family: 'vremena-grotesk-regular', sans-serif;
+	color:var(--dark-gray);
+	line-height:115%;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+}
+
+body, html{
+	margin:0;
+	position: initial;
+	height: auto;
+}
+
+body.menu-open, html.menu-open{
+	overflow: hidden;
+	position: relative;
+	height: 100%;
+}
+
+/* Hyperlinks */
+a{
+	color:var(--celeste);
+	text-decoration:none;
+
+	&:hover{
+		color:var(--dark-gray);
+	} /* &:hover */
+} /* a */
+
+a.a-light{
+	color:var(--light-gray);
+	&:hover{
+		color:var(--dark-gray);
+	} /* &:hover */
+}
+
+a.nav-link{
+
+	color:var(--dark-gray);
+	display:inline-block;
+	position:relative;
+	border-bottom:.625rem solid var(--dark-gray);
+
+	&::after{
+		content:'';
+		position:absolute;
+		bottom:-14.8px;
+		left:0;
+		width:100%;
+		height:25px;
+		z-index:-1;
+		background-size: 300px;
+		background-position:center;
+		background-repeat: repeat;
+	}
+}
+
+a.nav-link.active{
+	border-bottom: .625rem solid transparent;
+
+	&::after{
+		-webkit-animation: 8s linear 0s infinite normal running currentPage;
+		        animation: 8s linear 0s infinite normal running currentPage;
+		background-image:url('../images/wavy-line-celeste.svg');
+	}
+
+	&:hover::after{
+		background-image:url('../images/wavy-line-celeste.svg') !important;
+	}
+}
+
+@-webkit-keyframes currentPage {
+
+	from {
+		background-position: 0px;
+	}
+
+	to {
+		background-position:300px;
+	}
+}
+
+@keyframes currentPage {
+
+	from {
+		background-position: 0px;
+	}
+
+	to {
+		background-position:300px;
+	}
+}
+
+@media only screen and (min-width: device.$tablet) {
+	@media (hover: hover) and (pointer: fine) {
+		a.nav-link{
+			&:hover{
+				border-bottom:1.0625rem solid transparent;
+			}
+			&:hover::after{
+				background-image:url('../images/wavy-line.svg');
+			}
+		}
+	}
+}
+
+@media only screen and (min-width: device.$laptop) {
+	a.nav-link{
+		border-bottom-width:.4375rem;
+		&:hover{
+			border-bottom:.4375rem solid transparent;
+		}
+	}
+}
+
+/* Main site wrapper */
+.site-wrapper{
+	padding:0px 20px;
+	position:relative;
+	overflow-x: hidden;
+}
+
+@media only screen and (min-width: device.$tablet) {
+	.site-wrapper{
+		padding:0 100px;
+
+		&::before{
+			content:'';
+			position:absolute;
+			width:70%;
+			height: 100%;
+			background-color: var(--light-gray);
+			top: 0;
+			left: 50%;
+			-webkit-transform:translateX(-50%);
+			    -ms-transform:translateX(-50%);
+			        transform:translateX(-50%);
+			z-index: -1;
+		} /* &::before */
+	} /* .site-wrapper */
+} /* @media */
+
+@media only screen and (min-width: device.$desktop) {
+	.site-wrapper{
+		margin:0 auto;
+		max-width: 1440px;
+		min-height: 100vh;
+	}
+
+	.site-wrapper.full-width{
+		overflow: initial;
+	}
+}
+
+/* ========== HEADER ========== */
+.site-header{
+	padding-top:20px;
+}
+
+.site-header > div{
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: justify;
+	    -ms-flex-pack: justify;
+	        justify-content: space-between;
+	-webkit-box-align:center;
+	    -ms-flex-align:center;
+	        align-items:center;
+/*	border:1px solid var(--dark-gray);*/
+/*	border-radius:100px;*/
+/*	padding:25px;*/
+}
+/* ========== END OF HEADER ========== */
+
+/* ========== HOMEPAGE ========== */
+.homepage{
+	background:var(--pink);
+
+	main.site-wrapper{
+		&:before{
+			display: none;
+		}
+	}
+}
+/* ========== END OF HOMEPAGE ========== */
+
+/* ========== ILLUSTRATION PROJECT ========== */
+.blockquote{
+	p{
+		position:relative;
+		display:inline-block;
+
+		&:before{
+			position:absolute;
+			content:"\201C";
+			left:11px;
+			top:-10px;
+			transform:scale(4);
+			opacity:.7;
+		}
+	}
+}
+
+@media only screen and (min-width: device.$laptop) {
+	.illustration-project{
+		.col-one{
+				grid-area:auto/one;
+		}
+
+		.col-two{
+			grid-area:auto/two;
+		}
+
+		.col-three{
+			grid-area:auto/three;
+		}
+
+		.col-four{
+			grid-area:auto/four;
+		}
+
+		.col-five{
+			grid-area:auto/five;
+		}
+
+		.col-six{
+			grid-area:auto/six;
+		}
+
+		/* multi-columns, from col one */
+		.col-one-two{
+			grid-area:auto/one/auto/two;
+		}
+
+		.col-one-three{
+			grid-area:auto/one/auto/three;
+		}
+
+		.col-one-four{
+			grid-area:auto/one/auto/four;
+		}
+
+		.col-one-five{
+			grid-area:auto/one/auto/five;
+		}
+
+		.col-one-six{
+			grid-area:auto/one/auto/six;
+		}
+
+
+		/* multi-columns, from col two */
+		.col-two-three{
+			grid-area:auto/two/auto/three;
+		}
+
+		.col-two-four{
+			grid-area:auto/two/auto/four;
+		}
+
+		.col-two-five{
+			grid-area:auto/two/auto/five;
+		}
+
+		.col-two-six{
+			grid-area:auto/two/auto/six;
+		}
+
+
+		/* multi-columns, from col three */
+		.col-three-four{
+			grid-area:auto/three/auto/four;
+		}
+
+		.col-three-five{
+			grid-area:auto/three/auto/five;
+		}
+
+		.col-three-six{
+			grid-area:auto/three/auto/six;
+		}
+
+
+
+		/* multi-columns, from col four */
+		.col-four-five{
+			grid-area:auto/four/auto/five;
+		}
+
+		.col-four-six{
+			grid-area:auto/four/auto/six;
+		}
+
+
+		/* multi-columns, from col five */
+		.col-five-six{
+			grid-area:auto/five/auto/six;
+		}
+
+
+		/* padding adjustments */
+		.padding-left-right-0{
+			padding-left:0;
+			padding-right:0;
+		}
+
+		.padding-left-right-25{
+			padding-left:25px;
+			padding-right:25px;
+		}
+
+		.padding-right-0{
+			padding-right:0;
+		}
+
+		.padding-left-0{
+			padding-left:0;
+		}
+
+		.padding-right-25{
+			padding-right:25px;
+		}
+
+		.padding-left-25{
+			padding-left:25px;
+		}
+
+		.padding-left-right-62-5{
+			padding-left: 62.5px;
+			padding-right:62.5px;
+		}
+
+		/* height adjustments */
+		.height-80dvh{
+			height:80dvh;
+		}
+
+		/* text adjustments */
+		.text-center{
+			text-align: center;
+		}
+
+		.text-left{
+			text-align: left;
+		}
+
+		.text-right{
+			text-align: right;
+		}
+
+		.blockquote.text-center{
+			p{
+				&:before{
+					left:-5px;
+					top:5px;
+				}
+			}
+		}
+
+		/* image margins */
+		.image-margin-right-0 .gatsby-resp-image-wrapper{
+			margin-right:0 !important;
+		}
+
+		.image-margin-left-0 .gatsby-resp-image-wrapper{
+			margin-left:0 !important;
+		}
+	}
+}
+/* ========== END OF ILLUSTRATION PROJECT ========== */

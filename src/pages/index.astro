@@ -1,4 +1,236 @@
 ---
+
+import '../styles/global.scss';
+
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/header.astro';
+import Footer from '../components/footer.astro';
+
+import { Image } from 'astro:assets';
+import Hero1 from '../assets/hero-1.jpg';
+import Hero2 from '../assets/hero-2.jpg';
+import Hero3 from '../assets/hero-3.jpg';
+
+---
+
+<style lang="scss">
+
+    @use '../styles/_breakpoints.scss' as device;
+
+    h1.catchphrase{
+        display:block;
+        font-family:pixel-cowboy;
+        font-size:var(--p);
+        text-align:center;
+        line-height:1.8;
+        position:relative;
+        margin-top:50px;
+        width:100%;
+        max-width: 335px;
+        margin-left:auto;
+        margin-right:auto;
+
+        &:before,
+        &:after{
+        content:'*';
+        position:absolute;
+        top:50%;
+        transform:translateY(-50%);
+        }
+
+        &:before{
+        left:0;
+        }
+
+        &:after{
+        right:0;
+        }
+
+        @media only screen and (min-width: device.$tablet) {
+            text-align:left;
+            max-width: 400px;
+            margin-left:unset;
+            margin-right:unset;
+            &:before,
+            &:after{
+                display:none;
+            }
+        }
+    }
+
+    section.hero{
+        position:relative;
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap:32px;
+    }
+
+    section.gallery{
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+
+        .postcard{
+            grid-column: 1/2;
+            grid-row: 1/2;
+
+            &.postcard-1{
+            z-index: 3;
+            }
+
+            &.postcard-2{
+            z-index: 2;
+            }
+
+            &.postcard-3{
+            z-index: 1;
+            }
+
+            img{
+                width:100%;
+                height: 100%;
+            }
+        }
+
+        @media only screen and (min-width: device.$tablet){
+            grid-template-columns: repeat(3, 1fr);
+            column-gap: 2em;
+            width:180vw;
+
+            .postcard-1{
+            grid-column: 1/2;
+            }
+            .postcard-2{
+            grid-column: 2/3;
+            }
+            .postcard-3{
+            grid-column: 3/4;
+            }
+        }
+
+        @media only screen and (min-width: device.$laptop){
+            width:100%;
+        }
+    }
+
+    div.marquee{
+        width:150%;
+        height:41px;
+        position:relative;
+        overflow:hidden;
+        font-size:52px;
+        background-color:var(--dogwood); 
+
+        @media (hover: hover) and (pointer: fine) {
+            &:hover{
+            div{
+                span{
+                transform:skew(-15deg);
+                }
+            }
+            }
+        }
+
+        div{
+            width:300%;
+            position:absolute;
+            overflow:inherit;
+            top:-7px;
+
+            animation: marquee 8s linear infinite;
+
+
+            span{
+            transform-origin:bottom;
+            transition:transform .2s ease;
+            font-family:"syne-extrabold", "vremena-grotesk-book", sans-serif;
+            float: left;
+            width:50%;
+
+            }
+        }
+        @keyframes marquee{
+            0%    { left: 0; }
+            100%  { left: -150%; }
+        }
+
+        @media only screen and (min-width: device.$tablet){
+            order:2;
+            font-size:95px;
+            height:80px;
+        }
+
+        @media only screen and (min-width: device.$laptop){
+            div{
+            animation-duration:13s;
+            }
+        }
+
+        @media only screen and (min-width: device.$desktop){
+            width: 100%;
+        }
+    }
+
+    hr.sewing{
+        width:100vw;
+        position:relative;
+        left:50%;
+        transform:translateX(-50%);
+        border-style:dashed;
+        margin:32px 0;
+
+        @media only screen and (min-width: device.$laptop){
+            margin:64px 0;
+        }
+    }
+</style>
+
+<Layout page="Home" isHomepage=true theme="#ffc3ab">
+    <main class="site-wrapper full-width">
+        <Navigation />
+        <h1 class="catchphrase">Your friendly neighbourhood designer</h1>
+        <hr class="sewing" />
+        <section class="hero">
+            <div class="marquee">
+                <div>
+                    <span>Mattia Bombelli</span>
+                    <span>Mattia Bombelli</span>
+                </div>
+            </div>
+            <section class="gallery">
+                <div class="frame postcard postcard-1">
+                    <Image
+                        loading="eager"
+                        src={Hero1}
+                        alt="Good ol' days"
+                    />
+                </div>
+                <div class="frame postcard postcard-2">
+                    <Image
+                        loading="eager"
+                        src={Hero2}
+                        alt="Views of Sicily"
+                    />
+                </div>
+                <div class="frame postcard postcard-3">
+                    <Image
+                        loading="eager"
+                        src={Hero3}
+                        alt="Cozy Rain"
+                    />
+                </div>
+            </section>
+        </section>
+        <Footer />
+    </main>
+</Layout>
+
+
+
+<!-- ---
 import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 
@@ -8,4 +240,4 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout>
 	<Welcome />
-</Layout>
+</Layout> -->

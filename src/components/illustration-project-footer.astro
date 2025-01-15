@@ -1,0 +1,28 @@
+<style lang="scss">
+    @use '../styles/_breakpoints.scss' as device;
+
+    footer{
+        padding:0 20px;
+        padding-bottom:50px;
+
+        a{
+            margin-top:50px;
+            display:block;
+            width:100%;
+            padding:25px;
+            text-align:center;
+            font-size:var(--p);
+            color:var(--textColor);
+            border:1.5px solid var(--textColor);
+            text-decoration:none !important;
+        }
+
+        @media only screen and (min-width: device.$tablet){
+            display:none;
+        }
+    }
+</style>
+
+<footer>
+    <a href="/illustration/">Go Back</a>
+</footer>

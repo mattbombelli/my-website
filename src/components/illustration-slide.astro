@@ -1,0 +1,82 @@
+---
+
+const { class: className, ...rest } = Astro.props
+import '../styles/global.scss'
+
+---
+
+<style lang="scss">
+    @use '../styles/_breakpoints.scss' as device;
+
+    section.slide-container{
+        max-width:100dvw;
+	    padding:30px 0px;
+	    scroll-snap-align:start;
+        position: relative;
+
+        &.text-center{
+            text-align: center;        
+        }
+
+        :global(img){
+            max-width: 100dvw;
+            height: auto;
+            aspect-ratio: auto;
+        }
+
+        &:first-of-type{
+		    padding-top:20px;
+        }
+
+        :global(p){
+            font-size:var(--h6);
+            margin:0;
+        }
+
+        @media only screen and (min-width: device.$tablet){
+            padding:40px 100px;
+
+            &:first-of-type{
+                padding-top:40px;
+            }
+
+            :global(img){
+                max-width: clamp(200px, calc(0.7477064220183486 * 80vh), 100%);
+            }
+        }
+
+        @media only screen and (min-width: device.$laptop){
+            :global(p){
+                font-size:var(--p);
+            }
+        }
+    }
+</style>
+
+<style is:global>
+    @keyframes open {
+            0%{
+                top:10%;
+                opacity: 0;
+            }
+            100%{
+                top:0%;
+                opacity: 1;
+            }    
+        }
+
+    @keyframes closed {
+        0%{
+            top:0%;
+            opacity: 1;
+        }
+        100%{
+            top:-10%;
+            opacity: 0;
+        }    
+    }
+</style>
+
+<section class:list={[ "slide-container", className ]} {...rest}>
+    <slot />
+</section>

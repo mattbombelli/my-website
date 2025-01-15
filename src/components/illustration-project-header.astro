@@ -1,0 +1,81 @@
+---
+
+const { title } = Astro.props
+
+---
+
+<style lang="scss">
+    @use '../styles/_breakpoints.scss' as device;
+
+    nav{
+        display:-webkit-box;
+        display:-ms-flexbox;
+        display:flex;
+        -webkit-box-pack:justify;
+        -ms-flex-pack:justify;
+                justify-content:space-between;
+        padding:20px 20px 40px 20px;
+        scroll-snap-align:start;
+        height:auto;
+
+        h6,a{
+            margin:0;
+        }
+
+        h6{
+            font-weight:normal;
+            width:100%;
+
+            hr{
+                border-style:solid;
+            }
+        }
+
+        a{
+            font-size:var(--p);
+            display:none;
+            padding:3px 15px;
+            text-align:center;
+            font-size:var(--p);
+            color:var(--textColor);
+            border:1.5px solid var(--textColor);
+            text-decoration:none !important;
+
+            &:hover::after {
+                background-image:none;
+            }
+        }
+
+        @media only screen and (min-width: device.$tablet){
+            padding:40px 100px 30px 100px;
+            height:-webkit-fit-content;
+            height:-moz-fit-content;
+            height:fit-content;
+            
+            a{
+                display:inline-block;
+                height:-webkit-fit-content;
+                height:-moz-fit-content;
+                height:fit-content;
+            }
+
+            h6{
+                hr{
+                    display:none;
+                }
+            }
+        }
+
+        @media only screen and (min-width: device.$laptop){
+            grid-area:header;
+        }
+    }
+</style>
+
+<nav transition:animate="fade">
+    <h6>
+        <i>{ title }</i>
+        <hr />
+    </h6>
+    <div><a href="/illustration" class="nav-link">Back</a></div>
+</nav>

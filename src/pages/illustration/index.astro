@@ -1,0 +1,147 @@
+---
+import { getCollection } from "astro:content";
+import { Image } from 'astro:assets';
+
+import '../../styles/global.scss';
+
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/header.astro';
+import Footer from '../../components/footer.astro';
+
+const illustrations = await getCollection('illustration', ({ data }) => {
+	return data.draft !== true;
+});
+
+illustrations.sort((a,b) => b.data.order - a.data.order);
+
+---
+
+<style lang="scss">
+    @use '../../styles/_breakpoints.scss' as device;
+
+    section.showcase{
+        margin-top:50px;
+		margin-bottom:100px;
+		display:-webkit-box;
+		display:-ms-flexbox;
+		display:flex;
+		-webkit-box-orient:vertical;
+		-webkit-box-direction:normal;
+		-ms-flex-direction:column;
+		        flex-direction:column;
+		-webkit-box-align:center;
+		-ms-flex-align:center;
+		        align-items:center;
+		gap:20px;
+
+        a{
+			display:block;
+			width:100%;
+			min-height:200px;
+			color:var(--dark-gray);
+            aspect-ratio: 1/1;
+
+			.project-data{
+				display:none;
+			}
+
+            .thumbnail-image{
+                display: block;
+                height: 100%;
+                width: auto;
+                aspect-ratio: 1/1;
+                object-fit: cover;
+            }
+        
+		}
+
+        @media (hover:hover) and (pointer:fine) {
+            a{
+				position:relative;
+
+				span{
+					display:none;
+				}
+
+				&:hover{
+					.project-data{
+						position:absolute;
+						width:100%;
+						height:100%;
+						background:var(--salmon);
+						color:var(--light-gray);
+						top:0;
+						left:0;
+						z-index:2;
+						display:-webkit-box;
+						display:-ms-flexbox;
+						display:flex;
+						-webkit-box-pack:center;
+						    -ms-flex-pack:center;
+						        justify-content:center;
+						-webkit-box-align:center;
+						    -ms-flex-align:center;
+						        align-items:center;
+						font-family:pixel-cowboy, vremena-grotesk-regular, sans-serif;
+						font-size:var(--h6);
+						text-align:center;
+						line-height:165%;
+					}
+				}
+			}
+        }
+
+        @media only screen and (min-width: device.$tablet) {
+            -webkit-box-orient:horizontal;
+			-webkit-box-direction:normal;
+			-ms-flex-direction:row;
+			flex-direction:row;
+			-ms-flex-wrap:wrap;
+			    flex-wrap:wrap;
+			-webkit-box-align:start;
+			-ms-flex-align:start;
+			        align-items:start;
+
+            a{
+				width:unset;
+				-webkit-box-flex:1;
+				    -ms-flex:1;
+				        flex:1;
+				min-width:45%;
+			}
+
+			a:last-of-type{
+				-webkit-box-flex:0;
+				    -ms-flex:0;
+				        flex:0;
+				-ms-flex-preferred-size:calc(50% - 10px);
+				    flex-basis:calc(50% - 10px);
+			}
+        }
+
+        @media only screen and (min-width: device.$laptop) {
+            gap:50px;
+
+			a:last-of-type{
+				-ms-flex-preferred-size:calc(50% - 25px);
+				    flex-basis:calc(50% - 25px);
+			}
+        }
+
+    } //section.showcase
+</style>
+
+<Layout page="Illustration">
+    <main class="site-wrapper full-width">
+        <Navigation />
+        <section class="showcase illustration-projects">
+            { illustrations.map(illustration => (
+                <a href={`/illustration/${illustration.data.slug}`}>
+                    <Image src={illustration.data.thumbnail} alt="thumbnail" class="thumbnail-image"/>
+                    <div class="project-data" transition:name="background">{illustration.data.title}</div>
+                </a>
+            ))}
+        </section>
+        <Footer />
+    </main>
+<Layout />
