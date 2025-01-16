@@ -46,11 +46,13 @@ illustrations.sort((a,b) => b.data.order - a.data.order);
 			}
 
             .thumbnail-image{
-                display: block;
+                display: flex;
                 height: 100%;
                 width: auto;
                 aspect-ratio: 1/1;
                 object-fit: cover;
+				background-color: var(--pink);
+				color:var(--dark-gray);
             }
         
 		}
@@ -137,8 +139,18 @@ illustrations.sort((a,b) => b.data.order - a.data.order);
         <section class="showcase illustration-projects">
             { illustrations.map(illustration => (
                 <a href={`/illustration/${illustration.data.slug}`}>
-                    <Image src={illustration.data.thumbnail} alt="thumbnail" class="thumbnail-image" loading="eager"/>
-                    <div class="project-data" transition:name="background">{illustration.data.title}</div>
+                    <Image
+						src={illustration.data.thumbnail}
+						alt={illustration.data.title}
+						class="thumbnail-image"
+						loading="lazy"
+					/>
+                    <div
+						class="project-data"
+						transition:name="background"
+					>
+						{illustration.data.title}
+					</div>
                 </a>
             ))}
         </section>

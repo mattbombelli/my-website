@@ -1,8 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 
-import { imageService } from '@unpic/astro/service';
-
 import netlify from '@astrojs/netlify';
 
 import mdx from '@astrojs/mdx';
@@ -13,11 +11,5 @@ export default defineConfig({
   output: 'server',
   adapter: netlify(),
   integrations: [mdx()],
-  image: {
-    service: imageService({
-      // fallbackService: "netlify",
-      placeholder: "blurhash",
-    }),
-  },
 });
 
