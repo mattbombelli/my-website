@@ -10,6 +10,9 @@ draft: false
 ---
 
 import Slide from '../../../components/illustration-slide.astro'
+import { Image } from 'astro:assets';
+
+import Biking from './biking.jpg';
 
 <Slide class="col-one-six text-center blockquote text-slide">
 	_Oh how beautiful is youth_\
@@ -21,4 +24,4 @@ import Slide from '../../../components/illustration-slide.astro'
 	_– Lorenzo de' Medici_
 </Slide>
 
-<Slide class="col-one-six text-center">![three guys biking in the middle of the fields. One is a bit ahead and is turning to wait for the other two](./biking.jpg)</Slide>
+<Slide class="col-one-six text-center"><Image src={Biking} alt="three guys biking in the middle of the fields. One is a bit ahead and is turning to wait for the other two" loading="eager" quality="max"/></Slide>

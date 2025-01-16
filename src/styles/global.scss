@@ -192,6 +192,11 @@ body.menu-open, html.menu-open{
 	height: 100%;
 }
 
+body.textured{
+	background-image:url("../assets/pattern.svg");
+	background-size: 15px 15px;
+}
+
 /* Hyperlinks */
 a{
 	color:var(--celeste);
@@ -236,11 +241,11 @@ a.nav-link.active{
 	&::after{
 		-webkit-animation: 8s linear 0s infinite normal running currentPage;
 		        animation: 8s linear 0s infinite normal running currentPage;
-		background-image:url('/wavy-line-celeste.svg');
+		background-image:url('../assets/wavy-line-celeste.svg');
 	}
 
 	&:hover::after{
-		background-image:url('/wavy-line-celeste.svg') !important;
+		background-image:url('../assets/wavy-line-celeste.svg') !important;
 	}
 }
 
@@ -298,20 +303,19 @@ a.nav-link.active{
 @media only screen and (min-width: device.$tablet) {
 	.site-wrapper{
 		padding:0 100px;
-
-		&::before{
-			content:'';
-			position:absolute;
-			width:70%;
-			height: 100%;
-			background-color: var(--light-gray);
-			top: 0;
-			left: 50%;
-			-webkit-transform:translateX(-50%);
-			    -ms-transform:translateX(-50%);
-			        transform:translateX(-50%);
-			z-index: -1;
-		} /* &::before */
+		// &::before{
+		// 	content:'';
+		// 	position:absolute;
+		// 	width:70%;
+		// 	height: 100%;
+		// 	background-color: var(--light-gray);
+		// 	top: 0;
+		// 	left: 50%;
+		// 	-webkit-transform:translateX(-50%);
+		// 	    -ms-transform:translateX(-50%);
+		// 	        transform:translateX(-50%);
+		// 	z-index: -1;
+		// } /* &::before */
 	} /* .site-wrapper */
 } /* @media */
 

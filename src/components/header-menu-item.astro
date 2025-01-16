@@ -1,7 +1,10 @@
 ---
 
 const { link, text } = Astro.props;
-const wavyLine = 'url(/wavy-line.svg)';
+let wavyLine = 'url(/wavy-line.svg)';
+
+import line from '../assets/wavy-line.svg';
+wavyLine = `url(${line.src})`;
 
 ---
 

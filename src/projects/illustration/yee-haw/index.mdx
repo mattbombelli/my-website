@@ -10,5 +10,8 @@ draft: false
 ---
 
 import Slide from '../../../components/illustration-slide.astro'
+import { Image } from 'astro:assets';
 
-<Slide class="col-one-six text-center">![A pixel cowboy in a challenging pose in the middle of the mesa](./Cowboy.png)</Slide>
+import Cowboy from './Cowboy.png';
+
+<Slide class="col-one-six text-center"><Image src={Cowboy} alt="A pixel cowboy in a challenging pose in the middle of the mesa" loading="eager" quality="max"/></Slide>

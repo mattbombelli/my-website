@@ -2,10 +2,14 @@
 
 import '../styles/global.scss';
 import logo from '../assets/logo.gif';
-const wavyLine = 'url(/wavy-line.svg)';
-const wavyLineWhite = 'url(/wavy-line-white.svg)';
 
-import { Picture } from 'astro:assets';
+let wavyLine = 'url(/wavy-line.svg)';
+let wavyLineWhite = 'url(/wavy-line-white.svg)';
+import line from '../assets/wavy-line.svg';
+import lineWhite from '../assets/wavy-line-white.svg';
+wavyLine = `url(${line.src})`;
+wavyLineWhite = `url(${lineWhite.src})`;
+
 import MenuItem from './header-menu-item.astro';
 import Hamburger from './hamburger.astro';
 
@@ -14,6 +18,7 @@ const translate = isOpen ? "translate(0)" : "translate(-100%)";
 
 const pathname = new URL(Astro.request.url).pathname;
 const currentPath = pathname.slice(1);
+
 
 ---
 

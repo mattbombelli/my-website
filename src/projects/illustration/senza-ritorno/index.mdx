@@ -10,6 +10,10 @@ draft: false
 ---
 
 import Slide from '../../../components/illustration-slide.astro'
+import { Image } from 'astro:assets';
+
+import First from './01.jpg';
+import Second from './02.jpg';
 
 
 <Slide class="col-one-three text-slide">
@@ -31,6 +35,7 @@ import Slide from '../../../components/illustration-slide.astro'
 	_Senza Ritorno_ was awarded an honor mention at the contest.
 </Slide>
 
-<Slide class="col-one-six text-center">![A kid stealing a device and running away from a market](./01.jpg)</Slide>
+<Slide class="col-one-six text-center"><Image src={First} alt="A kid stealing a device and running away from a market" loading="eager" quality="max"/></Slide>
 
-<Slide class="col-one-six text-center">![The same kid standing in front of a giant porcupine-man in a quite metaphysical square](./02.jpg)</Slide>
+<Slide class="col-one-six text-center"><Image src={Second} alt="The same kid standing in front of a giant porcupine-man in a quite metaphysical square" loading="lazy" quality="max"/></Slide>
+

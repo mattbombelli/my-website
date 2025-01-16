@@ -41,7 +41,10 @@ import '../styles/global.scss'
             }
 
             :global(img){
-                max-width: clamp(200px, calc(0.7477064220183486 * 80vh), 100%);
+                // max-width: clamp(200px, calc(0.7477064220183486 * 80vh), 100%);
+                max-width: clamp(200px, calc(1 * 80vh), 100%);
+                max-height: clamp(200px, 80vh, 100%);
+                object-fit: contain;
             }
         }
 

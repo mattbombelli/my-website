@@ -8,6 +8,7 @@ const { page,
         textColor="initial",
         isHomepage=false,
         isIllustration=false,
+        hasTexture=false,
         theme
     } = Astro.props;
 
@@ -69,7 +70,7 @@ let title = `${page} | Mattia Bombelli`;
         </style>
 
     </head>
-    <body class:list={[{homepage: isHomepage},{"illustration-project": isIllustration}]}>
+    <body class:list={[{homepage: isHomepage},{"illustration-project": isIllustration},{textured: hasTexture}]}>
         <slot />
     </body>
 </html>

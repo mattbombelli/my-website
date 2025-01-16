@@ -10,17 +10,27 @@ draft: false
 ---
 
 import Slide from '../../../components/illustration-slide.astro'
+import { Image } from 'astro:assets';
+
+import First from './01.jpg';
+import Second from './02.jpg';
+import Third from './03.jpg';
+import Fourth from './04.jpg';
+import Fifth from './05.jpg';
+
+
 
 <Slide class="col-one-three text-slide">
 A collection of illustrations made for the #juline challenge that takes place each year during the month of July.
 </Slide>
 
-<Slide class="col-one-three text-center">![A skeleton playing and dancing with animals](./01.jpg)</Slide>
 
-<Slide class="col-four-six text-center">![A man diving into a pothole](./02.jpg)</Slide>
+<Slide class="col-one-three text-center"><Image src={First} alt="A skeleton playing and dancing with animals" loading="eager" quality="max"/></Slide>
 
-<Slide class="col-one-six text-center">![people dancing to a medieval flute](./03.jpg)</Slide>
+<Slide class="col-four-six text-center"><Image src={Second} alt="A man diving into a pothole" loading="eager" quality="max"/></Slide>
 
-<Slide class="col-one-three text-center">![A man scooping the sea, creating waves](./04.jpg)</Slide>
+<Slide class="col-one-six text-center"><Image src={Third} alt="people dancing to a medieval flute" loading="lazy" quality="max"/></Slide>
 
-<Slide class="col-four-six text-center">![A man picking up mushrooms](./05.jpg)</Slide>
+<Slide class="col-one-three text-center"><Image src={Fourth} alt="A man scooping the sea, creating waves" loading="lazy" quality="max"/></Slide>
+
+<Slide class="col-four-six text-center"><Image src={Fifth} alt="A man picking up mushrooms" loading="lazy" quality="max"/></Slide>

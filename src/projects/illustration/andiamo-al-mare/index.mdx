@@ -10,6 +10,10 @@ draft: false
 ---
 
 import Slide from '../../../components/illustration-slide.astro'
+import { Image } from 'astro:assets';
+
+import Mare from './thumbnail.jpg';
+import Book from './open-book.jpg';
 
 <Slide class="col-one-three text-slide">
 	Illustration made for _Andiamo al mare_, story written by Dabro and published on the magazine [Carie Letterarie](https://www.carieletterarie.org/).
@@ -21,6 +25,6 @@ import Slide from '../../../components/illustration-slide.astro'
 	The protagonist, of whom we don't know the name, is stuck in a vicious cycle of dull worldliness. The plight is held together by a complicated relationship with his father, and Sam, his alter ego - and unrequited love.
 </Slide>
 
-<Slide class="col-one-six text-center">![A man walking on the beach with the shadow of his father. A woman walks with him.](./thumbnail.jpg)</Slide>
+<Slide class="col-one-six text-center"><Image src={Mare} alt="A man walking on the beach with the shadow of his father. A woman walks with him." loading="eager" quality="max"/></Slide>
 
-<Slide class="col-one-six text-center">![Open magazine "Carie Letterarie" laying on grass.](./open-book.jpg)</Slide>
+<Slide class="col-one-six text-center"><Image src={Book} alt='Open magazine "Carie Letterarie" laying on grass.' loading="lazy" quality="max"/></Slide>
