@@ -11,6 +11,7 @@
   "dependencies": {
     "@astrojs/mdx": "^4.0.6",
     "@astrojs/netlify": "^6.1.0",
+    "@unpic/astro": "^0.1.0",
     "astro": "^5.1.7",
     "sass": "^1.83.4"
   }
