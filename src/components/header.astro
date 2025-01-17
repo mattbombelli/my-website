@@ -25,6 +25,7 @@ const currentPath = pathname.slice(1);
     @use '../styles/_breakpoints.scss' as device;
 
     .mobile-navbar{
+        opacity: 0;
         position: absolute;
         z-index: 9;
         width: 100vw;
@@ -38,17 +39,16 @@ const currentPath = pathname.slice(1);
         padding:20px;
         display:-webkit-box;
         display:-ms-flexbox;
-        display: none;
-        -webkit-transition: -webkit-transform .2s ease;
-        transition: -webkit-transform .2s ease;
-        -o-transition: transform .2s ease;
-        transition: transform .2s ease;
-        transition: transform .2s ease, -webkit-transform .2s ease;
         -webkit-transform:translate(-100%);
         -ms-transform:translate(-100%);
         transform:translate(-100%);
         display: flex;
-
+        transition: transform .2s ease;
+        transition: transform .2s ease, -webkit-transform .2s ease;
+        -webkit-transition: -webkit-transform .2s ease;
+        transition: -webkit-transform .2s ease;
+        -o-transition: transform .2s ease;
+        
         &.expanded{
             -webkit-transform:translate(0);
             -ms-transform:translate(0);

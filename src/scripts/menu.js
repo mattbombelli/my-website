@@ -10,6 +10,7 @@ function initHamburger() {
             lines[0].classList.toggle(expanded);
             lines[2].classList.toggle(expanded);
         }
+        mobileNavbar.style.opacity = "1";
         mobileNavbar?.classList.toggle(expanded);
         document.body.classList.toggle('menu-open');
         document.documentElement.classList.toggle('menu-open');
