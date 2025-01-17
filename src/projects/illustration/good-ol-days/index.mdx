@@ -24,4 +24,5 @@ import Biking from './biking.jpg';
 	_– Lorenzo de' Medici_
 </Slide>
 
-<Slide class="col-one-six text-center"><Image src={Biking} alt="three guys biking in the middle of the fields. One is a bit ahead and is turning to wait for the other two" loading="eager" quality="max"/></Slide>
+<Slide class="col-one-six text-center"><Image src={Biking} alt="three guys biking in the middle of the fields. One is a bit ahead and is turning to wait for the other two" loading="eager" quality="max" decoding="async" widths={[Biking.width / 3, Biking.width / 2, Biking.width]}
+						sizes={`(max-width: 810px) ${Biking.width / 3}, (max-width: 1200px) ${Biking.width / 2},(max-width: 1440px) ${Biking.width}`}/></Slide>

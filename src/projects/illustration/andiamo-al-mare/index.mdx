@@ -25,6 +25,8 @@ import Book from './open-book.jpg';
 	The protagonist, of whom we don't know the name, is stuck in a vicious cycle of dull worldliness. The plight is held together by a complicated relationship with his father, and Sam, his alter ego - and unrequited love.
 </Slide>
 
-<Slide class="col-one-six text-center"><Image src={Mare} alt="A man walking on the beach with the shadow of his father. A woman walks with him." loading="eager" quality="max"/></Slide>
+<Slide class="col-one-six text-center"><Image src={Mare} alt="A man walking on the beach with the shadow of his father. A woman walks with him." loading="eager" quality="max" decoding="async" widths={[Mare.width / 3, Mare.width / 2, Mare.width]}
+						sizes={`(max-width: 810px) ${Mare.width / 3}, (max-width: 1200px) ${Mare.width / 2},(max-width: 1440px) ${Mare.width}`}/></Slide>
 
-<Slide class="col-one-six text-center"><Image src={Book} alt='Open magazine "Carie Letterarie" laying on grass.' loading="lazy" quality="max"/></Slide>
+<Slide class="col-one-six text-center"><Image src={Book} alt='Open magazine "Carie Letterarie" laying on grass.' loading="lazy" quality="max" decoding="async" widths={[Book.width / 3, Book.width / 2, Book.width]}
+						sizes={`(max-width: 810px) ${Book.width / 3}, (max-width: 1200px) ${Book.width / 2},(max-width: 1440px) ${Book.width}`}/></Slide>

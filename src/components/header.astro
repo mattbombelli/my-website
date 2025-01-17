@@ -34,11 +34,11 @@ const currentPath = pathname.slice(1);
         background:linear-gradient(to top, var(--celeste) 92%, var(--polynesian));
         -webkit-box-align: end;
         -ms-flex-align: end;
-                align-items: flex-end;
+        align-items: flex-end;
         padding:20px;
         display:-webkit-box;
         display:-ms-flexbox;
-        display:flex;
+        display: none;
         -webkit-transition: -webkit-transform .2s ease;
         transition: -webkit-transform .2s ease;
         -o-transition: transform .2s ease;
@@ -47,6 +47,7 @@ const currentPath = pathname.slice(1);
         -webkit-transform:translate(-100%);
         -ms-transform:translate(-100%);
         transform:translate(-100%);
+        display: flex;
 
         &.expanded{
             -webkit-transform:translate(0);

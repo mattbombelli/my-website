@@ -35,7 +35,9 @@ import Second from './02.jpg';
 	_Senza Ritorno_ was awarded an honor mention at the contest.
 </Slide>
 
-<Slide class="col-one-six text-center"><Image src={First} alt="A kid stealing a device and running away from a market" loading="eager" quality="max"/></Slide>
+<Slide class="col-one-six text-center"><Image src={First} alt="A kid stealing a device and running away from a market" loading="eager" quality="max" decoding="async" widths={[First.width / 3, First.width / 2, First.width]}
+						sizes={`(max-width: 810px) ${First.width / 3}, (max-width: 1200px) ${First.width / 2},(max-width: 1440px) ${First.width}`}/></Slide>
 
-<Slide class="col-one-six text-center"><Image src={Second} alt="The same kid standing in front of a giant porcupine-man in a quite metaphysical square" loading="lazy" quality="max"/></Slide>
+<Slide class="col-one-six text-center"><Image src={Second} alt="The same kid standing in front of a giant porcupine-man in a quite metaphysical square" loading="lazy" quality="max" decoding="async" widths={[Second.width / 3, Second.width / 2, Second.width]}
+						sizes={`(max-width: 810px) ${Second.width / 3}, (max-width: 1200px) ${Second.width / 2},(max-width: 1440px) ${Second.width}`}/></Slide>
 
