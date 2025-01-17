@@ -144,6 +144,9 @@ illustrations.sort((a,b) => b.data.order - a.data.order);
 						alt={illustration.data.title}
 						class="thumbnail-image"
 						loading="lazy"
+						widths={[illustration.data.thumbnail.width / 3, illustration.data.thumbnail.width / 2, illustration.data.thumbnail.width]}
+						sizes={`(max-width: 810px) ${illustration.data.thumbnail.width / 3}, (max-width: 1200px) ${illustration.data.thumbnail.width / 2},(max-width: 1440px) ${illustration.data.thumbnail.width}`}
+						decoding="async"
 					/>
                     <div
 						class="project-data"
