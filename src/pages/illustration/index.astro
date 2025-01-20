@@ -134,8 +134,8 @@ illustrations.sort((a,b) => b.data.order - a.data.order);
 </style>
 
 <Layout page="Illustration" hasTexture>
+	<Navigation slot="navbar" />
     <main class="site-wrapper full-width">
-        <Navigation />
         <section class="showcase illustration-projects">
             { illustrations.map(illustration => (
                 <a href={`/illustration/${illustration.data.slug}`}>
@@ -151,13 +151,13 @@ illustrations.sort((a,b) => b.data.order - a.data.order);
 					/>
                     <div
 						class="project-data"
-						transition:name="background"
+						transition:animate="none"
 					>
 						{illustration.data.title}
 					</div>
                 </a>
             ))}
         </section>
-        <Footer />
     </main>
+	<Footer slot="footer" />
 <Layout />

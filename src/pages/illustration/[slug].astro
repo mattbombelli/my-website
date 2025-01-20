@@ -36,6 +36,11 @@ let textColor = illustration.data.text;
 <style define:vars={{background, textColor}} lang="scss">
     @use '../../styles/_breakpoints.scss' as device;
 
+    :global(i.illustration-project-title, hr.illustration-project-border){
+        color:var(--textColor);
+        border-color: var(--textColor);
+    }
+
     main.project{
         :global(*,p,a){
 		    color:var(--textColor);
@@ -103,9 +108,9 @@ let textColor = illustration.data.text;
 </style>
 
 <Layout bodyColor={illustration.data.background} textColor={textColor} theme={illustration.data.background} page={illustration.data.title} isIllustration=true>
+    <IllustrationHeader title={illustration.data.title} slot="navbar"/>
     <main class="project">
-        <IllustrationHeader title={illustration.data.title}/>
         <Content />
-        <IllustrationFooter />
     </main>
+    <IllustrationFooter slot="footer"/>
 </Layout>

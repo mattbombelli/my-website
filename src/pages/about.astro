@@ -354,8 +354,8 @@ import Footer from '../components/footer.astro';
 </style>
 
 <Layout page="About" theme="#ffc3ab">
+    <Navigation slot="navbar"/>
     <main class="site-wrapper full-width">
-        <Navigation />
         <div class="name">
             <h1>Mattia Bombelli</h1>
         </div>
@@ -443,6 +443,6 @@ import Footer from '../components/footer.astro';
                 </table>
             </section>
         </section>    
-        <Footer />
     </main>
+    <Footer slot="footer"/>
 </Layout>

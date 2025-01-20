@@ -189,55 +189,41 @@ import Hero3 from '../assets/hero-3.jpg';
 </style>
 
 <Layout page="Home" isHomepage=true theme="#ffc3ab">
-    <main class="site-wrapper full-width">
-        <Navigation />
-        <h1 class="catchphrase">Your friendly neighbourhood designer</h1>
-        <hr class="sewing" />
-        <section class="hero">
-            <div class="marquee">
-                <div>
-                    <span>Mattia Bombelli</span>
-                    <span>Mattia Bombelli</span>
+    <Navigation slot="navbar"/>
+        <main class="site-wrapper full-width">
+            <h1 class="catchphrase">Your friendly neighbourhood designer</h1>
+            <hr class="sewing" />
+            <section class="hero">
+                <div class="marquee">
+                    <div>
+                        <span>Mattia Bombelli</span>
+                        <span>Mattia Bombelli</span>
+                    </div>
                 </div>
-            </div>
-            <section class="gallery">
-                <div class="frame postcard postcard-1">
-                    <Image
-                        loading="eager"
-                        src={Hero1}
-                        alt="Good ol' days"
-                    />
-                </div>
-                <div class="frame postcard postcard-2">
-                    <Image
-                        loading="eager"
-                        src={Hero2}
-                        alt="Views of Sicily"
-                    />
-                </div>
-                <div class="frame postcard postcard-3">
-                    <Image
-                        loading="eager"
-                        src={Hero3}
-                        alt="Cozy Rain"
-                    />
-                </div>
+                <section class="gallery">
+                    <div class="frame postcard postcard-1">
+                        <Image
+                            loading="eager"
+                            src={Hero1}
+                            alt="Good ol' days"
+                        />
+                    </div>
+                    <div class="frame postcard postcard-2">
+                        <Image
+                            loading="eager"
+                            src={Hero2}
+                            alt="Views of Sicily"
+                        />
+                    </div>
+                    <div class="frame postcard postcard-3">
+                        <Image
+                            loading="eager"
+                            src={Hero3}
+                            alt="Cozy Rain"
+                        />
+                    </div>
+                </section>
             </section>
-        </section>
-        <Footer />
-    </main>
+        </main>
+    <Footer slot="footer"/>
 </Layout>
-
-
-
-<!-- ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
----
-
-<Layout>
-	<Welcome />
-</Layout> -->

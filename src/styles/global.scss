@@ -20,7 +20,6 @@ desktop: 1440px
 	/* ---- COLORS ---- */
 	--dark-gray:#444545;
 	--light-gray:#FAF4F1;
-/*	--light-gray:#F2F6F7;*/
 	--celeste:#0067A5;
 	--yellow:#DFFF00;
 	--salmon:#0067A5;
@@ -184,6 +183,8 @@ body, html{
 	margin:0;
 	position: initial;
 	height: auto;
+	transition: background-color .2s ease,
+				background-image .2s ease;
 }
 
 body.menu-open, html.menu-open{
@@ -271,6 +272,27 @@ a.nav-link.active{
 	}
 }
 
+@keyframes astroFadeIn {
+	from {
+		opacity: 0;
+		color:transparent;
+	}
+	to {
+		opacity: 1;
+		color: initial;
+	}
+}
+@keyframes astroFadeOut {
+	from {
+		opacity: 1;
+		color: initial;
+	}
+	to {
+		opacity: 0;
+		color: transparent;
+	}
+}
+
 @media only screen and (min-width: device.$tablet) {
 	@media (hover: hover) and (pointer: fine) {
 		a.nav-link{
@@ -294,35 +316,25 @@ a.nav-link.active{
 }
 
 /* Main site wrapper */
-.site-wrapper{
+.site-wrapper, .site-header, .site-footer{
 	padding:0px 20px;
 	position:relative;
 	overflow-x: hidden;
 }
 
 @media only screen and (min-width: device.$tablet) {
-	.site-wrapper{
+	.site-wrapper, .site-header, .site-footer{
 		padding:0 100px;
-		// &::before{
-		// 	content:'';
-		// 	position:absolute;
-		// 	width:70%;
-		// 	height: 100%;
-		// 	background-color: var(--light-gray);
-		// 	top: 0;
-		// 	left: 50%;
-		// 	-webkit-transform:translateX(-50%);
-		// 	    -ms-transform:translateX(-50%);
-		// 	        transform:translateX(-50%);
-		// 	z-index: -1;
-		// } /* &::before */
 	} /* .site-wrapper */
 } /* @media */
 
 @media only screen and (min-width: device.$desktop) {
-	.site-wrapper{
+	.site-wrapper, .site-header, .site-footer{
 		margin:0 auto;
 		max-width: 1440px;
+	}
+	
+	.site-wrapper{
 		min-height: 100vh;
 	}
 
@@ -346,9 +358,6 @@ a.nav-link.active{
 	-webkit-box-align:center;
 	    -ms-flex-align:center;
 	        align-items:center;
-/*	border:1px solid var(--dark-gray);*/
-/*	border-radius:100px;*/
-/*	padding:25px;*/
 }
 /* ========== END OF HEADER ========== */
 

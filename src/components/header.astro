@@ -113,10 +113,32 @@ const currentPath = pathname.slice(1);
                     flex-direction: row;
             gap:30px;
 
+            // li{
+            //     position: relative;
+            //     display: flex;
+            //     flex-direction: column;
+            // }
+
+            // :global(.wavyline){
+            //     // position: absolute;
+            //     width: inherit;
+
+            //     :global(.wave){
+            //         stroke:red;
+            //         stroke-width: 1px;
+            //         stroke-linecap: square;
+            //         fill:none;
+            //         transform: translateX(0px);
+            //     }
+            // }
+
             li a.nav-link{
                 font-size:var(--h5);
                 position:relative;
                 border-bottom-width:7px;
+                // &:after{
+                //     background-image: unset;
+                // }
                 &:hover{
                     border-bottom:none;
                 }
@@ -147,28 +169,82 @@ const currentPath = pathname.slice(1);
     }
 </style>
 
+<section class="mobile-navbar" slot="mobile-navbar">
+    <nav>
+        <ul>
+            <MenuItem link="/" text="Home" />
+            <MenuItem link="/illustration" text="Illustration" />
+            <MenuItem link="/about" text="About" />
+        </ul>
+    </nav>
+</section>
 <section class="site-header">
     <div class="site-header-wrapper">
         <a href="/" class="logo">
             <img src={logo.src} alt="Mattia Bombelli" class="logo" loading="eager"/>
         </a>
         <Hamburger />
-        <section class="mobile-navbar">
-            <nav>
-                <ul>
-                    <MenuItem link="/" text="Home" />
-                    <MenuItem link="/illustration" text="Illustration" />
-                    <MenuItem link="/about" text="About" />
-                </ul>
-            </nav>
-        </section>
+        
         <section class="desktop-navbar">
             <nav>
                 <ul>
-                    <li><a href="/illustration" class=`nav-link ${currentPath === "illustration" ? "active" : ""}`>Illustration</a></li>
-                    <li><a href="/about" class=`nav-link ${currentPath === "about" ? "active" : ""}`>About</a></li>
+                    <li class="desktop-link"><a href="/illustration" class=`nav-link ${currentPath === "illustration" ? "active" : ""}`>Illustration</a></li>
+                    <li class="desktop-link"><a href="/about" class=`nav-link ${currentPath === "about" ? "active" : ""}`>About</a></li>
                 </ul>
             </nav>
         </section>
     </div>
+    <!-- <div class="sine-wave-container">
+        <svg width="200" height="200" class="sine-wave">
+             todo:
+            - Generate dynamically a path containing multiple Cs that covers twice the width of the svg
+            - Initially set control points all on the same line horizontally (so the curve will look like a straight line)
+            - When menu item gets hovered, control points move to their respective final places, creating a smooth animation.
+            -->
+            <!-- <path class="wave" 
+                d=" M   0 100
+                    C   100 0
+                        100 200
+                        200 100
+                    C   300 0
+                        300 200
+                        400 100
+                "
+            />
+        </svg> -->
+    </div>
 </section>
+
+<script>
+    document.addEventListener(
+        "astro:page-load",
+        () => {
+
+            // let links = document.getElementsByClassName("desktop-link");
+
+            // for (let link of links){
+            //     let svg = document.createElementNS('http://www.w3.org/2000/svg',"svg");
+            //     svg.classList.add("wavyline");
+            //     svg.setAttribute('width', '20px');
+            //     svg.setAttribute('height', '20px');
+
+            //     let sine = document.createElementNS('http://www.w3.org/2000/svg',"path");
+            //     sine.classList.add("wave");
+            //     sine.setAttributeNS(null, "d", `
+            //         M   0 10
+            //         C   100 10
+            //             100 10
+
+            //             200 10
+            //         C   300 0
+            //             300 200
+            //             400 100
+            //     `);
+            //     svg.appendChild(sine);
+            //     link.appendChild(svg);
+            // }
+            
+        },
+        { once: false }
+    );
+</script>

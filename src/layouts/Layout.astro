@@ -1,5 +1,7 @@
 ---
 
+import { ClientRouter } from "astro:transitions";
+
 const { page,
         facebook='../assets/facebook.png',
         whatsapp='../assets/whatsapp.png',
@@ -19,11 +21,50 @@ const twitterImage = new URL(twitter, Astro.url);
 
 let title = `${page} | Mattia Bombelli`;
 
+const forwards = {
+  old: {
+    name: "fadeOutUp",
+    duration: "0.25s",
+    easing: "ease-in",
+    fillMode: "forwards",
+  },
+  new: {
+    name: "fadeInUp",
+    duration: "0.25s",
+    delay: ".2s",
+    easing: "ease-out",
+    fillMode: "backwards",
+  },
+};
+
+const backwards = {
+  old: {
+    name: "fadeOutDown",
+    duration: "0.25s",
+    easing: "ease-in",
+    fillMode: "forwards",
+  },
+  new: {
+    name: "fadeInDown",
+    duration: "0.25s",
+    delay: "0.2s",
+    easing: "ease-out",
+    fillMode: "backwards",
+  },
+};
+
+const viewTransition = {
+  forwards,
+  backwards,
+};
+
 ---
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <ClientRouter />
+
         <title>{title}</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -75,36 +116,65 @@ let title = `${page} | Mattia Bombelli`;
         <style define:vars={{bodyColor, textColor}} lang="scss">
             body{
                 background-color:var(--bodyColor);
-                
             }
+
+        @keyframes fadeOutUp {
+            from {
+            opacity: 1;
+            transform: translateY(0);
+            }
+
+            to {
+            opacity: 0;
+            transform: translateY(-8px);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+            opacity: 0;
+            transform: translateY(8px);
+            }
+
+            to {
+            opacity: 1;
+            transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeOutDown {
+            from {
+            opacity: 1;
+            transform: translateY(0);
+            }
+
+            to {
+            opacity: 0;
+            transform: translateY(8px);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+            opacity: 0;
+            transform: translateY(-8px);
+            }
+
+            to {
+            opacity: 1;
+            transform: translateY(0);
+            }
+        }
+
         </style>
 
     </head>
     <body class:list={[{homepage: isHomepage},{"illustration-project": isIllustration},{textured: hasTexture}]}>
-        <slot />
+        <slot name="mobile-navbar"/>
+        <slot name="navbar"/>
+        <div class="animation-wrapper" transition:animate={viewTransition}>
+            <slot/>
+        </div>
+        <slot name="footer"/>
     </body>
 </html>
-
-<!-- <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style> -->
-
