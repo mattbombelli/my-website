@@ -316,20 +316,20 @@ a.nav-link.active{
 }
 
 /* Main site wrapper */
-.site-wrapper, .site-header, .site-footer{
+.site-wrapper, .site-header, .site-footer, .illustration-header, .illustration-footer{
 	padding:0px 20px;
 	position:relative;
 	overflow-x: hidden;
 }
 
 @media only screen and (min-width: device.$tablet) {
-	.site-wrapper, .site-header, .site-footer{
+	.site-wrapper, .site-header, .site-footer, .illustration-header, .illustration-footer{
 		padding:0 100px;
 	} /* .site-wrapper */
 } /* @media */
 
 @media only screen and (min-width: device.$desktop) {
-	.site-wrapper, .site-header, .site-footer{
+	.site-wrapper, .site-header, .site-footer, .illustration-header, .illustration-footer{
 		margin:0 auto;
 		max-width: 1440px;
 	}
