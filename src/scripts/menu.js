@@ -24,3 +24,11 @@ function initHamburger() {
 initHamburger();
 
 document.addEventListener('astro:after-swap', initHamburger);
+
+// document.addEventListener(
+//     "astro:page-load",
+//     () => {
+//         initHamburger();      
+//     },
+//     { once: false }
+// );

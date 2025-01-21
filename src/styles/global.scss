@@ -194,6 +194,8 @@ body.menu-open, html.menu-open{
 }
 
 body.textured{
+	position: relative;
+	background-color: white;
 	background-image:url("../assets/pattern.svg");
 	background-size: 15px 15px;
 }
@@ -319,7 +321,7 @@ a.nav-link.active{
 .site-wrapper, .site-header, .site-footer, .illustration-header, .illustration-footer{
 	padding:0px 20px;
 	position:relative;
-	overflow-x: hidden;
+	overflow: hidden;
 }
 
 @media only screen and (min-width: device.$tablet) {
