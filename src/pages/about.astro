@@ -12,7 +12,7 @@ import Footer from '../components/footer.astro';
     @use '../styles/_breakpoints.scss' as device;
 
     :global(body){
-        background-color: var(--pink);
+        background-color: var(--light-gray);
         overflow-x:hidden;
 
         .site-wrapper::before{
@@ -138,7 +138,7 @@ import Footer from '../components/footer.astro';
                 -ms-grid-rows:1fr auto;
                 grid-template-rows:1fr auto;
                 margin:64px 0;
-                background-color: var(--dogwood);
+                // background-color: var(--dogwood);
             }
         }
 
@@ -353,7 +353,7 @@ import Footer from '../components/footer.astro';
 
 </style>
 
-<Layout page="About" theme="#ffc3ab">
+<Layout page="About" theme="#f2f2f2">
     <Navigation slot="navbar"/>
     <main class="site-wrapper full-width">
         <div class="name">

@@ -19,7 +19,7 @@ desktop: 1440px
 :root{
 	/* ---- COLORS ---- */
 	--dark-gray:#444545;
-	--light-gray:#FAF4F1;
+	--light-gray:#F2F2F2;
 	--celeste:#0067A5;
 	--yellow:#DFFF00;
 	--salmon:#0067A5;
@@ -365,7 +365,7 @@ a.nav-link.active{
 
 /* ========== HOMEPAGE ========== */
 .homepage{
-	background:var(--pink);
+	background:var(--light-gray);
 
 	main.site-wrapper{
 		&:before{
