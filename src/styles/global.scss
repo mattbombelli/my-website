@@ -370,7 +370,8 @@ a.nav-link.active{
 
 /* ========== HEADER ========== */
 .site-header{
-	padding-top:20px;
+	padding-top:var(--space-32-s);
+	padding-bottom: var(--space-52-m);
 }
 
 .site-header > div{
