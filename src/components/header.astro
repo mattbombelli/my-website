@@ -153,6 +153,7 @@ const currentPath = pathname.slice(1);
         <ul>
             <MenuItem link="/" text="Home" />
             <MenuItem link="/illustration" text="Illustration" />
+            <MenuItem link="/blog" text="Blog" />
             <MenuItem link="/about" text="About" />
         </ul>
     </nav>
@@ -168,6 +169,7 @@ const currentPath = pathname.slice(1);
             <nav>
                 <ul>
                     <li class="desktop-link"><a href="/illustration" class=`nav-link ${currentPath === "illustration" ? "active" : ""}`>Illustration</a></li>
+                    <li class="desktop-link"><a href="/blog" class=`nav-link ${currentPath === "blog" ? "active" : ""}`>Blog</a></li>
                     <li class="desktop-link"><a href="/about" class=`nav-link ${currentPath === "about" ? "active" : ""}`>About</a></li>
                 </ul>
             </nav>

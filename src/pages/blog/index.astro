@@ -1,0 +1,137 @@
+---
+
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
+
+import '../../styles/global.scss';
+
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/header.astro';
+import Footer from '../../components/footer.astro';
+import { toAttributeString } from "astro/runtime/server/render/util.js";
+
+const articles = await getCollection('blog', ({ data }) => {
+    return data.draft !== true;
+});
+
+---
+
+<style lang="scss">
+    @use '../../styles/_breakpoints.scss' as device;
+
+    section.header{
+        display: flex;
+        flex-direction: column;
+        row-gap: var(--space-12-xxs);
+
+        h1{
+            margin: 0;
+            font-size: var(--h3);
+            line-height: var(--line-height-h3);
+            text-transform: uppercase;
+            font-family: 'vremena-grotesk-medium', 'vremena-grotesk-regular', sans-serif;
+        }
+
+        p{
+            margin: 0;
+        }
+    }
+
+    section.articles{
+        display: flex;
+        flex-direction: column;
+        row-gap: var(--space-60-l);
+
+        article{
+            display: flex;
+            flex-direction: column;
+            row-gap: var(--space-20-xs);
+
+            div.top-content{
+                display: flex;
+                flex-direction: column;
+                row-gap: var(--space-12-xxs);
+                img{
+                    max-width: 100%;
+                    height: auto;
+                }
+
+                span{
+                    font-size: var(--small);
+                    display: inline-block;
+                    font-family: 'vremena-grotesk-medium', 'vremena-grotesk-regular', sans-serif;
+
+                    &.category{
+                        padding: var(--space-8-xxxs) var(--space-12-xxs);
+                        border:2px solid var(--dark-gray);
+                        border-radius:18px;
+                    }
+                }
+            }
+            div.text-content{
+                display: flex;
+                flex-direction: column;
+                row-gap: var(--space-12-xxs);
+
+                h3{
+                    font-size: var(--h6);
+                    line-height: var(--line-height-h6);
+                    margin:0;
+                }
+                p{
+                    margin: 0;
+                    font-size: var(--p);
+                    line-height: var(--line-height-p);
+                }
+            }
+        } //article
+
+    } //articles
+
+
+</style>
+
+<Layout page="Blog">
+    <Navigation slot="navbar" />
+    <main class="site-wrapper full-width">
+        
+        <section class="header">
+            <h1>Notes on the endpapers</h1>
+            <p>This would be the blog description, a few words about what I intend to write... I guess?</p>
+        </section>
+        <aside class="blog-navigation">
+            <section class="mobile-blog-navigation"></section>
+            <section class="desktop-blog-navigation"></section>
+        </aside>
+        <section class="articles">
+            { articles.map(article => (
+                <article class:list={[{"featured" : article.data.featured}]}>
+                    <div class="top-content">
+                        <Image
+                            src={article.data.featuredImage}
+                            alt={article.data.title}
+                            class="featured-image"
+                            loading="lazy"
+                            widths={[article.data.featuredImage.width / 3, article.data.featuredImage.width / 2, article.data.featuredImage.width]}
+                            sizes={`(max-width: 810px) ${article.data.featuredImage.width / 3}, (max-width: 1200px) ${article.data.featuredImage.width / 2},(max-width: 1440px) ${article.data.featuredImage.width}`}
+                            decoding="async"
+                            style={`background-color:white;`}
+                        />
+                        <div class="metadata">
+                            <span class="category">{article.data.category}</span>
+                            <span class="date-published">
+                                {/* {article.data.datePublished}  */}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="text-content">
+                        <h3>{article.data.title}</h3>
+                        <p>{article.data.excerpt}</p>
+                    </div>
+                </article>
+            ))}
+        </section>
+
+    </main>
+    <Footer slot="footer" />
+</Layout>

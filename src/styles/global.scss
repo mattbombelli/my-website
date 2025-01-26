@@ -31,6 +31,7 @@ desktop: 1440px
 	--munsell:#EB0042;
 	--polynesian:#004997;
 
+	/* ---- FONT SIZES ---- */
 	--h1:4.0625rem;
 	--h2:2.8125rem;
 	--h3:2.5rem;
@@ -38,10 +39,32 @@ desktop: 1440px
 	--h5:1.75rem;
 	--h6:1.5625rem;
 	--p:1rem;
+	--small:.8125rem;
+
+	/* ---- LINE HEIGHTS ---- */
+	--line-height-h1: 100%;
+	--line-height-h2: 110%;
+	--line-height-h3: 110%;
+	--line-height-h4: 110%;
+	--line-height-h5: 110%;
+	--line-height-h6: 110%;
+	--line-height-p: 120%;
+	--line-height-small: 130%;
+
+	/* ---- SPACINGS ---- */
+	--space-100-xxl: 6.25rem;
+	--space-76-xl: 4.75rem;
+	--space-60-l: 3.75rem;
+	--space-52-m: 3.25rem;
+	--space-32-s: 2rem;
+	--space-20-xs: 1.25rem;
+	--space-12-xxs: .75rem;
+	--space-8-xxxs: .5rem;
 }
 
 @media only screen and (min-width: device.$tablet) {		
 	:root{
+		/* ---- FONT SIZES ---- */
 		--h1:9.375rem;
 		--h2:3.5rem;
 		--h3:2.5rem;
