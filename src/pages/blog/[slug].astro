@@ -2,6 +2,7 @@
 
 import { getCollection, render } from "astro:content";
 import { Image } from "astro:assets";
+import dayjs from "dayjs";
 
 import Blog from '../../layouts/Blog.astro';
 
@@ -41,33 +42,103 @@ const { Content } = await render(article);
         }
     }
 
-    .article-metadata{
-        display: flex;
-        flex-direction: column;
-        row-gap: var(--space-32-s);
+    .article-content{
+        border-bottom: 2px solid var(--dark-gray);
 
-        .blog-category{
-            display: inline-block;
-            font-size: var(--h6);
-            line-height: var(--line-height-h6);
-            width: fit-content;
-            border-radius: 24px;
-            margin:0;
-        }
-        
-        .article-tags{
-            display:flex;
-            flex-wrap: wrap;
-            gap:var(--space-20-xs);
-            font-size: var(--p);
-            line-height: var(--line-height-p);
-        }
+        .article-metadata{
+            display: flex;
+            flex-direction: column;
+            row-gap: var(--space-32-s);
 
-        .featured-image{
-            max-width: 100%;
-            height: auto;
-        }
-    }
+            .article-cat-date{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .blog-category{
+                    display: inline-block;
+                    font-size: var(--h6);
+                    line-height: var(--line-height-h6);
+                    width: fit-content;
+                    border-radius: 24px;
+                    margin:0;
+                }
+                .article-pub-date{
+                    font-size: var(--p);
+                    line-height: var(--line-height-p);
+                }
+            }
+
+            
+            .article-tags{
+                display:flex;
+                flex-wrap: wrap;
+                gap:var(--space-20-xs);
+                font-size: var(--p);
+                line-height: var(--line-height-p);
+            }
+
+            .featured-image{
+                max-width: calc(100% + (20px * 2));
+                transform: translateX(-20px);
+                height: auto;
+            }
+
+            .article-excerpt{
+                margin:0;
+            }
+        } // article metadata
+
+        :global(.article-body){
+
+            // headings
+            :global(:is(h1)){
+                font-size: var(--h2);
+                line-height: var(--line-height-h2);
+            }
+
+            :global(:is(h1,h2)){
+                margin-top:var(--space-100-xxl);
+                margin-bottom: var(--space-32-s);
+            }
+
+            :global(:is(h3,h4,h5,h6)){
+                margin-top:var(--space-76-xl);
+                margin-bottom: var(--space-32-s);
+            }
+
+            :global(:is(h5,h6)){
+                margin-top: var(--space-60-l);
+                margin-bottom: var(--space-20-xs);
+            }
+
+            // paragraphs
+            :global(p){
+                margin:var(--space-20-xs) 0;
+
+                :global(a){
+                    text-decoration: underline;
+                    &:global(:hover){
+                        color:var(--munsell);
+                    }
+                }
+            }
+
+            // images
+            :global(img){
+                max-width: calc(100% + (20px * 2));
+                transform: translateX(-20px);
+                height: auto;
+            }
+            :global(img + em){
+                display: block;
+                margin-top:var(--space-12-xxs);
+                font-size: var(--p);
+                line-height: var(--line-height-p);
+            }
+  
+        } // article content
+    } // article content
 
     .blog-header{
         display: flex;
@@ -102,11 +173,11 @@ const { Content } = await render(article);
                 }
             }
         }
-    }
+    } //blog header, specific to article page
 
 </style>
 
-<Blog isArticle>
+<Blog isArticle pageName={article.data.title}>
 
     <section class="blog-header" slot="header">
         <h1>{article.data.title}</h1>
@@ -120,9 +191,12 @@ const { Content } = await render(article);
             </h2>
     </section>
 
-    <section class="blog-content" slot="content">
+    <article class="article-content" slot="content">
         <section class="article-metadata">
-            <h3 class="blog-category">{article.data.category}</h3>
+            <div class="article-cat-date">
+                <h3 class="blog-category">{article.data.category}</h3>
+                <p class="article-pub-date">{dayjs(article.data.datePublished).format('MMM D, YYYY')}</p>
+            </div>
             <div class="article-tags">
                 {
                     article.data.tags.map((tag) => (
@@ -131,7 +205,6 @@ const { Content } = await render(article);
                 }
             </div>
             {article.data.featuredImage &&
-                <a href={`/blog/${article.data.slug}`}>
                     <Image
                         src={article.data.featuredImage}
                         alt={article.data.title}
@@ -142,10 +215,12 @@ const { Content } = await render(article);
                         decoding="async"
                         style={`background-color:white;`}
                     />
-                </a>
             }
+            <p class="article-excerpt">{article.data.excerpt}</p>
         </section>
-        <Content />
-    </section>
+        <section class="article-body">
+            <Content />
+        </section>
+    </article>
 
 </Blog>

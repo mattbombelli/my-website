@@ -8,7 +8,10 @@ import Footer from '../components/footer.astro';
 
 import BlogAside from '../components/blog/blog-aside.astro';
 
-const { isArticle=false } = Astro.props;
+const {
+    isArticle=false,
+    pageName="Blog"
+} = Astro.props;
 
 ---
 
@@ -41,7 +44,7 @@ const { isArticle=false } = Astro.props;
         :global(h2){
             font-size: var(--h4);
             line-height: var(--line-height-h4);
-            font-family: 'vremena-grotesk-medium-italic', 'vremena-grotesk-regular-italic', sans-serif;
+            // font-family: 'vremena-grotesk-medium-italic', 'vremena-grotesk-regular-italic', sans-serif;
             margin:0;
         }
 
@@ -68,8 +71,16 @@ const { isArticle=false } = Astro.props;
 
                     :global(span){
                         font-size: var(--small);
+                        line-height: var(--line-height-small);
                         display: inline-block;
                         font-family: 'vremena-grotesk-medium', 'vremena-grotesk-regular', sans-serif;
+                    }
+
+                    :global(.article-metadata){
+                        display: flex;
+                        justify-content: flex-start;
+                        column-gap: var(--space-8-xxxs);
+                        align-items: center;
                     }
                 }
                 :global(div.text-content){
@@ -111,7 +122,7 @@ const { isArticle=false } = Astro.props;
     }
 </style>
 
-<Layout page="Blog">
+<Layout page={pageName}>
     <Navigation slot="navbar" />
     <main class="site-wrapper full-width">
 

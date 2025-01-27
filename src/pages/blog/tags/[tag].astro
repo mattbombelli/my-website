@@ -2,6 +2,7 @@
 
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
+import dayjs from "dayjs";
 
 import '../../../styles/global.scss';
 
@@ -45,6 +46,14 @@ export const prerender = true;
 
 <style lang="scss">
     @use '../../../styles/_breakpoints.scss' as device;
+
+    .blog-content{
+        h2{
+            .tag{
+                color:var(--celeste);
+            }
+        }
+    }
 </style>
 
 <Blog>
@@ -55,7 +64,7 @@ export const prerender = true;
     </section>
 
     <section class="blog-content" slot="content">
-        <h2>Posts tagged with #{tag}</h2>
+        <h2>Posts tagged with <span class="tag">#{tag}</span></h2>
        <section class="blog-articles">
             {  
                 blogposts.map((article) => (
@@ -76,11 +85,9 @@ export const prerender = true;
                                 </a>
                             }
                             
-                            <div class="metadata">
-                                <span class="category">{article.data.category}</span>
-                                <span class="date-published">
-                                    {/* {article.data.datePublished}  */}
-                                </span>
+                            <div class="article-metadata">
+                                <span class="blog-category">{article.data.category}</span>
+                                    <span class="article-pub-date">{dayjs(article.data.datePublished).format('MMM D, YYYY')}</span>
                             </div>
                         </div>
                         <div class="text-content">

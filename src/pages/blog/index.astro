@@ -2,6 +2,7 @@
 
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
+import dayjs from "dayjs";
 
 import '../../styles/global.scss';
 
@@ -44,10 +45,10 @@ const articles = await getCollection('blog', ({ data }) => {
                             </a>
                         }
                         
-                        <div class="metadata">
+                        <div class="article-metadata">
                             <span class="blog-category">{article.data.category}</span>
-                            <span class="date-published">
-                                {/* {article.data.datePublished}  */}
+                            <span class="article-pub-date">
+                                {dayjs(article.data.datePublished).format('MMM D, YYYY')} 
                             </span>
                         </div>
                     </div>

@@ -48,7 +48,7 @@ desktop: 1440px
 	--line-height-h4: 110%;
 	--line-height-h5: 110%;
 	--line-height-h6: 110%;
-	--line-height-p: 120%;
+	--line-height-p: 160%;
 	--line-height-small: 130%;
 
 	/* ---- SPACINGS ---- */
@@ -164,30 +164,42 @@ desktop: 1440px
 /* ========== FONT SIZES ========== */
 h1, .h1-size{
 	font-size:var(--h1);
+	line-height: var(--line-height-h1);
 }
 
 h2, .h2-size{
 	font-size:var(--h2);
+	line-height: var(--line-height-h2);
 }
 
 h3, .h3-size{
 	font-size:var(--h3);
+	line-height: var(--line-height-h3);
 }
 
 h4, .h4-size{
 	font-size:var(--h4);
+	line-height: var(--line-height-h4);
 }
 
 h5, .h5-size{
 	font-size:var(--h5);
+	line-height: var(--line-height-h5);
 }
 
 h6, .h6-size{
 	font-size:var(--h6);
+	line-height: var(--line-height-h6);
 }
 
 p, .p-size{
 	font-size:var(--p);
+	line-height: var(--line-height-p);
+}
+
+small, .small-size{
+	font-size: var(--small);
+	line-height: var(--line-height-small);
 }
 
 /* ========== END OF FONT SIZES ========== */
