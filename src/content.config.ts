@@ -17,6 +17,10 @@ const blog = defineCollection({
     })
 });
 
+const categories = defineCollection({
+    // loader: glob({ pattern: })
+})
+
 const illustration = defineCollection({
     loader: glob({pattern: "**/*.{md,mdx}", base: "./src/projects/illustration/"}),
     schema: ({ image }) => z.object({

@@ -8,6 +8,8 @@ import Footer from '../components/footer.astro';
 
 import BlogAside from '../components/blog/blog-aside.astro';
 
+const { isArticle=false } = Astro.props;
+
 ---
 
 <style lang="scss">
@@ -68,18 +70,18 @@ import BlogAside from '../components/blog/blog-aside.astro';
                         font-size: var(--small);
                         display: inline-block;
                         font-family: 'vremena-grotesk-medium', 'vremena-grotesk-regular', sans-serif;
-
-                        &:global(.category){
-                            padding: var(--space-8-xxxs) var(--space-12-xxs);
-                            border:2px solid var(--dark-gray);
-                            border-radius:18px;
-                        }
                     }
                 }
                 :global(div.text-content){
                     display: flex;
                     flex-direction: column;
                     row-gap: var(--space-12-xxs);
+
+                    :global(a:hover){
+                        :global(h3){
+                            color:var(--munsell);
+                        }
+                    }
 
                     :global(h3){
                         font-size: var(--h6);
@@ -98,6 +100,12 @@ import BlogAside from '../components/blog/blog-aside.astro';
 
     } //results
 
+    :global(.blog-category){
+        padding: var(--space-8-xxxs) var(--space-12-xxs);
+        border:2px solid var(--dark-gray);
+        border-radius:18px;
+    }
+
     :global(aside.blog-navigation){
         margin: var(--space-76-xl) 0;
     }
@@ -108,7 +116,9 @@ import BlogAside from '../components/blog/blog-aside.astro';
     <main class="site-wrapper full-width">
 
         <slot name="header" />
-        <BlogAside />
+        {!isArticle && 
+            <BlogAside />
+        }
         <slot name="content" />
         
     </main>

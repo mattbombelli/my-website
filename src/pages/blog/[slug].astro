@@ -1,6 +1,7 @@
 ---
 
 import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
 
 import Blog from '../../layouts/Blog.astro';
 
@@ -24,13 +25,126 @@ const { Content } = await render(article);
 
 ---
 
-<Blog>
+<style lang="scss">
+    @use '../../styles/_breakpoints.scss' as device;
+
+    :global(.blog-article-tag){
+        display: inline-block;
+        background-color: var(--dark-gray);
+        padding: var(--space-8-xxxs) var(--space-12-xxs);
+        color: var(--light-gray);
+        border-radius:18px;
+
+        &:hover{
+            background-color:var(--celeste);
+            color:var(--light-gray);
+        }
+    }
+
+    .article-metadata{
+        display: flex;
+        flex-direction: column;
+        row-gap: var(--space-32-s);
+
+        .blog-category{
+            display: inline-block;
+            font-size: var(--h6);
+            line-height: var(--line-height-h6);
+            width: fit-content;
+            border-radius: 24px;
+            margin:0;
+        }
+        
+        .article-tags{
+            display:flex;
+            flex-wrap: wrap;
+            gap:var(--space-20-xs);
+            font-size: var(--p);
+            line-height: var(--line-height-p);
+        }
+
+        .featured-image{
+            max-width: 100%;
+            height: auto;
+        }
+    }
+
+    .blog-header{
+        display: flex;
+        flex-direction: column;
+        row-gap: var(--space-20-xs);
+        margin-bottom:var(--space-76-xl);
+
+        h1{
+            text-transform: none;
+        }
+
+        h2{
+            font-size: var(--h6);
+            line-height: var(--line-height-h6);
+            margin:0;
+
+            a{
+                color:var(--dark-gray);
+
+                .back-arrow{
+                    stroke: var(--dark-gray);
+                    stroke-width: 2px;
+                    stroke-linecap: round;
+                    stroke-linejoin: round;
+                }
+
+                &:hover{
+                    color:var(--celeste);
+                    .back-arrow{
+                        stroke:var(--celeste);
+                    }
+                }
+            }
+        }
+    }
+
+</style>
+
+<Blog isArticle>
 
     <section class="blog-header" slot="header">
         <h1>{article.data.title}</h1>
+        <h2>
+            <a href="/blog/">
+                <svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M23 10H1.91667M10.1667 1L1 10L10.1667 19" class="back-arrow"/>
+                </svg>                
+                Go Back
+            </a>
+            </h2>
     </section>
 
     <section class="blog-content" slot="content">
+        <section class="article-metadata">
+            <h3 class="blog-category">{article.data.category}</h3>
+            <div class="article-tags">
+                {
+                    article.data.tags.map((tag) => (
+                        <a href={`/blog/tags/${tag}`} class="blog-article-tag">#{tag}</a>
+                    ))
+                }
+            </div>
+            {article.data.featuredImage &&
+                <a href={`/blog/${article.data.slug}`}>
+                    <Image
+                        src={article.data.featuredImage}
+                        alt={article.data.title}
+                        class="featured-image"
+                        loading="lazy"
+                        widths={[article.data.featuredImage.width / 3, article.data.featuredImage.width / 2, article.data.featuredImage.width]}
+                        sizes={`(max-width: 810px) ${article.data.featuredImage.width / 3}, (max-width: 1200px) ${article.data.featuredImage.width / 2},(max-width: 1440px) ${article.data.featuredImage.width}`}
+                        decoding="async"
+                        style={`background-color:white;`}
+                    />
+                </a>
+            }
+        </section>
         <Content />
     </section>
 
