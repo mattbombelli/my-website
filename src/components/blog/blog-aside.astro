@@ -1,16 +1,157 @@
 ---
 
+import { getCollection } from 'astro:content';
+import '../../styles/global.scss';
+
+const posts = await getCollection('blog');
+let tags = [...new Set(posts.map((post) => {
+            return (post.data.tags.map((tag) => tag.toLowerCase()));
+        }).flat()
+    )];
+let categories = [...new Set(posts.map((post) =>{
+        return (post.data.category.toLowerCase());
+    }).flat()
+)];
 
 ---
+
+<style lang="scss">
+    @use '../../styles/_breakpoints.scss' as device;
+
+    .mobile-blog-navigation{
+        details{
+            width:100%;
+            font-size: var(--h5);
+            line-height: var(--line-height-h5);
+            padding:var(--space-8-xxxs) 0;
+            position: relative;
+            cursor: pointer;
+            
+            &::before{
+                position: absolute;
+                content: '';
+                top: 0;
+                left:50%;
+                transform: translateX(-50%);
+                width: calc(100% + (20px * 2));
+                border-top:2px solid var(--dark-gray);
+            }
+
+            &:last-of-type{
+                &::after{
+                    position: absolute;
+                    content: '';
+                    bottom: 0;
+                    left:50%;
+                    transform: translateX(-50%);
+                    width: calc(100% + (20px * 2));
+                    border-bottom:2px solid var(--dark-gray);
+                }
+            }
+
+            summary{
+                list-style: none;
+                position: relative;
+
+                &::-webkit-details-marker {
+                    display: none;
+                }
+
+                &:after{
+                    position: absolute;
+                    content: url('../../assets/details-arrow.svg');
+                    top: 50%;
+                    transform: translateY(-50%) rotate(0deg);
+                    transform-origin: center;
+                    right:0;
+                    transition:transform .2s ease;
+                }
+            } //summary
+            
+            &[open]{
+                summary{
+                    &:after{
+                        transform: translateY(-40%) rotate(180deg);
+                    }
+                }
+            }
+
+            .blog-categories, .blog-article-tags{
+                padding:var(--space-32-s) 0;
+                display: flex;
+                flex-direction: column;
+                row-gap: var(--space-12-xxs);
+                max-height: 450px;
+
+                .blog-category{
+                    display: block;
+                    width: fit-content;
+                }
+
+                .blog-article-tag{
+                    width: fit-content;
+                    display: block;
+                    background-color: var(--dark-gray);
+                    padding: var(--space-8-xxxs) var(--space-12-xxs);
+                    color: var(--light-gray);
+                    border-radius:40px;
+                    font-size: var(--h6);
+                    line-height: var(--line-height-h6);
+
+                    &:hover{
+                        background-color:var(--celeste);
+                        color:var(--light-gray);
+                    }
+                }
+            }
+        } // details
+    } //mobile blog navigation
+
+    :global(.scroll-menu){
+        overflow-y: auto;
+        -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, transparent), color-stop(black), color-stop(black), to(transparent));
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0, black var(--top-mask-size, 0), black calc(100% - var(--bottom-mask-size, 0)), transparent 100%);
+        mask-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, transparent), color-stop(black), color-stop(black), to(transparent));
+        mask-image: linear-gradient(to bottom, transparent 0, black var(--top-mask-size, 0), black calc(100% - var(--bottom-mask-size, 0)), transparent 100%);
+        --top-mask-size: 0px;
+        --bottom-mask-size: 0px;
+
+        &:global(.overflowing-bottom){
+            --bottom-mask-size: var(--space-32-s) !important;
+        }
+
+        &:global(.overflowing-top){
+            --top-mask-size: var(--space-32-s) !important;
+        }
+    }
+</style>
 
 <aside class="blog-navigation" slot="navigation">
     <section class="mobile-blog-navigation">
         <details>
             <summary>Categories</summary>
+            <div class="blog-categories scroll-menu">
+                {
+                    categories.map((category) => (
+                        <a href={`/blog/categories/${category}`} class="blog-category">{category}</a>
+                    ))
+                }
+            </div>
         </details>
         <details>
             <summary>Tags</summary>
+            <div class="blog-article-tags scroll-menu">
+                {
+                    tags.map((tag) => (
+                        <a href={`/blog/tags/${tag}`} class="blog-article-tag">#{tag}</a>
+                    ))
+                }
+            </div>
         </details>
     </section>
     <section class="desktop-blog-navigation"></section>
 </aside>
+
+<script>
+    import '../../scripts/scroll-fadeout.js'
+</script>

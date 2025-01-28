@@ -29,7 +29,6 @@ export async function getStaticPaths () {
             },
         }
     });
-    
 }
 
 interface Props {
@@ -59,7 +58,7 @@ export const prerender = true;
 <Blog>
 
     <section class="blog-header" slot="header">
-        <h1>Notes on the endpapers</h1>
+        <h1><a href="/blog">Notes on the endpapers</a></h1>
         <p>This would be the blog description, a few words about what I intend to write... I guess?</p>
     </section>
 

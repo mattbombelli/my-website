@@ -3,7 +3,17 @@ title: This is the first article created in Obsidian for my blog.
 datePublished: 2025-01-27
 slug: this-is-a-new-article-created-from-obsidian
 category: Music
-tags: ["astro", "test"]
+tags: 
+    - astro
+    - tags
+    - testing-this-out
+    - adding-more
+    - check-this-out
+    - one-two
+    - prova-provaaa
+    - musicianship
+    - wordssmith
+    - abracadabra
 featuredImage: ""
 excerpt: Questa è la breve descrizione scritta direttamente da Obsidian.
 featured: false
