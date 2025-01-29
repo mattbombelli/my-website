@@ -360,14 +360,14 @@ a.nav-link.active{
 
 /* Main site wrapper */
 .site-wrapper, .site-header, .site-footer, .illustration-header, .illustration-footer{
-	padding:0px 20px;
+	padding:0 var(--space-20-xs);
 	position:relative;
 	overflow: hidden;
 }
 
 @media only screen and (min-width: device.$tablet) {
 	.site-wrapper, .site-header, .site-footer, .illustration-header, .illustration-footer{
-		padding:0 100px;
+		padding:0 var(--space-60-l);
 	} /* .site-wrapper */
 } /* @media */
 

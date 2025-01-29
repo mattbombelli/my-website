@@ -46,7 +46,7 @@ const articles = await getCollection('blog', ({ data }) => {
                         }
                         
                         <div class="article-metadata">
-                            <span class="blog-category">{article.data.category}</span>
+                            <span class="blog-category"><a href={`/blog/categories/${article.data.category.toLowerCase()}`}>{article.data.category}</a></span>
                             <span class="article-pub-date">
                                 {dayjs(article.data.datePublished).format('MMM D, YYYY')} 
                             </span>

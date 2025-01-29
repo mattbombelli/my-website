@@ -18,6 +18,27 @@ let categories = [...new Set(posts.map((post) =>{
 <style lang="scss">
     @use '../../styles/_breakpoints.scss' as device;
 
+    .blog-category{
+        display: block;
+        width: fit-content;
+    }
+
+    .blog-article-tag{
+        width: fit-content;
+        display: block;
+        background-color: var(--dark-gray);
+        padding: var(--space-8-xxxs) var(--space-12-xxs);
+        color: var(--light-gray);
+        border-radius:40px;
+        font-size: var(--h6);
+        line-height: var(--line-height-h6);
+
+        &:hover{
+            background-color:var(--celeste);
+            color:var(--light-gray);
+        }
+    }
+
     .mobile-blog-navigation{
         details{
             width:100%;
@@ -82,27 +103,6 @@ let categories = [...new Set(posts.map((post) =>{
                 flex-direction: column;
                 row-gap: var(--space-12-xxs);
                 max-height: 450px;
-
-                .blog-category{
-                    display: block;
-                    width: fit-content;
-                }
-
-                .blog-article-tag{
-                    width: fit-content;
-                    display: block;
-                    background-color: var(--dark-gray);
-                    padding: var(--space-8-xxxs) var(--space-12-xxs);
-                    color: var(--light-gray);
-                    border-radius:40px;
-                    font-size: var(--h6);
-                    line-height: var(--line-height-h6);
-
-                    &:hover{
-                        background-color:var(--celeste);
-                        color:var(--light-gray);
-                    }
-                }
             }
         } // details
     } //mobile blog navigation
@@ -124,6 +124,63 @@ let categories = [...new Set(posts.map((post) =>{
             --top-mask-size: var(--space-32-s) !important;
         }
     }
+
+    section.desktop-blog-navigation{
+        display: none;
+    }
+
+    @media only screen and (min-width: device.$tablet){
+        aside.blog-navigation{
+            margin:0;
+
+            position: sticky;
+            align-self: start;
+            top:var(--space-60-l);
+            left:0;
+        }
+
+        section.mobile-blog-navigation{
+            display: none;
+        } // mobile blog navigation
+
+        section.desktop-blog-navigation{
+            display: flex;
+            flex-direction: column;
+            row-gap: var(--space-60-l);
+
+            div[class^="blog-"]{
+                display: inherit;
+                flex-direction: inherit;
+                row-gap: var(--space-32-s);
+
+                h2{
+                    font-size: var(--h5);
+                    line-height: var(--line-height-h5);
+                    margin: 0;
+                }
+
+                div{
+                    display: flex;
+                    flex-wrap: wrap;
+                    column-gap: var(--space-12-xxs);
+                    row-gap: var(--space-20-xs);
+                    max-height: 300px;
+                    width: 90%;
+
+                    .blog-category{
+                        font-size: var(--h6);
+                        line-height: var(--line-height-h6);
+                    }
+
+                    .blog-article-tag{
+                        font-size: var(--small);
+                        line-height: var(--line-height-small);
+                    }
+                }
+            } // blog categories and tags
+        } // desktop blog navigation
+
+    } // tablet
 </style>
 
 <aside class="blog-navigation" slot="navigation">
@@ -149,7 +206,28 @@ let categories = [...new Set(posts.map((post) =>{
             </div>
         </details>
     </section>
-    <section class="desktop-blog-navigation"></section>
+    <section class="desktop-blog-navigation">
+        <div class="blog-categories">
+            <h2>Categories</h2>
+            <div class="scroll-menu">
+                {
+                    categories.map((category) => (
+                        <a href={`/blog/categories/${category}`} class="blog-category">{category}</a>
+                    ))
+                }
+            </div>
+        </div>
+        <div class="blog-article-tags">
+            <h2>Tags</h2>
+            <div class="scroll-menu">
+                {
+                    tags.map((tag) => (
+                        <a href={`/blog/tags/${tag}`} class="blog-article-tag">#{tag}</a>
+                    ))
+                }
+            </div>
+        </div>
+    </section>
 </aside>
 
 <script>

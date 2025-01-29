@@ -3,7 +3,7 @@
 title: "Also this title could be much longer. I just need to think about what to write."
 datePublished: "2025-01-26"
 slug: "this-is-my-first-blog-article"
-category: "Miscellaneous"
+category: Illustration
 tags: ["something","this-is-another-tag"]
 featuredImage: "./featured.png"
 excerpt: "I am writing something here as excerpt. I should keep it short, because I will do so for all articles."

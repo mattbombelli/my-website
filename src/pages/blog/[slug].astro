@@ -63,6 +63,10 @@ const { Content } = await render(article);
                     width: fit-content;
                     border-radius: 24px;
                     margin:0;
+                    
+                    a{
+                        color: inherit;
+                    }
                 }
                 .article-pub-date{
                     font-size: var(--p);
@@ -80,7 +84,7 @@ const { Content } = await render(article);
             }
 
             .featured-image{
-                max-width: calc(100% + (20px * 2));
+                width: calc(100% + (20px * 2));
                 transform: translateX(-20px);
                 height: auto;
             }
@@ -127,7 +131,7 @@ const { Content } = await render(article);
 
             // images
             :global(img){
-                max-width: calc(100% + (20px * 2));
+                width: calc(100% + (20px * 2));
                 transform: translateX(-20px);
                 height: auto;
             }
@@ -176,6 +180,53 @@ const { Content } = await render(article);
         }
     } //blog header, specific to article page
 
+    @media only screen and (min-width: device.$tablet){
+        
+        :global(.article-page){
+            
+            section.blog-header{
+                grid-column: 1/7;
+                margin: 0;
+            }
+
+            article.article-content{
+                grid-column: 3/7;
+                grid-row: 2/4;
+                border-bottom: unset;
+
+                .article-metadata{
+                    .article-cat-date{
+                        justify-content: flex-start;
+                        column-gap: var(--space-8-xxxs);
+                    }
+                }
+
+                .blog-category{
+                    font-size: var(--h5);
+                    line-height: var(--line-height-h5);
+                }
+
+                p.article-pub-date{
+                    margin:0;
+                }
+
+                .article-metadata .featured-image{
+                    width: 100%;
+                    transform: unset;
+                }
+
+                .article-body{
+                    :global(img){
+                        width: 100%;
+                        transform: unset;
+                    }
+                }
+                
+            } // article content
+
+        } // site wrapper for article page
+
+    } // tablet
 </style>
 
 <Blog isArticle pageName={article.data.title}>
@@ -195,7 +246,7 @@ const { Content } = await render(article);
     <article class="article-content" slot="content">
         <section class="article-metadata">
             <div class="article-cat-date">
-                <h3 class="blog-category">{article.data.category}</h3>
+                <h3 class="blog-category"><a href={`/blog/categories/${article.data.category.toLowerCase()}`}>{article.data.category}</a></h3>
                 <p class="article-pub-date">{dayjs(article.data.datePublished).format('MMM D, YYYY')}</p>
             </div>
             <div class="article-tags">
