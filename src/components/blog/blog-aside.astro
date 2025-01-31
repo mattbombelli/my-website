@@ -185,6 +185,16 @@ let categories = [...new Set(posts.map((post) =>{
         } // desktop blog navigation
 
     } // tablet
+
+    @media only screen and (min-width: device.$laptop){
+        section.desktop-blog-navigation{
+            div[class^="blog-"]{
+                div{
+                    width: unset;
+                }
+            }
+        }
+    }
 </style>
 
 <aside class="blog-navigation" slot="navigation">

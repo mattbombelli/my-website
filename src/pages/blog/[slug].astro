@@ -106,21 +106,22 @@ const { Content } = await render(article);
             :global(:is(h1,h2)){
                 margin-top:var(--space-100-xxl);
                 margin-bottom: var(--space-32-s);
-                // font-family: 'vremena-grotesk-regular', sans-serif;
                 font-weight: normal;
             }
 
             :global(:is(h3,h4,h5,h6)){
                 margin-top:var(--space-76-xl);
                 margin-bottom: var(--space-32-s);
-                // font-family: 'vremena-grotesk-regular', sans-serif;
                 font-weight: normal;
+            }
+
+            :global(h4){
+                margin-bottom: var(--space-20-xs);
             }
 
             :global(:is(h5,h6)){
                 margin-top: var(--space-60-l);
                 margin-bottom: var(--space-20-xs);
-                // font-family: 'vremena-grotesk-regular', sans-serif;
                 font-weight: normal;
             }
 
@@ -141,12 +142,14 @@ const { Content } = await render(article);
                 width: calc(100% + (20px * 2));
                 transform: translateX(-20px);
                 height: auto;
+                margin-top: var(--space-20-xs);
             }
             :global(img + em){
                 display: block;
                 margin-top:var(--space-8-xxxs);
                 font-size: var(--p);
                 line-height: var(--line-height-p);
+                margin-bottom: var(--space-32-s);
             }
   
         } // article content
@@ -235,6 +238,14 @@ const { Content } = await render(article);
         } // site wrapper for article page
 
     } // tablet
+
+    @media only screen and (min-width: device.$desktop){
+        :global(.article-page){
+            article.article-content{
+                grid-column: 5/11;
+            }
+        }
+    }
 </style>
 
 <Blog isArticle pageName={article.data.title}>

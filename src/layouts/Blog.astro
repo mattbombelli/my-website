@@ -181,6 +181,39 @@ const {
         
         } // main site wrapper
     } // tablet
+
+    @media only screen and (min-width: device.$laptop){
+        .site-wrapper{
+            column-gap: var(--space-52-m);
+
+            :global(section.blog-header){
+                :global(p){
+                    width: calc(50% - (var(--space-52-m) / 2) + 1px);
+                }
+            }
+        }
+    }
+
+    @media only screen and (min-width: device.$desktop){
+        .site-wrapper{
+            grid-template-columns: repeat(10, 1fr);
+            
+            :global(section.blog-header){
+                grid-column: 1/6;
+                :global(p){
+                    width: 60%;
+                }
+            }
+
+            :global(aside.blog-navigation){
+                grid-column: 1/5;
+            }
+
+            :global(section.blog-content){
+                grid-column: 5/11;
+            }
+        }
+    }
 </style>
 
 <Layout page={pageName}>
