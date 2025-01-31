@@ -10,7 +10,7 @@ import BlogAside from '../components/blog/blog-aside.astro';
 
 const {
     isArticle=false,
-    pageName="Blog"
+    pageName="Blog", 
 } = Astro.props;
 
 ---
@@ -26,9 +26,10 @@ const {
         :global(h1){
             margin: 0;
             font-size: var(--h3);
+            font-family: 'vremena-grotesk-medium', sans-serif;
             line-height: var(--line-height-h3);
             text-transform: uppercase;
-            font-family: 'vremena-grotesk-medium', 'vremena-grotesk-regular', sans-serif;
+            font-weight: normal;
 
             :global(a){
                 font-size: inherit;
@@ -50,7 +51,8 @@ const {
         :global(h2){
             font-size: var(--h4);
             line-height: var(--line-height-h4);
-            // font-family: 'vremena-grotesk-medium-italic', 'vremena-grotesk-regular-italic', sans-serif;
+            font-family: 'vremena-grotesk-medium', sans-serif;
+            font-weight: normal;
             margin:0;
         }
 
@@ -79,7 +81,6 @@ const {
                         font-size: var(--small);
                         line-height: var(--line-height-small);
                         display: inline-block;
-                        font-family: 'vremena-grotesk-medium', 'vremena-grotesk-regular', sans-serif;
                     }
 
                     :global(.article-metadata){
@@ -102,6 +103,8 @@ const {
 
                     :global(h3){
                         font-size: var(--h6);
+                        font-family: 'vremena-grotesk-medium', sans-serif;
+                        font-weight: normal;
                         line-height: var(--line-height-h6);
                         margin:0;
                     }
@@ -122,7 +125,8 @@ const {
         border:2px solid var(--dark-gray);
         border-radius:40px;
         color: var(--dark-gray);
-        
+        font-family: 'vremena-grotesk-medium', sans-serif;
+
         &:hover{
             background-color: var(--dark-gray);
             color: var(--light-gray);
@@ -153,6 +157,7 @@ const {
 
                 :global(h1){
                     font-size: var(--h2);
+                    font-family: 'vremena-grotesk-medium', sans-serif;
                     line-height: var(--line-height-h2);
                     letter-spacing: -3%;
                 }
@@ -183,9 +188,9 @@ const {
     <main class:list={["site-wrapper", "full-width", {"article-page": isArticle}]}>
 
         <slot name="header" />
+        
         <BlogAside />
-        <!-- {!isArticle && 
-        } -->
+
         <slot name="content" />
         
     </main>

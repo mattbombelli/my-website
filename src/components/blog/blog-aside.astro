@@ -73,6 +73,8 @@ let categories = [...new Set(posts.map((post) =>{
             summary{
                 list-style: none;
                 position: relative;
+                font-family: 'vremena-grotesk-medium', sans-serif;
+                font-weight: normal;
 
                 &::-webkit-details-marker {
                     display: none;
@@ -155,6 +157,8 @@ let categories = [...new Set(posts.map((post) =>{
 
                 h2{
                     font-size: var(--h5);
+                    font-weight: normal;
+                    font-family: 'vremena-grotesk-medium', sans-serif;
                     line-height: var(--line-height-h5);
                     margin: 0;
                 }
@@ -211,9 +215,9 @@ let categories = [...new Set(posts.map((post) =>{
             <h2>Categories</h2>
             <div class="scroll-menu">
                 {
-                    categories.map((category) => (
-                        <a href={`/blog/categories/${category}`} class="blog-category">{category}</a>
-                    ))
+                    categories.map((category) => function(){
+                        return <a href={`/blog/categories/${category}`} class="blog-category">{category}</a>
+                    })
                 }
             </div>
         </div>

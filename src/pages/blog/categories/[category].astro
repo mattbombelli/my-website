@@ -18,8 +18,6 @@ let categories = [...new Set(blogPosts.map((post) => {
     }).flat()
 )];
 
-console.log(categories)
-
 function capitalize(val:string | undefined) {
     return String(val).charAt(0).toUpperCase() + String(val).slice(1);
 }
