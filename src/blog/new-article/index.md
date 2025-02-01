@@ -47,13 +47,13 @@ Preserve and cherish that pale blue dot intelligent beings extraordinary claims 
 ---
 
 ```js
-  const example = true;
+const example = true;
 
-  this would be a code block. This might be tricky to style.
+this would be a code block. This might be tricky to style.
 
-  function test(){
-    console.log("let's see how it looks");
-  }
+function test(){
+  console.log("let's see how it looks");
+}
 ```
 
 ```js

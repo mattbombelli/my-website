@@ -12,6 +12,12 @@ const articles = await getCollection('blog', ({ data }) => {
     return data.draft !== true;
 });
 
+articles.sort((a,b) => {
+    const dateA = new Date(a.data.datePublished);
+    const dateB = new Date(b.data.datePublished);
+    return dateB.getTime() - dateA.getTime();
+});
+
 ---
 
 <style lang="scss">
