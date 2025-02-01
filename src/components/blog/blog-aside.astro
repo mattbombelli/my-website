@@ -39,75 +39,85 @@ let categories = [...new Set(posts.map((post) =>{
         }
     }
 
-    .mobile-blog-navigation{
-        details{
-            width:100%;
-            font-size: var(--h5);
-            line-height: var(--line-height-h5);
-            padding:var(--space-8-xxxs) 0;
-            position: relative;
-            cursor: pointer;
-            
-            &::before{
-                position: absolute;
-                content: '';
-                top: 0;
-                left:50%;
-                transform: translateX(-50%);
-                width: calc(100% + (20px * 2));
-                border-top:2px solid var(--dark-gray);
-            }
+    .blog-navigation-container{
+
+        .blog-navigation-items-container{
+            flex-direction: column;
+            align-items: flex-start;
+            width: calc(100% + (20px * 2));
+            transform: translateX(-20px);
+            padding: 0 var(--space-20-xs);
+            border-top:2px solid var(--dark-gray);
 
             &:last-of-type{
-                &::after{
-                    position: absolute;
-                    content: '';
-                    bottom: 0;
-                    left:50%;
-                    transform: translateX(-50%);
-                    width: calc(100% + (20px * 2));
-                    border-bottom:2px solid var(--dark-gray);
-                }
+                border-bottom: 2px solid var(--dark-gray);
             }
 
-            summary{
-                list-style: none;
+            details{
+                overflow: hidden;
                 position: relative;
-                font-family: 'vremena-grotesk-medium', sans-serif;
-                font-weight: normal;
-
-                &::-webkit-details-marker {
-                    display: none;
-                }
 
                 &:after{
                     position: absolute;
-                    content: url('../../assets/details-arrow.svg');
+                    content: url(../../assets/details-arrow.svg);
                     top: 50%;
-                    transform: translateY(-50%) rotate(0deg);
-                    transform-origin: center;
-                    right:0;
-                    transition:transform .2s ease;
+                    transform: translateY(-50%);
+                    transition: transform .2s ease;
+                    right: 0%;
                 }
-            } //summary
-            
-            &[open]{
+
                 summary{
-                    &:after{
-                        transform: translateY(-40%) rotate(180deg);
+                    cursor: pointer;
+                    padding:var(--space-8-xxxs) 0;
+
+                    font-size: var(--h5);
+                    line-height: var(--line-height-h5);
+
+                    &::marker{
+                        content: none;
+                    }
+
+                    &::-webkit-details-marker {
+                        display: none;
                     }
                 }
-            }
+            } //details
 
-            .blog-categories, .blog-article-tags{
-                padding:var(--space-32-s) 0;
+            details + .blog-items-content{
+                overflow: hidden;
+                max-height: 0;
+
+                transition: max-height 0.4s ease,
+                            padding 0.4s ease;
+                
                 display: flex;
                 flex-direction: column;
                 row-gap: var(--space-12-xxs);
-                max-height: 450px;
+
+                .blog-category{
+                    font-size: var(--h5);
+                    line-height: var(--line-height-h5);
+                }
             }
-        } // details
-    } //mobile blog navigation
+
+            details[open]{
+                &:after{
+                    transform: translateY(calc(-50% - 2px)) rotate(180deg);
+                }
+            }
+
+            details[open] + .blog-items-content{
+                max-height: 550px;
+                overflow: auto;
+                padding: var(--space-20-xs) 0;   
+            }
+
+        }
+        
+        
+    } // blog navigation container
+
+    
 
     :global(.scroll-menu){
         overflow-y: auto;
@@ -127,10 +137,6 @@ let categories = [...new Set(posts.map((post) =>{
         }
     }
 
-    section.desktop-blog-navigation{
-        display: none;
-    }
-
     @media only screen and (min-width: device.$tablet){
         aside.blog-navigation{
             margin:0;
@@ -139,125 +145,46 @@ let categories = [...new Set(posts.map((post) =>{
             align-self: start;
             top:var(--space-60-l);
             left:0;
-        }
 
-        section.mobile-blog-navigation{
-            display: none;
-        } // mobile blog navigation
-
-        section.desktop-blog-navigation{
-            display: flex;
-            flex-direction: column;
-            row-gap: var(--space-60-l);
-
-            div[class^="blog-"]{
-                display: inherit;
-                flex-direction: inherit;
-                row-gap: var(--space-32-s);
-
-                h2{
-                    font-size: var(--h5);
-                    font-weight: normal;
-                    font-family: 'vremena-grotesk-medium', sans-serif;
-                    line-height: var(--line-height-h5);
-                    margin: 0;
-                }
-
-                div{
-                    display: flex;
-                    flex-wrap: wrap;
-                    column-gap: var(--space-12-xxs);
-                    row-gap: var(--space-20-xs);
-                    max-height: 300px;
-                    width: 90%;
-
-                    .blog-category{
-                        font-size: var(--h6);
-                        line-height: var(--line-height-h6);
-                    }
-
-                    .blog-article-tag{
-                        font-size: var(--small);
-                        line-height: var(--line-height-small);
-                    }
-                }
-            } // blog categories and tags
-        } // desktop blog navigation
-
-    } // tablet
-
-    @media only screen and (min-width: device.$laptop){
-        section.desktop-blog-navigation{
-            div[class^="blog-"]{
-                h2{
-                    font-size: var(--h4);
-                    line-height: var(--line-height-h4);
-                }
-                
-                div{
-                    width: unset;
-                    max-height: 600px;
-
-
-                    .blog-category{
-                        font-size: var(--h5);
-                        line-height: var(--line-height-h5);
-                    }
-
-                    .blog-article-tag{
-                        font-size: var(--h6);
-                        line-height: var(--line-height-h6);
-                    }
+            .blog-navigation-container{
+                .blog-navigation-items-container{
+                    width: 100%;
+                    transform: unset;
                 }
             }
         }
-    }
+    } // tablet
 </style>
 
 <aside class="blog-navigation" slot="navigation">
-    <section class="mobile-blog-navigation">
-        <details>
-            <summary>Categories</summary>
-            <div class="blog-categories scroll-menu">
+    <section class="blog-navigation-container">
+
+        <section aria-labelleby="blog-categories" class="blog-navigation-items-container">	
+			<details id="blog-categories-details" aria-details="all-blog-categories">
+					<summary id="blog-categories">Categories</summary>
+			</details>
+            <div class="blog-items-content scroll-menu" id="all-blog-categories">
                 {
                     categories.map((category) => (
                         <a href={`/blog/categories/${category}`} class="blog-category">{category}</a>
                     ))
                 }
-            </div>
-        </details>
-        <details>
-            <summary>Tags</summary>
-            <div class="blog-article-tags scroll-menu">
+			</div>
+		</section>
+
+        <section aria-labelleby="blog-articles-tags" class="blog-navigation-items-container">	
+			<details id="blog-article-tags-details" aria-details="all-blog-article-tags">
+					<summary id="blog-articles-tags">Tags</summary>
+			</details>
+            <div class="blog-items-content scroll-menu" id="all-blog-article-tags">
                 {
                     tags.map((tag) => (
                         <a href={`/blog/tags/${tag}`} class="blog-article-tag">#{tag}</a>
                     ))
                 }
-            </div>
-        </details>
-    </section>
-    <section class="desktop-blog-navigation">
-        <div class="blog-categories">
-            <h2>Categories</h2>
-            <div class="scroll-menu">
-                {
-                    categories.map((category) => function(){
-                        return <a href={`/blog/categories/${category}`} class="blog-category">{category}</a>
-                    })
-                }
-            </div>
-        </div>
-        <div class="blog-article-tags">
-            <h2>Tags</h2>
-            <div class="scroll-menu">
-                {
-                    tags.map((tag) => (
-                        <a href={`/blog/tags/${tag}`} class="blog-article-tag">#{tag}</a>
-                    ))
-                }
-            </div>
-        </div>
+			</div>
+		</section>
+
     </section>
 </aside>
 

@@ -10,7 +10,7 @@ import BlogAside from '../components/blog/blog-aside.astro';
 
 const {
     isArticle=false,
-    pageName="Blog", 
+    pageName="Blog",
 } = Astro.props;
 
 ---
@@ -176,8 +176,6 @@ const {
                 grid-column: 3/7;
                 grid-row: 2/4;
             }
-
-           
         
         } // main site wrapper
     } // tablet
@@ -230,7 +228,7 @@ const {
     <main class:list={["site-wrapper", "full-width", {"article-page": isArticle}]}>
 
         <slot name="header" />
-        
+
         <BlogAside />
 
         <slot name="content" />
