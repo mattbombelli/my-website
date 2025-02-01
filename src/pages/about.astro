@@ -21,8 +21,8 @@ import Footer from '../components/footer.astro';
     }
 
     div.name{
-        margin-top:60px;
-        margin-bottom: 60px;
+        margin-top:var(--space-60-l);
+        margin-bottom: var(--space-60-l);
         display:-webkit-box;
         display:-ms-flexbox;
         display:flex;
@@ -39,7 +39,7 @@ import Footer from '../components/footer.astro';
         }
 
         @media only screen and (min-width: device.$tablet){
-            margin-top:80px;
+            margin-top:var(--space-76-xl);
             h1{
                 font-size: var(--h1);
             }
@@ -48,7 +48,7 @@ import Footer from '../components/footer.astro';
 
     section.recipe{
         margin-top:0;
-        margin-bottom:50px;
+        margin-bottom:var(--space-52-m);
         display:-webkit-box;
         display:-ms-flexbox;
         display:flex;
@@ -68,8 +68,8 @@ import Footer from '../components/footer.astro';
             -webkit-box-direction:normal;
                 -ms-flex-direction:column;
                     flex-direction:column;
-            gap:50px;
-            margin:32px 0;
+            gap:var(--space-52-m);
+            margin:var(--space-32-s) 0;
             width:100%;
 
             position:relative;
@@ -78,8 +78,8 @@ import Footer from '../components/footer.astro';
             &::after{
                 content:'';
                 position:absolute;
-                width:100vw;
-                left:-20px;
+                width:100%;
+                left:0;
                 border:1px dashed var(--dark-gray);
             }
 
@@ -101,7 +101,7 @@ import Footer from '../components/footer.astro';
 
             -ms-grid-columns:1fr 1fr;
             grid-template-columns:1fr 1fr;
-            grid-gap:50px;
+            grid-gap:var(--space-52-m);
             margin-top:0;
 
             -webkit-box-align:start;
@@ -116,9 +116,9 @@ import Footer from '../components/footer.astro';
                 display:grid;
                 -ms-grid-rows:auto;
                 grid-template-rows:auto;
-                -ms-grid-columns:1fr 50px 1fr;
+                -ms-grid-columns:1fr var(--space-52-m) 1fr;
                 grid-template-columns:1fr 1fr;
-                grid-gap:50px;
+                grid-gap:var(--space-52-m);
 
                 &::before,
                 &::after{
@@ -130,16 +130,14 @@ import Footer from '../components/footer.astro';
         @media only screen and (min-width: device.$laptop){
             display:block;
             max-width:1100px;
-            margin:150px auto 100px auto;
+            margin:150px auto var(--space-100-xxl) auto;
 
             .ingredients-wrapper{
                 -ms-grid-columns:1.5fr 1fr;
                 grid-template-columns:1.5fr 1fr;
                 -ms-grid-rows:1fr auto;
                 grid-template-rows:1fr auto;
-                margin:64px 0;
-                // background-color: var(--dogwood);
-            }
+                margin:var(--space-60-l) 0;            }
         }
 
         @media only screen and (min-width: device.$desktop){

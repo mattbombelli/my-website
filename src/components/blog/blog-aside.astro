@@ -95,8 +95,13 @@ let categories = [...new Set(posts.map((post) =>{
                 row-gap: var(--space-12-xxs);
 
                 .blog-category{
-                    font-size: var(--h5);
-                    line-height: var(--line-height-h5);
+                    font-size: var(--h6);
+                    line-height: var(--line-height-h6);
+                }
+
+                .blog-article-tag{
+                    font-size: var(--p);
+                    line-height: var(--line-height-p);
                 }
             }
 
@@ -116,9 +121,7 @@ let categories = [...new Set(posts.map((post) =>{
         
         
     } // blog navigation container
-
     
-
     :global(.scroll-menu){
         overflow-y: auto;
         -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, transparent), color-stop(black), color-stop(black), to(transparent));
@@ -147,13 +150,35 @@ let categories = [...new Set(posts.map((post) =>{
             left:0;
 
             .blog-navigation-container{
+                
                 .blog-navigation-items-container{
+                    padding: 0;
                     width: 100%;
                     transform: unset;
+
                 }
             }
         }
     } // tablet
+
+    @media only screen and (min-width: device.$laptop){
+        aside.blog-navigation{
+            .blog-navigation-container{
+                .blog-navigation-items-container{
+                    details + .blog-items-content{
+                        .blog-category{
+                            font-size: var(--h5);
+                            line-height: var(--line-height-h5);
+                        }
+                        .blog-article-tag{
+                            font-size: var(--h6);
+                            line-height: var(--line-height-h6);
+                        }
+                    }
+                }
+            }
+        }
+    }
 </style>
 
 <aside class="blog-navigation" slot="navigation">

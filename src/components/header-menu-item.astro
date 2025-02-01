@@ -15,14 +15,9 @@ wavyLine = `url(${line.src})`;
         position: relative;
 
         a.nav-link{
-            font-size:var(--h1);
-            font-size:16.4vw;
+            font-size:var(--h4);
             border-bottom:10px solid var(--dark-gray);
             border-bottom:2.6vw solid var(--dark-gray);
-        }
-
-        a.nav-link.mobile-link{
-            border-bottom:2.6vw solid var(--light-gray);
         }
 
         @media only screen and (min-width: device.$tablet) {
@@ -30,22 +25,7 @@ wavyLine = `url(${line.src})`;
                 line-height:90%;
                 border-bottom-width:17px;
                 position:relative;
-                font-size:15vw;
-
-                &::after{
-                    bottom:-28px;
-                    height:45px;
-                    background-size: 750px;
-                }
-                @media (hover: hover) and (pointer: fine) {
-                    &:hover{
-                        border-bottom:17px solid transparent;
-                    }
-                    &:hover::after{
-                        background-image:var(--wavyLine);
-                        background-repeat:repeat;
-                    }
-                }
+                font-size:var(--h4);
             }
         }
     }

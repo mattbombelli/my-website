@@ -222,6 +222,13 @@ small, .small-size{
 	        box-sizing: border-box;
 }
 
+html{
+	scrollbar-gutter: stable both-edges;
+	overflow-x: hidden;
+	margin-right: calc(-1 * (100vw - 100%));
+	width: 100vw;
+}
+
 body, html{
 	margin:0;
 	position: initial;
@@ -282,7 +289,8 @@ a.nav-link{
 }
 
 a.nav-link.active{
-	border-bottom: .625rem solid transparent;
+	border-bottom-color: transparent;
+	border-bottom-width: .625rem;
 
 	&::after{
 		-webkit-animation: 8s linear 0s infinite normal running currentPage;
@@ -290,8 +298,8 @@ a.nav-link.active{
 		background-image:url('../assets/wavy-line-celeste.svg');
 	}
 
-	&:hover::after{
-		background-image:url('../assets/wavy-line-celeste.svg') !important;
+	&:hover{
+		pointer-events: none;
 	}
 }
 
