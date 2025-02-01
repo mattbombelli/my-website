@@ -189,8 +189,25 @@ let categories = [...new Set(posts.map((post) =>{
     @media only screen and (min-width: device.$laptop){
         section.desktop-blog-navigation{
             div[class^="blog-"]{
+                h2{
+                    font-size: var(--h4);
+                    line-height: var(--line-height-h4);
+                }
+                
                 div{
                     width: unset;
+                    max-height: 600px;
+
+
+                    .blog-category{
+                        font-size: var(--h5);
+                        line-height: var(--line-height-h5);
+                    }
+
+                    .blog-article-tag{
+                        font-size: var(--h6);
+                        line-height: var(--line-height-h6);
+                    }
                 }
             }
         }

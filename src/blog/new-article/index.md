@@ -37,3 +37,40 @@ Vanquish the impossible prime number how far away something incredible is waitin
 *An aerial photo of beautiful mountains*
 
 Preserve and cherish that pale blue dot intelligent beings extraordinary claims require extraordinary evidence Flatland courage of our questions muse about. Not a sunrise but a galaxyrise concept of the number one network of wormholes citizens of distant epochs the only home we've ever known citizens of distant epochs and billions upon billions upon billions upon billions upon billions upon billions upon billions.
+
+> This would become a blockquote so I can try to style it.
+>
+> why isn't this another paragraph?
+
+`This would be an inline code`
+
+---
+
+```js
+  const example = true;
+
+  this would be a code block. This might be tricky to style.
+
+  function test(){
+    console.log("let's see how it looks");
+  }
+```
+
+```js
+{
+  firstName: 'Mattia',
+  lastName: 'Bombelli',
+}
+```
+
+This would be a `sentence` with a piece of code in it.
+
+| Table | Description |
+| ------ | ------ |
+| Entry One | Entry Two |
+| Entry One | Entry Two |
+| Entry One | Entry Two |
+
+This line of text will have a footnote. [^1]
+
+[^1]: this is the footnote linked to it.

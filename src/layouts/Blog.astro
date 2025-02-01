@@ -187,8 +187,17 @@ const {
             column-gap: var(--space-52-m);
 
             :global(section.blog-header){
+                grid-column:1/4;
+
                 :global(p){
                     width: calc(50% - (var(--space-52-m) / 2) + 1px);
+                }
+            }
+
+            :global(section.blog-content){
+                :global(h2){
+                    font-size: var(--h3);
+                    line-height: var(--line-height-h3);
                 }
             }
         }

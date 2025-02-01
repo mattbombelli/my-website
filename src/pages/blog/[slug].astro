@@ -134,6 +134,21 @@ const { Content } = await render(article);
                     &:global(:hover){
                         color:var(--munsell);
                     }
+
+                    &.data-footnote-backref{
+                        text-decoration: none;
+                    }
+                }
+            }
+
+            // blockquotes
+            :global(blockquote){
+                background-color: var(--platinum);
+                margin: 0;
+                padding: var(--space-12-xxs) var(--space-20-xs);
+                border-left: 3px solid var(--pink);
+                :global(*){
+                    color: var(--tomato);
                 }
             }
 
@@ -150,6 +165,78 @@ const { Content } = await render(article);
                 font-size: var(--p);
                 line-height: var(--line-height-p);
                 margin-bottom: var(--space-32-s);
+            }
+            
+            // code blocks
+            :global(code){
+                background-color: var(--gunmetal);
+                color: var(--light-gray);
+                font-family: monospace;
+                font-size: var(--small);
+                line-height: var(--line-height-small);
+                padding:.25em var(--space-8-xxxs);
+            }
+
+            :global(pre){
+                background-color: var(--gunmetal);
+                padding:var(--space-8-xxxs);
+                :global(code){
+                    padding: unset;
+                    font-size: var(--small);
+                    line-height: var(--line-height-small);
+                }
+            }
+
+            :global(pre[data-language="plaintext"]){
+                :global(code *){
+                    font-size: var(--small);
+                    line-height: var(--line-height-small);
+                    color: var(--light-gray);
+                }
+            }
+
+            :global(code *){
+                font-family: monospace;
+            }
+
+            // tables
+            :global(table){
+                border:1px solid var(--dark-gray);
+                border-collapse: collapse;
+                width: 100%;
+
+                :global(th){
+                    padding: var(--space-8-xxxs);
+                    border-bottom: 1px solid var(--dark-gray);
+                    border-right: 1px solid var(--dark-gray);
+                    text-align: left;
+                    font-family: 'vremena-grotesk-medium', sans-serif;
+                    font-weight: normal;
+                }
+                :global(tr:nth-of-type(odd)){
+                    :global(td){
+                        background-color:var(--platinum);
+                    }
+                }
+
+                :global(td){
+                    padding: .25rem var(--space-8-xxxs);
+                    border-bottom: 1px solid var(--dark-gray);
+                    border-right: 1px solid var(--dark-gray);
+                }
+            }
+
+            // hr
+            :global(hr){
+                border: 1px solid var(--dark-gray);
+            }
+
+            // footnotes
+            :global(section.footnotes){
+                :global(h2){
+                    font-size: var(--h4);
+                    line-height: var(--line-height-h4);
+                }
             }
   
         } // article content
@@ -196,7 +283,7 @@ const { Content } = await render(article);
         :global(.article-page){
             
             section.blog-header{
-                grid-column: 1/7;
+                grid-column: 1/5;
                 margin: 0;
             }
 
@@ -239,8 +326,40 @@ const { Content } = await render(article);
 
     } // tablet
 
+    @media only screen and (min-width: device.$laptop){
+        :global(.article-page){
+
+            section.blog-header{
+                grid-column: 1/5;
+            }
+
+            .article-content{
+                .article-metadata{
+                    .article-cat-date{
+                        .blog-category{
+                            font-size: var(--h5);
+                            line-height: var(--line-height-h5);
+                        }
+                    } // article cat date
+
+                    .article-tags{
+                        .blog-article-tag{
+                            font-size: var(--h6);
+                            line-height: var(--line-height-h6);
+                        }
+                    }
+                } // article metadata
+            } // article content
+        } // article page
+    }
+
     @media only screen and (min-width: device.$desktop){
         :global(.article-page){
+            section.blog-header{
+                grid-column: 1/7;
+                margin: 0;
+            }
+
             article.article-content{
                 grid-column: 5/11;
             }
