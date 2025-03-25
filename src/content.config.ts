@@ -10,7 +10,7 @@ const blog = defineCollection({
         slug: z.string(),
         category: z.string(),
         tags: z.array(z.string()),
-        featuredImage: image(),
+        featuredImage: z.union([image(), z.any().optional()]).nullable(),
         excerpt: z.string(),
         featured: z.boolean(),
         draft: z.boolean(),

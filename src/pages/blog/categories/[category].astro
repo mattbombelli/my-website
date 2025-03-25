@@ -37,8 +37,8 @@ function capitalize(val:string | undefined) {
 <Blog>
 
     <section class="blog-header" slot="header">
-        <h1><a href="/blog">Notes on the endpapers</a></h1>
-        <p>This would be the blog description, a few words about what I intend to write... I guess?</p>
+        <h1><a href="/blog">Tip of my pencil</a></h1>
+        <p>A blog for all those thoughts that have been lingering in my head the whole day.</p>
     </section>
 
     <section class="blog-content" slot="content">
@@ -58,6 +58,7 @@ function capitalize(val:string | undefined) {
                                         widths={[article.data.featuredImage.width / 3, article.data.featuredImage.width / 2, article.data.featuredImage.width]}
                                         sizes={`(max-width: 810px) ${article.data.featuredImage.width / 3}, (max-width: 1200px) ${article.data.featuredImage.width / 2},(max-width: 1440px) ${article.data.featuredImage.width}`}
                                         decoding="async"
+                                        quality="max"
                                         style={`background-color:white;`}
                                     />
                                 </a>

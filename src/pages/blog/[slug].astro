@@ -403,6 +403,7 @@ const { Content } = await render(article);
                         widths={[article.data.featuredImage.width / 3, article.data.featuredImage.width / 2, article.data.featuredImage.width]}
                         sizes={`(max-width: 810px) ${article.data.featuredImage.width / 3}, (max-width: 1200px) ${article.data.featuredImage.width / 2},(max-width: 1440px) ${article.data.featuredImage.width}`}
                         decoding="async"
+                        quality="max"
                         style={`background-color:white;`}
                     />
             }
