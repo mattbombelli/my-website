@@ -81,6 +81,9 @@ const {
                         font-size: var(--small);
                         line-height: var(--line-height-small);
                         display: inline-block;
+                        &:global(.article-pub-date){
+                            color: var(--davys-gray);
+                        }
                     }
 
                     :global(.article-metadata){
@@ -112,6 +115,7 @@ const {
                         margin: 0;
                         font-size: var(--p);
                         line-height: var(--line-height-p);
+                        color:var(--davys-gray);
                     }
                 }
             } //article

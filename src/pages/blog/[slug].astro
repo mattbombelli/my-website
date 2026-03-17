@@ -51,37 +51,44 @@ const { Content } = await render(article);
             flex-direction: column;
             row-gap: var(--space-32-s);
 
-            .article-cat-date{
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
+            .article-cat-tags{
+                display:flex;
+                flex-direction: column;
+                row-gap:var(--space-12-xxs);
+
+                .article-cat-date{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
 
                 .blog-category{
-                    display: inline-block;
-                    font-size: var(--h6);
-                    font-weight: normal;
-                    line-height: var(--line-height-h6);
-                    width: fit-content;
-                    border-radius: 24px;
-                    margin:0;
-                    
-                    a{
-                        color: inherit;
+                        display: inline-block;
+                        font-size: var(--h6);
+                        font-weight: normal;
+                        line-height: var(--line-height-h6);
+                        width: fit-content;
+                        border-radius: 24px;
+                        margin:0;
+                        
+                        a{
+                            color: inherit;
+                        }
+                    }
+                    .article-pub-date{
+                        font-size: var(--p);
+                        line-height: unset;
+                        color:var(--davys-gray);
                     }
                 }
-                .article-pub-date{
+                
+                .article-tags{
+                    display:flex;
+                    flex-wrap: wrap;
+                    gap:var(--space-20-xs);
                     font-size: var(--p);
                     line-height: var(--line-height-p);
                 }
-            }
 
-            
-            .article-tags{
-                display:flex;
-                flex-wrap: wrap;
-                gap:var(--space-20-xs);
-                font-size: var(--p);
-                line-height: var(--line-height-p);
             }
 
             .featured-image{
@@ -92,6 +99,7 @@ const { Content } = await render(article);
 
             .article-excerpt{
                 margin:0;
+                color:var(--davys-gray);
             }
         } // article metadata
 
@@ -259,7 +267,7 @@ const { Content } = await render(article);
             margin:0;
 
             a{
-                color:var(--dark-gray);
+                color:var(--davys-gray);
 
                 .back-arrow{
                     stroke: var(--dark-gray);
@@ -383,18 +391,21 @@ const { Content } = await render(article);
 
     <article class="article-content" slot="content">
         <section class="article-metadata">
-            <div class="article-cat-date">
-                <h3 class="blog-category"><a href={`/blog/categories/${article.data.category.toLowerCase()}`}>{article.data.category}</a></h3>
-                <p class="article-pub-date">{dayjs(article.data.datePublished).format('MMM D, YYYY')}</p>
-            </div>
-            <div class="article-tags">
-                {
-                    article.data.tags.map((tag) => (
-                        <a href={`/blog/tags/${tag}`} class="blog-article-tag">#{tag}</a>
-                    ))
-                }
+            <div class="article-cat-tags">
+                <div class="article-cat-date">
+                    <h3 class="blog-category"><a href={`/blog/categories/${article.data.category.toLowerCase()}`}>{article.data.category}</a></h3>
+                    <p class="article-pub-date">{dayjs(article.data.datePublished).format('MMM D, YYYY')}</p>
+                </div>
+                <div class="article-tags">
+                    {
+                        article.data.tags.map((tag) => (
+                            <a href={`/blog/tags/${tag}`} class="blog-article-tag">#{tag}</a>
+                        ))
+                    }
+                </div>
             </div>
             {article.data.featuredImage &&
+                <p class="article-excerpt">{article.data.excerpt}</p>
                     <Image
                         src={article.data.featuredImage}
                         alt={article.data.title}
@@ -407,7 +418,6 @@ const { Content } = await render(article);
                         style={`background-color:white;`}
                     />
             }
-            <p class="article-excerpt">{article.data.excerpt}</p>
         </section>
         <section class="article-body">
             <Content />
