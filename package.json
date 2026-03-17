@@ -2,6 +2,9 @@
   "name": "molecular-mass",
   "type": "module",
   "version": "0.0.1",
+  "engines": {
+    "node": ">=25.8.1"
+  },
   "scripts": {
     "dev": "astro dev --host",
     "build": "astro build",
@@ -14,5 +17,8 @@
     "astro": "^5.2.3",
     "dayjs": "^1.11.13",
     "sass": "^1.83.4"
+  },
+  "engines": {
+    "node": ">=25.8.1_1"
   }
 }
