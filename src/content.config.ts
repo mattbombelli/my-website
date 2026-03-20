@@ -22,7 +22,7 @@ const categories = defineCollection({
 })
 
 const illustration = defineCollection({
-    loader: glob({pattern: "**/*.{md,mdx}", base: "./src/content/projects/illustration/"}),
+    loader: glob({pattern: "**/*.mdoc", base: "./src/content/projects/illustration/"}),
     schema: ({ image }) => z.object({
         title: z.string(),
         datePublished: z.coerce.date(),
