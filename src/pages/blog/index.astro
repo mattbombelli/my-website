@@ -37,7 +37,7 @@ articles.sort((a,b) => {
                 <article class:list={[{"featured" : article.data.featured}]}>
                     <div class="top-content">
                         {article.data.featuredImage &&
-                            <a href={`/blog/${article.data.slug}`}>
+                            <a href={`/blog/${article.id}`}>
                                 <Image
                                     src={article.data.featuredImage}
                                     alt={article.data.title}
@@ -60,7 +60,7 @@ articles.sort((a,b) => {
                         </div>
                     </div>
                     <div class="text-content">
-                        <a href={`/blog/${article.data.slug}`}><h3>{article.data.title}</h3></a>
+                        <a href={`/blog/${article.id}`}><h3>{article.data.title}</h3></a>
                         <p>{article.data.excerpt}</p>
                     </div>
                 </article>
