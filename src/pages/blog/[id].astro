@@ -12,8 +12,7 @@ export async function getStaticPaths() {
     const articles = await getCollection('blog');
     return articles.map(article => ({
         params: {
-            id: article.id,
-            slug: article.data.slug
+            id: article.id
         },
         props: { article },
     }));
