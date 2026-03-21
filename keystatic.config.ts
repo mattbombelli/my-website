@@ -38,12 +38,12 @@ export default config({
         }),
         blog: collection({
             label: 'Blogs',
-            slugField: 'slug',
+            slugField: 'title',
             columns: ['datePublished', 'category'],
             format: { contentField: 'content' },
             path: 'blog/*/',
             schema: {
-                slug: fields.slug({
+                title: fields.slug({
                     name: {
                     label: 'Name',
                         description: 'The title of the post',
