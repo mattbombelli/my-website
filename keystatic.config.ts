@@ -13,6 +13,9 @@ export default config({
         navigation:{
             writing: ['blog'],
             projects: ['illustration'],
+        },
+        brand: {
+            name: 'My Portfolio',
         }
     },
     collections: {
