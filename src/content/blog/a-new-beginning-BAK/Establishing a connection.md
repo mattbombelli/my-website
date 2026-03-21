@@ -1,7 +1,7 @@
 ---
 title: Establishing a connection
 datePublished: 2025-02-01
-slug: establishing-a-connection
+slug: establishing-a-connection-bak
 category: Miscellaneous
 tags:
   - web-design

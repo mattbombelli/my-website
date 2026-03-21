@@ -1,7 +1,7 @@
 ---
 title: "Legend in Red: the Ferrari 288 GTO - Part 2"
 datePublished: 2025-05-15
-slug: ferrari-288-gto-part-2
+slug: ferrari-288-gto-part-2-bak
 category: 3D Projects
 tags:
   - projects
