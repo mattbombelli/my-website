@@ -9,6 +9,12 @@ export default config({
         },    
         pathPrefix: 'src/content',
     },
+    ui: {
+        navigation:{
+            writing: ['blog'],
+            projects: ['illustration'],
+        }
+    },
     collections: {
         illustration: collection({
             label: 'Illustrations',
@@ -30,13 +36,40 @@ export default config({
         blog: collection({
             label: 'Blogs',
             slugField: 'slug',
+            columns: [ 'title', 'datePublished', 'category'],
             path: 'blog/*/',
             schema: {
-                title: fields.text({ label: 'Title' }),
-                slug: fields.text({ label: 'Slug' }),
+                title: fields.text({ 
+                    label: 'Title',
+                    validation: {
+                        isRequired: true,
+                    }
+                }),
+                draft: fields.checkbox({
+                    label: 'Draft',
+                    description: 'Mark this article as a draft to hide it from publishing.',
+                    defaultValue: true,
+                }),
+                featured: fields.checkbox({
+                    label: 'Featured',
+                    description: 'Mark this article as featured to show it in the featured section on the homepage.',
+                    defaultValue: false,
+                }),
+                datePublished: fields.date({
+                    label: 'Date Published',
+                    validation: {
+                        isRequired: true,
+                    }
+                }),
+                slug: fields.text({
+                    label: 'Slug',
+                    validation: {
+                        isRequired: true,
+                    }
+                }),
                 category: fields.select({
                     label: 'Category',
-                    description: 'Choose a category for your article',
+                    description: 'Choose a category for your article. By default, it will be set to "Miscellaneous".',
                     options: [
                         { label: 'Miscellaneous', value: 'miscellaneous' },
                         { label: '3D Projects', value: '3d-projects' },
@@ -50,6 +83,20 @@ export default config({
                         itemLabel: props => props.value
                     }
                 ),
+                featuredImage: fields.image({ label: 'Featured Image' }),
+                excerpt: fields.text({
+                    label: 'Excerpt',
+                    description: 'Maximum 200 characters.',
+                    multiline: true,
+                    validation: {
+                        isRequired: true,
+                        length: {
+                            max: 220,
+                        },
+                    }
+                }),
+
+                content: fields.markdoc({ label: 'Content' }),
             },
         }),
     },
