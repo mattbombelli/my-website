@@ -39,14 +39,18 @@ export default config({
         blog: collection({
             label: 'Blogs',
             slugField: 'slug',
-            columns: [ 'title', 'datePublished', 'category'],
+            columns: ['datePublished', 'category'],
             format: { contentField: 'content' },
             path: 'blog/*/',
             schema: {
-                title: fields.text({ 
-                    label: 'Title',
-                    validation: {
-                        isRequired: true,
+                slug: fields.slug({
+                    name: {
+                    label: 'Name',
+                        description: 'The title of the post',
+                    },
+                    slug: {
+                        label: 'SEO-friendly slug',
+                        description: 'This will define the file/folder name for this entry'
                     }
                 }),
                 draft: fields.checkbox({
@@ -61,12 +65,6 @@ export default config({
                 }),
                 datePublished: fields.date({
                     label: 'Date Published',
-                    validation: {
-                        isRequired: true,
-                    }
-                }),
-                slug: fields.text({
-                    label: 'Slug',
                     validation: {
                         isRequired: true,
                     }
