@@ -45,7 +45,7 @@ export default config({
             schema: {
                 title: fields.slug({
                     name: {
-                    label: 'Name',
+                    label: 'Title',
                         description: 'The title of the post',
                     },
                     slug: {
