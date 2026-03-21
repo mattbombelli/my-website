@@ -40,6 +40,7 @@ export default config({
             label: 'Blogs',
             slugField: 'slug',
             columns: [ 'title', 'datePublished', 'category'],
+            format: { contentField: 'content' },
             path: 'blog/*/',
             schema: {
                 title: fields.text({ 
@@ -98,7 +99,6 @@ export default config({
                         },
                     }
                 }),
-
                 content: fields.markdoc({ label: 'Content' }),
             },
         }),
