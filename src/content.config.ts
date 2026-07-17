@@ -1,37 +1,13 @@
-import { defineCollection, z } from "astro:content";
+// @ts-ignore
+import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
 
-import { glob } from "astro/loaders";
-
-const blog = defineCollection({
-    loader: glob({pattern: "**/*.mdoc", base: "./src/content/blog/"}),
-    schema: ({ image }) => z.object({
-        title: z.string(),
-        datePublished: z.coerce.date(),
-        category: z.string(),
-        tags: z.array(z.string()),
-        featuredImage: z.union([image(), z.any().optional()]).nullable(),
-        excerpt: z.string(),
-        featured: z.boolean(),
-        draft: z.boolean(),
-    })
+const posts = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdoc}', base: './src/content/posts' }),
+  // Type-check frontmatter using a schema
+  schema: z.object({
+    title: z.string(),
+  }),
 });
 
-const categories = defineCollection({
-    // loader: glob({ pattern: })
-})
-
-const illustration = defineCollection({
-    loader: glob({pattern: "**/*.mdoc", base: "./src/content/projects/illustration/"}),
-    schema: ({ image }) => z.object({
-        title: z.string(),
-        datePublished: z.coerce.date(),
-        slug: z.string(),
-        order: z.number(),
-        thumbnail: image(),
-        background: z.string(),
-        text: z.string(),
-        draft: z.boolean(),
-    }),
-});
-
-export const collections = { illustration, blog };
+export const collections = { posts };

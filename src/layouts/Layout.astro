@@ -1,180 +1,24 @@
 ---
+import '../styles.css'
 
-import { ClientRouter } from "astro:transitions";
+export interface Props {
+	title: string;
+}
 
-const { page,
-        facebook='../assets/facebook.png',
-        whatsapp='../assets/whatsapp.png',
-        twitter='../assets/twitter.png',
-        bodyColor="var(--light-gray)",
-        textColor="initial",
-        isHomepage=false,
-        isIllustration=false,
-        hasTexture=false,
-        theme
-    } = Astro.props;
-
-// Social Media Link Images
-const facebookImage = new URL(facebook, Astro.url);
-const whatsappImage = new URL(whatsapp, Astro.url);
-const twitterImage = new URL(twitter, Astro.url);
-
-let title = `${page} | Mattia Bombelli`;
-
-const forwards = {
-  old: {
-    name: "fadeOutUp",
-    duration: "0.25s",
-    easing: "ease-in",
-    fillMode: "forwards",
-  },
-  new: {
-    name: "fadeInUp",
-    duration: "0.25s",
-    delay: ".2s",
-    easing: "ease-out",
-    fillMode: "backwards",
-  },
-};
-
-const backwards = {
-  old: {
-    name: "fadeOutUp",
-    duration: "0.25s",
-    easing: "ease-in",
-    fillMode: "forwards",
-  },
-  new: {
-    name: "fadeInUp",
-    duration: "0.25s",
-    delay: "0.2s",
-    easing: "ease-out",
-    fillMode: "backwards",
-  },
-};
-
-const viewTransition = {
-  forwards,
-  backwards,
-};
-
+const { title } = Astro.props;
 ---
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <ClientRouter />
-
-        <title>{title}</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Mattia Bombelli - Illustrations, UI Design & More" />
-        {/* Open Graph tags. Remember to add og:locale:alternate for when I will have translations available! */}
-        <meta property="og:title" content={title} />
-		<meta property="og:url" content={Astro.url} />
-        <meta property="og:description" content="Mattia Bombelli - Illustrations, UI Design & More" />
-		<meta property="og:type" content="website" />
-        {/* Facebook Link Image */}
-        <meta property="og:image" content={facebookImage} />
-		<meta property="og:image:type" content="image/png" />
-		<meta property="og:image:width" content="1200" />
-		<meta property="og:image:height" content="630" />
-        {/* Twitter Card tags. */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={title} />
-		<meta name="twitter:url" content={Astro.url} />
-        <meta name="twitter:description" content="Mattia Bombelli - Illustrations, UI Design & More" />
-		<meta name="twitter:image" content={twitterImage} />
-        {/* Whatsapp Link Image */}
-        <meta property="og:image" content={whatsappImage} />
-        <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:width" content="400" />
-        <meta property="og:image:height" content="400" />
-
-        {/* Favicons */}
-        <link rel="apple-touch-icon" sizes="57x57" href="icons/apple-icon-57x57.png">
-        <link rel="apple-touch-icon" sizes="60x60" href="icons/apple-icon-60x60.png">
-        <link rel="apple-touch-icon" sizes="72x72" href="icons/apple-icon-72x72.png">
-        <link rel="apple-touch-icon" sizes="76x76" href="icons/apple-icon-76x76.png">
-        <link rel="apple-touch-icon" sizes="114x114" href="icons/apple-icon-114x114.png">
-        <link rel="apple-touch-icon" sizes="120x120" href="icons/apple-icon-120x120.png">
-        <link rel="apple-touch-icon" sizes="144x144" href="icons/apple-icon-144x144.png">
-        <link rel="apple-touch-icon" sizes="152x152" href="icons/apple-icon-152x152.png">
-        <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-icon-180x180.png">
-        <link rel="icon" type="image/png" sizes="192x192"  href="icons/android-icon-192x192.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="96x96" href="icons/favicon-96x96.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
-        <link rel="manifest" href="icons/manifest.json">
-        <meta name="msapplication-TileColor" content="#ffc3ab">
-        <meta name="msapplication-TileImage" content="icons/ms-icon-144x144.png">
-
-        {theme &&
-            <meta content={theme} name="theme-color" />
-        }
-
-        <style define:vars={{bodyColor, textColor}} lang="scss">
-            body{
-                background-color:var(--bodyColor);
-            }
-
-        @keyframes fadeOutUp {
-            from {
-            opacity: 1;
-            transform: translateY(0);
-            }
-
-            to {
-            opacity: 0;
-            transform: translateY(-8px);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-            opacity: 0;
-            transform: translateY(8px);
-            }
-
-            to {
-            opacity: 1;
-            transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeOutDown {
-            from {
-            opacity: 1;
-            transform: translateY(0);
-            }
-
-            to {
-            opacity: 0;
-            transform: translateY(8px);
-            }
-        }
-
-        @keyframes fadeInDown {
-            from {
-            opacity: 0;
-            transform: translateY(-8px);
-            }
-
-            to {
-            opacity: 1;
-            transform: translateY(0);
-            }
-        }
-
-        </style>
-
-    </head>
-    <body class:list={[{homepage: isHomepage},{"illustration-project": isIllustration},{textured: hasTexture}]}>
-        <slot name="mobile-navbar"/>
-        <slot name="navbar"/>
-        <div class="animation-wrapper" transition:animate={viewTransition}>
-            <slot/>
-        </div>
-        <slot name="footer"/>
-    </body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description">
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<slot />
+	</body>
 </html>
