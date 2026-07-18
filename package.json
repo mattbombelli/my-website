@@ -27,6 +27,7 @@
     "astro": "astro"
   },
   "devDependencies": {
+    "sass-embedded": "^1.100.0",
     "typescript": "^5.9.3"
   }
 }

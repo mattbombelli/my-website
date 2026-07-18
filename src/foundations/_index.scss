@@ -1,0 +1,12 @@
+/*
+
+    This file groups together all design tokens specified in the /foundations folder.
+    Design tokens include: specifications for typography, colors and layouts.
+    Comprehensive information can be found in Figma file, Design System/Foundations.
+
+*/
+
+@forward 'breakpoints';
+@forward 'typography';
+@forward 'colors';
+@forward 'layouts';
