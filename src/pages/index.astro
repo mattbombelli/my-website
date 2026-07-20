@@ -1,15 +1,23 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
-import '../styles/global.scss';
 
 export const prerender = true;
 
 const posts = await getCollection('posts');
 ---
+<style>
+  div > h1{
+    color:var(--foreground);
+    background:var(--background);
+
+    transition: color var(--duration-slow) var(--ease-press),
+                background var(--duration-slow) var(--ease-press);
+  }
+</style>
 
 <Layout title="Keystatic & Astro's Content Collections">
-  <div>
+  <div class="test" data-theme="sunflower-mono" data-theme-mode="invert" data-hover="hibiscus-mono" data-hover-mode="invert">
     <h1>Keystatic ⚡️ + Astro 🚀</h1>
     <p>
       This homepage shows how to load data from Astro's content collections.
@@ -18,6 +26,14 @@ const posts = await getCollection('posts');
       <a href="/keystatic">Click here to visit the Admin UI</a>, or the link
       below to view a post in the collection.
     </p>
+    <div class="grid">
+      <p>test 1</p>
+      <p>test 2</p>
+      <p>test 3</p>
+      <p>test 4</p>
+      <p>test 5</p>
+      <p>test 6</p>
+    </div>
     <h2>Posts</h2>
     <ul>
       {
@@ -30,3 +46,4 @@ const posts = await getCollection('posts');
     </ul>
   </div>
 </Layout>
+

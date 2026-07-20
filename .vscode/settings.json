@@ -1,0 +1,6 @@
+{
+  "emmet.includeLanguages": {
+    "astro": "html"
+  },
+  "emmet.triggerExpansionOnTab": true
+}

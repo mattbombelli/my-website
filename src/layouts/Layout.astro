@@ -1,5 +1,6 @@
 ---
 import '../styles.css'
+import '../styles/global.scss';
 
 export interface Props {
 	title: string;
@@ -7,6 +8,12 @@ export interface Props {
 
 const { title } = Astro.props;
 ---
+<style>
+	body{
+		background: var(--background);
+		color: var(--foreground);
+	}
+</style>
 
 <!DOCTYPE html>
 <html lang="en">
