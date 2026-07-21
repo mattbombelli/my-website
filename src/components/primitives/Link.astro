@@ -1,3 +1,45 @@
 ---
-import '../styles/global.scss';
+import '../../styles/global.scss';
+
+export interface Props {
+    label: string;
+    href: string;
+    pill?: true | false;
+    theme?: string;
+}
+
+const {
+    label = "Page",
+    href = "#",
+    pill = false,
+    theme = "default"
+} = Astro.props;
 ---
+<style>
+    a{
+        display: inline-block;
+        padding: var(--space-2xs) var(--space-xs);
+        font-weight: 500;
+        letter-spacing: -1.1%;
+        padding: var(--space-2xs) 0;
+        text-decoration: none;
+        color: var(--foreground);
+
+        &:not(.pill):hover{
+            text-decoration: underline;
+            text-decoration-thickness: 0.12em;
+            text-underline-offset: .2em;
+            color: var(--ink-light);
+        }
+    }
+    
+    .pill{
+        padding: var(--space-2xs) var(--space-xs);
+        background: var(--background);
+        border-radius: var(--radius-pill);
+        transition: color var(--duration-default) var(--ease-default),
+                    background var(--duration-default) var(--ease-default);
+    }
+</style>
+
+<a href={href} data-hover={theme} class:list={["p sans-serif", { pill: pill }]}>{label}</a>
