@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
-import Link from '../components/primitives/Link.astro';
 
 export const prerender = true;
 
@@ -18,7 +17,10 @@ const posts = await getCollection('posts');
 </style>
 
 <Layout title="test">
-    <Link href="#" label="UX case studies" pill theme="hibiscus"/>
-    <Link href="#" label="Projects" theme="marmalade" />
+  <div>
+    <h1>Welcome to my website!</h1>
+    <p>This is a test page.</p>
+    
+  </div>
 </Layout>
 

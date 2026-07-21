@@ -1,0 +1,64 @@
+---
+import '../../styles/global.scss';
+
+import Link from '../primitives/Link.astro';
+import { mainNavLinks } from '../../data/navigation.ts';
+---
+<style lang="scss">
+    @use '../../foundations' as *;
+
+    nav#main-menu{
+        align-items: center;
+        padding-top: var(--space-m);
+        padding-bottom: var(--space-m);
+    }
+
+    ul{       
+        list-style-type: none;
+        display: none;
+        padding: 0;
+
+        & li{
+            display: inline-block;
+        }
+    }
+
+    @media only screen and (min-width: $tablet) {
+        ul{
+            display: flex;
+            justify-self: center;
+            grid-column: 2/4;
+            gap: var(--space-2xs);
+        }
+
+        :global(a:last-of-type){
+            justify-self: flex-end;
+        }
+    }
+
+    @media only screen and (min-width: $laptop) {
+        ul{
+            grid-column: 2/6;
+            gap: var(--space-l);
+        }
+    }
+</style>
+
+<nav aria-label="Main navigation" class="grid" id="main-menu">
+    <Link href="/" label="Mattia Bombelli"/>
+    
+    <ul role="list">
+        {mainNavLinks.map((link) => (
+            <li>
+                <Link href={link.href} label={link.label} theme={link.theme} pill/>
+            </li>
+        ))}
+    </ul>
+
+    <Link href="mailto:hello@mattiabombelli.com" label="Contact" />
+    <button id="hamburger" command="show-modal" commandfor="dialog-menu">Open Menu</button>
+
+    <dialog id="dialog-menu">
+        <p>This is the dialogue menu.</p>
+    </dialog>
+</nav>
