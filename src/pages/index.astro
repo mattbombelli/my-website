@@ -2,6 +2,8 @@
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 
+import PrimaryButton from '../components/blocks/PrimaryButton.astro';
+
 export const prerender = true;
 
 const posts = await getCollection('posts');
@@ -20,6 +22,23 @@ const posts = await getCollection('posts');
   <div>
     <h1>Welcome to my website!</h1>
     <p>This is a test page.</p>
+    <PrimaryButton 
+      href="/"
+      button={{ 
+        label: "Read more about me",
+        theme: "meadow",
+        hover: "marmalade-mono",
+      }}
+      shape={{
+        variant: "spring",
+        fill: "garnet",
+      }}
+      icon={{
+        icon: "envelope",
+        fill: "cove",
+        mode: "invert",
+      }}
+    />
   </div>
 </Layout>
 

@@ -1,40 +1,36 @@
 ---
 import '../../styles/global.scss';
 
-import { icons } from '../../data/icons.ts';
+import { shapes } from '../../data/shapes.ts';
 
-export interface Props {
-    icon: keyof typeof icons;
-    fill?: string;
+export interface Props{
+    variant: keyof typeof shapes;
+    fill: string;
     mode?: string;
-    scale?: string;
 }
 
 const {
-    icon,
-    fill = "default",
+    variant,
+    fill,
     mode = "normal",
-    scale = "p",
 } = Astro.props;
 
-const size = `var(--text-${scale})`;
 ---
 <style>
-    .icon{
+    .shape{
         fill: var(--foreground);
     }
 </style>
-
 <svg
     xmlns="http://www.w3.org/2000/svg"
     width=auto
-    height={size}
-    viewBox="0 0 60 60"
+    height="120"
+    viewBox="0 0 120 120"
     preserveAspectRatio="xMidYMid meet"
 >
     <path 
-        d={icons[icon]}
-        class="icon" 
+        d={shapes[variant]}
+        class="shape" 
         data-theme={fill} 
         data-theme-mode={mode}
     />

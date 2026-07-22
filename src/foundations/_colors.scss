@@ -408,7 +408,8 @@
     --background: var(--ink);
 }
 @media(hover:hover) and (pointer:fine){
-    [data-theme-mode='invert']:hover{
+    [data-theme-mode='invert']:hover,
+    [data-hover-mode='invert']:hover{
         --foreground: var(--paper);
         --background: var(--ink);
     }
@@ -419,7 +420,8 @@
     --background: var(--paper);
 }
 @media(hover:hover) and (pointer:fine){
-    [data-theme-mode='normal']:hover{
+    [data-theme-mode='normal']:hover,
+    [data-hover-mode='normal']:hover{
         --foreground: var(--ink);
         --background: var(--paper);
     }

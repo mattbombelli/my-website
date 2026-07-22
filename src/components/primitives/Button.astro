@@ -1,3 +1,63 @@
 ---
-import '../styles/global.scss';
+import '../../styles/global.scss';
+
+export interface Props{
+    label: string;
+    theme: string;
+    themeMode?: string;
+    hover: string;
+    hoverMode?: string;
+    border?: boolean;
+}   
+
+const {
+    label,
+    theme,
+    themeMode = "normal",
+    hover,
+    hoverMode = "normal",
+    border = false,
+    ...rest
+} = Astro.props;
 ---
+<style lang="scss">
+    @use '../../foundations' as *;
+
+    button{
+        --type-button-size: var(--text-h6);
+        --padding-inline-button: var(--space-m);
+        --padding-block-button: var(--space-m);
+
+        @media only screen and (min-width: $tablet){
+            --type-button-size: var(--text-h5);
+            --padding-inline-button: var(--space-l);
+        }
+
+        font-size: var(--type-button-size);
+        text-transform: uppercase;
+        font-weight: 500;
+        background: var(--background);
+        color: var(--foreground);
+        padding: var(--padding-block-button) var(--padding-inline-button);
+        border-radius: var(--radius-pill);
+        border: none;
+
+        transition: background var(--duration-slow) var(--ease-press),
+                    color var(--duration-slow) var(--ease-press);
+
+        &.border{
+            border: 4px solid var(--foreground);
+        }
+    }
+</style>
+
+<button
+    type="button" 
+    data-theme={theme} 
+    data-theme-mode={themeMode} 
+    data-hover={hover} 
+    data-hover-mode={hoverMode}
+    class:list={[{border: border}]}
+>
+    {label}
+</button>
