@@ -3,6 +3,7 @@ import '../../styles/global.scss';
 
 import Link from '../primitives/Link.astro';
 import { mainNavLinks } from '../../data/navigation.ts';
+import Icon from '../primitives/Icon.astro';
 
 const currentPage = Astro.url.pathname;
 ---
@@ -30,8 +31,19 @@ const currentPage = Astro.url.pathname;
 
         button{
             justify-self: right;
-            align-self: stretch;
         }
+    }
+    
+    button.hamburger{
+        display: inline-grid;
+        place-items: center;
+        background: var(--background);
+        border: none;
+        border-radius: var(--radius-pill);
+        padding: var(--space-xs);
+        aspect-ratio: 1/1;
+        cursor: pointer;
+        transition: background var(--duration-default) var(--ease-default);
     }
 
     // general styling for ul within navbar
@@ -74,7 +86,10 @@ const currentPage = Astro.url.pathname;
             button{
                 grid-column: 2/3;
                 justify-self: right;
-                align-self: stretch;
+                background: var(--background);
+                border: none;
+                position: relative;
+                cursor: pointer;
             }
         }
 
@@ -156,11 +171,14 @@ const currentPage = Astro.url.pathname;
     // displaying desktop menu on desktop and hiding mobile menu on desktop
     @media only screen and (min-width: $tablet) {
         nav#main-menu{
+            display: flex;
+            justify-content: space-between;
+
             ul{
                 display: flex;
                 justify-self: center;
                 grid-column: 2/4;
-                gap: var(--space-2xs);
+                gap: var(--space-3xs);
 
                 & li{
                     display: inline-block;
@@ -186,6 +204,9 @@ const currentPage = Astro.url.pathname;
 
     @media only screen and (min-width: $laptop) {
         nav#main-menu{
+            display: grid;
+            justify-content: unset;
+
             ul{
                 grid-column: 2/6;
                 gap: var(--space-l);
@@ -214,8 +235,11 @@ const currentPage = Astro.url.pathname;
         aria-expanded="false"
         aria-label="Open main navigation menu"
         aria-haspopup="dialog"
+        data-theme="mustard"
+        data-hover="meadow"
+        class="hamburger"
     >
-        Open Menu
+        <Icon icon="hamburger" scale="h5"/>
     </button>
 
 </nav>
@@ -231,8 +255,11 @@ const currentPage = Astro.url.pathname;
             id="button-close"
             type="button"
             aria-label="Close menu"
-        >
-            Close Menu
+            class="hamburger"
+            data-hover="default"
+            data-hover-mode="invert"
+        >   
+            <Icon icon="x" scale="h5"/>
         </button>
     </header>
     

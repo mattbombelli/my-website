@@ -99,6 +99,10 @@ import { footerNavLinks } from '../../data/navigation.ts';
                     
                     li{
                         flex: initial;
+
+                        :global(a){
+                            padding: var(--space-xs) var(--space-s);
+                        }
                     }
                 }
 
@@ -132,6 +136,12 @@ import { footerNavLinks } from '../../data/navigation.ts';
                         align-self: flex-end;
                         flex-direction: column;
                         text-align: right;
+
+                        li{
+                            :global(a){
+                                padding: var(--space-xs) 0;
+                            }
+                        }
                     }
                 }
                 &:nth-of-type(3){

@@ -2,5 +2,6 @@
   "emmet.includeLanguages": {
     "astro": "html"
   },
-  "emmet.triggerExpansionOnTab": true
+  "emmet.triggerExpansionOnTab": true,
+  "editor.wordWrap": "on"
 }
