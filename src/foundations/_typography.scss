@@ -45,206 +45,86 @@
 }
 
 /* === nudica font family === */
-// Thin
-@font-face{
-    font-family: var(--font-sans-serif);
-    src: url('fonts/nudica/nudica-thin-webfont.woff2') format('woff2');
-
-    font-weight: 100;
-
-    font-style: normal;
-    font-display: swap;
-}
-@font-face{
-    font-family: var(--font-sans-serif);
-    src: url('fonts/nudica/nudica-thinitalic-webfont.woff2') format('woff2');
-
-    font-weight: 100;
-
-    font-style: italic;
-    font-display: swap;
-}
-
-// Ultralight
-@font-face{
-    font-family: var(--font-sans-serif);
-    src: url('fonts/nudica/nudica-ultralight-webfont.woff2') format('woff2');
-
-    font-weight: 200;
-
-    font-style: normal;
-    font-display: swap;
-}
-@font-face{
-    font-family: var(--font-sans-serif);
-    src: url('fonts/nudica/nudica-ultralightitalic-webfont.woff2') format('woff2');
-
-    font-weight: 200;
-
-    font-style: italic;
-    font-display: swap;
-}
-
-// Light
-@font-face{
-    font-family: var(--font-sans-serif);
-    src: url('fonts/nudica/nudica-light-webfont.woff2') format('woff2');
-
-    font-weight: 300;
-
-    font-style: normal;
-    font-display: swap;
-}
-@font-face{
-    font-family: var(--font-sans-serif);
-    src: url('fonts/nudica/nudica-lightitalic-webfont.woff2') format('woff2');
-
-    font-weight: 300;
-
-    font-style: italic;
-    font-display: swap;
-}
-
 // Regular
 @font-face{
-    font-family: var(--font-sans-serif);
-    src: url('fonts/nudica/nudica-regular-webfont.woff2') format('woff2');
+    font-family: 'nudica';
+    src: url('/fonts/nudica/nudica-regular-webfont.woff2') format('woff2');
 
     font-weight: 400;
 
     font-style: normal;
-    font-display: swap;
+    font-display: fallback;
 }
 
 @font-face{
-    font-family: var(--font-sans-serif);
-    src: url('fonts/nudica/nudica-regularitalic-webfont.woff2') format('woff2');
+    font-family: 'nudica';
+    src: url('/fonts/nudica/nudica-regularitalic-webfont.woff2') format('woff2');
 
     font-weight: 400;
 
     font-style: italic;
-    font-display: swap;
+    font-display: fallback;
 }
 
 // Medium
 @font-face{
-    font-family: var(--font-sans-serif);
-    src: url('fonts/nudica/nudica-medium-webfont.woff2') format('woff2');
+    font-family: 'nudica';
+    src: url('/fonts/nudica/nudica-medium-webfont.woff2') format('woff2');
 
     font-weight: 500;
 
     font-style: normal;
-    font-display: swap;
+    font-display: fallback;
 }
 @font-face{
-    font-family: var(--font-sans-serif);
-    src: url('fonts/nudica/nudica-mediumitalic-webfont.woff2') format('woff2');
+    font-family: 'nudica';
+    src: url('/fonts/nudica/nudica-mediumitalic-webfont.woff2') format('woff2');
 
     font-weight: 500;
 
     font-style: italic;
-    font-display: swap;
+    font-display: fallback;
 }
 
 // Bold
 @font-face{
-    font-family: var(--font-sans-serif);
-    src: url('fonts/nudica/nudica-bold-webfont.woff2') format('woff2');
+    font-family: 'nudica';
+    src: url('/fonts/nudica/nudica-bold-webfont.woff2') format('woff2');
 
     font-weight: 700;
 
     font-style: normal;
-    font-display: swap;
+    font-display: fallback;
 }
 @font-face{
-    font-family: var(--font-sans-serif);
-    src: url('fonts/nudica/nudica-bolditalic-webfont.woff2') format('woff2');
+    font-family: 'nudica';
+    src: url('/fonts/nudica/nudica-bolditalic-webfont.woff2') format('woff2');
 
     font-weight: 700;
 
     font-style: italic;
-    font-display: swap;
+    font-display: fallback;
 }
 
 /* === Libre Baskerville font family === */
 // Regular
 @font-face{
-    font-family: var(--font-serif);
-    src: url('fonts/libre_baskerville/LibreBaskerville-Regular.woff2') format('woff2');
+    font-family: 'Libre Baskerville';
+    src: url('/fonts/libre_baskerville/LibreBaskerville-VariableFont_wght.woff2') format('woff2');
 
-    font-weight: 400;
-
-    font-style: normal;
-    font-display: swap;
-}
-@font-face{
-    font-family: var(--font-serif);
-    src: url('fonts/libre_baskerville/LibreBaskerville-Italic.woff2') format('woff2');
-
-    font-weight: 400;
-
-    font-style: italic;
-    font-display: swap;
-}
-
-// Medium
-@font-face{
-    font-family: var(--font-serif);
-    src: url('fonts/libre_baskerville/LibreBaskerville-Medium.woff2') format('woff2');
-
-    font-weight: 500;
+    font-weight: 400 700;
 
     font-style: normal;
-    font-display: swap;
+    font-display: fallback;
 }
 @font-face{
-    font-family: var(--font-serif);
-    src: url('fonts/libre_baskerville/LibreBaskerville-MediumItalic.woff2') format('woff2');
+    font-family: 'Libre Baskerville';
+    src: url('/fonts/libre_baskerville/LibreBaskerville-Italic-VariableFont_wght.woff2') format('woff2');
 
-    font-weight: 500;
+    font-weight: 400 700;
 
     font-style: italic;
-    font-display: swap;
-}
-
-// SemiBold
-@font-face{
-    font-family: var(--font-serif);
-    src: url('fonts/libre_baskerville/LibreBaskerville-SemiBold.woff2') format('woff2');
-
-    font-weight: 600;
-
-    font-style: normal;
-    font-display: swap;
-}
-@font-face{
-    font-family: var(--font-serif);
-    src: url('fonts/libre_baskerville/LibreBaskerville-SemiBoldItalic.woff2') format('woff2');
-
-    font-weight: 600;
-
-    font-style: italic;
-    font-display: swap;
-}
-
-// Bold
-@font-face{
-    font-family: var(--font-serif);
-    src: url('fonts/libre_baskerville/LibreBaskerville-Bold.woff2') format('woff2');
-
-    font-weight: 700;
-
-    font-style: normal;
-    font-display: swap;
-}
-@font-face{
-    font-family: var(--font-serif);
-    src: url('fonts/libre_baskerville/LibreBaskerville-BoldItalic.woff2') format('woff2');
-
-    font-weight: 700;
-
-    font-style: italic;
-    font-display: swap;
+    font-display: fallback;
 }
 
 /* === Type specs === */
@@ -366,3 +246,6 @@ small, .small{
 }
 
 /* === Utility classes === */
+.italic{
+    font-style: italic;
+}

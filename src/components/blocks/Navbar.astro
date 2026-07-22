@@ -3,6 +3,8 @@ import '../../styles/global.scss';
 
 import Link from '../primitives/Link.astro';
 import { mainNavLinks } from '../../data/navigation.ts';
+
+const currentPage = Astro.url.pathname;
 ---
 <style lang="scss">
     @use '../../foundations' as *;
@@ -11,54 +13,271 @@ import { mainNavLinks } from '../../data/navigation.ts';
         align-items: center;
         padding-top: var(--space-m);
         padding-bottom: var(--space-m);
+
+        // hiding desktop menu on mobile
+        ul{ 
+            display: none;
+        }
+
+        & > :global(a:first-of-type){
+            justify-self: left;
+        }
+
+        // hiding cta on mobile
+        & > :global(a:last-of-type){
+            display:none;
+        }
+
+        button{
+            justify-self: right;
+            align-self: stretch;
+        }
     }
 
-    ul{       
+    // general styling for ul within navbar
+    ul{
+        margin: 0;
         list-style-type: none;
-        display: none;
         padding: 0;
+    }
 
-        & li{
-            display: inline-block;
+    // displaying mobile menu through dialog
+    :global(body:has(dialog[open])){
+        overflow: hidden;
+    }
+
+    dialog{
+        background: var(--background);
+
+        margin: 0;
+        width: 100%;
+        height: 100dvh;
+        max-width: none;
+        max-height: none;
+        padding:0;
+        border:none;
+
+        
+        header{
+            padding-top: var(--space-m);
+            padding-bottom: var(--space-m);
+            align-items: center;
+
+            :global(a){
+                // font-weight: 500;
+            }
+
+            :global(a:first-of-type){
+                justify-self: left;
+            }
+
+            button{
+                grid-column: 2/3;
+                justify-self: right;
+                align-self: stretch;
+            }
+        }
+
+        nav{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            padding: var(--space-m) var(--padding-inline);
+            gap: var(--gap-y);
+
+            ul, div{
+                display: flex;
+                flex-direction: column;
+                padding: var(--space-s) var(--padding-inline);
+                gap: var(--gap-y-small);
+                background: var(--background);
+
+                li{
+                    position:relative;
+                }
+                
+                :global(a){
+                    transition: text-indent var(--duration-default) var(--ease-default);
+                    width: 100%;
+                    
+                    @media (hover: hover) and (pointer: fine){
+                        &:hover{
+                            text-indent: var(--space-xs);
+                        }
+                    }
+                }
+            }
+
+            address{
+                text-align: center;
+            }
         }
     }
 
-    @media only screen and (min-width: $tablet) {
-        ul{
-            display: flex;
-            justify-self: center;
-            grid-column: 2/4;
-            gap: var(--space-2xs);
+    @media(prefers-reduced-motion: no-preference){
+
+        @keyframes fadeFromTop{
+            from {
+                opacity: 0;
+                translate: 0 -1em;
+            }
+            to {
+                opacity: 1;
+                translate: 0 0;
+            }
         }
 
-        :global(a:last-of-type){
-            justify-self: flex-end;
+        dialog{
+            
+            nav{
+
+                ul, div, address{
+                    animation: fadeFromTop var(--duration-default) var(--ease-default) backwards;
+                }
+
+                ul{
+                    animation-delay: 100ms;
+                }
+
+                div{
+                    animation-delay: 150ms;
+                }
+
+                address{
+                    animation-delay: 200ms;
+                }
+
+            }
         }
+
+    }
+
+    // displaying desktop menu on desktop and hiding mobile menu on desktop
+    @media only screen and (min-width: $tablet) {
+        nav#main-menu{
+            ul{
+                display: flex;
+                justify-self: center;
+                grid-column: 2/4;
+                gap: var(--space-2xs);
+
+                & li{
+                    display: inline-block;
+                }
+            }
+    
+            & > :global(a:last-of-type){
+                display: initial;
+                justify-self: right;
+            }
+
+            button{
+                display:none;
+            }
+        }
+        
+        dialog{
+            display:none;
+        }
+
+
     }
 
     @media only screen and (min-width: $laptop) {
-        ul{
-            grid-column: 2/6;
-            gap: var(--space-l);
+        nav#main-menu{
+            ul{
+                grid-column: 2/6;
+                gap: var(--space-l);
+            }
         }
     }
 </style>
 
-<nav aria-label="Main navigation" class="grid" id="main-menu">
+<nav aria-label="Main navigation menu" class="grid" id="main-menu">
     <Link href="/" label="Mattia Bombelli"/>
     
     <ul role="list">
         {mainNavLinks.map((link) => (
             <li>
-                <Link href={link.href} label={link.label} theme={link.theme} pill/>
+                <Link href={link.href} label={link.label} theme={link.theme} activeTheme={link.theme} active={currentPage === link.href} pill/>
             </li>
         ))}
     </ul>
 
     <Link href="mailto:hello@mattiabombelli.com" label="Contact" />
-    <button id="hamburger" command="show-modal" commandfor="dialog-menu">Open Menu</button>
 
-    <dialog id="dialog-menu">
-        <p>This is the dialogue menu.</p>
-    </dialog>
+    <button
+        id="button-open"
+        type="button"
+        aria-controls="dialog-menu"
+        aria-expanded="false"
+        aria-label="Open main navigation menu"
+        aria-haspopup="dialog"
+    >
+        Open Menu
+    </button>
+
 </nav>
+<dialog
+    id="dialog-menu"
+    aria-label="Main navigation menu"
+    data-theme="meadow"
+>
+    <header class="grid">
+        <Link href="/" label="Mattia Bombelli"/>
+
+        <button
+            id="button-close"
+            type="button"
+            aria-label="Close menu"
+        >
+            Close Menu
+        </button>
+    </header>
+    
+    <nav>
+        <ul role="list" data-theme="default">
+            {mainNavLinks.map((link) => (
+                <li>
+                    <Link href={link.href} label={link.label} theme={link.theme} class="h5" active={currentPage === link.href} />
+                </li>
+            ))}
+        </ul>
+
+        <div data-theme="default">
+            <Link href="mailto:hello@mattiabombelli.com" label="Contact" class="h5"/>
+        </div>
+        <address class="h6 serif">hello@mattiabombelli.com</address>
+    </nav>
+</dialog>
+
+<script>
+    const menu = document.getElementById("dialog-menu");
+    const buttonOpen = document.getElementById("button-open");
+    const buttonClose = document.getElementById("button-close");
+
+    if (menu instanceof HTMLDialogElement &&
+        buttonOpen instanceof HTMLButtonElement &&
+        buttonClose instanceof HTMLButtonElement
+    ) {
+
+        const setExpanded = (value: boolean) => buttonOpen.setAttribute('aria-expanded', value ? 'true' : 'false');
+
+        buttonOpen.addEventListener("click", () => {
+            menu.showModal();
+            buttonClose.focus();
+            setExpanded(true);
+        });
+
+
+        buttonClose.addEventListener("click", () => {
+            menu.close();
+            setExpanded(false);
+        });
+
+        menu.addEventListener('close', () => {
+            setExpanded(false);
+        })
+    }
+</script>

@@ -1,1 +1,9 @@
 @use '../foundations' as *;
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+}

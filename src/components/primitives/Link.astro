@@ -1,45 +1,98 @@
 ---
+import type { $brand } from 'astro:schema';
 import '../../styles/global.scss';
+import type { DeclareKeyword } from 'typescript';
 
 export interface Props {
     label: string;
     href: string;
     pill?: true | false;
     theme?: string;
+    activeTheme?: string;
+    active?: boolean;
+    class?: string;
+    bg?: string;
 }
 
 const {
     label = "Page",
     href = "#",
     pill = false,
-    theme = "default"
+    theme = "default",
+    active = false,
+    activeTheme,
+    class: className,
+    bg = "light",
+    ...rest
 } = Astro.props;
+
+
+const classNames = (className ?? '').trim().split(/\s+/).filter(Boolean);
+
+const hasHeadingClass = classNames.some(c => /^h[1-6]$/.test(c));
+const hasSerifClass = classNames.includes('serif');
+const hasSansSerifClass = classNames.includes('sans-serif');
+
+
+const baseClass = [
+    ...(hasHeadingClass ? classNames : ['p', ...classNames]),
+    ...(hasSerifClass || hasSansSerifClass ? [] : ['sans-serif'])
+];
 ---
-<style>
-    a{
+<style lang="scss">
+    a.link{
+        --active-page: var(--cobalt-base);
+
         display: inline-block;
         padding: var(--space-2xs) var(--space-xs);
-        font-weight: 500;
         letter-spacing: -1.1%;
         padding: var(--space-2xs) 0;
         text-decoration: none;
         color: var(--foreground);
 
-        &:not(.pill):hover{
+        @media (hover: hover) and (pointer: fine){
+            &:not(.pill):hover{
+                text-decoration: underline;
+                text-decoration-thickness: 0.12em;
+                text-underline-offset: .2em;
+                color: var(--ink-light);
+            }
+
+            &.alt-hover:not(.pill):hover{
+                color: var(--paper-dark);
+            }
+        }
+
+        &.active:not(.pill){
             text-decoration: underline;
             text-decoration-thickness: 0.12em;
             text-underline-offset: .2em;
-            color: var(--ink-light);
+            color: var(--active-page);
+
+            &::after{
+                position: absolute;
+                content: '';
+                top: 50%;
+                transform: translateY(-50%);
+                right: 0;
+                width:.5em;
+                height: .5em;
+                border-radius: var(--radius-pill);
+                background: var(--active-page);
+            }
         }
     }
     
-    .pill{
+    .link.pill{
         padding: var(--space-2xs) var(--space-xs);
-        background: var(--background);
         border-radius: var(--radius-pill);
         transition: color var(--duration-default) var(--ease-default),
-                    background var(--duration-default) var(--ease-default);
+        background var(--duration-default) var(--ease-default);
+        &:hover,
+        &.active{
+            background: var(--background);
+        }
     }
 </style>
 
-<a href={href} data-hover={theme} class:list={["p sans-serif", { pill: pill }]}>{label}</a>
+<a href={href} data-hover={theme} data-theme={activeTheme} class:list={[baseClass, "link", { pill: pill }, { active: active }, bg === "light" ? "" : "alt-hover" ]} {...rest}>{label}</a>

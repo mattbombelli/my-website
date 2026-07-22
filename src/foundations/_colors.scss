@@ -58,200 +58,369 @@
 
 /* === Themes === */
 // Basic themes
-[data-theme='default'],
-[data-hover='default']:hover{
+[data-theme='default']{
     --ink: var(--ink-base);
     --paper: var(--paper-base);
 
     --foreground: var(--ink);
     --background: var(--paper);
 }
+@media(hover:hover) and (pointer:fine){
+    [data-hover='default']:hover{
+        --ink: var(--ink-base);
+        --paper: var(--paper-base);
 
-[data-theme='sunflower'],
-[data-hover='sunflower']:hover{
+        --foreground: var(--ink);
+        --background: var(--paper);
+    }    
+}
+
+[data-theme='sunflower']{
     --ink: var(--ink-base);
     --paper: var(--sunflower-base);
 
     --foreground: var(--ink);
     --background: var(--paper);
 }
+@media(hover:hover) and (pointer:fine){
+    [data-hover='sunflower']:hover{
+        --ink: var(--ink-base);
+        --paper: var(--sunflower-base);
 
-[data-theme='mustard'],
-[data-hover='mustard']:hover{
+        --foreground: var(--ink);
+        --background: var(--paper);
+    }    
+}
+
+[data-theme='mustard']{
     --ink: var(--ink-base);
     --paper: var(--mustard-base);
 
     --foreground: var(--ink);
     --background: var(--paper);
 }
+@media(hover:hover) and (pointer:fine){
+    [data-hover='mustard']:hover{
+        --ink: var(--ink-base);
+        --paper: var(--mustard-base);
 
-[data-theme='marmalade'],
-[data-hover='marmalade']:hover{
+        --foreground: var(--ink);
+        --background: var(--paper);
+    }    
+}
+
+[data-theme='marmalade']{
     --ink: var(--ink-base);
     --paper: var(--marmalade-base);
 
     --foreground: var(--ink);
     --background: var(--paper);
 }
+@media(hover:hover) and (pointer:fine){
+    [data-hover='marmalade']:hover{
+        --ink: var(--ink-base);
+        --paper: var(--marmalade-base);
 
-[data-theme='flame'],
-[data-hover='flame']:hover{
+        --foreground: var(--ink);
+        --background: var(--paper);
+    }    
+}
+
+[data-theme='flame']{
     --ink: var(--ink-base);
     --paper: var(--flame-base);
 
     --foreground: var(--ink);
     --background: var(--paper);
 }
+@media(hover:hover) and (pointer:fine){
+    [data-hover='flame']:hover{
+        --ink: var(--ink-base);
+        --paper: var(--flame-base);
 
-[data-theme='hibiscus'],
-[data-hover='hibiscus']:hover{
+        --foreground: var(--ink);
+        --background: var(--paper);
+    }    
+}
+
+[data-theme='hibiscus']{
     --ink: var(--ink-base);
     --paper: var(--hibiscus-base);
 
     --foreground: var(--ink);
     --background: var(--paper);
 }
+@media(hover:hover) and (pointer:fine){
+    [data-hover='hibiscus']:hover{
+        --ink: var(--ink-base);
+        --paper: var(--hibiscus-base);
 
-[data-theme='cobalt'],
-[data-hover='cobalt']:hover{
+        --foreground: var(--ink);
+        --background: var(--paper);
+    }    
+}
+
+[data-theme='cobalt']{
     --ink: var(--paper-base);
     --paper: var(--cobalt-base);
 
     --foreground: var(--ink);
     --background: var(--paper);
 }
+@media(hover:hover) and (pointer:fine){
+    [data-hover='cobalt']:hover{
+        --ink: var(--paper-base);
+        --paper: var(--cobalt-base);
 
-[data-theme='meadow'],
-[data-hover='meadow']:hover{
+        --foreground: var(--ink);
+        --background: var(--paper);
+    }    
+}
+
+[data-theme='meadow']{
     --ink: var(--ink-base);
     --paper: var(--meadow-base);
 
     --foreground: var(--ink);
     --background: var(--paper);
 }
+@media(hover:hover) and (pointer:fine){
+    [data-hover='meadow']:hover{
+        --ink: var(--ink-base);
+        --paper: var(--meadow-base);
+
+        --foreground: var(--ink);
+        --background: var(--paper);
+    }    
+}
 
 
 // Monochromes
-[data-theme='sunflower-mono'],
-[data-hover='sunflower-mono']:hover{
+[data-theme='sunflower-mono']{
     --ink: var(--sunflower-dark);
     --paper: var(--sunflower-base);
 
     --foreground: var(--ink);
     --background: var(--paper);
 }
+@media(hover:hover) and (pointer:fine){
+    [data-hover='sunflower-mono']:hover{
+        --ink: var(--sunflower-dark);
+        --paper: var(--sunflower-base);
 
-[data-theme='mustard-mono'],
-[data-hover='mustard-mono']:hover{
+        --foreground: var(--ink);
+        --background: var(--paper);
+    }    
+}
+
+[data-theme='mustard-mono']{
     --ink: var(--mustard-dark);
     --paper: var(--mustard-light);
 
     --foreground: var(--ink);
     --background: var(--paper);
 }
+@media(hover:hover) and (pointer:fine){
+    [data-hover='mustard-mono']:hover{
+        --ink: var(--mustard-dark);
+        --paper: var(--mustard-light);
 
-[data-theme='marmalade-mono'],
-[data-hover='marmalade-mono']:hover{
+        --foreground: var(--ink);
+        --background: var(--paper);
+    }    
+}
+
+[data-theme='marmalade-mono']{
     --ink: var(--marmalade-dark);
     --paper: var(--marmalade-light);
 
     --foreground: var(--ink);
     --background: var(--paper);
 }
+@media(hover:hover) and (pointer:fine){
+    [data-hover='marmalade-mono']:hover{
+        --ink: var(--marmalade-dark);
+        --paper: var(--marmalade-light);
 
-[data-theme='flame-mono'],
-[data-hover='flame-mono']:hover{
+        --foreground: var(--ink);
+        --background: var(--paper);
+    }    
+}
+
+[data-theme='flame-mono']{
     --ink: var(--flame-dark);
     --paper: var(--flame-light);
 
     --foreground: var(--ink);
     --background: var(--paper);
 }
+@media(hover:hover) and (pointer:fine){
+    [data-hover='flame-mono']:hover{
+        --ink: var(--flame-dark);
+        --paper: var(--flame-light);
 
-[data-theme='hibiscus-mono'],
-[data-hover='hibiscus-mono']:hover{
+        --foreground: var(--ink);
+        --background: var(--paper);
+    }    
+}
+
+[data-theme='hibiscus-mono']{
     --ink: var(--hibiscus-dark);
     --paper: var(--hibiscus-light);
 
     --foreground: var(--ink);
     --background: var(--paper);
 }
+@media(hover:hover) and (pointer:fine){
+    [data-hover='hibiscus-mono']:hover{
+        --ink: var(--hibiscus-dark);
+        --paper: var(--hibiscus-light);
 
-[data-theme='cobalt-mono'],
-[data-hover='cobalt-mono']:hover{
+        --foreground: var(--ink);
+        --background: var(--paper);
+    }    
+}
+
+[data-theme='cobalt-mono']{
     --ink: var(--cobalt-base);
     --paper: var(--cobalt-light);
 
     --foreground: var(--ink);
     --background: var(--paper);
 }
+@media(hover:hover) and (pointer:fine){
+    [data-hover='cobalt-mono']:hover{
+        --ink: var(--cobalt-base);
+        --paper: var(--cobalt-light);
 
-[data-theme='meadow-mono'],
-[data-hover='meadow-mono']:hover{
+        --foreground: var(--ink);
+        --background: var(--paper);
+    }    
+}
+
+[data-theme='meadow-mono']{
     --ink: var(--meadow-dark);
     --paper: var(--meadow-light);
 
     --foreground: var(--ink);
     --background: var(--paper);
 }
+@media(hover:hover) and (pointer:fine){
+    [data-hover='meadow-mono']:hover{
+        --ink: var(--meadow-dark);
+        --paper: var(--meadow-light);
+
+        --foreground: var(--ink);
+        --background: var(--paper);
+    }    
+}
 
 
 // Accents
-[data-theme='garnet'],
-[data-hover='garnet']:hover{
+[data-theme='garnet']{
     --ink: var(--flame-dark);
     --paper: var(--sunflower-base);
 
     --foreground: var(--ink);
     --background: var(--paper);
 }
+@media(hover:hover) and (pointer:fine){
+    [data-hover='garnet']:hover{
+        --ink: var(--flame-dark);
+        --paper: var(--sunflower-base);
 
-[data-theme='cove'],
-[data-hover='cove']:hover{
+        --foreground: var(--ink);
+        --background: var(--paper);
+    }    
+}
+
+[data-theme='cove']{
     --ink: var(--cobalt-base);
     --paper: var(--marmalade-light);
 
     --foreground: var(--ink);
     --background: var(--paper);
 }
+@media(hover:hover) and (pointer:fine){
+    [data-hover='cove']:hover{
+        --ink: var(--cobalt-base);
+        --paper: var(--marmalade-light);
 
-[data-theme='verdant'],
-[data-hover='verdant']:hover{
+        --foreground: var(--ink);
+        --background: var(--paper);
+    }    
+}
+
+[data-theme='verdant']{
     --ink: var(--meadow-dark);
     --paper: var(--hibiscus-light);
 
     --foreground: var(--ink);
     --background: var(--paper);
+}
+@media(hover:hover) and (pointer:fine){
+    [data-hover='verdant']:hover{
+        --ink: var(--meadow-dark);
+        --paper: var(--hibiscus-light);
 
+        --foreground: var(--ink);
+        --background: var(--paper);
+    }    
 }
 
-[data-theme='fuchsia'],
-[data-hover='fuchsia']:hover{
+[data-theme='fuchsia']{
     --ink: var(--hibiscus-dark);
     --paper: var(--cobalt-light);
 
     --foreground: var(--ink);
     --background: var(--paper);
 }
+@media(hover:hover) and (pointer:fine){
+    [data-hover='fuchsia']:hover{
+        --ink: var(--hibiscus-dark);
+        --paper: var(--cobalt-light);
 
-[data-theme='umbral'],
-[data-hover='umbral']:hover{
+        --foreground: var(--ink);
+        --background: var(--paper);
+    }    
+}
+
+[data-theme='umbral']{
     --ink: var(--sunflower-dark);
     --paper: var(--meadow-light);
 
     --foreground: var(--ink);
     --background: var(--paper);
 }
+@media(hover:hover) and (pointer:fine){
+    [data-hover='umbral']:hover{
+        --ink: var(--sunflower-dark);
+        --paper: var(--meadow-light);
+
+        --foreground: var(--ink);
+        --background: var(--paper);
+    }    
+}
 
 /* === Utility classes === */
-[data-theme-mode='invert'],
-[data-hover-mode='invert']:hover{
+[data-theme-mode='invert']{
     --foreground: var(--paper);
     --background: var(--ink);
 }
+@media(hover:hover) and (pointer:fine){
+    [data-theme-mode='invert']:hover{
+        --foreground: var(--paper);
+        --background: var(--ink);
+    }
+}
 
-[data-theme-mode='normal'],
-[data-hover-mode='normal']:hover{
+[data-theme-mode='normal']{
     --foreground: var(--ink);
     --background: var(--paper);
+}
+@media(hover:hover) and (pointer:fine){
+    [data-theme-mode='normal']:hover{
+        --foreground: var(--ink);
+        --background: var(--paper);
+    }
 }
