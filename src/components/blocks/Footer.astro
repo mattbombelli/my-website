@@ -5,7 +5,9 @@ import Link from '../primitives/Link.astro';
 import { footerNavLinks } from '../../data/navigation.ts';
 ---
 <style lang="scss">
-    footer{
+    @use '../../foundations' as *;
+
+    footer.grid{
         background: var(--background);
         color: var(--foreground);
         row-gap: var(--space-2xl);
@@ -19,6 +21,19 @@ import { footerNavLinks } from '../../data/navigation.ts';
 
             h1, h2, h3{
                 margin: 0;
+                span{
+                    display: block;
+                }
+            }
+
+            h1{
+                font-size: var(--text-h2);
+                line-height: var(--leading-sans-serif-h2);
+            }
+
+            h2{
+                font-size: var(--text-h4);
+                line-height: var(--leading-serif-h4);
             }
 
             ul{
@@ -26,10 +41,22 @@ import { footerNavLinks } from '../../data/navigation.ts';
                 margin:0;
                 padding:var(--space-l) 0;
                 
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
+                // display: grid;
+                display:flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                // grid-template-columns: repeat(2, 1fr);
                 column-gap: var(--gap-x);
                 row-gap: var(--space-m);
+                li{
+                    flex: 1 1 calc(50% - var(--gap-x) / 2);
+
+                    @media only screen and (max-width: $mobile){
+                        li{
+                            flex-basis: 100%;
+                        }
+                    }
+                }
             }
 
             &:nth-of-type(2){
@@ -48,14 +75,89 @@ import { footerNavLinks } from '../../data/navigation.ts';
             }
         }
     }
+
+    @media only screen and (min-width: $tablet){
+        footer.grid{
+            row-gap: var(--space-xl);
+
+            section{
+                grid-column: 1/5;
+
+                h1{
+                    font-size: var(--text-h1);
+                    line-height: var(--leading-sans-serif-h1);
+                }
+
+                h2{
+                    font-size: var(--text-h3);
+                    line-height: var(--leading-serif-h3);
+                }
+                
+                ul{
+                    flex-wrap: nowrap;
+                    justify-content: space-around;
+                    
+                    li{
+                        flex: initial;
+                    }
+                }
+
+                h3{
+                    font-size: var(--text-h2);
+                    line-height: var(--leading-sans-serif-h2);
+                }
+            }
+        }
+    }
+
+    @media only screen and (min-width: $laptop){
+        footer.grid{
+            section{
+                border-right: 1px solid var(--foreground);
+                padding-right: var(--space-m);
+
+                &:nth-of-type(1){
+                    grid-column: 1/3;
+                    padding-bottom: var(--space-6xl);
+                }
+                &:nth-of-type(2){
+                    justify-content: flex-end;
+                    border-width: 0 1px 0 0;
+                    border-top: none;
+                    border-bottom: none;
+                    grid-column: 3/5;
+
+                    ul{
+                        padding: 0;
+                        align-self: flex-end;
+                        flex-direction: column;
+                        text-align: right;
+                    }
+                }
+                &:nth-of-type(3){
+                    text-align: right;
+                    justify-content: flex-end;
+                    grid-column: 5/7;
+                }
+            }
+
+        }
+    }
 </style>
 
 <footer data-theme-mode="invert" class="grid">
-    <section class="column">
-        <h1 class="h2">Mattia Bombelli</h1>
-        <h2 class="h4 serif italic">Your friendly neighbourhood UX designer</h2>
+    <section>
+        <h1>
+            <span>Mattia </span>
+            <span>Bombelli</span>
+        </h1>
+        <h2 class="serif italic">
+            <span>Your friendly</span>
+            <span>neighbourhood</span>
+            <span>UX designer</span>
+        </h2>
     </section>
-    <section class="column">
+    <section>
         <ul role="list">
             {   footerNavLinks.map((link) => (
                 <li>
@@ -64,7 +166,7 @@ import { footerNavLinks } from '../../data/navigation.ts';
             ))}
         </ul>
     </section>
-    <section class="column">
+    <section>
         <h3>Get in touch</h3>
         <Link href="mailto:hello@mattiabombelli.com" label="hello@mattiabombelli.com" class="italic serif" bg="dark"/>
     </section>
