@@ -24,11 +24,10 @@ const posts = await getCollection('posts');
     <p>This is a test page.</p>
     <PrimaryButton 
       href="/"
-      button={{ 
-        label: "Read more about me",
-        theme: "meadow",
-        hover: "marmalade-mono",
-      }}
+      label="Read more about me"
+      theme="meadow"
+      hover="marmalade-mono"
+      cta
       shape={{
         variant: "spring",
         fill: "garnet",

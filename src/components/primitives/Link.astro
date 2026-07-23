@@ -48,14 +48,16 @@ const baseClass = [
         color: var(--foreground);
 
         @media (hover: hover) and (pointer: fine){
-            &:not(.pill):hover{
+            &:not(.pill):hover,
+            &:not(.pill):focus-visible{
                 text-decoration: underline;
                 text-decoration-thickness: 0.12em;
                 text-underline-offset: .2em;
                 color: var(--ink-light);
             }
 
-            &.alt-hover:not(.pill):hover{
+            &.alt-hover:not(.pill):hover,
+            &.alt-hover:not(.pill):focus-visible{
                 color: var(--paper-dark);
             }
         }
@@ -86,10 +88,25 @@ const baseClass = [
         transition: color var(--duration-default) var(--ease-default),
         background var(--duration-default) var(--ease-default);
         &:hover,
+        &:focus-visible,
         &.active{
             background: var(--background);
         }
     }
 </style>
 
-<a href={href} data-hover={theme} data-theme={activeTheme} class:list={[baseClass, "link", { pill: pill }, { active: active }, bg === "light" ? "" : "alt-hover" ]} {...rest}>{label}</a>
+<a
+    href={href} 
+    data-hover={theme} 
+    data-theme={activeTheme}
+    class:list={[
+        baseClass,
+        "link",
+        { pill: pill },
+        { active: active },
+        bg === "light" ? "" : "alt-hover"
+    ]}
+    {...rest}
+>
+    {label}
+</a>

@@ -6,13 +6,15 @@ import { shapes } from '../../data/shapes.ts';
 export interface Props{
     variant: keyof typeof shapes;
     fill: string;
-    mode?: string;
+    size?: string;
+    themeMode?: string;
 }
 
 const {
     variant,
     fill,
-    mode = "normal",
+    size = 120,
+    themeMode = "normal",
 } = Astro.props;
 
 ---
@@ -24,7 +26,7 @@ const {
 <svg
     xmlns="http://www.w3.org/2000/svg"
     width=auto
-    height="120"
+    height={size}
     viewBox="0 0 120 120"
     preserveAspectRatio="xMidYMid meet"
 >
@@ -32,6 +34,6 @@ const {
         d={shapes[variant]}
         class="shape" 
         data-theme={fill} 
-        data-theme-mode={mode}
+        data-theme-mode={themeMode}
     />
 </svg>

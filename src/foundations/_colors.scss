@@ -66,7 +66,8 @@
     --background: var(--paper);
 }
 @media(hover:hover) and (pointer:fine){
-    [data-hover='default']:hover{
+    [data-hover='default']:hover,
+    [data-hover='default']:focus-visible{
         --ink: var(--ink-base);
         --paper: var(--paper-base);
 
@@ -83,7 +84,8 @@
     --background: var(--paper);
 }
 @media(hover:hover) and (pointer:fine){
-    [data-hover='sunflower']:hover{
+    [data-hover='sunflower']:hover,
+    [data-hover='sunflower']:focus-visible{
         --ink: var(--ink-base);
         --paper: var(--sunflower-base);
 
@@ -100,7 +102,8 @@
     --background: var(--paper);
 }
 @media(hover:hover) and (pointer:fine){
-    [data-hover='mustard']:hover{
+    [data-hover='mustard']:hover,
+    [data-hover='mustard']:focus-visible{
         --ink: var(--ink-base);
         --paper: var(--mustard-base);
 
@@ -117,7 +120,8 @@
     --background: var(--paper);
 }
 @media(hover:hover) and (pointer:fine){
-    [data-hover='marmalade']:hover{
+    [data-hover='marmalade']:hover,
+    [data-hover='marmalade']:focus-visible{
         --ink: var(--ink-base);
         --paper: var(--marmalade-base);
 
@@ -134,7 +138,8 @@
     --background: var(--paper);
 }
 @media(hover:hover) and (pointer:fine){
-    [data-hover='flame']:hover{
+    [data-hover='flame']:hover,
+    [data-hover='flame']:focus-visible{
         --ink: var(--ink-base);
         --paper: var(--flame-base);
 
@@ -151,7 +156,8 @@
     --background: var(--paper);
 }
 @media(hover:hover) and (pointer:fine){
-    [data-hover='hibiscus']:hover{
+    [data-hover='hibiscus']:hover,
+    [data-hover='hibiscus']:focus-visible{
         --ink: var(--ink-base);
         --paper: var(--hibiscus-base);
 
@@ -168,7 +174,8 @@
     --background: var(--paper);
 }
 @media(hover:hover) and (pointer:fine){
-    [data-hover='cobalt']:hover{
+    [data-hover='cobalt']:hover,
+    [data-hover='cobalt']:focus-visible{
         --ink: var(--paper-base);
         --paper: var(--cobalt-base);
 
@@ -185,7 +192,8 @@
     --background: var(--paper);
 }
 @media(hover:hover) and (pointer:fine){
-    [data-hover='meadow']:hover{
+    [data-hover='meadow']:hover,
+    [data-hover='meadow']:focus-visible{
         --ink: var(--ink-base);
         --paper: var(--meadow-base);
 
@@ -204,7 +212,8 @@
     --background: var(--paper);
 }
 @media(hover:hover) and (pointer:fine){
-    [data-hover='sunflower-mono']:hover{
+    [data-hover='sunflower-mono']:hover,
+    [data-hover='sunflower-mono']:focus-visible{
         --ink: var(--sunflower-dark);
         --paper: var(--sunflower-base);
 
@@ -221,7 +230,8 @@
     --background: var(--paper);
 }
 @media(hover:hover) and (pointer:fine){
-    [data-hover='mustard-mono']:hover{
+    [data-hover='mustard-mono']:hover,
+    [data-hover='mustard-mono']:focus-visible{
         --ink: var(--mustard-dark);
         --paper: var(--mustard-light);
 
@@ -238,7 +248,8 @@
     --background: var(--paper);
 }
 @media(hover:hover) and (pointer:fine){
-    [data-hover='marmalade-mono']:hover{
+    [data-hover='marmalade-mono']:hover,
+    [data-hover='marmalade-mono']:focus-visible{
         --ink: var(--marmalade-dark);
         --paper: var(--marmalade-light);
 
@@ -255,7 +266,8 @@
     --background: var(--paper);
 }
 @media(hover:hover) and (pointer:fine){
-    [data-hover='flame-mono']:hover{
+    [data-hover='flame-mono']:hover,
+    [data-hover='flame-mono']:focus-visible{
         --ink: var(--flame-dark);
         --paper: var(--flame-light);
 
@@ -272,7 +284,8 @@
     --background: var(--paper);
 }
 @media(hover:hover) and (pointer:fine){
-    [data-hover='hibiscus-mono']:hover{
+    [data-hover='hibiscus-mono']:hover,
+    [data-hover='hibiscus-mono']:focus-visible{
         --ink: var(--hibiscus-dark);
         --paper: var(--hibiscus-light);
 
@@ -289,7 +302,8 @@
     --background: var(--paper);
 }
 @media(hover:hover) and (pointer:fine){
-    [data-hover='cobalt-mono']:hover{
+    [data-hover='cobalt-mono']:hover,
+    [data-hover='cobalt-mono']:focus-visible{
         --ink: var(--cobalt-base);
         --paper: var(--cobalt-light);
 
@@ -306,7 +320,8 @@
     --background: var(--paper);
 }
 @media(hover:hover) and (pointer:fine){
-    [data-hover='meadow-mono']:hover{
+    [data-hover='meadow-mono']:hover,
+    [data-hover='meadow-mono']:focus-visible{
         --ink: var(--meadow-dark);
         --paper: var(--meadow-light);
 
@@ -325,7 +340,8 @@
     --background: var(--paper);
 }
 @media(hover:hover) and (pointer:fine){
-    [data-hover='garnet']:hover{
+    [data-hover='garnet']:hover,
+    [data-hover='garnet']:focus-visible{
         --ink: var(--flame-dark);
         --paper: var(--sunflower-base);
 
@@ -342,7 +358,8 @@
     --background: var(--paper);
 }
 @media(hover:hover) and (pointer:fine){
-    [data-hover='cove']:hover{
+    [data-hover='cove']:hover,
+    [data-hover='cove']:focus-visible{
         --ink: var(--cobalt-base);
         --paper: var(--marmalade-light);
 
@@ -359,7 +376,8 @@
     --background: var(--paper);
 }
 @media(hover:hover) and (pointer:fine){
-    [data-hover='verdant']:hover{
+    [data-hover='verdant']:hover,
+    [data-hover='verdant']:focus-visible{
         --ink: var(--meadow-dark);
         --paper: var(--hibiscus-light);
 
@@ -376,7 +394,8 @@
     --background: var(--paper);
 }
 @media(hover:hover) and (pointer:fine){
-    [data-hover='fuchsia']:hover{
+    [data-hover='fuchsia']:hover,
+    [data-hover='fuchsia']:focus-visible{
         --ink: var(--hibiscus-dark);
         --paper: var(--cobalt-light);
 
@@ -393,7 +412,8 @@
     --background: var(--paper);
 }
 @media(hover:hover) and (pointer:fine){
-    [data-hover='umbral']:hover{
+    [data-hover='umbral']:hover,
+    [data-hover='umbral']:focus-visible{
         --ink: var(--sunflower-dark);
         --paper: var(--meadow-light);
 
@@ -409,7 +429,9 @@
 }
 @media(hover:hover) and (pointer:fine){
     [data-theme-mode='invert']:hover,
-    [data-hover-mode='invert']:hover{
+    [data-hover-mode='invert']:hover,
+    [data-theme-mode='invert']:focus-visible,
+    [data-hover-mode='invert']:focus-visible{
         --foreground: var(--paper);
         --background: var(--ink);
     }
@@ -421,7 +443,9 @@
 }
 @media(hover:hover) and (pointer:fine){
     [data-theme-mode='normal']:hover,
-    [data-hover-mode='normal']:hover{
+    [data-hover-mode='normal']:hover,
+    [data-theme-mode='normal']:focus-visible,
+    [data-hover-mode='normal']:focus-visible{
         --foreground: var(--ink);
         --background: var(--paper);
     }

@@ -10,4 +10,9 @@
 
     --duration-default: 200ms;
     --duration-slow: 500ms;
+
+    @media (prefers-reduced-motion: reduce){
+        --duration-default: 0ms !important;
+        --duration-slow: 0ms !important;
+    }
 }

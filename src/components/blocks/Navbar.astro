@@ -117,7 +117,8 @@ const currentPage = Astro.url.pathname;
                     width: 100%;
                     
                     @media (hover: hover) and (pointer: fine){
-                        &:hover{
+                        &:hover,
+                        &:focus-visible{
                             text-indent: var(--space-xs);
                         }
                     }
