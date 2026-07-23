@@ -9,7 +9,7 @@ export interface Props {
     activeTheme?: string;
     active?: boolean;
     class?: string;
-    bg?: string;
+    hoverColor?: 'alt-hover' | 'no-hover';
 }
 
 const {
@@ -20,7 +20,7 @@ const {
     active = false,
     activeTheme,
     class: className,
-    bg = "light",
+    hoverColor,
     ...rest
 } = Astro.props;
 
@@ -30,7 +30,6 @@ const classNames = (className ?? '').trim().split(/\s+/).filter(Boolean);
 const hasHeadingClass = classNames.some(c => /^h[1-6]$/.test(c));
 const hasSerifClass = classNames.includes('serif');
 const hasSansSerifClass = classNames.includes('sans-serif');
-
 
 const baseClass = [
     ...(hasHeadingClass ? classNames : ['p', ...classNames]),
@@ -59,6 +58,11 @@ const baseClass = [
             &.alt-hover:not(.pill):hover,
             &.alt-hover:not(.pill):focus-visible{
                 color: var(--paper-dark);
+            }
+
+            &.no-hover:not(.pill):hover,
+            &.no-hover:not(.pill):focus-visible{
+                color: var(--foreground);
             }
         }
 
@@ -100,11 +104,10 @@ const baseClass = [
     data-hover={theme} 
     data-theme={activeTheme}
     class:list={[
-        baseClass,
+        ...baseClass,
         "link",
         { pill: pill },
         { active: active },
-        bg === "light" ? "" : "alt-hover"
     ]}
     {...rest}
 >

@@ -171,13 +171,13 @@ import { footerNavLinks } from '../../data/navigation.ts';
         <ul role="list">
             {   footerNavLinks.map((link) => (
                 <li>
-                    <Link href={link.href} label={link.label} bg="dark"/>
+                    <Link href={link.href} label={link.label} class="alt-hover"/>
                 </li>
             ))}
         </ul>
     </section>
     <section>
         <h3>Get in touch</h3>
-        <Link href="mailto:hello@mattiabombelli.com" label="hello@mattiabombelli.com" class="italic serif" bg="dark"/>
+        <Link href="mailto:hello@mattiabombelli.com" label="hello@mattiabombelli.com" class="italic serif alt-hover" />
     </section>
 </footer>

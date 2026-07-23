@@ -6,14 +6,14 @@ import { icons } from '../../data/icons.ts';
 export interface Props {
     icon: keyof typeof icons;
     fill?: string;
-    mode?: string;
+    themeMode?: 'normal' | 'invert';
     scale?: string;
 }
 
 const {
     icon,
     fill = "default",
-    mode = "normal",
+    themeMode = "normal",
     scale = "p",
 } = Astro.props;
 
@@ -36,6 +36,6 @@ const size = `var(--text-${scale})`;
         d={icons[icon]}
         class="icon" 
         data-theme={fill} 
-        data-theme-mode={mode}
+        data-theme-mode={themeMode}
     />
 </svg>

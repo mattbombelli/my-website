@@ -13,9 +13,9 @@ export interface Props{
     label: string;
     cta?: boolean;
     theme: string;
-    themeMode?: string;
+    themeMode?: 'normal' | 'invert';
     hover: string;
-    hoverMode?: string;
+    hoverMode?: 'normal' | 'invert';
     border?: boolean;
     noDecoration?: boolean;
 
@@ -174,7 +174,7 @@ const{
         />
         <span
             data-theme={icon.fill}
-            data-theme-mode={icon.mode}
+            data-theme-mode={icon.themeMode}
         >
             <Icon 
             {...icon}
