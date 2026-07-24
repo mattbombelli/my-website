@@ -37,6 +37,7 @@ $desktop: 1440px;
 
     // Grid utility variables
     --gap-x: var(--space-m);
+    --gap-x-large: var(--space-2xl);
     --gap-y-small: var(--space-xs);
     --gap-y: var(--space-l);
     --gap-y-large: var(--space-3xl);
@@ -78,16 +79,84 @@ $desktop: 1440px;
     grid-template-columns: repeat(2, 1fr);
 
     padding: var(--padding-block) var(--padding-inline);
+    
+    // Full bleed intended on mobile only
+    &.full-bleed{
+        padding: var(--padding-block) 0;
+    }
 }
+
 
 @media only screen and (min-width: $tablet) {
     .grid{
         grid-template-columns: repeat(4, 1fr);
+        
+        &.full-bleed{
+            padding: var(--padding-block) var(--padding-inline);
+        }
     }
+
 }
 
 @media only screen and (min-width: $laptop) {
     .grid{
         grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+// Grid utility classes
+.col-left-half{
+    grid-column: span 2;
+
+    @media only screen and (min-width: $laptop){
+        grid-column: 1 / span 3;
+    }
+}
+
+.col-right-half{
+    grid-column: span 2;
+
+    @media only screen and (min-width: $tablet){
+        grid-column: span 2 / 5;
+    }
+
+    @media only screen and (min-width: $laptop){
+        grid-column: span 3 / 7;
+    }
+}
+
+.col-right-wide{
+    grid-column: span 2;
+
+    @media only screen and (min-width: $tablet){
+        grid-column: span 3 / 5;
+    }
+
+    @media only screen and (min-width: $laptop){
+        grid-column: span 4 / 7;
+    }
+}
+
+.col-center{
+    grid-column: span 2;
+    
+    @media only screen and (min-width: $tablet){
+        grid-column: 2 / span 2;
+    }
+
+    @media only screen and (min-width: $laptop){
+        grid-column: 3 / span 2;
+    }
+}
+
+.col-full{
+    grid-column: span 2;
+
+    @media only screen and (min-width: $tablet){
+        grid-column: span 4;
+    }
+
+    @media only screen and (min-width: $laptop){
+        grid-column: span 6;
     }
 }

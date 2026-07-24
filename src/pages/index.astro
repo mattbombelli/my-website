@@ -8,36 +8,91 @@ export const prerender = true;
 
 const posts = await getCollection('posts');
 ---
-<style>
-  div > h1{
-    color:var(--foreground);
-    background:var(--background);
+<style lang="scss">
+  @use '../foundations' as *;
 
-    transition: color var(--duration-slow) var(--ease-press),
-                background var(--duration-slow) var(--ease-press);
-  }
+  section.grid{
+    &:nth-of-type(1){
+      color:var(--foreground);
+      background:var(--background);
+    }
+
+    &:nth-of-type(2){
+      --section-padding-block: var(--space-4xl);
+      --section-gap: var(--space-xl);
+
+      padding: var(--section-padding-block) var(--padding-inline);
+      row-gap: var(--section-gap);
+
+      background:var(--background);
+      p{
+        color: var(--foreground);
+      }
+
+      :global(a){
+        justify-self: center;
+      }
+    }
+  } // section.grid
+
+  @media only screen and (min-width: $tablet){
+    section.grid{
+      &:nth-of-type(2){
+        p{
+          grid-column: span 3 / 5;
+        }
+        :global(a){
+          grid-column: span 4;
+          justify-self: right;
+        }
+      }
+    } // section.grid
+  } // $tablet
+
+  @media only screen and (min-width: $laptop){
+    section.grid{
+      &:nth-of-type(2){
+        p{
+          grid-column: span 3 / 7;
+        }
+        :global(a){
+          grid-column: span 4 / 7;
+          justify-self: right;
+        }
+      }
+    } // section.grid
+  } // $laptop
 </style>
 
 <Layout title="Home">
-  <div>
+  <section class="grid">
     <h1>Welcome to my website!</h1>
-    <p>This is a test page.</p>
+  </section>
+  <section
+    class="grid"
+    data-theme="meadow-mono"
+    data-theme-mode="invert"
+  >
+    <p class="h4 weight-regular col-right-half justified">
+      I am Mattia and this is where I talk a bit about me. I explain my values as designer, my vision, and what I care about. This will be the description where I talk a bit about me. I explain my values as designer, my vision, and what I care about.
+    </p>
     <PrimaryButton 
-      href="/"
+      href="/about"
       label="Read more about me"
-      theme="meadow"
-      hover="marmalade-mono"
+      theme="meadow-mono"
+      class="col-right-wide"
+      hover="default"
       cta
       shape={{
-        variant: "spring",
-        fill: "garnet",
-      }}
-      icon={{
-        icon: "envelope",
-        fill: "cove",
+        variant: "trapezoid",
+        fill: "meadow-mono",
         themeMode: "invert",
       }}
+      icon={{
+        icon: "arrowRight",
+        fill: "flame-mono",
+      }}
     />
-  </div>
+  </section>
 </Layout>
 

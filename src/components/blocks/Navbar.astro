@@ -219,7 +219,7 @@ const currentPage = Astro.url.pathname;
 <nav aria-label="Main navigation menu" class="grid" id="main-menu">
     <Link href="/" label="Mattia Bombelli"/>
     
-    <ul role="list">
+    <ul>
         {mainNavLinks.map((link) => (
             <li>
                 <Link href={link.href} label={link.label} theme={link.theme} activeTheme={link.theme} active={currentPage === link.href} pill/>
@@ -264,7 +264,7 @@ const currentPage = Astro.url.pathname;
     </header>
     
     <nav>
-        <ul role="list" data-theme="default">
+        <ul data-theme="default">
             {mainNavLinks.map((link) => (
                 <li>
                     <Link href={link.href} label={link.label} theme={link.theme} class="h5" active={currentPage === link.href} />

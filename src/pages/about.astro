@@ -1,11 +1,180 @@
 ---
 import Layout from '../layouts/Layout.astro';
----
 
+import PrimaryButton from '../components/blocks/PrimaryButton.astro';
+
+import Figure from '../components/primitives/Figure.astro';
+import Portrait from '../assets/images/me.jpg';
+
+import { breakpoints } from '../data/breakpoints.ts';
+---
+<style lang="scss">
+  @use '../foundations' as *;
+
+  div{
+     ul{
+      list-style-type: none;
+      display:flex;
+      flex-direction: column;
+      gap: var(--space-m);
+      padding:0;
+     }
+  }
+
+  // ingredients
+  section:nth-of-type(3){
+    gap: var(--space-2xl);
+    div{
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-m);
+    }
+  }
+
+  section:nth-of-type(5){
+    background: var(--background);
+    *{
+      color: var(--foreground);
+    }
+  }
+
+  section:nth-of-type(6){
+    :global(a){
+      justify-self: center;
+    }
+  }
+
+  @media only screen and (min-width: $tablet){
+    :global(figure.col-center.full-bleed){
+      max-width: 512px;
+    }
+    section.grid{
+      // title
+      &:nth-of-type(2){
+        h1, h2{
+          // grid-column: 1/5;
+          text-align: center;
+          max-width: 70%;
+          justify-self: center;
+        }
+      }
+
+      // ingredients
+      &:nth-of-type(3){
+        column-gap: var(--gap-x);
+        row-gap: var(--gap-y);
+
+        div:last-of-type{
+          padding-left: var(--space-m);
+          border-left: 2px solid var(--foreground);
+        }
+      }
+
+      // instructions
+      &:nth-of-type(4){
+        column-gap: var(--gap-x-large);
+      }
+    } // section.grid
+  } // $tablet
+
+  @media only screen and (min-width: $laptop){
+    :global(figure.col-center.full-bleed){
+      grid-column: 2 / span 4;
+      justify-self: center;
+    }
+  }
+</style>
 <Layout title="About">
-  <div class="grid">
-    <h1>This is the about page!</h1>
-    <p>This is a test page.</p>
-    
-  </div>
+  <section class="grid full-bleed">
+    <Figure 
+      src={Portrait}
+      alt="A photo of myself holding my camera, in front of a mirror."
+
+      class="col-center full-bleed"
+      
+      widths={[375, 540]}
+      sizes=`
+        (min-width: ${breakpoints.tablet}) 512px,
+        100vw
+      `
+      formats={['webp']}
+      layout='full-width'
+    />
+  </section>
+  <section class="grid">
+    <h1 class="h2 col-full">One part design, one part arts, one part craftsmanship</h1>
+    <h2 class="h3 serif italic col-full">Your recipe for a multi-functional UXer</h2>
+  </section>
+  <section class="grid">
+      <div class="col-left-half">
+        <h3 class="serif italic">Ingredients</h3>
+        <ul class="h5">
+          <li>1 Mattia</li>
+          <li>1 tsp frontend web dev</li>
+          <li>100g Gothic Art</li>
+          <li>200g illustration</li>
+          <li>2tbsp leathercrafting</li>
+        </ul>
+      </div>
+      <div class="col-right-half">
+        <h3 class="serif italic">Toppings</h3>
+        <ul class="h5">
+          <li>1 adorable turtle</li>
+          <li>Cooking</li>
+          <li>Music</li>
+          <li>Photography</li>
+        </ul>
+      </div>
+  </section>
+  <section class="grid">
+    <h2 class="serif italic col-full">Instructions</h2>
+    <div class="prose col-left-half">
+      <p class="h6 sans-serif weight-regular justified">
+        Marinate Mattia with French Expressionism and Gothic art, then add some finely chopped ardour for illustration and storytelling.</p>
+      <p class="h6 sans-serif weight-regular justified">
+        Store him in the Illustration & Animation school of the European Institute of Design (IED) in Milan, Italy, for a few years.
+      </p>
+      <p class="h6 sans-serif weight-regular justified">
+        Once marinated, move him to Vancouver, Canada: keep stirring until he becomes a web developer through further college studies.
+      </p>
+    </div>
+    <div class="prose col-right-half">
+      <p class="h6 sans-serif weight-regular justified">
+        Sauté in freelancing work. Once done, transfer to Keycafe and gently pat him with an extensive variety of multidisciplinary design projects.  Repeat for several years until he becomes the company's Senior Designer.
+      </p>
+      <p class="h6 sans-serif weight-regular justified">
+        To serve, spread with a lovely turtle named Juanita. Top with a fascination for languages and music production. Serve warm.
+      </p>
+      <p class="h6 sans-serif weight-regular justified">
+        Good job! You can now enjoy your new multi-functional designer.
+      </p>
+    </div>
+  </section>
+  <section class="grid" data-theme-mode="invert">
+    <p class="h6 sans-serif weight-regular col-full">
+      Store him in the Illustration & Animation school of the European Institute of Design (IED) in Milan, Italy, for a few years. Store him in the Illustration & Animation school of the European Institute of Design (IED) in Milan, Italy, for a few years.
+    </p>
+  </section>
+  <section class="grid">
+    <PrimaryButton 
+      href="mailto:hello@mattiabombelli.com"
+      label="Get in touch"
+      theme="hibiscus-mono"
+      class="col-full"
+      hover="cove"
+      hoverMode="invert"
+      cta
+      border
+      shape={{
+        variant: "star",
+        fill: "mustard",
+        themeMode: "invert",
+      }}
+      icon={{
+        icon: "envelope",
+        fill: "verdant",
+        themeMode: "invert",
+      }}
+    />
+  </section>
 </Layout>

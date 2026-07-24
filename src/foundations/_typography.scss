@@ -6,6 +6,8 @@
 
 */
 
+@use 'layouts' as *;
+
 :root{
     // Font sizes
     --text-h1: clamp(3.8147rem, 3.6468rem + 0.7164vw, 4.2915rem);
@@ -256,4 +258,33 @@ small, .small{
 
 .serif{
     font-family: var(--font-serif);
+}
+
+.weight-regular{
+    font-weight: 400;
+}
+
+.justified{
+    text-align: justify;
+    text-align-last: left;
+    hyphens: auto;
+    hyphenate-limit-chars: 6 3 3;
+    word-break: break-word;
+}
+
+/* === Typography adjustments === */
+h1, h2, h3, h4, h5, h6, p, small{
+    margin: 0;
+}
+
+.prose{
+    h1{
+        padding-top: var(--space-6xl);
+        padding-bottom: var(--space-3xl);
+    }
+    // TBD
+    p{
+        padding-top: calc(var(--space-s) / 2);
+        padding-bottom: calc(var(--space-s) / 2);
+    }
 }
