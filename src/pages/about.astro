@@ -1,47 +1,75 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '@layouts/Layout.astro';
 
-import PrimaryButton from '../components/blocks/PrimaryButton.astro';
+import PrimaryButton from '@blocks/PrimaryButton.astro';
 
-import Figure from '../components/primitives/Figure.astro';
-import Portrait from '../assets/images/me.jpg';
+import Figure from '@primitives/Figure.astro';
+import Portrait from '@images/me.jpg';
 
-import { breakpoints } from '../data/breakpoints.ts';
+import { breakpoints } from '@data/breakpoints.ts';
 ---
 <style lang="scss">
   @use '../foundations' as *;
 
-  div{
-     ul{
-      list-style-type: none;
-      display:flex;
-      flex-direction: column;
-      gap: var(--space-m);
-      padding:0;
-     }
-  }
+  section.grid{
+    &#ingredients{
+      gap: var(--space-2xl);
 
-  // ingredients
-  section:nth-of-type(3){
-    gap: var(--space-2xl);
-    div{
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-m);
-    }
-  }
+      div{
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-m);
+      }
 
-  section:nth-of-type(5){
-    background: var(--background);
-    *{
-      color: var(--foreground);
+      ul{
+        list-style-type: none;
+        display:flex;
+        flex-direction: column;
+        gap: var(--space-m);
+        padding:0;
+      }
     }
-  }
 
-  section:nth-of-type(6){
-    :global(a){
-      justify-self: center;
+    &#instructions{
+      --instructions-padding-block: var(--space-2xl);
+      padding: var(--instructions-padding-block) var(--padding-inline);
+
+      @media only screen and (min-width: $tablet){
+        --instructions-padding-block: var(--space-3xl);
+      }
     }
+    
+    &#ethics{
+      background: var(--background);
+      padding: var(--space-4xl) var(--padding-inline);
+      *{
+        color: var(--foreground);
+      }
+    }
+
+    &#cta{
+      --cta-padding-block: var(--space-3xl);
+      padding: var(--cta-padding-block) var(--padding-inline);
+
+      @media only screen and (min-width: $tablet){
+        --cta-padding-block: var(--space-4xl);
+      }
+
+      :global(a){
+        justify-self: center;
+      }
+    }
+
+    &#colophon{
+      --colophon-padding-block: var(--space-3xl);
+      padding-bottom: var(--colophon-padding-block);
+
+      @media only screen and (min-width: $tablet){
+          --colophon-padding-block: var(--space-4xl);
+          padding: var(--colophon-padding-block) var(--padding-inline);
+      }
+    }
+
   }
 
   @media only screen and (min-width: $tablet){
@@ -49,18 +77,18 @@ import { breakpoints } from '../data/breakpoints.ts';
       max-width: 512px;
     }
     section.grid{
-      // title
-      &:nth-of-type(2){
+      &#header{
+        padding-top: var(--space-3xl);
+        padding-bottom: var(--space-4xl);
+
         h1, h2{
-          // grid-column: 1/5;
           text-align: center;
           max-width: 70%;
           justify-self: center;
         }
       }
 
-      // ingredients
-      &:nth-of-type(3){
+      &#ingredients{
         column-gap: var(--gap-x);
         row-gap: var(--gap-y);
 
@@ -70,8 +98,7 @@ import { breakpoints } from '../data/breakpoints.ts';
         }
       }
 
-      // instructions
-      &:nth-of-type(4){
+      &#instructions{
         column-gap: var(--gap-x-large);
       }
     } // section.grid
@@ -82,14 +109,22 @@ import { breakpoints } from '../data/breakpoints.ts';
       grid-column: 2 / span 4;
       justify-self: center;
     }
+
+    section.grid{
+      &#ethics{
+        p{
+          grid-column: 2 / span 4;
+          text-indent: var(--space-2xl);
+        }
+      }
+    }
   }
 </style>
 <Layout title="About">
-  <section class="grid full-bleed">
+  <section id="portrait" class="grid full-bleed">
     <Figure 
       src={Portrait}
-      alt="A photo of myself holding my camera, in front of a mirror."
-
+      alt="Myself holding my camera, in front of a mirror."
       class="col-center full-bleed"
       
       widths={[375, 540]}
@@ -99,13 +134,14 @@ import { breakpoints } from '../data/breakpoints.ts';
       `
       formats={['webp']}
       layout='full-width'
+      loading='eager'
     />
   </section>
-  <section class="grid">
+  <section id="header" class="grid">
     <h1 class="h2 col-full">One part design, one part arts, one part craftsmanship</h1>
     <h2 class="h3 serif italic col-full">Your recipe for a multi-functional UXer</h2>
   </section>
-  <section class="grid">
+  <section id="ingredients" class="grid">
       <div class="col-left-half">
         <h3 class="serif italic">Ingredients</h3>
         <ul class="h5">
@@ -126,7 +162,7 @@ import { breakpoints } from '../data/breakpoints.ts';
         </ul>
       </div>
   </section>
-  <section class="grid">
+  <section id="instructions" class="grid">
     <h2 class="serif italic col-full">Instructions</h2>
     <div class="prose col-left-half">
       <p class="h6 sans-serif weight-regular justified">
@@ -150,12 +186,12 @@ import { breakpoints } from '../data/breakpoints.ts';
       </p>
     </div>
   </section>
-  <section class="grid" data-theme-mode="invert">
+  <section id="ethics" class="grid" data-theme-mode="invert">
     <p class="h6 sans-serif weight-regular col-full">
       Store him in the Illustration & Animation school of the European Institute of Design (IED) in Milan, Italy, for a few years. Store him in the Illustration & Animation school of the European Institute of Design (IED) in Milan, Italy, for a few years.
     </p>
   </section>
-  <section class="grid">
+  <section id="cta" class="grid">
     <PrimaryButton 
       href="mailto:hello@mattiabombelli.com"
       label="Get in touch"
@@ -176,5 +212,19 @@ import { breakpoints } from '../data/breakpoints.ts';
         themeMode: "invert",
       }}
     />
+  </section>
+  <section id="colophon" class="grid">
+    <h3 class="col-left-wide h4 serif">Colophon</h3>
+    <p class="col-left-wide h6 sans-serif weight-regular">
+      Every design has its influences. Here’s a small part of this one’s family tree:
+    </p>
+    <p class="col-left-wide h6 sans-serif weight-regular">
+      Inspirations include: Monocle, Kinfolk, Aperture and Uppercase printed magazines; Memphis Group’s style, and risograph color palettes. <br />
+      Typography: Nudica by atipo foundry; Libre Baskerville by Impallary Type.
+    </p>
+    <p class="col-left-wide h6 sans-serif weight-regular">
+      Designed in Figma and developed with Astro.js.<br />
+      Built to show my work as UX designer, and as a person.
+    </p>
   </section>
 </Layout>

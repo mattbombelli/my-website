@@ -1,5 +1,5 @@
 ---
-import '../../styles/global.scss';
+import '@style/global.scss';
 
 export interface Props {
     label: string;
@@ -87,6 +87,7 @@ const baseClass = [
     }
     
     .link.pill{
+        border:.1em solid transparent;
         padding: var(--space-xs) var(--space-s);
         border-radius: var(--radius-pill);
         transition: color var(--duration-default) var(--ease-default),
@@ -94,6 +95,7 @@ const baseClass = [
         &:hover,
         &:focus-visible,
         &.active{
+            // border:.1em solid var(--hibiscus-dark);
             background: var(--background);
         }
     }

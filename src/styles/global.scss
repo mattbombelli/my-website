@@ -2,6 +2,10 @@
 
 *{
     box-sizing: border-box;
+
+    &:focus-visible{
+        box-shadow: 0px 0px 0px 0.3em var(--paper-base), 0px 0px 0px 0.4em var(--foreground);
+    }
 }
 
 body{

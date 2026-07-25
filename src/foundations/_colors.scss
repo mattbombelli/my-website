@@ -8,44 +8,48 @@
 :root{
     /* === Palette === */
     // Base colors for the entire website
-    --ink-base: hsla(23, 17%, 9%, 1);
-    --paper-base: hsla(27, 39%, 95%, 1);
+    --ink-base: hsl(23, 17%, 9%);
+    --paper-base: hsl(27, 39%, 95%);
 
-    --ink-light: hsla(20, 5%, 34%, 1);
-    --paper-dark: hsla(30, 3%, 85%, 1);
+    --ink-light: hsl(20, 5%, 34%);
+    --paper-dark: hsl(30, 3%, 85%);
 
     // Sunflower
-    --sunflower-base: hsla(48, 100%, 51%, 1);
-    --sunflower-dark: hsla(49, 100%, 19%, 1);
+    --sunflower-light: hsl(48, 100%, 51%);
+    --sunflower-base: hsl(49, 100%, 32%);
+    --sunflower-dark: hsl(49, 100%, 19%);
 
     // Mustard
-    --mustard-light: hsla(31, 61%, 77%, 1);
-    --mustard-base: hsla(36, 79%, 57%, 1);
-    --mustard-dark: hsla(36, 84%, 15%, 1);
+    --mustard-light: hsl(31, 61%, 77%);
+    --mustard-base: hsl(36, 79%, 57%);
+    --mustard-base: hsl(36, 100%, 39%);
+    --mustard-dark: hsl(36, 84%, 15%);
 
     // Marmalade
-    --marmalade-light: hsla(14, 100%, 84%, 1);
-    --marmalade-base: hsla(12, 98%, 61%, 1);
-    --marmalade-dark: hsla(14, 100%, 23%, 1);
+    --marmalade-light: hsl(14, 100%, 84%);
+    // --marmalade-base: hsl(12, 98%, 61%);
+    --marmalade-base: hsl(12, 100%, 56%);
+    --marmalade-dark: hsl(14, 100%, 23%);
 
     // Flame
-    --flame-light: hsla(355, 100%, 86%, 1);
-    --flame-base: hsla(356, 86%, 59%, 1);
-    --flame-dark: hsla(356, 100%, 30%, 1);
+    --flame-light: hsl(355, 100%, 86%);
+    --flame-base: hsl(356, 86%, 59%);
+    --flame-dark: hsl(356, 100%, 30%);
 
     // Hibiscus
-    --hibiscus-light: hsla(323, 70%, 87%, 1);
-    --hibiscus-base: hsla(326, 100%, 64%, 1);
-    --hibiscus-dark: hsla(324, 100%, 31%, 1);
+    --hibiscus-light: hsl(323, 70%, 87%);
+    // --hibiscus-base: hsl(326, 100%, 64%);
+    --hibiscus-base: hsl(326, 100%, 60%);
+    --hibiscus-dark: hsl(324, 100%, 31%);
 
     // Cobalt
-    --cobalt-light: hsla(193, 100%, 80%, 1);
-    --cobalt-base: hsla(231, 69%, 50%, 1);
+    --cobalt-light: hsl(193, 100%, 80%);
+    --cobalt-base: hsl(231, 69%, 50%);
 
     // Meadow
-    --meadow-light: hsla(140, 80%, 55%, 1);
-    --meadow-base: hsla(123, 27%, 48%, 1);
-    --meadow-dark: hsla(163, 100%, 15%, 1);
+    --meadow-light: hsl(140, 80%, 55%);
+    --meadow-base: hsl(123, 27%, 48%);
+    --meadow-dark: hsl(163, 100%, 15%);
 
     // Utility variables
     --ink: var(--ink-base);
@@ -206,7 +210,7 @@
 // Monochromes
 [data-theme='sunflower-mono']{
     --ink: var(--sunflower-dark);
-    --paper: var(--sunflower-base);
+    --paper: var(--sunflower-light);
 
     --foreground: var(--ink);
     --background: var(--paper);
@@ -215,7 +219,7 @@
     [data-hover='sunflower-mono']:hover,
     [data-hover='sunflower-mono']:focus-visible{
         --ink: var(--sunflower-dark);
-        --paper: var(--sunflower-base);
+        --paper: var(--sunflower-light);
 
         --foreground: var(--ink);
         --background: var(--paper);
@@ -334,7 +338,7 @@
 // Accents
 [data-theme='garnet']{
     --ink: var(--flame-dark);
-    --paper: var(--sunflower-base);
+    --paper: var(--sunflower-light);
 
     --foreground: var(--ink);
     --background: var(--paper);
@@ -343,7 +347,7 @@
     [data-hover='garnet']:hover,
     [data-hover='garnet']:focus-visible{
         --ink: var(--flame-dark);
-        --paper: var(--sunflower-base);
+        --paper: var(--sunflower-light);
 
         --foreground: var(--ink);
         --background: var(--paper);
@@ -416,6 +420,42 @@
     [data-hover='umbral']:focus-visible{
         --ink: var(--sunflower-dark);
         --paper: var(--meadow-light);
+
+        --foreground: var(--ink);
+        --background: var(--paper);
+    }    
+}
+
+[data-theme='chocolate']{
+    --ink: var(--mustard-dark);
+    --paper: var(--cobalt-light);
+
+    --foreground: var(--ink);
+    --background: var(--paper);
+}
+@media(hover:hover) and (pointer:fine){
+    [data-hover='chocolate']:hover,
+    [data-hover='chocolate']:focus-visible{
+        --ink: var(--mustard-dark);
+        --paper: var(--cobalt-light);
+
+        --foreground: var(--ink);
+        --background: var(--paper);
+    }    
+}
+
+[data-theme='jungle']{
+    --ink: var(--meadow-dark);
+    --paper: var(--marmalade-light);
+
+    --foreground: var(--ink);
+    --background: var(--paper);
+}
+@media(hover:hover) and (pointer:fine){
+    [data-hover='jungle']:hover,
+    [data-hover='jungle']:focus-visible{
+        --ink: var(--meadow-dark);
+        --paper: var(--marmalade-light);
 
         --foreground: var(--ink);
         --background: var(--paper);

@@ -1,9 +1,9 @@
 ---
-import '../../styles/global.scss';
+import '@style/global.scss';
 
-import Link from '../primitives/Link.astro';
-import { mainNavLinks } from '../../data/navigation.ts';
-import Icon from '../primitives/Icon.astro';
+import Link from '@primitives/Link.astro';
+import { mainNavLinks } from '@data/navigation.ts';
+import Icon from '@primitives/Icon.astro';
 
 const currentPage = Astro.url.pathname;
 ---

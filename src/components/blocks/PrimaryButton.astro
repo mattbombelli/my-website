@@ -1,11 +1,11 @@
 ---
-import '../../styles/global.scss';
+import '@style/global.scss';
 
-import Shape from '../primitives/Shape.astro';
-import type { Props as ShapeProps } from '../primitives/Shape.astro';
+import Shape from '@primitives/Shape.astro';
+import type { Props as ShapeProps } from '@primitives/Shape.astro';
 
-import Icon from '../primitives/Icon.astro';
-import type { Props as IconProps } from '../primitives/Icon.astro';
+import Icon from '@primitives/Icon.astro';
+import type { Props as IconProps } from '@primitives/Icon.astro';
 
 export interface Props{
     // <a> element's own 
@@ -52,11 +52,47 @@ const{
         --button-foreground: var(--foreground);
 
         display: inline-flex;
-        text-decoration:none;
+        text-decoration: none;
+
+        &.cta{
+            @media only screen and (min-width: $tablet){
+                --a-height: var(--space-4xl);
+
+                span.button{
+                    --type-button-size: var(--text-h4);
+                    --padding-inline-button: var(--space-l);
+                    --padding-block-button: var(--space-xl);
+                }
+
+
+                .decoration{
+                    span{
+                        padding: var(--space-l);
+                    }
+                }
+            }
+
+            @media only screen and (min-width: $laptop){
+                --min-a-width: var(--space-7xl);
+                --a-height: var(--space-5xl);
+
+                span.button{
+                    --type-button-size: var(--text-h3);
+                    --padding-inline-button: var(--space-xl);
+                    --padding-block-button: var(--space-3xl);
+                }
+
+                .decoration{
+                    span{
+                        padding: var(--space-xl);
+                    }
+                }
+            }
+        }
 
         span.button{
             --type-button-size: var(--text-h6);
-            --padding-inline-button: var(--space-m);
+            --padding-inline-button: var(--space-xs);
             --padding-block-button: var(--space-m);
 
             @media only screen and (min-width: $tablet){
@@ -90,9 +126,17 @@ const{
             }
         }
 
+        &:hover,
+        &:focus-visible{
+            span.button{
+                border-color: transparent;
+            }
+        }
+
         .decoration{
             display:none;
         }
+
     }
 
     @media only screen and (min-width: $tablet){
@@ -110,11 +154,7 @@ const{
                     opacity: 0;
                     visibility: hidden;
                 }
-            }
-            
-            &.cta{
-                
-            }
+            }            
             
             .decoration{
                 height: 100%;
@@ -148,9 +188,6 @@ const{
             
             &:hover,
             &:focus-visible{
-                span.button{
-                    border-color: transparent;
-                }
                 .decoration{
                     translate: 0 calc(-1 * var(--a-height));
 

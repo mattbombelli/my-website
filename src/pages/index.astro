@@ -1,25 +1,31 @@
 ---
 import { getCollection } from 'astro:content';
-import Layout from '../layouts/Layout.astro';
-
-import PrimaryButton from '../components/blocks/PrimaryButton.astro';
+import Layout from '@layouts/Layout.astro';
+import PrimaryButton from '@blocks/PrimaryButton.astro';
+import ProjectCard from '@templates/ProjectCard.astro';
+import Portrait from '@images/me.jpg';
+import { breakpoints } from '@data/breakpoints.ts';
 
 export const prerender = true;
 
-const posts = await getCollection('posts');
+const caseStudies = await getCollection('caseStudies');
 ---
 <style lang="scss">
   @use '../foundations' as *;
 
-  section.grid{
+  section{
     &:nth-of-type(1){
       color:var(--foreground);
       background:var(--background);
+
+      pre{
+        grid-column: span 2;
+      }
     }
 
-    &:nth-of-type(2){
+    &#about-me{
       --section-padding-block: var(--space-4xl);
-      --section-gap: var(--space-xl);
+      --section-gap: var(--space-2xl);
 
       padding: var(--section-padding-block) var(--padding-inline);
       row-gap: var(--section-gap);
@@ -33,11 +39,31 @@ const posts = await getCollection('posts');
         justify-self: center;
       }
     }
+
+    &#highlighted-projects{
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-y);
+      padding-top: var(--space-3xl);
+    }
+
+    &#cta{
+      --cta-padding-block: var(--space-3xl);
+      padding: var(--cta-padding-block) var(--padding-inline);
+
+      @media only screen and (min-width: $tablet){
+        --cta-padding-block: var(--space-4xl);
+      }
+
+      :global(a){
+        justify-self: center;
+      }
+    }
   } // section.grid
 
   @media only screen and (min-width: $tablet){
     section.grid{
-      &:nth-of-type(2){
+      &#about-me{
         p{
           grid-column: span 3 / 5;
         }
@@ -51,7 +77,7 @@ const posts = await getCollection('posts');
 
   @media only screen and (min-width: $laptop){
     section.grid{
-      &:nth-of-type(2){
+      &#about-me{
         p{
           grid-column: span 3 / 7;
         }
@@ -66,9 +92,20 @@ const posts = await getCollection('posts');
 
 <Layout title="Home">
   <section class="grid">
-    <h1>Welcome to my website!</h1>
+    <h1>Welcome to my website! Benvenuti nel mio sito</h1>
+    <pre>
+    /\_____/\
+   /  o   o  \
+  ( ==  ^  == )
+   )         (
+  (           )
+ ( (  )   (  ) )
+(__(__)___(__)__)
+      
+    </pre>
   </section>
   <section
+    id="about-me"
     class="grid"
     data-theme="meadow-mono"
     data-theme-mode="invert"
@@ -78,11 +115,10 @@ const posts = await getCollection('posts');
     </p>
     <PrimaryButton 
       href="/about"
-      label="Read more about me"
+      label="More about me"
       theme="meadow-mono"
       class="col-right-wide"
       hover="default"
-      cta
       shape={{
         variant: "trapezoid",
         fill: "meadow-mono",
@@ -91,6 +127,65 @@ const posts = await getCollection('posts');
       icon={{
         icon: "arrowRight",
         fill: "flame-mono",
+      }}
+    />
+  </section>
+  <section id="highlighted-projects">
+    {caseStudies.map(caseStudy => (
+      <ProjectCard
+        title={caseStudy.data.title}
+        excerpt={caseStudy.data.excerpt}
+        image={{
+          src: caseStudy.data.cover,
+          alt: caseStudy.data.coverAlt,
+          widths: [375, 540],
+          sizes: `
+              (min-width: ${breakpoints.tablet}) 512px,
+              100vw
+            `,
+          formats: ['webp'],
+          fit: 'cover',
+          layout: 'constrained',
+        }}
+        button={{
+          href: "/ux/" + caseStudy.id,
+          theme: 'marmalade',
+          hover: 'meadow',
+          shape: {
+            variant: 'spring',
+            fill: 'meadow',
+            themeMode: 'invert',
+          },
+          icon: {
+            icon: 'arrowRight',
+            fill: 'chocolate',
+          }
+        }}
+      />
+    ))}
+  </section>
+  <section
+    id="cta"
+    class="grid"
+  >
+    <PrimaryButton 
+      href="mailto:hello@mattiabombelli.com"
+      label="View all case studies"
+      theme="marmalade-mono"
+      class="col-full"
+      hover="mustard"
+      hoverMode="normal"
+      cta
+      border
+      shape={{
+        variant: "donut",
+        fill: "marmalade",
+        themeMode: "invert",
+      }}
+      icon={{
+        icon: "arrowRight",
+        fill: "chocolate",
+        themeMode: "invert",
       }}
     />
   </section>

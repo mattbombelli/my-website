@@ -137,6 +137,18 @@ $desktop: 1440px;
     }
 }
 
+.col-left-wide{
+    grid-column: span 2;
+
+    @media only screen and (min-width: $tablet){
+        grid-column: 1 / span 3;
+    }
+
+    @media only screen and (min-width: $laptop){
+        grid-column: 1 / span 4;
+    }
+}
+
 .col-center{
     grid-column: span 2;
     
