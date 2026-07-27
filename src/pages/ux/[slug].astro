@@ -1,28 +1,52 @@
 ---
-import { getCollection, getEntry, render } from 'astro:content';
+import { createReader } from '@keystatic/core/reader';
+import Markdoc from "@markdoc/markdoc";
+import keystaticConfig from '@root/keystatic.config';
+
 import Layout from '../../layouts/Layout.astro';
 
+// Generate static pages
+export async function getStaticPaths() {
+    const reader = createReader(process.cwd(), keystaticConfig);
+    const slugs = await reader.collections.caseStudies.list();
+    return slugs.map(slug => ({ params: { slug }}));
+}
 export const prerender = true;
 
 const { slug } = Astro.params;
 if (!slug) throw new Error('Slug not found');
-const caseStudy = await getEntry('caseStudies', slug);
 
-if (!caseStudy) throw new Error('No post found for this slug');
-const { Content } = await render(caseStudy);
+const allZoneContent = import.meta.glob<{ default: any }>('../../content/ux/**/content.mdoc');
 
-// Generate static pages
-export async function getStaticPaths() {
-  const caseStudies = await getCollection('caseStudies');
-  return caseStudies.map(post => ({ params: { slug: post.id } }));
-}
+const reader = createReader(process.cwd(), keystaticConfig);
+const caseStudy = await reader.collections.caseStudies.read(slug, { resolveLinkedFiles: true });
+if (!caseStudy) throw new Error('No post found with this slug');
 ---
 
-<Layout title={caseStudy.data.title}>
+<Layout title=>
     <section class="grid">
-        <h1>{caseStudy.data.title}</h1>
+        <h1>Title</h1>
     </section>
-    <section class="grid">
-        <Content />
-    </section>
+    <main>
+        {
+            caseStudy?.sections.map((section, sectionIndex) => {
+                
+                return <section class="grid">
+                    {
+                        section.zones?.map(async (zone) => {
+                            const zonePath = `../../content/ux/${slug}/sections/${sectionIndex}`;
+                            const zoneModule = await allZoneContent[zonePath]?.();
+                            const Content = zoneModule?.default;
+                            
+                            const rawMarkdown = Markdoc.transform(zone.content.node);
+                            const html = Markdoc.renderers.html(rawMarkdown);
+
+                            return <div class="zone" set:html={html} />;
+                            {Content && <Content />}
+                        })
+                    }
+                </section>
+            })
+        }
+    </main>
 </Layout>

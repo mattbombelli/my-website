@@ -57,59 +57,41 @@ export default config({
         }),
         sections: fields.array(
           fields.object({
+            description: fields.text({
+              label: 'Section content',
+              description: 'This description is used exclusively in Keystatic, to identify each section.',
+              validation: {
+                isRequired: true
+              }
+            }),
             zones: fields.array(
               fields.object({
-                // zone: fields.conditional({
-                //   label: 'Image zone',
-                //   description: 'Turn this checkbox on if this zone is supposed to have an image.',
-                //   defaultValue: false,
-                // }),
-
-                // Written content
                 content: fields.markdoc({
-                  label: "Card content",
-                }),
-
-                // Image content
-                image: fields.object({
-                  src: fields.image({
-                    label: 'Image',
-                    directory: 'src/assets/images/ux/',
-                    publicPath: '@images/ux/',
-                  }),
-                  alt: fields.text({
-                    label: 'Alt text',
-                    validation: {
-                      isRequired: true,
-                    },
-                  }),
-                  caption: fields.text({
-                    label: 'Caption',
-                    multiline: true,
-                  }),
-                }, {
-                  label: 'Image',
+                  label: 'Zone content',
+                  options: {
+                    image: {
+                      directory: 'src/assets/images/ux/',
+                      publicPath: '/src/assets/images/ux/'
+                    }
+                  }
                 }),
 
                 // Zone layout: desktop
                 desktop: fields.object({
                   columnSpan: fields.select({
-                    label: "Column span",
-                    description:
-                      "Choose how many columns this card will occupy.",
+                    label: "Columns",
                     options: [
-                      { label: "1", value: "1" },
-                      { label: "2", value: "2" },
-                      { label: "3", value: "3" },
-                      { label: "4", value: "4" },
-                      { label: "5", value: "5" },
-                      { label: "6", value: "6" }
+                      { label: "span 1", value: "1" },
+                      { label: "span 2", value: "2" },
+                      { label: "span 3", value: "3" },
+                      { label: "span 4", value: "4" },
+                      { label: "span 5", value: "5" },
+                      { label: "span 6", value: "6" }
                     ],
                     defaultValue: "2",
                   }),
                   columnOffset: fields.select({
-                    label: "Column offset",
-                    description: "Choose from which column this element will start from.",
+                    label: "Offset",
                     options: [
                       { label: "1", value: "1" },
                       { label: "2", value: "2" },
@@ -120,26 +102,25 @@ export default config({
                     defaultValue: "2",
                   }),
                 }, {
-                  label: "Desktop & Laptop layout"
+                  label: "Desktop & Laptop layout",
+                  description: "Define this zone's layout for desktop & laptop screens.",
+                  layout: [6, 6]
                 }), // desktop object
 
                 // Zone layout: tablet
                 tablet: fields.object({
                   columnSpan: fields.select({
-                    label: "Column span",
-                    description:
-                      "Choose how many columns on tablet this card will take.",
+                    label: "Columns",
                     options: [
-                      { label: "1", value: "1" },
-                      { label: "2", value: "2" },
-                      { label: "3", value: "3" },
-                      { label: "4", value: "4" },
+                      { label: "span 1", value: "1" },
+                      { label: "span 2", value: "2" },
+                      { label: "span 3", value: "3" },
+                      { label: "span 4", value: "4" },
                     ],
                     defaultValue: "2",
                   }),
                   columnOffset: fields.select({
-                    label: "Column offset",
-                    description: "Choose where this element will start from.",
+                    label: "Offset",
                     options: [
                       { label: "1", value: "1" },
                       { label: "2", value: "2" },
@@ -149,6 +130,7 @@ export default config({
                   }),
                 }, {
                   label: "Tablet layout",
+                  layout: [6, 6]
                 }), // tablet
 
                 // Zone layout: mobile
@@ -162,13 +144,13 @@ export default config({
               }), // zone object
               {
                 label: 'Zones',
-                itemLabel: (props) => 'Zone',
+                itemLabel: (props) => 'zone',
               }
             ), // zones array
           }),
           {
             label: 'Page content',
-            itemLabel: (props) => 'Section grid',
+            itemLabel: (props) => props.fields.description.value,
           }
         ), // section array
       },

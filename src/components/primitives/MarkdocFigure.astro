@@ -1,0 +1,19 @@
+---
+import Figure from './Figure.astro';
+
+export interface Props{
+    src: string;
+    alt: string;
+    title?: string;
+}
+
+const { src, alt, title } = Astro.props;
+
+const { default: resolvedImage } = await import(/* @vite-ignore */ src);
+console.log(src);
+---
+<Figure
+    src={resolvedImage}
+    alt={alt}
+    caption={title}
+/>

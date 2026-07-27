@@ -11,13 +11,32 @@ const posts = defineCollection({
   }),
 });
 
+
 const caseStudies = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdoc}', base: './src/content/ux' }),
+  loader: glob({ pattern: '*.json', base: './src/content/ux' }),
   schema: ({ image }) => z.object({
     title: z.string(),
     cover: image(),
     coverAlt: z.string(),
     excerpt: z.string(),
+    sections: z.array(
+      z.object({
+        description: z.string(),
+        zones: z.array(
+          z.object({
+            desktop: z.object({
+              columnSpan: z.string(),
+              columnOffset: z.string(),
+            }),
+            tablet: z.object({
+              columnSpan: z.string(),
+              columnOffset: z.string(),
+            }),
+            mobileOrder: z.number(),
+          }) // zone object
+        ), // zones
+      }), // section object
+    ), // sections
   }),
 });
 
