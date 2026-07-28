@@ -8,8 +8,9 @@ export interface Props{
 }
 
 const { src, alt, title } = Astro.props;
+const decodedSrc = decodeURIComponent(src);
 
-const { default: resolvedImage } = await import(/* @vite-ignore */ src);
+const { default: resolvedImage } = await import(/* @vite-ignore */ decodedSrc);
 console.log(src);
 ---
 <Figure

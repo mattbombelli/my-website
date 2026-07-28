@@ -1,9 +1,10 @@
 ---
 import { createReader } from '@keystatic/core/reader';
-import Markdoc from "@markdoc/markdoc";
+import { resolveImage } from '../../utils/resolveImage';
 import keystaticConfig from '@root/keystatic.config';
 
 import Layout from '../../layouts/Layout.astro';
+import Figure from '@primitives/Figure.astro';
 
 // Generate static pages
 export async function getStaticPaths() {
@@ -16,35 +17,94 @@ export const prerender = true;
 const { slug } = Astro.params;
 if (!slug) throw new Error('Slug not found');
 
-const allZoneContent = import.meta.glob<{ default: any }>('../../content/ux/**/content.mdoc');
+const allZoneContent = import.meta.glob<{ Content: any }>('../../content/ux/**/*.mdoc');
 
 const reader = createReader(process.cwd(), keystaticConfig);
 const caseStudy = await reader.collections.caseStudies.read(slug, { resolveLinkedFiles: true });
 if (!caseStudy) throw new Error('No post found with this slug');
+
+const sections = await Promise.all(
+    caseStudy.sections.map(async (section, sectionIndex) => ({
+        ...section,
+        zones: await Promise.all(
+            section.zones.map(async (zone, zoneIndex) => {
+                const zonePath = `../../content/ux/${slug}/sections/${sectionIndex}/zones/${zoneIndex}/content/value.mdoc`;
+                const zoneModule = await allZoneContent[zonePath]?.();
+
+                console.log('discriminant:', zone.content.discriminant);
+                console.log('zonePath:', zonePath);
+                console.log('zoneModule:', zoneModule);
+                console.log(Object.keys(allZoneContent));
+
+                return {
+                    ...zone,
+                    Content: zoneModule?.Content,
+                    resolvedImage: await resolveImage(
+                        zone.content.discriminant
+                            ? zone.content.value.image
+                            : null
+                    ),
+                }
+            })
+        )
+    }))
+);
 ---
+<style lang="scss">
+    @use '../../foundations' as *;
+
+    section.grid{
+        &:has(figure){
+            padding:var(--padding-block) 0;
+        }
+        
+        .zone{
+            grid-column: span 2;
+    
+    
+            oder: var(--mobile-order, "initial");
+    
+            @media only screen and (min-width: $tablet){
+                grid-column: var(--offset-tablet, 2) / span var(--span-tablet, 2);
+            }
+    
+            @media only screen and (min-width: $laptop){
+                grid-column: var(--offset-default, 2) / span var(--span-default, 2);
+            }
+        }
+    }
+</style>
 
 <Layout title=>
     <section class="grid">
         <h1>Title</h1>
     </section>
-    <main>
+    <main class="prose">
         {
-            caseStudy?.sections.map((section, sectionIndex) => {
-                
+            sections.map((section, sectionIndex) => { 
                 return <section class="grid">
-                    {
-                        section.zones?.map(async (zone) => {
-                            const zonePath = `../../content/ux/${slug}/sections/${sectionIndex}`;
-                            const zoneModule = await allZoneContent[zonePath]?.();
-                            const Content = zoneModule?.default;
-                            
-                            const rawMarkdown = Markdoc.transform(zone.content.node);
-                            const html = Markdoc.renderers.html(rawMarkdown);
+                    {section.zones.map((zone) => (
 
-                            return <div class="zone" set:html={html} />;
-                            {Content && <Content />}
-                        })
-                    }
+                        <div
+                            class="zone"
+                            style={`
+                                --span-default: ${zone.desktop.columnSpan};
+                                --offset-default: ${zone.desktop.columnOffset};
+                                --span-tablet: ${zone.tablet.columnSpan};
+                                --offset-tablet: ${zone.tablet.columnOffset};
+                                order: ${ zone.mobileOrder == 0 ? "initial" : zone.mobileOrder};
+                            `}
+                        >
+                            { zone.content.discriminant  
+                                ? <Figure
+                                    src={zone.resolvedImage}
+                                    alt={zone.content.value.alt}
+                                    caption={zone.content.value.caption}
+                                />
+                                : zone.Content && <zone.Content />
+                            }
+                        </div>
+                    ))}
                 </section>
             })
         }

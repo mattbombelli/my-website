@@ -66,14 +66,34 @@ export default config({
             }),
             zones: fields.array(
               fields.object({
-                content: fields.markdoc({
-                  label: 'Zone content',
-                  options: {
-                    image: {
-                      directory: 'src/assets/images/ux/',
-                      publicPath: '/src/assets/images/ux/'
-                    }
-                  }
+                content: fields.conditional(
+                  fields.checkbox({
+                    label: 'Image field',
+                    defaultValue: false,
+                  }),
+                  {
+                    true: fields.object({
+                      image: fields.image({
+                        label: 'Image',
+                        directory: "src/assets/images/ux/",
+                        publicPath: "@images/ux/",
+                        validation: {
+                          isRequired: true,
+                        }
+                      }),
+                      alt: fields.text({
+                        label: 'Alt text',
+                        validation: {
+                          isRequired: true,
+                        }
+                      }),
+                      caption: fields.text({
+                        label: 'Caption',
+                      })
+                    }),
+                    false: fields.markdoc({
+                      label: 'Zone content',
+                    })
                 }),
 
                 // Zone layout: desktop
