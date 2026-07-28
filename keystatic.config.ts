@@ -66,6 +66,9 @@ export default config({
             }),
             zones: fields.array(
               fields.object({
+                title: fields.text({
+                  label: 'Section content'
+                }),
                 content: fields.conditional(
                   fields.checkbox({
                     label: 'Image field',
@@ -91,9 +94,37 @@ export default config({
                         label: 'Caption',
                       })
                     }),
-                    false: fields.markdoc({
-                      label: 'Zone content',
-                    })
+                    false: fields.object({
+                      content: fields.markdoc({
+                        label: 'Content',
+                      }),
+
+                      alignment: fields.select({
+                        label: "Text alignment",
+                        description: "Changes the text alignment within the page",
+                        options: [
+                          { label: 'Left', value: 'left'},
+                          { label: 'Center', value: 'center'},
+                          { label: 'Right', value: 'right'},
+                        ],
+                        defaultValue: 'left'
+                      }),
+
+                      typography: fields.checkbox({
+                        label: 'Invert font family',
+                        description: 'Invert the fonts associated with the content.',
+                        defaultValue: false,
+                      }),
+                      
+                      theme: fields.checkbox({
+                        label: "Invert zone's theme",
+                        description: "Invert the zone's theme colors.",
+                        defaultValue: false,
+                      }),
+                    }, {
+                      label: 'Text',
+                      layout: [12,12,6,6]
+                    }),
                 }),
 
                 // Zone layout: desktop
@@ -161,13 +192,26 @@ export default config({
                   step: 1,
                   defaultValue: 0,
                 }),
+
               }), // zone object
               {
                 label: 'Zones',
-                itemLabel: (props) => 'zone',
+                itemLabel: (props) => {
+                  if (props.fields.content.discriminant){
+                    return 'Image'
+                  } else {
+                    return props.fields.title.value ? props.fields.title.value : 'Text'
+                  }
+                },
               }
             ), // zones array
+            theme: fields.checkbox({
+              label: "Invert section's theme",
+              description: "Invert the section's theme colors.",
+              defaultValue: false,
+            }),
           }),
+          
           {
             label: 'Page content',
             itemLabel: (props) => props.fields.description.value,

@@ -43,6 +43,7 @@ $desktop: 1440px;
     --gap-y-large: var(--space-3xl);
     --padding-inline: var(--space-s);
     --padding-block: var(--space-2xl);
+    --padding-block-extra: var(--space-4xl);
 }
 
 @media only screen and (min-width: $tablet) {
@@ -74,7 +75,7 @@ $desktop: 1440px;
     display: grid;
     column-gap: var(--gap-x);
     row-gap: var(--gap-y);
-    grid-auto-flow: row;
+    grid-auto-flow: row dense;
     grid-auto-rows: auto;
     grid-template-columns: repeat(2, 1fr);
 

@@ -4,11 +4,7 @@ export default defineMarkdocConfig({
     nodes: {
         document: {
             ...nodes.document,
-            render: null,
+            render: component('./src/components/primitives/MarkdocDocument.astro'),
         },
-        image: {
-            ...nodes.image, 
-            render: component('./src/components/primitives/MarkdocFigure.astro'),
-        }
     }
 });

@@ -1,0 +1,72 @@
+{
+  "title": "Reimagining Forvo",
+  "cover": "@images/ux/reimagining-forvo/cover.jpg",
+  "coverAlt": "A hand holding a smartphone, showing the proposed redesign of the Forvo mobile app.",
+  "excerpt": "Cepalin snailfish flounder snubnose eel wallago lake whitefish bango smelt flying gurnard, roanoke bass batfish pike. Bluntnose knifefish, Black scabbardfish pejerrey Russian sturgeon cichlid bobtail snipe eel.",
+  "sections": [
+    {
+      "description": "Intro",
+      "zones": [
+        {
+          "title": "Title",
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "6",
+            "columnOffset": "2"
+          },
+          "tablet": {
+            "columnSpan": "4",
+            "columnOffset": "1"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "2"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "1"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "4"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "3"
+          },
+          "mobileOrder": 0
+        }
+      ],
+      "theme": false
+    }
+  ]
+}

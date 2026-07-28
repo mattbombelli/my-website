@@ -5,6 +5,7 @@ import keystaticConfig from '@root/keystatic.config';
 
 import Layout from '../../layouts/Layout.astro';
 import Figure from '@primitives/Figure.astro';
+import MarkdocDocument from '@primitives/MarkdocDocument.astro';
 
 // Generate static pages
 export async function getStaticPaths() {
@@ -28,7 +29,7 @@ const sections = await Promise.all(
         ...section,
         zones: await Promise.all(
             section.zones.map(async (zone, zoneIndex) => {
-                const zonePath = `../../content/ux/${slug}/sections/${sectionIndex}/zones/${zoneIndex}/content/value.mdoc`;
+                const zonePath = `../../content/ux/${slug}/sections/${sectionIndex}/zones/${zoneIndex}/content/value/content.mdoc`;
                 const zoneModule = await allZoneContent[zonePath]?.();
 
                 console.log('discriminant:', zone.content.discriminant);
@@ -53,60 +54,127 @@ const sections = await Promise.all(
 <style lang="scss">
     @use '../../foundations' as *;
 
-    section.grid{
-        &:has(figure){
+    article{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: var(--gap-x);
+
+        @media only screen and (min-width: $tablet){
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        @media only screen and (min-width: $laptop){
+            grid-template-columns: repeat(6, 1fr);
+        }
+
+        @media only screen and (min-width: $desktop){
+            grid-template-columns: 1fr repeat(4, .5fr) 1fr;
+        }
+
+        header{
+            text-align: center;
+        }
+    }
+
+    section.grid, header{
+        --section-padding: var(--padding-block) var(--padding-inline);
+        --padding-block-extra: var(--space-2xl);
+
+        @media only screen and (min-width: $tablet){
+            --padding-block-extra: var(--space-3xl);
+        }
+
+        grid-column: 1 / -1;
+        grid-template-columns: subgrid;
+
+        &:has(figure.full-bleed){
             padding:var(--padding-block) 0;
+
+            &:has(h1,h2,h3,h4,h5,h6){
+                padding-top: var(--padding-block-extra);
+            }
+
+            @media only screen and (min-width: $tablet){
+                &{
+                    padding: var(--section-padding);
+                }
+            }
+
+            
+            .zone{
+                &:has(figure.full-bleed){
+                    padding: 0;
+                }
+                
+                &:not(:has(figure.full-bleed)){
+                    padding: 0 var(--padding-inline);
+                }
+            }
+        } // section has figure
+
+        &:has(h1,h2,h3,h4,h5,h6){
+            padding-top: var(--padding-block-extra);
         }
         
         .zone{
             grid-column: span 2;
-    
-    
-            oder: var(--mobile-order, "initial");
+            order: var(--mobile-order, "initial");
+
+            :global(p){
+                @include justified;
+            }
+
     
             @media only screen and (min-width: $tablet){
                 grid-column: var(--offset-tablet, 2) / span var(--span-tablet, 2);
+                padding:unset;
             }
     
             @media only screen and (min-width: $laptop){
                 grid-column: var(--offset-default, 2) / span var(--span-default, 2);
             }
+
         }
-    }
+    } // section
 </style>
 
 <Layout title=>
-    <section class="grid">
-        <h1>Title</h1>
-    </section>
-    <main class="prose">
-        {
-            sections.map((section, sectionIndex) => { 
-                return <section class="grid">
-                    {section.zones.map((zone) => (
-
-                        <div
-                            class="zone"
-                            style={`
-                                --span-default: ${zone.desktop.columnSpan};
-                                --offset-default: ${zone.desktop.columnOffset};
-                                --span-tablet: ${zone.tablet.columnSpan};
-                                --offset-tablet: ${zone.tablet.columnOffset};
-                                order: ${ zone.mobileOrder == 0 ? "initial" : zone.mobileOrder};
-                            `}
-                        >
-                            { zone.content.discriminant  
-                                ? <Figure
-                                    src={zone.resolvedImage}
-                                    alt={zone.content.value.alt}
-                                    caption={zone.content.value.caption}
-                                />
-                                : zone.Content && <zone.Content />
-                            }
-                        </div>
-                    ))}
-                </section>
-            })
-        }
+    <main>
+        <article>
+            <header class="grid">
+                <h1 class="col-full">{caseStudy.title}</h1>
+            </header>
+            {
+                sections.map((section) => { 
+                    return <section class="grid">
+                        {section.zones.map((zone) => (     
+                            <div
+                                class="zone"
+                                style={`
+                                    --span-default: ${zone.desktop.columnSpan};
+                                    --offset-default: ${zone.desktop.columnOffset};
+                                    --span-tablet: ${zone.tablet.columnSpan};
+                                    --offset-tablet: ${zone.tablet.columnOffset};
+                                    order: ${ zone.mobileOrder == 0 ? "initial" : zone.mobileOrder};
+                                `}
+                            >
+                                <MarkdocDocument
+                                >
+                                    { zone.content.discriminant  
+                                        ? <Figure
+                                            class="full-bleed"
+                                            src={zone.resolvedImage}
+                                            alt={zone.content.value.alt}
+                                            caption={zone.content.value.caption}
+                                        />
+                                        : zone.Content && <zone.Content />
+                                    }
+                                </MarkdocDocument>
+                            </div>
+                        ))}
+                    </section>
+                })
+            }
+        </article>
     </main>
 </Layout>

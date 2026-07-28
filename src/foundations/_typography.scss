@@ -272,6 +272,14 @@ small, .small{
     word-break: break-word;
 }
 
+@mixin justified {
+    text-align: justify;
+    text-align-last: left;
+    hyphens: auto;
+    hyphenate-limit-chars: 6 3 3;
+    word-break: break-word;
+}
+
 /* === Typography adjustments === */
 h1, h2, h3, h4, h5, h6, p, small{
     margin: 0;
