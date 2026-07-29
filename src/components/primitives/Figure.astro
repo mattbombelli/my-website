@@ -8,11 +8,19 @@ type PictureProps = ComponentProps<typeof Picture>;
 export type Props = PictureProps & {
     caption?: string;
     className?: string;
+    role?: string;
+    id?: string;
+    'aria-label'?: string;
+    'aria-hidden'?: string;
 }
 
 const {
     caption,
     class: className,
+    role,
+    id,
+    'aria-label': ariaLabel,
+    'aria-hidden': ariaHidden,
     ...rest
 } = Astro.props;
 ---
@@ -22,8 +30,8 @@ const {
     figure{
         margin:0;
 
-        &:has(figcaption){
-            margin-bottom: var(--space-s);
+        figcaption{
+            margin-top: var(--space-s);
         }
 
         picture{
@@ -51,6 +59,10 @@ const {
 
 <figure
     class={className}
+    {role}
+    {id}
+    aria-label={ariaLabel}
+    aria-hidden={ariaHidden}
 >
     <Picture 
         {...rest}

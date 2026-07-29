@@ -15,6 +15,7 @@ const {
     fill = "default",
     themeMode = "normal",
     scale = "p",
+    ...rest
 } = Astro.props;
 
 const size = `var(--text-${scale})`;
@@ -31,6 +32,7 @@ const size = `var(--text-${scale})`;
     height={size}
     viewBox="0 0 60 60"
     preserveAspectRatio="xMidYMid meet"
+    {...rest}
 >
     <path 
         d={icons[icon]}

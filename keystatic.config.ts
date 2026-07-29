@@ -92,11 +92,21 @@ export default config({
                       }),
                       caption: fields.text({
                         label: 'Caption',
-                      })
+                      }),
+                      loading: fields.select({
+                        label: "Loading",
+                        description: "determines the loading property of the image. Used by Astro.",
+                        options: [
+                          { label: 'Lazy (default)', value: 'lazy'},
+                          { label: 'Eager', value: 'eager'}
+                        ],
+                        defaultValue: 'lazy'
+                      }),
                     }),
                     false: fields.object({
                       content: fields.markdoc({
                         label: 'Content',
+                        extension: 'mdoc',
                       }),
 
                       alignment: fields.select({
@@ -142,7 +152,7 @@ export default config({
                     defaultValue: "2",
                   }),
                   columnOffset: fields.select({
-                    label: "Offset",
+                    label: "Column offset",
                     options: [
                       { label: "1", value: "1" },
                       { label: "2", value: "2" },
@@ -152,10 +162,35 @@ export default config({
                     ],
                     defaultValue: "2",
                   }),
+                  rowSpan: fields.select({
+                    label: "Rows",
+                    options: [
+                      { label: "auto (default)", value: "auto" },
+                      { label: "span 1", value: "1" },
+                      { label: "span 2", value: "2" },
+                      { label: "span 3", value: "3" },
+                      { label: "span 4", value: "4" },
+                      { label: "span 5", value: "5" },
+                      { label: "span 6", value: "6" }
+                    ],
+                    defaultValue: "auto"
+                  }),
+                  rowOffset: fields.select({
+                    label: "Row offset",
+                    options: [
+                      { label: "auto (default)", value: "auto" },
+                      { label: "1", value: "1" },
+                      { label: "2", value: "2" },
+                      { label: "3", value: "3" },
+                      { label: "4", value: "4" },
+                      { label: "5", value: "5" },
+                    ],
+                    defaultValue: "auto",
+                  }),
                 }, {
                   label: "Desktop & Laptop layout",
                   description: "Define this zone's layout for desktop & laptop screens.",
-                  layout: [6, 6]
+                  layout: [6, 6, 6, 6]
                 }), // desktop object
 
                 // Zone layout: tablet
@@ -171,7 +206,7 @@ export default config({
                     defaultValue: "2",
                   }),
                   columnOffset: fields.select({
-                    label: "Offset",
+                    label: "Column offset",
                     options: [
                       { label: "1", value: "1" },
                       { label: "2", value: "2" },
@@ -179,9 +214,30 @@ export default config({
                     ],
                     defaultValue: "2",
                   }),
+                  rowSpan: fields.select({
+                    label: "Rows",
+                    options: [
+                      { label: "auto (default)", value: "auto" },
+                      { label: "span 1", value: "1" },
+                      { label: "span 2", value: "2" },
+                      { label: "span 3", value: "3" },
+                      { label: "span 4", value: "4" },
+                    ],
+                    defaultValue: "auto",
+                  }),
+                  rowOffset: fields.select({
+                    label: "Row offset",
+                    options: [
+                      { label: "auto (default)", value: "auto" },
+                      { label: "1", value: "1" },
+                      { label: "2", value: "2" },
+                      { label: "3", value: "3" },
+                    ],
+                    defaultValue: "auto",
+                  }),
                 }, {
                   label: "Tablet layout",
-                  layout: [6, 6]
+                  layout: [6, 6, 6, 6]
                 }), // tablet
 
                 // Zone layout: mobile
@@ -205,6 +261,13 @@ export default config({
                 },
               }
             ), // zones array
+            
+            carousel: fields.checkbox({
+              label: "Carousel section",
+              description: "Turns the section into a carousel on mobile.",
+              defaultValue: false,
+            }),
+
             theme: fields.checkbox({
               label: "Invert section's theme",
               description: "Invert the section's theme colors.",

@@ -172,8 +172,9 @@ const currentPage = Astro.url.pathname;
     // displaying desktop menu on desktop and hiding mobile menu on desktop
     @media only screen and (min-width: $tablet) {
         nav#main-menu{
-            display: flex;
-            justify-content: space-between;
+            // display: flex;
+            grid-template-columns: 1fr auto auto 1fr;
+            align-items: center;
 
             ul{
                 display: flex;
@@ -206,6 +207,7 @@ const currentPage = Astro.url.pathname;
     @media only screen and (min-width: $laptop) {
         nav#main-menu{
             display: grid;
+            grid-template-columns: repeat(6, 1fr);
             justify-content: unset;
 
             ul{

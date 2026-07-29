@@ -19,11 +19,15 @@
           },
           "desktop": {
             "columnSpan": "6",
-            "columnOffset": "2"
+            "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
           },
           "tablet": {
             "columnSpan": "4",
-            "columnOffset": "1"
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
           },
           "mobileOrder": 0
         },
@@ -38,11 +42,15 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "2"
+            "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
           },
           "tablet": {
             "columnSpan": "2",
-            "columnOffset": "1"
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
           },
           "mobileOrder": 0
         },
@@ -57,15 +65,411 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "4"
+            "columnOffset": "4",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
           },
           "tablet": {
             "columnSpan": "2",
-            "columnOffset": "3"
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
           },
           "mobileOrder": 0
         }
       ],
+      "carousel": false,
+      "theme": false
+    },
+    {
+      "description": "Current Forvo website",
+      "zones": [
+        {
+          "content": {
+            "discriminant": true,
+            "value": {
+              "image": "@images/ux/reimagining-forvo/sections/1/zones/0/content/value/image.png",
+              "alt": "A laptop showing the homepage of Forvo's website.",
+              "caption": "Forvo's current website.",
+              "loading": "lazy"
+            }
+          },
+          "desktop": {
+            "columnSpan": "4",
+            "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "4",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        }
+      ],
+      "carousel": false,
+      "theme": false
+    },
+    {
+      "description": "About Forvo",
+      "zones": [
+        {
+          "title": "Title",
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "4",
+            "rowSpan": "auto",
+            "rowOffset": "1"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "1"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "1"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "1"
+          },
+          "mobileOrder": 0
+        }
+      ],
+      "carousel": false,
+      "theme": false
+    },
+    {
+      "description": "The current experience",
+      "zones": [
+        {
+          "title": "Title",
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "right",
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "5",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "4",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": true,
+            "value": {
+              "image": "@images/ux/reimagining-forvo/sections/3/zones/1/content/value/image.png",
+              "alt": "Hands holding a smartphone, showing Forvo's mobile app homepage.",
+              "caption": "The homepage of Forvo's mobile app.",
+              "loading": "lazy"
+            }
+          },
+          "desktop": {
+            "columnSpan": "5",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "4",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        }
+      ],
+      "carousel": false,
+      "theme": false
+    },
+    {
+      "description": "The current experience - paragraph",
+      "zones": [
+        {
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "1"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "1"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "2"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "2"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "4",
+            "rowSpan": "auto",
+            "rowOffset": "2"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "2"
+          },
+          "mobileOrder": 0
+        }
+      ],
+      "carousel": false,
+      "theme": false
+    },
+    {
+      "description": "The current experience - steps",
+      "zones": [
+        {
+          "content": {
+            "discriminant": true,
+            "value": {
+              "image": "@images/ux/reimagining-forvo/sections/5/zones/0/content/value/image.png",
+              "alt": "Testing the carousel component.",
+              "caption": "Step 1: I searched the word کتاب;",
+              "loading": "lazy"
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "4",
+            "rowSpan": "2",
+            "rowOffset": "1"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": true,
+            "value": {
+              "image": "@images/ux/reimagining-forvo/sections/5/zones/1/content/value/image.png",
+              "alt": "Carousel test",
+              "caption": "Step 2: I listened to the pronunciation by tapping the \"play\" icon. After that, I decided to save it: I tapped the word کتاب, which led me to its page;",
+              "loading": "lazy"
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "2",
+            "rowSpan": "2",
+            "rowOffset": "2"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": true,
+            "value": {
+              "image": "@images/ux/reimagining-forvo/sections/5/zones/2/content/value/image.png",
+              "alt": "Carousel test",
+              "caption": "Step 3: I am testing adding a new step to the carousel to see the result.",
+              "loading": "lazy"
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": true,
+            "value": {
+              "image": "@images/ux/reimagining-forvo/sections/5/zones/3/content/value/image.png",
+              "alt": "Carousel 4",
+              "caption": "Step: 4 Carousel 4 caption",
+              "loading": "lazy"
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": true,
+            "value": {
+              "image": "@images/ux/reimagining-forvo/sections/5/zones/4/content/value/image.png",
+              "alt": "Carousel 5",
+              "caption": "Step 5: carousel 5 step",
+              "loading": "lazy"
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": true,
+            "value": {
+              "image": "@images/ux/reimagining-forvo/sections/5/zones/5/content/value/image.png",
+              "alt": "Carousel 6",
+              "caption": "Step 6: final step of this particular carousel.",
+              "loading": "lazy"
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": true,
+            "value": {
+              "image": "@images/ux/reimagining-forvo/sections/5/zones/6/content/value/image.png",
+              "alt": "Carousel extra step",
+              "caption": "Step 7: testing the limits of the carousel.",
+              "loading": "lazy"
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        }
+      ],
+      "carousel": true,
       "theme": false
     }
   ]

@@ -247,6 +247,16 @@ small, .small{
     }
 }
 
+@media only screen and (max-width: $mobile){
+    h1, .h1{
+        font-size: min(var(--text-h1), 10vw);
+    }
+
+    h2, .h2{
+        font-size: min(var(--text-h2), 8vw);
+    }
+}
+
 /* === Utility classes === */
 .italic{
     font-style: italic;
