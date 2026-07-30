@@ -40,14 +40,35 @@ const resolvedSlides = await Promise.all(
 );
 
 const showDots = slides.length <= 7;
-
-console.log(slides);
 ---
 
 <style lang="scss">
     @use '../../foundations' as *;
 
+    :global(.js-carousel-ready) {
+        .carousel{
+            .carousel__viewport{
+                .carousel__container{
+                    :global(.carousel__slide){
+                        :global(figcaption){
+                            margin-top: calc( var(--controls-height, 3rem) + var(--space-xs, .5rem) * 2 );
+                        }
+                    }
+                }
+            }
+
+            .carousel__controls{
+                position: absolute;
+                width: 100%;
+                top: calc( var(--controls-offset, 2rem) + var(--space-xs, .5rem));
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    }
+
     .carousel {
+        position: relative;
         grid-column: span 2;
         display: flex;
         flex-direction: column;
@@ -71,9 +92,9 @@ console.log(slides);
                         line-height: var(--leading-serif-p);
                         font-style: italic;
                     }
-                }
-            }
-        }
+                } // slide
+            } // container
+        } // viewport
 
         .carousel__controls{
             display: flex;
@@ -115,13 +136,13 @@ console.log(slides);
                     }
                 }
 
-            }
+            } // individual control
 
-            div[role="tablist"]{
+            div[role="group"]{
                 display: none;
                 justify-content: space-between;
                 gap: var(--space-3xs);
-
+                flex-shrink: 0;
                 
                 @media only screen and (min-width: $mobile){
                     display: flex;
@@ -137,6 +158,7 @@ console.log(slides);
                     padding: var(--space-2xs);
                     border-radius: var(--radius-pill);
                     display: flex;
+                    flex-shrink: 0;
 
                     span{
                         display: inline-block;
@@ -156,13 +178,13 @@ console.log(slides);
                         }
                     }
 
-                    &[aria-selected='true']{
+                    &[aria-current='true']{
                         span{
                             background: var(--foreground);
                         }
                     }
                 }
-            }
+            } //div[role="group"]
 
         } // carousel controls
     } // carousel
@@ -229,7 +251,6 @@ console.log(slides);
     >
         <div
             class="carousel__container"
-            aria-live="polite"
         >
             {resolvedSlides.map((slide, i) => (
                 <Figure
@@ -238,7 +259,8 @@ console.log(slides);
                     src={slide.resolvedSrc}
                     alt={slide.alt}
                     caption={slide.caption}
-                    role="tabpanel"
+                    role="group"
+                    aria-roledescription="slide"
                     aria-label={`Slide ${i + 1} of ${slides.length}`}
                     
                     style={`
@@ -254,8 +276,8 @@ console.log(slides);
                     `}
                 />
             ))}
-        </div>
-    </div>
+        </div> <!-- container -->
+    </div> <!-- viewport -->
     <div
         class="carousel__controls"
         role="group"
@@ -269,15 +291,14 @@ console.log(slides);
             <Icon icon="arrowLeft" aria-hidden="true" />
         </button>
         <div
-            role="tablist"
+            role="group"
             aria-label="Choose slide to display"
             hidden={!showDots}
         >
             {slides.map((_, i) => (
                 <button
-                    role="tab"
                     aria-label={`Slide ${i + 1} of ${slides.length}`}
-                    aria-selected={i === 0}
+                    aria-current={i === 0}
                     aria-controls={`${id}-slide-${i}`}
                 >
                     <span />
@@ -285,10 +306,14 @@ console.log(slides);
             ))}
         </div>
         <span
-            class="carousel__counter sans-serif"
+            class:list={[
+                "carousel__counter",
+                "carousel__status",
+                "sans-serif",
+                { 'visually-hidden': showDots }
+            ]}
             aria-live="polite"
             aria-atomic="true"
-            hidden={showDots}
         >
             1 / {slides.length}
         </span>
@@ -298,13 +323,15 @@ console.log(slides);
         >
             <Icon icon="arrowRight" aria-hidden="true" />
         </button>
-    </div>
-</div>
+    </div> <!-- controls -->
+</div> <!-- carousel -->
 
 <script>
     import EmblaCarousel from 'embla-carousel';
 
-    const carousels = document.querySelectorAll('.carousel');
+    document.body.classList.add('js-carousel-ready');
+
+    const carousels = Array.from(document.querySelectorAll('.carousel')) as HTMLElement[];
 
     carousels.forEach(wrapper => {
         const viewport = wrapper.querySelector('.carousel__viewport') as HTMLElement;
@@ -312,104 +339,161 @@ console.log(slides);
         const nextBtn = wrapper.querySelector('.carousel__next') as HTMLElement;
 
         let embla: any = null;
+        const observers: ResizeObserver[] = [];
 
         const mql = window.matchMedia('(max-width: 767px)');
 
+        // Generic helper: observe an element, run a callback with its measured
+        // size on every change (and once immediately, synchronously, to avoid
+        // a first-frame gap before the observer's async callback fires).
+        const observeSize = (
+            el: HTMLElement,
+            onResize: (rect: DOMRectReadOnly) => void
+        ) => {
+            onResize(el.getBoundingClientRect());
+
+            const ro = new ResizeObserver(([entry]) => {
+                onResize(entry.contentRect);
+            });
+            ro.observe(el);
+            observers.push(ro);
+
+            return ro;
+        };
+
         const init = () => {
-            if (mql.matches && !embla) {
-                embla = EmblaCarousel(viewport, { loop: false });
+            if (!mql.matches || embla) return;
 
-                prevBtn.addEventListener('click', () => {
-                    if (prevBtn.getAttribute('aria-disabled') === 'true') return;
-                    embla.scrollPrev();
-                }, false);
-                nextBtn.addEventListener('click', () => {
-                    if (nextBtn.getAttribute('aria-disabled') === 'true') return;
-                    embla.scrollNext();
-                }, false);
+            embla = EmblaCarousel(viewport, { loop: false });
 
-                const tablist = wrapper.querySelector('[role="tablist"]') as HTMLElement;
-                const counter = wrapper.querySelector('.carousel__counter') as HTMLElement;
-                const dots = Array.from(tablist.querySelectorAll('[role="tab')) as HTMLElement[];
-                const slideElements = Array.from(wrapper.querySelectorAll('.carousel__slide')) as HTMLElement[];
-                const MAX_DOTS = 7;
+            prevBtn.addEventListener('click', () => {
+                if (prevBtn.getAttribute('aria-disabled') === 'true') return;
+                embla.scrollPrev();
+            }, false);
+            nextBtn.addEventListener('click', () => {
+                if (nextBtn.getAttribute('aria-disabled') === 'true') return;
+                embla.scrollNext();
+            }, false);
 
-                console.log("Number of slides:", slideElements.length);
+            const controls = wrapper.querySelector('.carousel__controls') as HTMLElement;
+            const tablist = controls.querySelector('[role="group"]') as HTMLElement;
+            const counter = controls.querySelector('.carousel__counter') as HTMLElement;
+            const dots = Array.from(tablist.querySelectorAll('button')) as HTMLElement[];
+            const slideElements = Array.from(wrapper.querySelectorAll('.carousel__slide')) as HTMLElement[];
+            const firstImage = slideElements[0]?.querySelector('img') as HTMLElement | null;
 
-                if (slideElements.length > MAX_DOTS) {
-                    tablist.setAttribute('hidden', '');
-                    counter.removeAttribute('hidden');
-                } else {
-                    tablist.removeAttribute('hidden');
-                    counter.setAttribute('hidden', '');
+            // --- Controls height -> reserved gap above figcaption ---
+            observeSize(controls, (rect) => {
+                wrapper.style.setProperty('--controls-height', `${rect.height}px`);
+            });
 
-                    tablist.addEventListener('keydown', (e) => {
-                        const current = embla.selectedScrollSnap();
-    
-                        if (e.key === 'ArrowRight') {
-                            e.preventDefault();
-                            const next = current + 1;
-                            if (next < slideElements.length) {
-                                embla.scrollTo(next);
-                                dots[next].focus();
-                            }
-                        }
-    
-                        if (e.key === 'ArrowLeft') {
-                            e.preventDefault();
-                            const prev = current - 1;
-                            if (prev >= 0) {
-                                embla.scrollTo(prev);
-                                dots[prev].focus();
-                            }
-                        }
-                    });
+            // --- First image height -> controls vertical offset ---
+            if (firstImage) {
+                observeSize(firstImage, (rect) => {
+                    wrapper.style.setProperty('--controls-offset', `${rect.height}px`);
+                });
+            }
+
+            // --- Dots vs. counter fit check ---
+            const tablistFits = () => {
+                const wasHidden = tablist.hasAttribute('hidden');
+                if (wasHidden) tablist.style.display = 'flex';
+
+                const fits = controls.scrollWidth <= controls.clientWidth;
+
+                if (wasHidden) tablist.style.display = '';
+
+                return fits;
+            };
+
+            const updateDotsVisibility = () => {
+                const shouldShowDots = tablistFits();
+                const isDotsCurrentlyHidden = tablist.hasAttribute('hidden');
+
+                    console.log({ shouldShowDots, isDotsCurrentlyHidden, willUpdate: shouldShowDots === isDotsCurrentlyHidden });
+
+                if (shouldShowDots === isDotsCurrentlyHidden) {
+                    if (shouldShowDots) {
+                        tablist.removeAttribute('hidden');
+                        counter.classList.add('visually-hidden');
+                    } else {
+                        tablist.setAttribute('hidden', '');
+                        counter.classList.remove('visually-hidden');
+                    }
+                }
+            };
+
+            updateDotsVisibility();
+            observeSize(controls, updateDotsVisibility);
+
+            // --- Keyboard nav ---
+            tablist.addEventListener('keydown', (e) => {
+                const current = embla.selectedScrollSnap();
+
+                if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    const next = current + 1;
+                    if (next < slideElements.length) {
+                        embla.scrollTo(next);
+                        dots[next].focus();
+                    }
                 }
 
+                if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    const prev = current - 1;
+                    if (prev >= 0) {
+                        embla.scrollTo(prev);
+                        dots[prev].focus();
+                    }
+                }
+            });
 
-                const updateARIA = () => {
-                    const current = embla.selectedScrollSnap();
+            // --- ARIA sync ---
+            const updateARIA = () => {
+                const current = embla.selectedScrollSnap();
 
-                    prevBtn.setAttribute('aria-disabled', String(!embla.canScrollPrev()));
-                    nextBtn.setAttribute('aria-disabled', String(!embla.canScrollNext()));
-                    
-                    dots.forEach((dot, i) => {
-                        dot.setAttribute('aria-selected', String(i === current));
-                        dot.setAttribute('tabindex', i === current ? '0' : '-1');
-                    });
-
-                    counter.textContent = `${current + 1} / ${slideElements.length}`;
-                    console.log(counter);
-
-                    slideElements.forEach((slide, i) => {
-                        if ( i === current ){
-                            slide.removeAttribute('aria-hidden');
-                            slide.removeAttribute('inert');
-                        } else {
-                            slide.setAttribute('aria-hidden', 'true');
-                            slide.setAttribute('inert', '');
-                        }
-                    });
-                } // updateARIA
+                prevBtn.setAttribute('aria-disabled', String(!embla.canScrollPrev()));
+                nextBtn.setAttribute('aria-disabled', String(!embla.canScrollNext()));
 
                 dots.forEach((dot, i) => {
-                    dot.addEventListener('click', () => {
-                        embla.scrollTo(i);
-                        dots[i].focus();
-                    });
+                    dot.setAttribute('aria-current', String(i === current));
+                    dot.setAttribute('tabindex', i === current ? '0' : '-1');
                 });
 
-                embla.on('select', updateARIA);
+                counter.textContent = `${current + 1} / ${slideElements.length}`;
 
-                updateARIA();
-            }
+                slideElements.forEach((slide, i) => {
+                    if (i === current) {
+                        slide.removeAttribute('inert');
+                    } else {
+                        slide.setAttribute('inert', '');
+                    }
+                });
+            };
+
+            dots.forEach((dot, i) => {
+                dot.addEventListener('click', () => {
+                    embla.scrollTo(i);
+                    dots[i].focus();
+                });
+            });
+
+            embla.on('select', updateARIA);
+            updateARIA();
         }; // init
 
         const destroy = () => {
             if (embla) {
+                const slideElements = Array.from(wrapper.querySelectorAll('.carousel__slide')) as HTMLElement[];
+                slideElements.forEach(slide => {
+                    slide.removeAttribute('inert');
+                });
                 embla.destroy();
                 embla = null;
             }
+            observers.forEach(ro => ro.disconnect());
+            observers.length = 0;
         }; // destroy
 
         mql.addEventListener('change', (e) => {
