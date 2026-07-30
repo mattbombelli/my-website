@@ -3,6 +3,7 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "react",
+    "types": ["node"],
     "paths": {
       "@primitives/*": ["./src/components/primitives/*"],
       "@blocks/*": ["./src/components/blocks/*"],

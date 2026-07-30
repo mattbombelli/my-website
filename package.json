@@ -28,6 +28,7 @@
     "astro": "astro"
   },
   "devDependencies": {
+    "@types/node": "^26.1.2",
     "sass-embedded": "^1.100.0",
     "typescript": "^5.9.3"
   }

@@ -184,6 +184,11 @@ export default config({
                       { label: "3", value: "3" },
                       { label: "4", value: "4" },
                       { label: "5", value: "5" },
+                      { label: "6", value: "6" },
+                      { label: "7", value: "7" },
+                      { label: "8", value: "8" },
+                      { label: "9", value: "9" },
+                      { label: "10", value: "10" },
                     ],
                     defaultValue: "auto",
                   }),
@@ -222,6 +227,8 @@ export default config({
                       { label: "span 2", value: "2" },
                       { label: "span 3", value: "3" },
                       { label: "span 4", value: "4" },
+                      { label: "span 5", value: "5" },
+                      { label: "span 6", value: "6" }
                     ],
                     defaultValue: "auto",
                   }),
@@ -232,6 +239,13 @@ export default config({
                       { label: "1", value: "1" },
                       { label: "2", value: "2" },
                       { label: "3", value: "3" },
+                      { label: "4", value: "4" },
+                      { label: "5", value: "5" },
+                      { label: "6", value: "6" },
+                      { label: "7", value: "7" },
+                      { label: "8", value: "8" },
+                      { label: "9", value: "9" },
+                      { label: "10", value: "10" },
                     ],
                     defaultValue: "auto",
                   }),
@@ -254,9 +268,9 @@ export default config({
                 label: 'Zones',
                 itemLabel: (props) => {
                   if (props.fields.content.discriminant){
-                    return 'Image'
+                    return props.fields.title.value ? props.fields.title.value : 'Image';
                   } else {
-                    return props.fields.title.value ? props.fields.title.value : 'Text'
+                    return props.fields.title.value ? props.fields.title.value : 'Text';
                   }
                 },
               }
@@ -268,10 +282,25 @@ export default config({
               defaultValue: false,
             }),
 
-            theme: fields.checkbox({
-              label: "Invert section's theme",
-              description: "Invert the section's theme colors.",
-              defaultValue: false,
+            theme: fields.select({
+              label: "Theme mode",
+              description: "Choose the theme mode for this section",
+              options: [
+                { label: 'Normal (default)', value: 'normal' },
+                { label: 'Invert', value: 'invert' },
+              ],
+              defaultValue: 'normal',
+            }),
+
+            rowGap: fields.select({
+              label: "Row gap",
+              description: "Choose a row gap for this section.",
+              options: [
+                { label:'Small', value: 'var(--gap-y-small)' },
+                { label:'Normal (default)', value: 'var(--gap-y)' },
+                { label:'Large', value: 'var(--gap-y-large)' },
+              ],
+              defaultValue: 'var(--gap-y)',
             }),
           }),
           

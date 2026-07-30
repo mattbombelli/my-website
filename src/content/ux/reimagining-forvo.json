@@ -79,7 +79,8 @@
         }
       ],
       "carousel": false,
-      "theme": false
+      "theme": "normal",
+      "rowGap": "var(--gap-y)"
     },
     {
       "description": "Current Forvo website",
@@ -110,7 +111,8 @@
         }
       ],
       "carousel": false,
-      "theme": false
+      "theme": "normal",
+      "rowGap": "var(--gap-y)"
     },
     {
       "description": "About Forvo",
@@ -164,7 +166,8 @@
         }
       ],
       "carousel": false,
-      "theme": false
+      "theme": "normal",
+      "rowGap": "var(--gap-y)"
     },
     {
       "description": "The current experience",
@@ -219,7 +222,8 @@
         }
       ],
       "carousel": false,
-      "theme": false
+      "theme": "normal",
+      "rowGap": "var(--gap-y)"
     },
     {
       "description": "The current experience - paragraph",
@@ -295,12 +299,14 @@
         }
       ],
       "carousel": false,
-      "theme": false
+      "theme": "normal",
+      "rowGap": "var(--gap-y)"
     },
     {
       "description": "The current experience - steps",
       "zones": [
         {
+          "title": "Step 1",
           "content": {
             "discriminant": true,
             "value": {
@@ -325,6 +331,7 @@
           "mobileOrder": 0
         },
         {
+          "title": "Step 2",
           "content": {
             "discriminant": true,
             "value": {
@@ -349,20 +356,21 @@
           "mobileOrder": 0
         },
         {
+          "title": "Step 3",
           "content": {
             "discriminant": true,
             "value": {
               "image": "@images/ux/reimagining-forvo/sections/5/zones/2/content/value/image.png",
               "alt": "Carousel test",
-              "caption": "Step 3: I am testing adding a new step to the carousel to see the result.",
+              "caption": "Step 3: I noticed different Persian pronunciations were available for this word;",
               "loading": "lazy"
             }
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "2",
-            "rowSpan": "auto",
-            "rowOffset": "auto"
+            "columnOffset": "4",
+            "rowSpan": "2",
+            "rowOffset": "3"
           },
           "tablet": {
             "columnSpan": "2",
@@ -373,20 +381,21 @@
           "mobileOrder": 0
         },
         {
+          "title": "Step 4",
           "content": {
             "discriminant": true,
             "value": {
               "image": "@images/ux/reimagining-forvo/sections/5/zones/3/content/value/image.png",
               "alt": "Carousel 4",
-              "caption": "Step: 4 Carousel 4 caption",
+              "caption": "Step 4: I tapped on the \"more\" icon beside one of them, scrolled down – and then tapped \"Mark as favourite\";",
               "loading": "lazy"
             }
           },
           "desktop": {
             "columnSpan": "2",
             "columnOffset": "2",
-            "rowSpan": "auto",
-            "rowOffset": "auto"
+            "rowSpan": "2",
+            "rowOffset": "4"
           },
           "tablet": {
             "columnSpan": "2",
@@ -397,20 +406,21 @@
           "mobileOrder": 0
         },
         {
+          "title": "Step 5",
           "content": {
             "discriminant": true,
             "value": {
               "image": "@images/ux/reimagining-forvo/sections/5/zones/4/content/value/image.png",
               "alt": "Carousel 5",
-              "caption": "Step 5: carousel 5 step",
+              "caption": "Step 5: A confirmation message told me the word got successfully saved. No other visual cues were left visible from this view, after it went away;",
               "loading": "lazy"
             }
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "2",
-            "rowSpan": "auto",
-            "rowOffset": "auto"
+            "columnOffset": "4",
+            "rowSpan": "2",
+            "rowOffset": "5"
           },
           "tablet": {
             "columnSpan": "2",
@@ -421,13 +431,45 @@
           "mobileOrder": 0
         },
         {
+          "title": "Step 6",
           "content": {
             "discriminant": true,
             "value": {
               "image": "@images/ux/reimagining-forvo/sections/5/zones/5/content/value/image.png",
-              "alt": "Carousel 6",
-              "caption": "Step 6: final step of this particular carousel.",
+              "alt": "Step 6",
+              "caption": "Step 6: I opened the \"Favorites\" tab, where one of the pronunciations of the word کتاب got saved, along many others of various meanings (in the list, there are words such as \"mountain\", \"to draw\", \"turtle\", the adverbial phrase \"at least\", and others).",
               "loading": "lazy"
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "2",
+            "rowSpan": "2",
+            "rowOffset": "6"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        }
+      ],
+      "carousel": true,
+      "theme": "normal",
+      "rowGap": "var(--gap-y-large)"
+    },
+    {
+      "description": "Introduction to the project",
+      "zones": [
+        {
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "typography": false,
+              "theme": false
             }
           },
           "desktop": {
@@ -438,20 +480,28 @@
           },
           "tablet": {
             "columnSpan": "2",
-            "columnOffset": "2",
+            "columnOffset": "1",
             "rowSpan": "auto",
             "rowOffset": "auto"
           },
           "mobileOrder": 0
-        },
+        }
+      ],
+      "carousel": false,
+      "theme": "normal",
+      "rowGap": "var(--gap-y)"
+    },
+    {
+      "description": "Approach & Method",
+      "zones": [
         {
+          "title": "Left column",
           "content": {
-            "discriminant": true,
+            "discriminant": false,
             "value": {
-              "image": "@images/ux/reimagining-forvo/sections/5/zones/6/content/value/image.png",
-              "alt": "Carousel extra step",
-              "caption": "Step 7: testing the limits of the carousel.",
-              "loading": "lazy"
+              "alignment": "left",
+              "typography": false,
+              "theme": false
             }
           },
           "desktop": {
@@ -469,8 +519,41 @@
           "mobileOrder": 0
         }
       ],
-      "carousel": true,
-      "theme": false
+      "carousel": false,
+      "theme": "invert",
+      "rowGap": "var(--gap-y)"
+    },
+    {
+      "description": "Step 1: Discover",
+      "zones": [
+        {
+          "title": "Heading",
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        }
+      ],
+      "carousel": false,
+      "theme": "normal",
+      "rowGap": "var(--gap-y)"
     }
   ]
 }

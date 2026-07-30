@@ -78,8 +78,13 @@ const sections = await Promise.all(
     }
 
     section.grid, header{
+        background: var(--background);
+        color: var(--foreground);
+        
+
         --section-padding: var(--padding-block) var(--padding-inline);
         --padding-block-extra: var(--space-2xl);
+        row-gap: var(--custom-row-gap);
 
         @media only screen and (min-width: $tablet){
             --padding-block-extra: var(--space-3xl);
@@ -122,6 +127,10 @@ const sections = await Promise.all(
 
         &:has(.carousel){
             padding:var(--padding-block) 0;
+
+            @media only screen and (min-width: $tablet){
+                padding: var(--padding-block) var(--padding-inline);
+            }
         }
 
         &:has(h1,h2,h3,h4,h5,h6){
@@ -158,10 +167,6 @@ const sections = await Promise.all(
             }
 
         } // zone
-
-        :global(.carousel){
-            grid-column: span 2;
-        }
     } // section
 </style>
 
@@ -174,7 +179,14 @@ const sections = await Promise.all(
             {
                 sections.map((section, sectionIndex) => { 
                         
-                    return <section class="grid">
+                    return <section
+                                class="grid"
+                                style={`
+                                    --custom-row-gap: ${section.rowGap};
+                                `}
+                                data-theme="default"
+                                data-theme-mode={section.theme}
+                            >
                         {section.carousel
                             ? <Carousel
                                 id={`carousel-${sectionIndex}`}
@@ -193,6 +205,18 @@ const sections = await Promise.all(
                                                 src: value.image,
                                                 alt: value.alt,
                                                 caption: value.caption,
+                                                desktop: {
+                                                    columnOffset: zone.desktop.columnOffset,
+                                                    columnSpan: zone.desktop.columnSpan,
+                                                    rowOffset: zone.desktop.rowOffset,
+                                                    rowSpan: zone.desktop.rowSpan
+                                                },
+                                                tablet: {
+                                                    columnOffset: zone.tablet.columnOffset,
+                                                    columnSpan: zone.tablet.columnSpan,
+                                                    rowOffset: zone.tablet.rowOffset,
+                                                    rowSpan: zone.tablet.rowSpan,
+                                                }
                                             }
                                         })
                                 }

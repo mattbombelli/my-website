@@ -9,6 +9,18 @@ export interface Props{
         src: string;
         alt: string;
         caption?: string;
+        desktop?: {
+            columnSpan: string;
+            columnOffset: string;
+            rowSpan: string;
+            rowOffset: string;
+        };
+        tablet?: {
+            columnSpan: string;
+            columnOffset: string;
+            rowSpan: string;
+            rowOffset: string;
+        };
     }[];
     ariaLabel: string;
     id: string;
@@ -28,12 +40,15 @@ const resolvedSlides = await Promise.all(
 );
 
 const showDots = slides.length <= 7;
+
+console.log(slides);
 ---
 
 <style lang="scss">
     @use '../../foundations' as *;
 
     .carousel {
+        grid-column: span 2;
         display: flex;
         flex-direction: column;
         gap: var(--space-m);
@@ -51,7 +66,7 @@ const showDots = slides.length <= 7;
                     height: 100%;
 
                     :global(figcaption){
-                        font-family: var(--serif);
+                        font-family: var(--font-serif);
                         font-size: var(--text-p);
                         line-height: var(--leading-serif-p);
                         font-style: italic;
@@ -131,7 +146,6 @@ const showDots = slides.length <= 7;
                         border-radius: var(--radius-pill);
                         height: var(--space-s);
                         transition: background var(--duration-default) var(--ease-default);
-    
                     }
 
                     @media (hover: hover) and (pointer: fine){
@@ -162,19 +176,49 @@ const showDots = slides.length <= 7;
             .carousel__viewport {
                 overflow: unset;
                 grid-column: 1 / -1;
+                display: grid;
+                grid-template-columns: subgrid;
 
                 .carousel__container {
+                    touch-action: unset;
                     display: grid;
+                    grid-column: 1 / -1;
                     grid-template-columns: subgrid;
+                    row-gap: var(--custom-row-gap);
+
+                    :global(figure){
+                        grid-column: var(--offset-tablet, 2) / span var(--span-tablet, 2);
+                        grid-row: var(--row-offset-tablet, auto) / var(--row-span-tablet, auto);
+
+                        display: flex;
+                        flex-direction: column;
+                    }
                 }
+            }
+
+            .carousel__controls{
+                display: none;
             }
         }
 
     } // $tablet
+
+    @media only screen and (min-width: $laptop){
+        .carousel{
+            .carousel__viewport{
+                .carousel__container{
+                    :global(figure){
+                        grid-column: var(--offset-default, 2) / span var(--span-default, 2);
+                        grid-row: var(--row-offset-default, auto) / var(--row-span-default, auto);
+                    }
+                }
+            }
+        }            
+    }
 </style>
 
 <div
-    class="carousel zone"
+    class="carousel"
     id={id}
     aria-label={ariaLabel}
     aria-roledescription="carousel"
@@ -196,6 +240,18 @@ const showDots = slides.length <= 7;
                     caption={slide.caption}
                     role="tabpanel"
                     aria-label={`Slide ${i + 1} of ${slides.length}`}
+                    
+                    style={`
+                        --span-default: ${slide.desktop?.columnSpan};
+                        --offset-default: ${slide.desktop?.columnOffset};
+                        --span-tablet: ${slide.tablet?.columnSpan};
+                        --offset-tablet: ${slide.tablet?.columnOffset};
+
+                        --row-span-default: ${slide.desktop?.rowSpan === 'auto' ? 'auto' : `span ${slide.desktop?.rowSpan}`};
+                        --row-offset-default: ${slide.desktop?.rowOffset};
+                        --row-span-tablet: ${slide.tablet?.rowSpan === 'auto' ? 'auto' : `span ${slide.tablet?.rowSpan}`};
+                        --row-offset-tablet: ${slide.tablet?.rowOffset};
+                    `}
                 />
             ))}
         </div>
