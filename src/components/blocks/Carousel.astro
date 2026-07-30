@@ -40,8 +40,6 @@ const resolvedSlides = await Promise.all(
 );
 
 const showDots = slides.length <= 7;
-
-console.log(slides);
 ---
 
 <style lang="scss">
@@ -55,6 +53,9 @@ console.log(slides);
 
         .carousel__viewport {
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: var(--gap-y-small);
 
             .carousel__container {
                 display: flex;
@@ -70,101 +71,112 @@ console.log(slides);
                         font-size: var(--text-p);
                         line-height: var(--leading-serif-p);
                         font-style: italic;
+
+                        position: absolute;
+                        width: 1px;
+                        height: 1px;
+                        overflow: hidden;
+                        clip: rect(0,0,0,0);
+                        white-space: nowrap;
                     }
-                }
-            }
-        }
+                } //slide
 
-        .carousel__controls{
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 var(--padding-inline);
+            } // container
 
-            .carousel__control{
-                padding: var(--space-xs);
-                background:none;
-                border:none;
-                border-radius: var(--radius-pill);
+            .carousel__controls{
                 display: flex;
-
-                :global(svg){
-                    height: var(--text-h5);
-                    transition: opacity var(--duration-default) var(--ease-default);
-
-                    :global(path){
-                        fill:var(--foreground);
-                    }
-                }
-
-                &[aria-disabled='true']{
-                    :global(svg){
-                        opacity: .3;
-                    }
-                }
-
-                &:not([aria-disabled='true']){
-                    opacity: 1;
-
-                    @media (hover: hover) and (pointer: fine){
-                        transition: background var(--duration-default) var(--ease-default);
-    
-                        &:hover{
-                            background: var(--paper-dark);
-                        }
-                    }
-                }
-
-            }
-
-            div[role="tablist"]{
-                display: none;
+                align-items: center;
                 justify-content: space-between;
-                gap: var(--space-3xs);
+                padding: 0 var(--padding-inline);
 
-                
-                @media only screen and (min-width: $mobile){
-                    display: flex;
-                }
-                
-                &[hidden]{
-                    display: none;
-                }
-
-                button{
-                    background: none;
-                    border: none;
-                    padding: var(--space-2xs);
+                .carousel__control{
+                    padding: var(--space-xs);
+                    background:none;
+                    border:none;
                     border-radius: var(--radius-pill);
                     display: flex;
 
-                    span{
-                        display: inline-block;
-                        background: var(--background);
-                        aspect-ratio: 1/1;
-                        border: .2em solid var(--foreground);
-                        border-radius: var(--radius-pill);
-                        height: var(--space-s);
-                        transition: background var(--duration-default) var(--ease-default);
+                    :global(svg){
+                        height: var(--text-h5);
+                        transition: opacity var(--duration-default) var(--ease-default);
+
+                        :global(path){
+                            fill:var(--foreground);
+                        }
                     }
 
-                    @media (hover: hover) and (pointer: fine){
-                        &:hover{
-                            span{
-                                background: var(--ink-light);
+                    &[aria-disabled='true']{
+                        :global(svg){
+                            opacity: .3;
+                        }
+                    }
+
+                    &:not([aria-disabled='true']){
+                        opacity: 1;
+
+                        @media (hover: hover) and (pointer: fine){
+                            transition: background var(--duration-default) var(--ease-default);
+        
+                            &:hover{
+                                background: var(--paper-dark);
                             }
                         }
                     }
 
-                    &[aria-selected='true']{
+                }
+
+                div[role="tablist"]{
+                    display: none;
+                    justify-content: space-between;
+                    gap: var(--space-3xs);
+
+                    
+                    @media only screen and (min-width: $mobile){
+                        display: flex;
+                    }
+                    
+                    &[hidden]{
+                        display: none;
+                    }
+
+                    button{
+                        background: none;
+                        border: none;
+                        padding: var(--space-2xs);
+                        border-radius: var(--radius-pill);
+                        display: flex;
+
                         span{
-                            background: var(--foreground);
+                            display: inline-block;
+                            background: var(--background);
+                            aspect-ratio: 1/1;
+                            border: .2em solid var(--foreground);
+                            border-radius: var(--radius-pill);
+                            height: var(--space-s);
+                            transition: background var(--duration-default) var(--ease-default);
+                        }
+
+                        @media (hover: hover) and (pointer: fine){
+                            &:hover{
+                                span{
+                                    background: var(--ink-light);
+                                }
+                            }
+                        }
+
+                        &[aria-selected='true']{
+                            span{
+                                background: var(--foreground);
+                            }
                         }
                     }
                 }
-            }
 
-        } // carousel controls
+            } // carousel controls
+            p.carousel__caption{
+                padding: 0 var(--padding-inline);
+            }
+        } // viewport
     } // carousel
 
     @media only screen and (min-width: $tablet){
@@ -178,6 +190,7 @@ console.log(slides);
                 grid-column: 1 / -1;
                 display: grid;
                 grid-template-columns: subgrid;
+                gap: unset;
 
                 .carousel__container {
                     touch-action: unset;
@@ -186,20 +199,34 @@ console.log(slides);
                     grid-template-columns: subgrid;
                     row-gap: var(--custom-row-gap);
 
-                    :global(figure){
+                    :global(.carousel__slide){
                         grid-column: var(--offset-tablet, 2) / span var(--span-tablet, 2);
                         grid-row: var(--row-offset-tablet, auto) / var(--row-span-tablet, auto);
 
                         display: flex;
                         flex-direction: column;
-                    }
-                }
-            }
 
-            .carousel__controls{
-                display: none;
-            }
-        }
+                        :global(figcaption){
+                            width:initial;
+                            height: initial;
+                            position: initial;
+                            clip: unset;
+                            overflow: unset;
+                            white-space: initial;
+                        }
+                    }
+                } // container
+
+                .carousel__controls{
+                    display: none;
+                }
+
+                .carousel__caption{
+                    display: none;
+                }
+            } // viewport
+
+        } // carousel
 
     } // $tablet
 
@@ -207,7 +234,7 @@ console.log(slides);
         .carousel{
             .carousel__viewport{
                 .carousel__container{
-                    :global(figure){
+                    :global(figure.carousel__slide){
                         grid-column: var(--offset-default, 2) / span var(--span-default, 2);
                         grid-row: var(--row-offset-default, auto) / var(--row-span-default, auto);
                     }
@@ -217,7 +244,7 @@ console.log(slides);
     }
 </style>
 
-<div
+<section
     class="carousel"
     id={id}
     aria-label={ariaLabel}
@@ -254,57 +281,63 @@ console.log(slides);
                     `}
                 />
             ))}
-        </div>
-    </div>
-    <div
-        class="carousel__controls"
-        role="group"
-        aria-label="Slide controls"
-    >
-        <button
-            class="carousel__control carousel__prev"
-            aria-label="Previous"
-            aria-disabled="true"
-        >
-            <Icon icon="arrowLeft" aria-hidden="true" />
-        </button>
+
+        </div> <!-- container -->
         <div
-            role="tablist"
-            aria-label="Choose slide to display"
-            hidden={!showDots}
+            class="carousel__controls"
+            role="group"
+            aria-label="Slide controls"
         >
-            {slides.map((_, i) => (
-                <button
-                    role="tab"
-                    aria-label={`Slide ${i + 1} of ${slides.length}`}
-                    aria-selected={i === 0}
-                    aria-controls={`${id}-slide-${i}`}
-                >
-                    <span />
-                </button>
-            ))}
-        </div>
-        <span
-            class="carousel__counter sans-serif"
-            aria-live="polite"
-            aria-atomic="true"
-            hidden={showDots}
+            <button
+                class="carousel__control carousel__prev"
+                aria-label="Previous"
+                aria-disabled="true"
+            >
+                <Icon icon="arrowLeft" aria-hidden="true" />
+            </button>
+            <div
+                role="tablist"
+                aria-label="Choose slide to display"
+                hidden={!showDots}
+            >
+                {slides.map((_, i) => (
+                    <button
+                        role="tab"
+                        aria-label={`Slide ${i + 1} of ${slides.length}`}
+                        aria-selected={i === 0}
+                        aria-controls={`${id}-slide-${i}`}
+                    >
+                        <span />
+                    </button>
+                ))}
+            </div>
+            <span
+                class="carousel__counter sans-serif"
+                aria-live="polite"
+                aria-atomic="true"
+                hidden={showDots}
+            >
+                1 / {slides.length}
+            </span>
+            <button
+                class="carousel__control carousel__next"
+                aria-label="Next"
+            >
+                <Icon icon="arrowRight" aria-hidden="true" />
+            </button>
+        </div> <!-- controls -->
+        <p
+            class="carousel__caption italic"
+            aria-hidden="true"
         >
-            1 / {slides.length}
-        </span>
-        <button
-            class="carousel__control carousel__next"
-            aria-label="Next"
-        >
-            <Icon icon="arrowRight" aria-hidden="true" />
-        </button>
-    </div>
-</div>
+        </p>
+    </div> <!-- viewport -->
+</section> <!-- carousel -->
 
 <script>
     import EmblaCarousel from 'embla-carousel';
 
-    const carousels = document.querySelectorAll('.carousel');
+    const carousels = document.querySelectorAll<HTMLElement>('.carousel');
 
     carousels.forEach(wrapper => {
         const viewport = wrapper.querySelector('.carousel__viewport') as HTMLElement;
@@ -330,13 +363,13 @@ console.log(slides);
 
                 const tablist = wrapper.querySelector('[role="tablist"]') as HTMLElement;
                 const counter = wrapper.querySelector('.carousel__counter') as HTMLElement;
-                const dots = Array.from(tablist.querySelectorAll('[role="tab')) as HTMLElement[];
-                const slideElements = Array.from(wrapper.querySelectorAll('.carousel__slide')) as HTMLElement[];
+                const dots = Array.from(tablist.querySelectorAll('[role="tab"]')) as HTMLElement[];
+                const slides = Array.from(wrapper.querySelectorAll('.carousel__slide')) as HTMLElement[];
                 const MAX_DOTS = 7;
 
-                console.log("Number of slides:", slideElements.length);
+                console.log("Number of slides:", slides.length);
 
-                if (slideElements.length > MAX_DOTS) {
+                if (slides.length > MAX_DOTS) {
                     tablist.setAttribute('hidden', '');
                     counter.removeAttribute('hidden');
                 } else {
@@ -349,7 +382,7 @@ console.log(slides);
                         if (e.key === 'ArrowRight') {
                             e.preventDefault();
                             const next = current + 1;
-                            if (next < slideElements.length) {
+                            if (next < slides.length) {
                                 embla.scrollTo(next);
                                 dots[next].focus();
                             }
@@ -369,6 +402,12 @@ console.log(slides);
 
                 const updateARIA = () => {
                     const current = embla.selectedScrollSnap();
+                    const currentSlide = slides[current];
+                    const figcaption = currentSlide.querySelector('figcaption') as HTMLElement;
+                    const captionEl = wrapper.querySelector('.carousel__caption');
+                    if (captionEl && figcaption) {
+                        captionEl.textContent = figcaption.textContent;
+                    }
 
                     prevBtn.setAttribute('aria-disabled', String(!embla.canScrollPrev()));
                     nextBtn.setAttribute('aria-disabled', String(!embla.canScrollNext()));
@@ -378,10 +417,9 @@ console.log(slides);
                         dot.setAttribute('tabindex', i === current ? '0' : '-1');
                     });
 
-                    counter.textContent = `${current + 1} / ${slideElements.length}`;
-                    console.log(counter);
+                    counter.textContent = `${current + 1} / ${slides.length}`;
 
-                    slideElements.forEach((slide, i) => {
+                    slides.forEach((slide, i) => {
                         if ( i === current ){
                             slide.removeAttribute('aria-hidden');
                             slide.removeAttribute('inert');
