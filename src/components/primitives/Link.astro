@@ -7,6 +7,7 @@ export interface Props {
     pill?: true | false;
     theme?: string;
     activeTheme?: string;
+    showActiveTheme?: boolean;
     active?: boolean;
     class?: string;
     hoverColor?: 'alt-hover' | 'no-hover';
@@ -18,6 +19,7 @@ const {
     pill = false,
     theme = "default",
     active = false,
+    showActiveTheme = false,
     activeTheme,
     class: className,
     hoverColor,
@@ -95,7 +97,6 @@ const baseClass = [
         &:hover,
         &:focus-visible,
         &.active{
-            // border:.1em solid var(--hibiscus-dark);
             background: var(--background);
         }
     }
@@ -105,11 +106,12 @@ const baseClass = [
     href={href} 
     data-hover={theme} 
     data-theme={activeTheme}
+    aria-current={active ? 'page' : undefined}
     class:list={[
         ...baseClass,
         "link",
         { pill: pill },
-        { active: active },
+        { active: active && showActiveTheme },
     ]}
     {...rest}
 >

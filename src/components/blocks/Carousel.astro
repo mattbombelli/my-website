@@ -47,25 +47,18 @@ const showDots = slides.length <= 7;
 
     :global(.js-carousel-ready) {
         .carousel{
-            .carousel__viewport{
-                .carousel__container{
-                    :global(.carousel__slide){
-                        :global(figcaption){
-                            margin-top: calc( var(--controls-height, 3rem) + var(--space-xs, .5rem) * 2 );
-                        }
-                    }
-                }
-            } // viewport
+            :global(figure figcaption){
+                margin-top: calc( var(--controls-height, 3rem) + var(--space-xs, .5rem) * 2 );
+            }
+        }
 
-            .carousel__controls{
-                position: absolute;
-                width: 100%;
-                top: calc( var(--controls-offset, 2rem) + var(--space-xs, .5rem));
-                left: 50%;
-                transform: translateX(-50%);
-            } // controls
-
-        } // carousel
+        .carousel__controls{
+            position: absolute;
+            width: 100%;
+            top: calc( var(--controls-offset, 2rem) + var(--space-xs, .5rem));
+            left: 50%;
+            transform: translateX(-50%);
+        } 
     } // js-carousel-ready
 
     @media only screen and (max-width: $tablet - 1px){
@@ -283,12 +276,14 @@ const showDots = slides.length <= 7;
                 grid-column: 1 / -1;
                 display: grid;
                 grid-template-columns: subgrid;
+                height: auto;
 
                 .carousel__container {
                     touch-action: unset;
                     display: grid;
                     grid-column: 1 / -1;
                     grid-template-columns: subgrid;
+                    align-items: initial;
                     row-gap: var(--custom-row-gap);
 
                     :global(figure){
@@ -297,16 +292,22 @@ const showDots = slides.length <= 7;
 
                         display: flex;
                         flex-direction: column;
+
+                        :global(figcaption){
+                            margin-top: var(--space-s);
+                        }
                     }
                 }
             }
-
+            
             .carousel__controls{
                 display: none;
             }
         }
+        
 
     } // $tablet
+    
 
     @media only screen and (min-width: $laptop){
         .carousel{
@@ -647,7 +648,9 @@ const showDots = slides.length <= 7;
             });
 
             updateARIA();
-            setActiveSlideHeight();
+            observeSize(viewport, () => {
+                setActiveSlideHeight();
+            });
         }; // init
 
         const destroy = () => {

@@ -4,6 +4,7 @@ import '@style/global.scss';
 import Link from '@primitives/Link.astro';
 import { mainNavLinks } from '@data/navigation.ts';
 import Icon from '@primitives/Icon.astro';
+import type { link } from 'node:fs';
 
 const currentPage = Astro.url.pathname;
 ---
@@ -70,7 +71,7 @@ const currentPage = Astro.url.pathname;
         border:none;
 
         
-        header{
+        div.header{
             padding-top: var(--space-m);
             padding-bottom: var(--space-m);
             align-items: center;
@@ -219,12 +220,12 @@ const currentPage = Astro.url.pathname;
 </style>
 
 <nav aria-label="Main navigation menu" class="grid" id="main-menu">
-    <Link href="/" label="Mattia Bombelli"/>
+    <Link href="/" label="Mattia Bombelli" active={currentPage === '/'} />
     
     <ul>
         {mainNavLinks.map((link) => (
             <li>
-                <Link href={link.href} label={link.label} theme={link.theme} activeTheme={link.theme} active={currentPage === link.href} pill/>
+                <Link href={link.href} label={link.label} theme={link.theme} activeTheme={link.theme} active={currentPage === link.href} showActiveTheme pill/>
             </li>
         ))}
     </ul>
@@ -242,7 +243,11 @@ const currentPage = Astro.url.pathname;
         data-hover="meadow"
         class="hamburger"
     >
-        <Icon icon="hamburger" scale="h5"/>
+        <Icon
+            icon="hamburger"
+            scale="h5"
+            aria-hidden="true"
+        />
     </button>
 
 </nav>
@@ -251,8 +256,8 @@ const currentPage = Astro.url.pathname;
     aria-label="Main navigation menu"
     data-theme="meadow"
 >
-    <header class="grid">
-        <Link href="/" label="Mattia Bombelli" class="no-hover" />
+    <div class="grid header">
+        <Link href="/" label="Mattia Bombelli" class="no-hover" active={currentPage === '/'} />
 
         <button
             id="button-close"
@@ -261,15 +266,21 @@ const currentPage = Astro.url.pathname;
             class="hamburger"
             data-hover="default"
         >   
-            <Icon icon="x" scale="h5"/>
+            <Icon
+                icon="x"
+                scale="h5"
+                aria-hidden="true"
+            />
         </button>
-    </header>
+    </div>
     
-    <nav>
+    <nav
+        aria-label="Main navigation menu"
+    >
         <ul data-theme="default">
             {mainNavLinks.map((link) => (
                 <li>
-                    <Link href={link.href} label={link.label} theme={link.theme} class="h5" active={currentPage === link.href} />
+                    <Link href={link.href} label={link.label} theme={link.theme} class="h5" active={currentPage === link.href} showActiveTheme />
                 </li>
             ))}
         </ul>
@@ -333,11 +344,11 @@ const currentPage = Astro.url.pathname;
 
         buttonClose.addEventListener("click", () => {
             menu.close();
-            setExpanded(false);
         });
 
         menu.addEventListener('close', () => {
             setExpanded(false);
+            buttonOpen.focus();
         })
     }
 </script>

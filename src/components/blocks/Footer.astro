@@ -3,6 +3,8 @@ import '@style/global.scss';
 
 import Link from '@primitives/Link.astro';
 import { footerNavLinks } from '@data/navigation.ts';
+
+const currentPage = Astro.url.pathname;
 ---
 <style lang="scss">
     @use '../../foundations' as *;
@@ -19,19 +21,19 @@ import { footerNavLinks } from '@data/navigation.ts';
 
             grid-column: 1/3;
 
-            h1, h2, h3{
+            h2, h3, h4{
                 margin: 0;
                 span{
                     display: block;
                 }
             }
 
-            h1{
+            h2{
                 font-size: var(--text-h2);
                 line-height: var(--leading-sans-serif-h2);
             }
 
-            h2{
+            h3{
                 font-size: var(--text-h4);
                 line-height: var(--leading-serif-h4);
             }
@@ -83,12 +85,12 @@ import { footerNavLinks } from '@data/navigation.ts';
             section{
                 grid-column: 1/5;
 
-                h1{
+                h2{
                     font-size: var(--text-h1);
                     line-height: var(--leading-sans-serif-h1);
                 }
 
-                h2{
+                h3{
                     font-size: var(--text-h3);
                     line-height: var(--leading-serif-h3);
                 }
@@ -106,7 +108,7 @@ import { footerNavLinks } from '@data/navigation.ts';
                     }
                 }
 
-                h3{
+                h4{
                     font-size: var(--text-h2);
                     line-height: var(--leading-sans-serif-h2);
                 }
@@ -157,27 +159,27 @@ import { footerNavLinks } from '@data/navigation.ts';
 
 <footer data-theme-mode="invert" class="grid">
     <section>
-        <h1>
+        <h2>
             <span>Mattia </span>
             <span>Bombelli</span>
-        </h1>
-        <h2 class="serif italic">
+        </h2>
+        <h3 class="serif italic">
             <span>Your friendly</span>
             <span>neighbourhood</span>
             <span>UX designer</span>
-        </h2>
+        </h3>
     </section>
     <section>
         <ul>
             {   footerNavLinks.map((link) => (
                 <li>
-                    <Link href={link.href} label={link.label} class="alt-hover"/>
+                    <Link href={link.href} label={link.label} active={currentPage === link.href} class="alt-hover"/>
                 </li>
             ))}
         </ul>
     </section>
     <section>
-        <h3>Get in touch</h3>
+        <h4>Get in touch</h4>
         <Link href="mailto:hello@mattiabombelli.com" label="hello@mattiabombelli.com" class="italic serif alt-hover" />
     </section>
 </footer>
