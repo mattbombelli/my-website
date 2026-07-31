@@ -2,22 +2,34 @@ import sharp from 'sharp';
 import { join } from 'node:path';
 import { encode } from 'blurhash';
 import { blurhashToCssGradientString } from '@unpic/placeholder';
+import type { ImageMetadata } from 'astro';
 
-export async function resolveImage(path: string | null){
+const images = import.meta.glob<{ default: ImageMetadata }>(
+    '/src/assets/images/**/*.{png,jpg,jpeg,webp}',
+    { eager: true }
+);
+
+export async function resolveImage(path: string | null) {
     if (!path) return null;
 
     try {
         const resolvedPath = decodeURIComponent(path)
             .replace('@images/', '/src/assets/images/');
-        const module = await import(/* @vite-ignore */ resolvedPath);
+
+        const module = images[resolvedPath];
+
+        if (!module) {
+            console.error(`Image not found: ${resolvedPath}`);
+            return null;
+        }
+
         const { data, info } = await sharp(join(process.cwd(), resolvedPath))
             .rotate()
             .raw()
             .ensureAlpha()
-            .resize(32, 32, { fit: 'inside'})
+            .resize(32, 32, { fit: 'inside' })
             .toBuffer({ resolveWithObject: true });
 
-        let placeholder = null;
         const aspectRatio = info.width / info.height;
         const baseComponent = 5;
 
@@ -27,20 +39,21 @@ export async function resolveImage(path: string | null){
         componentX = Math.min(9, Math.max(1, componentX));
         componentY = Math.min(9, Math.max(1, componentY));
 
+        let placeholder = null;
+
         try {
             const hash = encode(new Uint8ClampedArray(data), info.width, info.height, componentX, componentY);
-
             placeholder = blurhashToCssGradientString(hash, componentX, componentY);
-        } catch(e) {
-            console.log(`Could not generate hash for image: ${resolvedPath}`);
+        } catch (e) {
+            console.warn(`Could not generate placeholder for image: ${resolvedPath}`);
         }
 
         return {
             ...module.default,
             placeholder
         };
-    } catch(e){
-        console.error(`Could not resolve image: ${path}`);
+    } catch (e) {
+        console.error(`Could not resolve image: ${path}`, e);
         return null;
     }
 }

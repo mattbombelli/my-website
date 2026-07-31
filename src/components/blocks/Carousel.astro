@@ -32,11 +32,16 @@ const {
     id
 } = Astro.props;
 
-const resolvedSlides = await Promise.all(
+const mappedSlides = (await Promise.all(
     slides.map(async (slide) => ({
         ...slide,
         resolvedSrc: await resolveImage(slide.src),
     }))
+)).filter((slide) => slide.resolvedSrc !== null);
+
+const resolvedSlides = mappedSlides.filter(
+    (slide): slide is typeof slide & { resolvedSrc: NonNullable<typeof slide.resolvedSrc> } =>
+        slide.resolvedSrc !== null
 );
 
 const showDots = slides.length <= 7;
@@ -362,7 +367,7 @@ const showDots = slides.length <= 7;
                         --row-span-tablet: ${slide.tablet?.rowSpan === 'auto' ? 'auto' : `span ${slide.tablet?.rowSpan}`};
                         --row-offset-tablet: ${slide.tablet?.rowOffset};
 
-                        --blurhash-gradient: ${slide.resolvedSrc.placeholder};
+                        --blurhash-gradient: ${slide.resolvedSrc?.placeholder};
                     `}
                 />
             ))}
