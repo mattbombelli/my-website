@@ -251,6 +251,9 @@ const sections = await Promise.all(
                                                 alt={zone.content.value.alt}
                                                 caption={zone.content.value.caption}
                                                 loading={zone.content.value.loading}
+                                                style={`
+                                                    --blurhash-gradient: ${zone.resolvedImage.placeholder};
+                                                `}
                                             />
                                             : zone.Content && <zone.Content />
                                         }
