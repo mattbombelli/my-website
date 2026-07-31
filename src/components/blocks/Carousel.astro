@@ -55,7 +55,7 @@ const showDots = slides.length <= 7;
                         }
                     }
                 }
-            }
+            } // viewport
 
             .carousel__controls{
                 position: absolute;
@@ -63,9 +63,82 @@ const showDots = slides.length <= 7;
                 top: calc( var(--controls-offset, 2rem) + var(--space-xs, .5rem));
                 left: 50%;
                 transform: translateX(-50%);
+            } // controls
+
+        } // carousel
+    } // js-carousel-ready
+
+    @media only screen and (max-width: $tablet - 1px){
+        .carousel:not(.carousel--ready){
+            .carousel__viewport,
+            .carousel__controls{
+                visibility: hidden;
             }
         }
     }
+
+    .carousel__skeleton{
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-xs);
+
+        &[hidden]{
+            display: none;
+        }
+
+        &-image{
+            display: block;
+            background-color: var(--paper-dark);
+        }
+
+        &-controls{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--padding-inline);
+
+            .skeleton-circle{
+                display: block;
+                width: calc(var(--text-h5) + var(--space-xs) * 2);
+                height: calc(var(--text-h5) + var(--space-xs) * 2);
+                border-radius: var(--radius-pill);
+                background-color: var(--paper-dark);
+            }
+            
+            .skeleton-pill{
+                display: block;
+                width: 40%;
+                height: var(--space-s);
+                border-radius: var(--radius-pill);
+                background-color: var(--paper-dark);
+            }
+        }
+
+        &-caption{
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 0 var(--padding-inline);
+            gap: calc(var(--text-p) * (var(--leading-serif-p) - 1));
+            margin-top: var(--space-xs);
+            
+            .skeleton-line{
+                background-color: var(--paper-dark);
+                display: block;
+                border-radius: var(--radius-pill);
+                height: calc(var(--text-p) * 0.65);
+                width: 100%;
+
+                &-short{
+                    width: 40%;
+                }
+            }
+        }
+    } // skeleton
 
     .carousel {
         position: relative;
@@ -75,16 +148,22 @@ const showDots = slides.length <= 7;
         gap: var(--space-m);
 
         .carousel__viewport {
+            height: var(--active-slide-height, auto);
             overflow: hidden;
+
+            @media (prefers-reduced-motion: no-preference){
+                transition: height var(--duration-default) var(--ease-default);
+            }
 
             .carousel__container {
                 display: flex;
                 touch-action: pan-y pinch-zoom;
+                align-items: flex-start;
 
                 :global(.carousel__slide) {
                     flex: 0 0 100%;
                     min-width: 0;
-                    height: 100%;
+                    height: auto;
 
                     :global(figcaption){
                         font-family: var(--font-serif);
@@ -194,6 +273,10 @@ const showDots = slides.length <= 7;
             grid-column: 1 / -1;
             display: grid;
             grid-template-columns: subgrid;
+
+            .carousel__skeleton{
+                display: none;
+            }    
 
             .carousel__viewport {
                 overflow: unset;
@@ -324,6 +407,54 @@ const showDots = slides.length <= 7;
             <Icon icon="arrowRight" aria-hidden="true" />
         </button>
     </div> <!-- controls -->
+    <div
+        class="carousel__skeleton"
+        aria-hidden="true"
+        >
+        <div
+            class="carousel__skeleton-image"
+            style={`aspect-ratio: ${resolvedSlides[0].resolvedSrc.width} / ${resolvedSlides[0].resolvedSrc.height}`}
+        ></div>
+        <div class="carousel__skeleton-controls">
+            <span class="skeleton-circle"></span>
+            <span class="skeleton-pill"></span>
+            <span class="skeleton-circle"></span>
+        </div>
+        <div class="carousel__skeleton-caption">
+            <span class="skeleton-line"></span>
+            <span class="skeleton-line skeleton-line-short"></span>
+        </div>
+    </div> <!-- skeleton -->
+
+    <noscript>
+        <style lang="scss">
+            .carousel__viewport {
+                visibility: visible !important;
+                overflow: visible !important;
+                height: auto !important;
+            }
+
+            .carousel__container {
+                display: grid !important;
+                gap: var(--gap-y) !important;
+            }
+
+            figure.carousel__slide {
+                flex: 0 0 auto !important;
+            }
+
+            figure.carousel__slide figcaption {
+                margin-top: var(--space-s) !important;
+            }
+
+            .carousel__controls {
+                display: none !important;
+            }
+            .carousel__skeleton {
+                display: none !important;
+            }
+        </style>
+    </noscript>
 </div> <!-- carousel -->
 
 <script>
@@ -340,6 +471,7 @@ const showDots = slides.length <= 7;
 
         let embla: any = null;
         const observers: ResizeObserver[] = [];
+        let controller: AbortController | null = null;
 
         const mql = window.matchMedia('(max-width: 767px)');
 
@@ -364,23 +496,46 @@ const showDots = slides.length <= 7;
         const init = () => {
             if (!mql.matches || embla) return;
 
+            controller = new AbortController();
+            const { signal } = controller;
+
             embla = EmblaCarousel(viewport, { loop: false });
 
             prevBtn.addEventListener('click', () => {
                 if (prevBtn.getAttribute('aria-disabled') === 'true') return;
                 embla.scrollPrev();
-            }, false);
+            }, { signal });
             nextBtn.addEventListener('click', () => {
                 if (nextBtn.getAttribute('aria-disabled') === 'true') return;
                 embla.scrollNext();
-            }, false);
+            }, { signal });
 
             const controls = wrapper.querySelector('.carousel__controls') as HTMLElement;
             const tablist = controls.querySelector('[role="group"]') as HTMLElement;
             const counter = controls.querySelector('.carousel__counter') as HTMLElement;
             const dots = Array.from(tablist.querySelectorAll('button')) as HTMLElement[];
             const slideElements = Array.from(wrapper.querySelectorAll('.carousel__slide')) as HTMLElement[];
+            const skeleton = wrapper.querySelector('.carousel__skeleton') as HTMLElement;
             const firstImage = slideElements[0]?.querySelector('img') as HTMLElement | null;
+
+            viewport.setAttribute('inert', '');
+            controls.setAttribute('inert', '');
+
+            if (skeleton && firstImage) {
+                const hideSkeleton = () => {
+                    skeleton.setAttribute('hidden', '');
+                    viewport.removeAttribute('inert');
+                    controls.removeAttribute('inert');
+                    wrapper.classList.add('carousel--ready');
+                };
+
+                if ((firstImage as HTMLImageElement).complete) {
+                    hideSkeleton();
+                } else {
+                    firstImage.addEventListener('load', hideSkeleton, { once: true, signal });
+                }
+            }
+
 
             // --- Controls height -> reserved gap above figcaption ---
             observeSize(controls, (rect) => {
@@ -409,8 +564,6 @@ const showDots = slides.length <= 7;
             const updateDotsVisibility = () => {
                 const shouldShowDots = tablistFits();
                 const isDotsCurrentlyHidden = tablist.hasAttribute('hidden');
-
-                    console.log({ shouldShowDots, isDotsCurrentlyHidden, willUpdate: shouldShowDots === isDotsCurrentlyHidden });
 
                 if (shouldShowDots === isDotsCurrentlyHidden) {
                     if (shouldShowDots) {
@@ -447,7 +600,7 @@ const showDots = slides.length <= 7;
                         dots[prev].focus();
                     }
                 }
-            });
+            }, { signal });
 
             // --- ARIA sync ---
             const updateARIA = () => {
@@ -472,15 +625,29 @@ const showDots = slides.length <= 7;
                 });
             };
 
+            const setActiveSlideHeight = () => {
+                const current = embla.selectedScrollSnap();
+                const activeSlide = slideElements[current];
+
+                if (activeSlide) {
+                    wrapper.style.setProperty('--active-slide-height', `${activeSlide.getBoundingClientRect().height}px`);
+                }
+            };
+
             dots.forEach((dot, i) => {
                 dot.addEventListener('click', () => {
                     embla.scrollTo(i);
                     dots[i].focus();
-                });
+                }, { signal });
             });
 
-            embla.on('select', updateARIA);
+            embla.on('select', () => {
+                updateARIA();
+                setActiveSlideHeight();
+            });
+
             updateARIA();
+            setActiveSlideHeight();
         }; // init
 
         const destroy = () => {
@@ -492,8 +659,22 @@ const showDots = slides.length <= 7;
                 embla.destroy();
                 embla = null;
             }
+
+            controller?.abort();
+            controller = null;
+
             observers.forEach(ro => ro.disconnect());
             observers.length = 0;
+
+            const controls = wrapper.querySelector('.carousel__controls') as HTMLElement;
+            const skeleton = wrapper.querySelector('.carousel__skeleton') as HTMLElement;
+
+            if (skeleton) {
+                skeleton.removeAttribute('hidden');
+                viewport.removeAttribute('inert');
+                controls.removeAttribute('inert');
+                wrapper.classList.remove('carousel--ready');
+            }
         }; // destroy
 
         mql.addEventListener('change', (e) => {

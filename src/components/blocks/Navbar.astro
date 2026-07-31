@@ -280,6 +280,37 @@ const currentPage = Astro.url.pathname;
         <address class="h6 serif">hello@mattiabombelli.com</address>
     </nav>
 </dialog>
+<noscript>
+    <style>
+        @media only screen and (max-width: 767px){
+            nav#main-menu {
+                display: flex !important; 
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-m);
+            }
+    
+            nav#main-menu ul {
+                display: flex !important;
+                flex-direction: column;
+                align-items: center;
+                gap: var(--gap-y-small);
+            }
+    
+            nav#main-menu > a:last-of-type {
+                display: block !important;
+            }
+    
+            nav#main-menu button.hamburger {
+                display: none !important;
+            }
+    
+            dialog {
+                display: none !important;
+            }
+        }
+    </style>
+</noscript>
 
 <script>
     const menu = document.getElementById("dialog-menu");
