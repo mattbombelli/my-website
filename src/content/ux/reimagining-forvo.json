@@ -324,9 +324,9 @@
           },
           "tablet": {
             "columnSpan": "2",
-            "columnOffset": "1",
-            "rowSpan": "auto",
-            "rowOffset": "auto"
+            "columnOffset": "3",
+            "rowSpan": "2",
+            "rowOffset": "1"
           },
           "mobileOrder": 0
         },
@@ -349,9 +349,9 @@
           },
           "tablet": {
             "columnSpan": "2",
-            "columnOffset": "3",
-            "rowSpan": "auto",
-            "rowOffset": "auto"
+            "columnOffset": "1",
+            "rowSpan": "2",
+            "rowOffset": "2"
           },
           "mobileOrder": 0
         },
@@ -374,9 +374,9 @@
           },
           "tablet": {
             "columnSpan": "2",
-            "columnOffset": "2",
-            "rowSpan": "auto",
-            "rowOffset": "auto"
+            "columnOffset": "3",
+            "rowSpan": "2",
+            "rowOffset": "3"
           },
           "mobileOrder": 0
         },
@@ -399,9 +399,9 @@
           },
           "tablet": {
             "columnSpan": "2",
-            "columnOffset": "2",
-            "rowSpan": "auto",
-            "rowOffset": "auto"
+            "columnOffset": "1",
+            "rowSpan": "2",
+            "rowOffset": "4"
           },
           "mobileOrder": 0
         },
@@ -424,9 +424,9 @@
           },
           "tablet": {
             "columnSpan": "2",
-            "columnOffset": "2",
-            "rowSpan": "auto",
-            "rowOffset": "auto"
+            "columnOffset": "3",
+            "rowSpan": "2",
+            "rowOffset": "5"
           },
           "mobileOrder": 0
         },
@@ -449,9 +449,9 @@
           },
           "tablet": {
             "columnSpan": "2",
-            "columnOffset": "2",
-            "rowSpan": "auto",
-            "rowOffset": "auto"
+            "columnOffset": "1",
+            "rowSpan": "2",
+            "rowOffset": "6"
           },
           "mobileOrder": 0
         }
@@ -512,7 +512,55 @@
           },
           "tablet": {
             "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "title": "Right column",
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "4",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": true,
+            "value": {
+              "image": "@images/ux/reimagining-forvo/sections/7/zones/2/content/value/image.png",
+              "alt": "A representation of the Double Diamond: two red trapezoids side by side, touching each other. The first one reads \"Discover & Define\"; the second one reads \"Develop & Deliver\"",
+              "caption": "The Double Diamond by the Design Council is licensed under a CC BY 4.0 license.",
+              "loading": "lazy"
+            }
+          },
+          "desktop": {
+            "columnSpan": "4",
             "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "4",
+            "columnOffset": "1",
             "rowSpan": "auto",
             "rowOffset": "auto"
           },
@@ -538,13 +586,312 @@
           },
           "desktop": {
             "columnSpan": "2",
+            "columnOffset": "4",
+            "rowSpan": "auto",
+            "rowOffset": "1"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "1"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "title": "Left column",
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "1"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "1"
+          },
+          "mobileOrder": 0
+        }
+      ],
+      "carousel": false,
+      "theme": "normal",
+      "rowGap": "var(--gap-y)"
+    },
+    {
+      "description": "More languages, more people",
+      "zones": [
+        {
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "4",
+            "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "4",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        }
+      ],
+      "carousel": false,
+      "theme": "normal",
+      "rowGap": "var(--gap-y)"
+    },
+    {
+      "description": "Product goals",
+      "zones": [
+        {
+          "title": "Expanding coverage, building trust",
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "typography": false,
+              "theme": true
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
             "columnOffset": "2",
             "rowSpan": "auto",
             "rowOffset": "auto"
           },
           "tablet": {
             "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "title": "Growing and retaining an active community",
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "typography": false,
+              "theme": true
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "4",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        }
+      ],
+      "carousel": false,
+      "theme": "normal",
+      "rowGap": "var(--gap-y)"
+    },
+    {
+      "description": "A layered ecosystem",
+      "zones": [
+        {
+          "title": "Heading",
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "4",
+            "rowSpan": "auto",
+            "rowOffset": "1"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "1"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
             "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        }
+      ],
+      "carousel": false,
+      "theme": "normal",
+      "rowGap": "var(--gap-y)"
+    },
+    {
+      "description": "Market segmentations",
+      "zones": [
+        {
+          "title": "Language Learners",
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "typography": true,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "1"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "1"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "4",
+            "rowSpan": "auto",
+            "rowOffset": "1"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "1"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "title": "Native speakers as contributors",
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "typography": true,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "2"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "2"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "4",
+            "rowSpan": "auto",
+            "rowOffset": "2"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "2"
+          },
+          "mobileOrder": 0
+        }
+      ],
+      "carousel": false,
+      "theme": "normal",
+      "rowGap": "var(--gap-y)"
+    },
+    {
+      "description": "Other market segmentations",
+      "zones": [
+        {
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "4",
+            "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "4",
+            "columnOffset": "1",
             "rowSpan": "auto",
             "rowOffset": "auto"
           },

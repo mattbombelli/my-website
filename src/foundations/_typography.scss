@@ -257,6 +257,45 @@ small, .small{
     }
 }
 
+::selection{
+    background:var(--marmalade-light);
+    color: var(--ink-base);
+}
+
+a{
+    color: var(--foreground);
+    text-decoration: underline;
+    text-decoration-thickness: 0.12em;
+    text-decoration-style: solid;
+    text-underline-offset: .2em;
+
+    @media (hover: hover) and (pointer: fine){
+        &:hover{
+            text-decoration-style: wavy;
+            text-decoration-thickness: 0.08rem;
+            color: var(--ink-light);
+        }
+    }
+
+    &:visited{
+        color:var(--hibiscus-dark);
+    }
+}
+
+[data-theme="default"][data-theme-mode="invert"]{
+    a{
+        @media (hover: hover) and (pointer: fine){
+            &:hover{
+                color: var(--paper-dark);
+            }
+        }
+
+        &:visited{
+            color: var(--flame-light);
+        }
+    }
+}
+
 /* === Utility classes === */
 .italic{
     font-style: italic;

@@ -1,7 +1,5 @@
 import sharp from 'sharp';
 import { join } from 'node:path';
-import { encode } from 'blurhash';
-import { blurhashToCssGradientString } from '@unpic/placeholder';
 import type { ImageMetadata } from 'astro';
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
@@ -23,30 +21,17 @@ export async function resolveImage(path: string | null) {
             return null;
         }
 
-        const { data, info } = await sharp(join(process.cwd(), resolvedPath))
+        const { data } = await sharp(join(process.cwd(), resolvedPath))
             .rotate()
             .raw()
             .ensureAlpha()
-            .resize(32, 32, { fit: 'inside' })
+            .resize(20, null, { fit: 'inside' })
+            .median(3)
+            .blur(6)
+            .webp({ quality: 5 })
             .toBuffer({ resolveWithObject: true });
 
-        const aspectRatio = info.width / info.height;
-        const baseComponent = 5;
-
-        let componentX = Math.round(baseComponent * Math.sqrt(aspectRatio));
-        let componentY = Math.round(baseComponent / Math.sqrt(aspectRatio));
-
-        componentX = Math.min(9, Math.max(1, componentX));
-        componentY = Math.min(9, Math.max(1, componentY));
-
-        let placeholder = null;
-
-        try {
-            const hash = encode(new Uint8ClampedArray(data), info.width, info.height, componentX, componentY);
-            placeholder = blurhashToCssGradientString(hash, componentX, componentY);
-        } catch (e) {
-            console.warn(`Could not generate placeholder for image: ${resolvedPath}`);
-        }
+        const placeholder = `data:image/webp;base64,${data.toString('base64')}`;
 
         return {
             ...module.default,

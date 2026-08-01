@@ -172,7 +172,7 @@ const sections = await Promise.all(
 
 <Layout title={caseStudy.title}>
     <main>
-        <article>
+        <article class="">
             <header class="grid">
                 <h1 class="col-full">{caseStudy.title}</h1>
             </header>
@@ -252,7 +252,7 @@ const sections = await Promise.all(
                                                 caption={zone.content.value.caption}
                                                 loading={zone.content.value.loading}
                                                 style={`
-                                                    --blurhash-gradient: ${zone.resolvedImage.placeholder};
+                                                    --blurhash-gradient: url("${zone.resolvedImage.placeholder}");
                                                 `}
                                             />
                                             : zone.Content && <zone.Content />

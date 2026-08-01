@@ -367,7 +367,7 @@ const showDots = slides.length <= 7;
                         --row-span-tablet: ${slide.tablet?.rowSpan === 'auto' ? 'auto' : `span ${slide.tablet?.rowSpan}`};
                         --row-offset-tablet: ${slide.tablet?.rowOffset};
 
-                        --blurhash-gradient: ${slide.resolvedSrc?.placeholder};
+                        --blurhash-gradient: url("${slide.resolvedSrc?.placeholder}");
                     `}
                 />
             ))}
