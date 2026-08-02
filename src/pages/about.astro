@@ -1,10 +1,10 @@
 ---
 import Layout from '@layouts/Layout.astro';
-
 import PrimaryButton from '@blocks/PrimaryButton.astro';
-
 import Figure from '@primitives/Figure.astro';
-import Portrait from '@images/me.jpg';
+
+import { resolveImageOrThrow } from '@utils/resolveImageOrThrow.ts';
+const portrait = await resolveImageOrThrow('@images/me.jpg');
 
 import { breakpoints } from '@data/breakpoints.ts';
 ---
@@ -123,11 +123,11 @@ import { breakpoints } from '@data/breakpoints.ts';
 <Layout title="About">
   <section id="portrait" class="grid full-bleed">
     <Figure 
-      src={Portrait}
+      src={portrait}
       alt="Myself holding my camera, in front of a mirror."
       class="col-center full-bleed"
       style={`
-        --blurhash-gradient: url("${Portrait}");
+        --blurhash-gradient: url("${portrait.placeholder}");
       `}
       
       widths={[375, 540]}
@@ -168,7 +168,7 @@ import { breakpoints } from '@data/breakpoints.ts';
   <section id="instructions" class="grid">
     <h2 class="serif italic col-full">Instructions</h2>
     <div class="prose col-left-half">
-      <p class="h6 sans-serif weight-regular justified">
+      <p class="h6 sans-serif weight-regular justified drop-cap">
         Marinate Mattia with French Expressionism and Gothic art, then add some finely chopped ardour for illustration and storytelling.</p>
       <p class="h6 sans-serif weight-regular justified">
         Store him in the Illustration & Animation school of the European Institute of Design (IED) in Milan, Italy, for a few years.

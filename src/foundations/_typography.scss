@@ -342,6 +342,14 @@ a{
     border: 0;
 }
 
+.drop-cap:first-letter{
+    font-size: var(--text-h1);
+    font-weight: 700;
+    float: left;
+    margin: var(--space-2xs) var(--space-2xs) var(--space-2xs) 0;
+    line-height: 0.65;
+}
+
 /* === Typography adjustments === */
 h1, h2, h3, h4, h5, h6, p, small{
     margin: 0;
@@ -349,6 +357,13 @@ h1, h2, h3, h4, h5, h6, p, small{
 
 /* === Spacing system for prose === */
 .prose{
+    // micro space
+    blockquote
+    {
+        font-family: var(--font-sans-serif);
+        font-size: var(--text-p);
+        line-height: var(--leading-sans-serif-p); 
+    }
 
     // meso space
     :where(p, .p) + :where(h1, .h1),
@@ -381,11 +396,20 @@ h1, h2, h3, h4, h5, h6, p, small{
         margin-top: var(--space-m);   
     }
 
+    :where(h2, .h2) + :where(h5, .h5)
+    {
+        margin-top: var(--space-s);
+    }
+
     :where(h4, .h4) + :where(p, .p),
     :where(h5, .h5) + :where(p, .p),
     :where(h6, .h6) + :where(p, .p)
     {
         margin-top: var(--space-m);
+    }
+    :where(p, .p) + :where(p, .p)
+    {
+        margin-top: var(--space-l);
     }
 
     hgroup:has(:where(h1, .h1) + :where(p, .p)) + :where(p, .p)
@@ -401,5 +425,51 @@ h1, h2, h3, h4, h5, h6, p, small{
     :where(ul, ol) li:not(:first-of-type)
     {
         margin-top: var(--space-xs);
+    }
+
+    blockquote
+    {
+        padding: var(--space-s) 0 var(--space-s) var(--space-s);
+        border-left: .2em solid var(--foreground);
+    }
+
+    // macro space
+    section.grid, .grid{
+        padding-top: 0;
+        padding-bottom: 0;
+
+        &[data-theme="default"][data-theme-mode="invert"]
+        {
+            --padding-block: var(--space-2xl);
+        }
+
+        &:has(figure)
+        {   
+            padding: 0;
+            margin-top: var(--space-2xl);
+
+            &:has(figure.full-bleed)
+            {
+                padding: 0;
+            }
+
+            .zone:has(+ .zone :is(figure)),
+            .zone:is(figure) + .zone
+            {
+                padding: 0 var(--padding-inline);
+            }
+        }
+
+        &:has(:where(h1, .h1)),
+        &:has(:where(h2, .h2))
+        {
+            margin-top: var(--space-3xl);
+        }
+
+        &:has(:where(h3, .h3))
+        {
+            margin-top: var(--space-2xl);
+        }
+
     }
 }

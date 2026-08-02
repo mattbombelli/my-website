@@ -10,6 +10,7 @@
       "@templates/*": ["./src/components/templates/*"],
       "@layouts/*": ["./src/layouts/*"],
       "@data/*": ["./src/data/*"],
+      "@utils/*": ["./src/utils/*"],
       "@images/*": ["./src/assets/images/*"],
       "@root/*": ["./*"],
       "@style/*": ["./src/styles/*"]

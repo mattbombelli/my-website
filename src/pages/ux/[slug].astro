@@ -82,60 +82,60 @@ const sections = await Promise.all(
         color: var(--foreground);
         
 
-        --section-padding: var(--padding-block) var(--padding-inline);
-        --padding-block-extra: var(--space-2xl);
+        // --section-padding: var(--padding-block) var(--padding-inline);
+        // --padding-block-extra: var(--space-2xl);
         row-gap: var(--custom-row-gap);
 
-        @media only screen and (min-width: $tablet){
-            --padding-block-extra: var(--space-3xl);
-        }
+        // @media only screen and (min-width: $tablet){
+        //     --padding-block-extra: var(--space-3xl);
+        // }
 
-        @media only screen and (min-width: $desktop){
-            --padding-block-extra: var(--space-4xl);
-        }
+        // @media only screen and (min-width: $desktop){
+        //     --padding-block-extra: var(--space-4xl);
+        // }
 
         grid-column: 1 / -1;
         grid-template-columns: subgrid;
 
-        &:has(figure.full-bleed){
-            padding:var(--padding-block) 0;
+        // &:has(figure.full-bleed){
+        //     padding:var(--padding-block) 0;
 
-            &:has(h1,h2,h3,h4,h5,h6){
-                padding-top: var(--padding-block-extra);
-            }
+        //     &:has(h1,h2,h3,h4,h5,h6){
+        //         padding-top: var(--padding-block-extra);
+        //     }
 
-            @media only screen and (min-width: $tablet){
-                &{
-                    padding: var(--section-padding);
-                }
-            }
+        //     @media only screen and (min-width: $tablet){
+        //         &{
+        //             padding: var(--section-padding);
+        //         }
+        //     }
             
-            .zone{
-                &:has(figure.full-bleed){
-                    padding: 0;
-                }
+        //     .zone{
+        //         &:has(figure.full-bleed){
+        //             padding: 0;
+        //         }
                 
-                &:not(:has(figure.full-bleed)){
-                    padding: 0 var(--padding-inline);
+        //         &:not(:has(figure.full-bleed)){
+        //             padding: 0 var(--padding-inline);
 
-                    @media only screen and (min-width: $tablet){
-                        padding: 0;
-                    }
-                }
-            }
-        } // section has figure
+        //             @media only screen and (min-width: $tablet){
+        //                 padding: 0;
+        //             }
+        //         }
+        //     }
+        // } // section has figure
 
-        &:has(.carousel){
-            padding:var(--padding-block) 0;
+        // &:has(.carousel){
+        //     padding:var(--padding-block) 0;
 
-            @media only screen and (min-width: $tablet){
-                padding: var(--padding-block) var(--padding-inline);
-            }
-        }
+        //     @media only screen and (min-width: $tablet){
+        //         padding: var(--padding-block) var(--padding-inline);
+        //     }
+        // }
 
-        &:has(h1,h2,h3,h4,h5,h6){
-            padding-top: var(--padding-block-extra);
-        }
+        // &:has(h1,h2,h3,h4,h5,h6){
+        //     padding-top: var(--padding-block-extra);
+        // }
         
         .zone{
             grid-column: span 2;
@@ -172,7 +172,7 @@ const sections = await Promise.all(
 
 <Layout title={caseStudy.title}>
     <main>
-        <article class="">
+        <article class="prose">
             <header class="grid">
                 <h1 class="col-full">{caseStudy.title}</h1>
             </header>
