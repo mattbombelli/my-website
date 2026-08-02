@@ -365,32 +365,24 @@ h1, h2, h3, h4, h5, h6, p, small{
         line-height: var(--leading-sans-serif-p); 
     }
 
-    // meso space
+    /* meso space: spacing between elements.
+    
+    Use margin-top only to avoid unexpected spacings: each element dictates the distance from its previous sibling, never the following.
+    */
+
+    // headings spacings
     :where(p, .p) + :where(h1, .h1),
     :where(p, .p) + :where(h2, .h2)
     {
         margin-top: var(--space-3xl);
     }
-
+    
     :where(p, .p) + :where(h3, .h3),
     :where(p, .p) + :where(h4, .h4)
     {
         margin-top: var(--space-2xl);
     }
-
-    :where(p, .p) + :where(h5, .h5),
-    :where(p, .p) + :where(h6, .h6)
-    {
-        margin-top: var(--space-xl);
-    }
-
-    :where(h1, .h1) + :where(p, .p), 
-    :where(h2, .h1) + :where(p, .p), 
-    :where(h3, .h1) + :where(p, .p)
-    { 
-        margin-top: var(--space-l);
-    }
-
+    
     :where(h1, .h1) + :where(h4, .h4)
     {
         margin-top: var(--space-m);   
@@ -401,13 +393,30 @@ h1, h2, h3, h4, h5, h6, p, small{
         margin-top: var(--space-s);
     }
 
+    :where(p, .p) + :where(h5, .h5),
+    :where(p, .p) + :where(h6, .h6)
+    {
+        margin-top: var(--space-xl);
+    }
+
+    // <p> spacings
+    :where(h1, .h1) + :where(p, .p), 
+    :where(h2, .h1) + :where(p, .p), 
+    :where(h3, .h1) + :where(p, .p),
+    .zone:has(:where(h2, .h2)) + .zone :where(p, .p),
+    .zone:has(:where(h3, .h3)) + .zone :where(p, .p)
+    { 
+        margin-top: var(--space-l);
+    }
+
     :where(h4, .h4) + :where(p, .p),
     :where(h5, .h5) + :where(p, .p),
     :where(h6, .h6) + :where(p, .p)
     {
         margin-top: var(--space-m);
     }
-    :where(p, .p) + :where(p, .p)
+    :where(p, .p) + :where(p, .p),
+    .zone:has(:where(p, .p)) + .zone :where(p, .p)
     {
         margin-top: var(--space-l);
     }
@@ -417,6 +426,19 @@ h1, h2, h3, h4, h5, h6, p, small{
         margin-top:var(--space-l);
     }
 
+    // figure spacings
+    .zone:has(figure) + .zone:has(:where(p, .p))
+    {
+        margin-top: var(--space-xl);
+    }
+
+    // figure spacings
+    .zone:has(:where(p, .p)) + .zone:has(figure)
+    {
+        margin-top: var(--space-2xl);
+    }
+
+    // lists spacings
     ul, ol
     {
         margin-top: var(--space-l);
@@ -427,49 +449,64 @@ h1, h2, h3, h4, h5, h6, p, small{
         margin-top: var(--space-xs);
     }
 
+    // blockquotes spacings
     blockquote
     {
         padding: var(--space-s) 0 var(--space-s) var(--space-s);
         border-left: .2em solid var(--foreground);
     }
 
-    // macro space
+    /* macro space: spacing between sections.
+    
+    Use margin-top only to avoid unexpected spacings: each element dictates the distance from its previous sibling, never the following.
+    */
     section.grid, .grid{
         padding-top: 0;
         padding-bottom: 0;
-
-        &[data-theme="default"][data-theme-mode="invert"]
-        {
-            --padding-block: var(--space-2xl);
-        }
-
+        row-gap: 0;
+        
+        // sections with figures
         &:has(figure)
         {   
             padding: 0;
             margin-top: var(--space-2xl);
 
+            &[data-theme="default"][data-theme-mode="invert"]{
+                padding: var(--padding-block) 0;
+            }
+            
             &:has(figure.full-bleed)
             {
                 padding: 0;
             }
-
-            .zone:has(+ .zone :is(figure)),
-            .zone:is(figure) + .zone
+            
+            .zone:has(~ .zone :is(figure)),
+            .zone:is(figure) ~ .zone
             {
                 padding: 0 var(--padding-inline);
             }
+
+            & + :where(section.grid, .grid)
+            {
+                margin-top: var(--space-xl);
+            }
         }
 
-        &:has(:where(h1, .h1)),
-        &:has(:where(h2, .h2))
+        &:has(:is(h1, .h1):first-child),
+        &:has(:is(h2, .h2):first-child)
         {
             margin-top: var(--space-3xl);
         }
 
-        &:has(:where(h3, .h3))
+        &:has(:is(h3, .h3):first-child)
         {
             margin-top: var(--space-2xl);
         }
 
-    }
-}
+        &:has(:is(p, .p):first-child)
+        {
+            margin-top: var(--space-l);
+        }
+
+    } // section.grid
+} // prose
