@@ -347,14 +347,59 @@ h1, h2, h3, h4, h5, h6, p, small{
     margin: 0;
 }
 
+/* === Spacing system for prose === */
 .prose{
-    h1{
-        padding-top: var(--space-6xl);
-        padding-bottom: var(--space-3xl);
+
+    // meso space
+    :where(p, .p) + :where(h1, .h1),
+    :where(p, .p) + :where(h2, .h2)
+    {
+        margin-top: var(--space-3xl);
     }
-    // TBD
-    p{
-        padding-top: calc(var(--space-s) / 2);
-        padding-bottom: calc(var(--space-s) / 2);
+
+    :where(p, .p) + :where(h3, .h3),
+    :where(p, .p) + :where(h4, .h4)
+    {
+        margin-top: var(--space-2xl);
+    }
+
+    :where(p, .p) + :where(h5, .h5),
+    :where(p, .p) + :where(h6, .h6)
+    {
+        margin-top: var(--space-xl);
+    }
+
+    :where(h1, .h1) + :where(p, .p), 
+    :where(h2, .h1) + :where(p, .p), 
+    :where(h3, .h1) + :where(p, .p)
+    { 
+        margin-top: var(--space-l);
+    }
+
+    :where(h1, .h1) + :where(h4, .h4)
+    {
+        margin-top: var(--space-m);   
+    }
+
+    :where(h4, .h4) + :where(p, .p),
+    :where(h5, .h5) + :where(p, .p),
+    :where(h6, .h6) + :where(p, .p)
+    {
+        margin-top: var(--space-m);
+    }
+
+    hgroup:has(:where(h1, .h1) + :where(p, .p)) + :where(p, .p)
+    {
+        margin-top:var(--space-l);
+    }
+
+    ul, ol
+    {
+        margin-top: var(--space-l);
+    }
+
+    :where(ul, ol) li:not(:first-of-type)
+    {
+        margin-top: var(--space-xs);
     }
 }
