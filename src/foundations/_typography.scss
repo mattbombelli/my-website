@@ -368,31 +368,42 @@ h1, h2, h3, h4, h5, h6, p, small{
     /* meso space: spacing between elements.
     
     Use margin-top only to avoid unexpected spacings: each element dictates the distance from its previous sibling, never the following.
+
+    Given x being the target, and its margin-top's space, and y its previous sibling, meso space should cover the followings:
+    - same zone: when y and x are direct siblings;
+    - cross zone: when y is inside a .zone as :last-child, x inside the following zone as :first-child;
     */
 
     // headings spacings
+    // same zone
     :where(p, .p) + :where(h1, .h1),
     :where(p, .p) + :where(h2, .h2)
     {
         margin-top: var(--space-3xl);
     }
     
+    // same zone
     :where(p, .p) + :where(h3, .h3),
-    :where(p, .p) + :where(h4, .h4)
+    :where(p, .p) + :where(h4, .h4),
+    // cross zone
+    .zone:has(:where(p, .p):last-child) + .zone :where(h4, .h4):first-child
     {
         margin-top: var(--space-2xl);
     }
     
+    // same zone
     :where(h1, .h1) + :where(h4, .h4)
     {
         margin-top: var(--space-m);   
     }
 
+    // same zone
     :where(h2, .h2) + :where(h5, .h5)
     {
         margin-top: var(--space-s);
     }
 
+    // same zone
     :where(p, .p) + :where(h5, .h5),
     :where(p, .p) + :where(h6, .h6)
     {
@@ -400,9 +411,11 @@ h1, h2, h3, h4, h5, h6, p, small{
     }
 
     // <p> spacings
+    // same zone
     :where(h1, .h1) + :where(p, .p), 
     :where(h2, .h1) + :where(p, .p), 
     :where(h3, .h1) + :where(p, .p),
+    // cross zone
     .zone:has(:where(h2, .h2)) + .zone :where(p, .p),
     .zone:has(:where(h3, .h3)) + .zone :where(p, .p)
     { 
@@ -410,6 +423,7 @@ h1, h2, h3, h4, h5, h6, p, small{
     }
 
     :where(h4, .h4) + :where(p, .p),
+    .zone:has(:where(h4, .h4)) + .zone :where(p, .p),
     :where(h5, .h5) + :where(p, .p),
     :where(h6, .h6) + :where(p, .p)
     {
@@ -491,19 +505,24 @@ h1, h2, h3, h4, h5, h6, p, small{
                 margin-top: var(--space-xl);
             }
         }
-
-        &:has(:is(h1, .h1):first-child),
-        &:has(:is(h2, .h2):first-child)
+        
+        &:has(.zone:first-child :is(h1, .h1):first-child),
+        &:has(.zone:first-child :is(h2, .h2):first-child)
         {
             margin-top: var(--space-3xl);
         }
 
-        &:has(:is(h3, .h3):first-child)
+        &:has(.zone:first-child :is(h3, .h3):first-child)
         {
             margin-top: var(--space-2xl);
         }
 
-        &:has(:is(p, .p):first-child)
+        &:has(.zone:first-child :is(h4, .h4):first-child)
+        {
+            margin-top: var(--space-2xl);
+        }
+
+        &:has(.zone:first-child :is(p, .p):first-child)
         {
             margin-top: var(--space-l);
         }
