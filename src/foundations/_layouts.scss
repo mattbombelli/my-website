@@ -28,7 +28,29 @@ $desktop: 1440px;
     --space-6xl: clamp(25.625rem, 24.5026rem + 4.7887vw, 28.8125rem);
     --space-7xl: clamp(38.4375rem, 36.743rem + 7.23vw, 43.25rem);
     --space-8xl: clamp(57.6875rem, 55.1567rem + 10.7981vw, 64.875rem);
+    
+    // Spacing pairs
+    --space-3xs-2xs: clamp(0.25rem, 0.14rem + 0.4695vw, 0.5625rem);
+    --space-2xs-xs: clamp(0.5rem, 0.368rem + 0.5634vw, 0.875rem);
+    --space-xs-s: clamp(0.75rem, 0.618rem + 0.5634vw, 1.125rem);
+    --space-s-m: clamp(1rem, 0.7579rem + 1.0329vw, 1.6875rem);
+    --space-m-l: clamp(1.5rem, 1.2359rem + 1.1268vw, 2.25rem);
+    --space-l-xl: clamp(2rem, 1.5158rem + 2.0657vw, 3.375rem);
+    --space-xl-2xl: clamp(3rem, 2.4718rem + 2.2535vw, 4.5rem);
+    --space-2xl-3xl: clamp(4rem, 3.0317rem + 4.1315vw, 6.75rem);
+    --space-3xl-4xl: clamp(6rem, 3.6012rem + 10.2347vw, 12.8125rem);
+    --space-4xl-5xl: clamp(11.375rem, 8.6021rem + 11.831vw, 19.25rem);
+    --space-5xl-6xl: clamp(17.0625rem, 12.9252rem + 17.6526vw, 28.8125rem);
+    --space-6xl-7xl: clamp(25.625rem, 19.419rem + 26.4789vw, 43.25rem);
+    --space-7xl-8xl: clamp(38.4375rem, 29.1285rem + 39.7183vw, 64.875rem);
 
+    --space-m-xl: clamp(1.5rem, 0.8398rem + 2.8169vw, 3.375rem);
+    --space-l-2xl: clamp(2rem, 1.1197rem + 3.7559vw, 4.5rem);
+    --space-xl-3xl: clamp(3rem, 1.6796rem + 5.6338vw, 6.75rem);
+    --space-2xl-4xl: clamp(4rem, 0.897rem + 13.2394vw, 12.8125rem);
+    --space-3xl-5xl: clamp(6rem, 1.3345rem + 19.9061vw, 19.25rem);
+
+    // Radii
     --radius-sm: 8px;
     --radius-md: 16px;
     --radius-lg: 24px;
@@ -36,10 +58,10 @@ $desktop: 1440px;
     --radius-pill: 999px;
 
     // Grid utility variables
-    --gap-x: var(--space-m);
+    --gap-x: var(--space-m-xl);
     --gap-x-large: var(--space-2xl);
     --gap-y-small: var(--space-xs);
-    --gap-y: var(--space-l);
+    --gap-y: var(--space-l-xl);
     --gap-y-large: var(--space-3xl);
     --padding-inline: var(--space-s);
     --padding-block: var(--space-2xl);
@@ -48,24 +70,24 @@ $desktop: 1440px;
 
 @media only screen and (min-width: $tablet) {
     :root{
-        --gap-x: var(--space-m);
-        --gap-y: var(--space-m);
+        // --gap-x: var(--space-m);
+        // --gap-y: var(--space-m);
         --padding-inline: var(--space-m);
     }
 }	
 
 @media only screen and (min-width: $laptop) {
     :root{
-        --gap-x: var(--space-l);
-        --gap-y: var(--space-m);
+        // --gap-x: var(--space-l);
+        // --gap-y: var(--space-m);
         --padding-inline: var(--space-l);
     }
 }
 
 @media only screen and (min-width: $desktop) {
     :root{
-        --gap-x: var(--space-l);
-        --gap-y: var(--space-m);
+        // --gap-x: var(--space-l);
+        // --gap-y: var(--space-m);
         --padding-inline: var(--space-l);
     }
 }	

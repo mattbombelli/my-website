@@ -120,6 +120,12 @@ export default config({
                         defaultValue: 'left'
                       }),
 
+                      subtitle: fields.checkbox({
+                        label: 'Add subtitle',
+                        description: 'This option requires an heading (h1 or h2) in the content; the subsequent paragraph will be used as subtitle within an <hgroup> element.',
+                        defaultValue: false
+                      }),
+
                       typography: fields.checkbox({
                         label: 'Invert font family',
                         description: 'Invert the fonts associated with the content.',
@@ -133,7 +139,7 @@ export default config({
                       }),
                     }, {
                       label: 'Text',
-                      layout: [12,12,6,6]
+                      layout: [12,6,6,6,6]
                     }),
                 }),
 

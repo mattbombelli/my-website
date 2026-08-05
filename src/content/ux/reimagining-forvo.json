@@ -13,6 +13,7 @@
             "discriminant": false,
             "value": {
               "alignment": "left",
+              "subtitle": false,
               "typography": false,
               "theme": false
             }
@@ -36,6 +37,7 @@
             "discriminant": false,
             "value": {
               "alignment": "left",
+              "subtitle": false,
               "typography": false,
               "theme": false
             }
@@ -59,6 +61,7 @@
             "discriminant": false,
             "value": {
               "alignment": "left",
+              "subtitle": false,
               "typography": false,
               "theme": false
             }
@@ -123,6 +126,7 @@
             "discriminant": false,
             "value": {
               "alignment": "left",
+              "subtitle": false,
               "typography": false,
               "theme": false
             }
@@ -146,6 +150,7 @@
             "discriminant": false,
             "value": {
               "alignment": "left",
+              "subtitle": false,
               "typography": false,
               "theme": false
             }
@@ -178,6 +183,7 @@
             "discriminant": false,
             "value": {
               "alignment": "right",
+              "subtitle": false,
               "typography": false,
               "theme": false
             }
@@ -233,6 +239,7 @@
             "discriminant": false,
             "value": {
               "alignment": "left",
+              "subtitle": false,
               "typography": false,
               "theme": false
             }
@@ -256,6 +263,7 @@
             "discriminant": false,
             "value": {
               "alignment": "left",
+              "subtitle": false,
               "typography": false,
               "theme": false
             }
@@ -279,6 +287,7 @@
             "discriminant": false,
             "value": {
               "alignment": "left",
+              "subtitle": false,
               "typography": false,
               "theme": false
             }
@@ -468,6 +477,7 @@
             "discriminant": false,
             "value": {
               "alignment": "left",
+              "subtitle": false,
               "typography": false,
               "theme": false
             }
@@ -500,6 +510,7 @@
             "discriminant": false,
             "value": {
               "alignment": "left",
+              "subtitle": false,
               "typography": false,
               "theme": false
             }
@@ -524,6 +535,7 @@
             "discriminant": false,
             "value": {
               "alignment": "left",
+              "subtitle": false,
               "typography": false,
               "theme": false
             }
@@ -580,6 +592,7 @@
             "discriminant": false,
             "value": {
               "alignment": "left",
+              "subtitle": true,
               "typography": false,
               "theme": false
             }
@@ -604,6 +617,7 @@
             "discriminant": false,
             "value": {
               "alignment": "left",
+              "subtitle": false,
               "typography": false,
               "theme": false
             }
@@ -635,6 +649,7 @@
             "discriminant": false,
             "value": {
               "alignment": "left",
+              "subtitle": false,
               "typography": false,
               "theme": false
             }
@@ -667,6 +682,7 @@
             "discriminant": false,
             "value": {
               "alignment": "left",
+              "subtitle": false,
               "typography": false,
               "theme": true
             }
@@ -691,6 +707,7 @@
             "discriminant": false,
             "value": {
               "alignment": "left",
+              "subtitle": false,
               "typography": false,
               "theme": true
             }
@@ -723,6 +740,7 @@
             "discriminant": false,
             "value": {
               "alignment": "left",
+              "subtitle": false,
               "typography": false,
               "theme": false
             }
@@ -746,6 +764,7 @@
             "discriminant": false,
             "value": {
               "alignment": "left",
+              "subtitle": false,
               "typography": false,
               "theme": false
             }
@@ -778,6 +797,7 @@
             "discriminant": false,
             "value": {
               "alignment": "left",
+              "subtitle": false,
               "typography": true,
               "theme": false
             }
@@ -801,6 +821,7 @@
             "discriminant": false,
             "value": {
               "alignment": "left",
+              "subtitle": false,
               "typography": false,
               "theme": false
             }
@@ -825,6 +846,7 @@
             "discriminant": false,
             "value": {
               "alignment": "left",
+              "subtitle": false,
               "typography": true,
               "theme": false
             }
@@ -848,6 +870,7 @@
             "discriminant": false,
             "value": {
               "alignment": "left",
+              "subtitle": false,
               "typography": false,
               "theme": false
             }
@@ -869,7 +892,7 @@
       ],
       "carousel": false,
       "theme": "normal",
-      "rowGap": "var(--gap-y)"
+      "rowGap": "var(--gap-y-large)"
     },
     {
       "description": "Other market segmentations",
@@ -879,6 +902,7 @@
             "discriminant": false,
             "value": {
               "alignment": "left",
+              "subtitle": false,
               "typography": false,
               "theme": false
             }

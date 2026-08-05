@@ -355,6 +355,14 @@ h1, h2, h3, h4, h5, h6, p, small{
     margin: 0;
 }
 
+hgroup:has(:where(h2, .h2)) :where(p, .p){
+    font-family: var(--font-serif);
+    font-size: var(--text-h5);
+    font-style: italic;
+    font-weight: 500;
+    line-height: var(--leading-serif-h5);
+}
+
 /* === Spacing system for prose === */
 .prose{
     // micro space
@@ -369,7 +377,7 @@ h1, h2, h3, h4, h5, h6, p, small{
     
     Use margin-top only to avoid unexpected spacings: each element dictates the distance from its previous sibling, never the following.
 
-    Given x being the target, and its margin-top's space, and y its previous sibling, meso space should cover the followings:
+    Given x being the target, and y its previous sibling, meso space should cover the followings:
     - same zone: when y and x are direct siblings;
     - cross zone: when y is inside a .zone as :last-child, x inside the following zone as :first-child;
     */
@@ -410,14 +418,19 @@ h1, h2, h3, h4, h5, h6, p, small{
         margin-top: var(--space-xl);
     }
 
+    hgroup:has(:where(h2, .h2)) :where(p, .p)
+    {
+        margin-top: var(--space-m);
+    }
+
     // <p> spacings
     // same zone
     :where(h1, .h1) + :where(p, .p), 
     :where(h2, .h1) + :where(p, .p), 
     :where(h3, .h1) + :where(p, .p),
     // cross zone
-    .zone:has(:where(h2, .h2)) + .zone :where(p, .p),
-    .zone:has(:where(h3, .h3)) + .zone :where(p, .p)
+    .zone:has(:where(h2, .h2):last-child) + .zone :where(p, .p):first-child,
+    .zone:has(:where(h3, .h3):last-child) + .zone :where(p, .p):first-child
     { 
         margin-top: var(--space-l);
     }
@@ -430,20 +443,26 @@ h1, h2, h3, h4, h5, h6, p, small{
         margin-top: var(--space-m);
     }
     :where(p, .p) + :where(p, .p),
-    .zone:has(:where(p, .p)) + .zone :where(p, .p)
+    .zone:has(:where(p, .p):last-child) + .zone :where(p, .p):first-child
     {
         margin-top: var(--space-l);
     }
 
-    hgroup:has(:where(h1, .h1) + :where(p, .p)) + :where(p, .p)
+    hgroup:has(:where(h1, .h1) + :where(p, .p)) + :where(p, .p),
+    .zone:has(hgroup:last-child) + .zone :where(p, .p):first-child
     {
         margin-top:var(--space-l);
     }
 
     // figure spacings
-    .zone:has(figure) + .zone:has(:where(p, .p))
+    .zone:has(figure):last-child + .zone:has(:where(p, .p):first-child)
     {
         margin-top: var(--space-xl);
+    }
+
+    .zone:has(:where(h3, .h3):last-child) + .zone:has(figure:first-child)
+    {
+        margin-top: var(--space-l);
     }
 
     // figure spacings
@@ -470,6 +489,26 @@ h1, h2, h3, h4, h5, h6, p, small{
         border-left: .2em solid var(--foreground);
     }
 
+    // removes all cross zone meso spaces from $tablet and upwards
+    @media only screen and (min-width: $tablet){
+        .zone:has(:where(p, .p):last-child) + .zone :where(h4, .h4):first-child,
+
+        .zone:has(:where(h2, .h2):last-child) + .zone :where(p, .p):first-child,
+        .zone:has(:where(h3, .h3):last-child) + .zone :where(p, .p):first-child,
+
+        .zone:has(:where(h4, .h4)) + .zone :where(p, .p),
+        .zone:has(:where(p, .p):last-child) + .zone :where(p, .p):first-child,
+
+        .zone:has(hgroup:last-child) + .zone :where(p, .p):first-child,
+
+        .zone:has(figure):last-child + .zone:has(:where(p, .p):first-child),
+        .zone:has(:where(h3, .h3):last-child) + .zone:has(figure:first-child),
+        .zone:has(:where(p, .p)) + .zone:has(figure)
+        {
+            margin-top: unset;
+        }
+    }
+
     /* macro space: spacing between sections.
     
     Use margin-top only to avoid unexpected spacings: each element dictates the distance from its previous sibling, never the following.
@@ -478,6 +517,10 @@ h1, h2, h3, h4, h5, h6, p, small{
         padding-top: 0;
         padding-bottom: 0;
         row-gap: 0;
+
+        @media only screen and (min-width: $tablet){
+            row-gap: var(--custom-row-gap);
+        }
         
         // sections with figures
         &:has(figure)
@@ -487,45 +530,66 @@ h1, h2, h3, h4, h5, h6, p, small{
 
             &[data-theme="default"][data-theme-mode="invert"]{
                 padding: var(--padding-block) 0;
+
+                @media only screen and (min-width: $tablet){
+                    padding: var(--padding-block) var(--padding-inline);
+                }
+            }
+
+            @media only screen and (min-width: $tablet){
+                padding: 0 var(--padding-inline);
             }
             
             &:has(figure.full-bleed)
             {
                 padding: 0;
+
+                @media only screen and (min-width: $tablet){
+                    padding: 0 var(--padding-inline);
+                }
             }
             
             .zone:has(~ .zone :is(figure)),
             .zone:is(figure) ~ .zone
             {
-                padding: 0 var(--padding-inline);
+                padding: unset;
             }
 
             & + :where(section.grid, .grid)
             {
-                margin-top: var(--space-xl);
+                margin-top: var(--space-xl-3xl);
             }
         }
         
-        &:has(.zone:first-child :is(h1, .h1):first-child),
-        &:has(.zone:first-child :is(h2, .h2):first-child)
+        &:has(.zone:first-of-type :is(h1, .h1):first-child),
+        &:has(.zone:first-of-type :is(h2, .h2):first-child)
         {
-            margin-top: var(--space-3xl);
+            margin-top: var(--space-3xl-4xl);
         }
 
-        &:has(.zone:first-child :is(h3, .h3):first-child)
+        &:has(.zone:first-of-type :is(h3, .h3):first-child)
         {
-            margin-top: var(--space-2xl);
+            margin-top: var(--space-2xl-4xl);
         }
 
-        &:has(.zone:first-child :is(h4, .h4):first-child)
+        &:has(.zone:first-of-type :is(h4, .h4):first-child)
         {
-            margin-top: var(--space-2xl);
+            margin-top: var(--space-2xl-4xl);
         }
 
-        &:has(.zone:first-child :is(p, .p):first-child)
+        &:has(.zone:first-of-type :is(p, .p):first-child)
         {
-            margin-top: var(--space-l);
+            margin-top: var(--space-l-2xl);
+        }
+
+        &:has(.zone:last-of-type figure) + :where(section.grid, .grid):has(.zone:first-of-type :is(p, .p):first-child)
+        {
+            margin-top: var(--space-xl-3xl);
         }
 
     } // section.grid
 } // prose
+
+main:has(article.prose) + footer{
+    margin-top: var(--space-3xl);
+}
