@@ -329,6 +329,28 @@ a{
     word-break: break-word;
 }
 
+.invert-types{
+    h1, h2, h3, h4, h5, h6{
+        font-family: var(--font-serif);
+
+        &h1 { line-height: var(--leading-serif-h1); }
+        &h2 { line-height: var(--leading-serif-h2); }
+        &h3 { line-height: var(--leading-serif-h3); }
+        &h4 { line-height: var(--leading-serif-h4); }
+        &h5 { line-height: var(--leading-serif-h5); }
+        &h6 { line-height: var(--leading-serif-h6); }
+
+    }
+
+    p, small, caption{
+        font-family: var(--font-sans-serif);
+
+        &p { line-height: var(--leading-sans-serif-p); }
+        &small { line-height: var(--leading-sans-serif-small); }
+        &caption { line-height: var(--leading-sans-serif-caption); }
+    }
+}
+
 // Used for texts that need to be available to screen readers exclusively, while being invisible in the page.
 .visually-hidden{
     position: absolute;
@@ -343,6 +365,14 @@ a{
 }
 
 .drop-cap:first-letter{
+    font-size: var(--text-h1);
+    font-weight: 700;
+    float: left;
+    margin: var(--space-2xs) var(--space-2xs) var(--space-2xs) 0;
+    line-height: 0.65;
+}
+
+@mixin drop-cap {
     font-size: var(--text-h1);
     font-weight: 700;
     float: left;
@@ -455,7 +485,7 @@ hgroup:has(:where(h2, .h2)) :where(p, .p){
     }
 
     // figure spacings
-    .zone:has(figure):last-child + .zone:has(:where(p, .p):first-child)
+    .zone:has(:is(figure):last-child) + .zone:has(:where(p, .p):first-child)
     {
         margin-top: var(--space-xl);
     }
@@ -501,7 +531,7 @@ hgroup:has(:where(h2, .h2)) :where(p, .p){
 
         .zone:has(hgroup:last-child) + .zone :where(p, .p):first-child,
 
-        .zone:has(figure):last-child + .zone:has(:where(p, .p):first-child),
+        .zone:has(:is(figure):last-child) + .zone:has(:where(p, .p):first-child),
         .zone:has(:where(h3, .h3):last-child) + .zone:has(figure:first-child),
         .zone:has(:where(p, .p)) + .zone:has(figure)
         {
@@ -526,7 +556,7 @@ hgroup:has(:where(h2, .h2)) :where(p, .p){
         &:has(figure)
         {   
             padding: 0;
-            margin-top: var(--space-2xl);
+            margin-top: var(--space-2xl-4xl);
 
             &[data-theme="default"][data-theme-mode="invert"]{
                 padding: var(--padding-block) 0;
@@ -550,9 +580,13 @@ hgroup:has(:where(h2, .h2)) :where(p, .p){
             }
             
             .zone:has(~ .zone :is(figure)),
-            .zone:is(figure) ~ .zone
+            .zone:has(:is(figure)) ~ .zone
             {
-                padding: unset;
+                padding: 0 var(--padding-inline);
+
+                @media only screen and (min-width: $tablet){
+                    padding: 0;
+                }
             }
 
             & + :where(section.grid, .grid)
@@ -579,12 +613,12 @@ hgroup:has(:where(h2, .h2)) :where(p, .p){
 
         &:has(.zone:first-of-type :is(p, .p):first-child)
         {
-            margin-top: var(--space-l-2xl);
+            margin-top: var(--space-l-4xl);
         }
 
         &:has(.zone:last-of-type figure) + :where(section.grid, .grid):has(.zone:first-of-type :is(p, .p):first-child)
         {
-            margin-top: var(--space-xl-3xl);
+            margin-top: var(--space-xl-4xl);
         }
 
     } // section.grid

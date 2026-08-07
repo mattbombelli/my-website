@@ -655,7 +655,7 @@
             }
           },
           "desktop": {
-            "columnSpan": "4",
+            "columnSpan": "2",
             "columnOffset": "2",
             "rowSpan": "auto",
             "rowOffset": "auto"
@@ -747,7 +747,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "4",
+            "columnOffset": "2",
             "rowSpan": "auto",
             "rowOffset": "1"
           },
@@ -908,6 +908,94 @@
             }
           },
           "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "4",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        }
+      ],
+      "carousel": false,
+      "theme": "normal",
+      "rowGap": "var(--gap-y)"
+    },
+    {
+      "description": "Step 2: Define",
+      "zones": [
+        {
+          "title": "Heading",
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "right",
+              "subtitle": true,
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "3",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "subtitle": false,
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "4",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        }
+      ],
+      "carousel": false,
+      "theme": "normal",
+      "rowGap": "var(--gap-y)"
+    },
+    {
+      "description": "UX Persona: Maya",
+      "zones": [
+        {
+          "content": {
+            "discriminant": true,
+            "value": {
+              "image": "@images/ux/reimagining-forvo/sections/15/zones/0/content/value/image.png",
+              "alt": "Maya's UX persona",
+              "loading": "lazy"
+            }
+          },
+          "desktop": {
             "columnSpan": "4",
             "columnOffset": "2",
             "rowSpan": "auto",
@@ -918,6 +1006,54 @@
             "columnOffset": "1",
             "rowSpan": "auto",
             "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "subtitle": false,
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "2"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "2"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "subtitle": false,
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "4",
+            "rowSpan": "auto",
+            "rowOffset": "2"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "2"
           },
           "mobileOrder": 0
         }

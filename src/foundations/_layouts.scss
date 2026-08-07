@@ -45,8 +45,10 @@ $desktop: 1440px;
     --space-7xl-8xl: clamp(38.4375rem, 29.1285rem + 39.7183vw, 64.875rem);
 
     --space-m-xl: clamp(1.5rem, 0.8398rem + 2.8169vw, 3.375rem);
+    --space-l-4xl: clamp(2rem, -1.8072rem + 16.2441vw, 12.8125rem);
     --space-l-2xl: clamp(2rem, 1.1197rem + 3.7559vw, 4.5rem);
     --space-xl-3xl: clamp(3rem, 1.6796rem + 5.6338vw, 6.75rem);
+    --space-xl-4xl: clamp(3rem, -0.4551rem + 14.7418vw, 12.8125rem);
     --space-2xl-4xl: clamp(4rem, 0.897rem + 13.2394vw, 12.8125rem);
     --space-3xl-5xl: clamp(6rem, 1.3345rem + 19.9061vw, 19.25rem);
 

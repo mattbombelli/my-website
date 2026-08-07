@@ -53,6 +53,8 @@ const{
 
         display: inline-flex;
         text-decoration: none;
+        width: 100%;
+
 
         &.cta{
             @media only screen and (min-width: $tablet){
@@ -88,12 +90,13 @@ const{
                     }
                 }
             }
-        }
+        } // cta
 
         span.button{
             --type-button-size: var(--text-h6);
             --padding-inline-button: var(--space-xs);
             --padding-block-button: var(--space-m);
+            width: 100%;
 
             @media only screen and (min-width: $tablet){
                 --type-button-size: var(--text-h5);
@@ -143,9 +146,11 @@ const{
         .primary-button{
             max-height: var(--a-height);
             overflow-y: hidden;
+            width: auto;
 
             span.button{
                 min-width: var(--min-a-width);
+                width: auto;
             }
             
             &.no-decoration{

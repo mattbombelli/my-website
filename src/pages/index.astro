@@ -150,7 +150,7 @@ const caseStudies = await getCollection('caseStudies');
         button={{
           href: "/ux/" + caseStudy.id,
           theme: 'marmalade',
-          hover: 'meadow',
+          hover: 'mustard',
           shape: {
             variant: 'spring',
             fill: 'meadow',
@@ -159,6 +159,7 @@ const caseStudies = await getCollection('caseStudies');
           icon: {
             icon: 'arrowRight',
             fill: 'chocolate',
+            themeMode: "invert",
           }
         }}
       />
@@ -171,15 +172,14 @@ const caseStudies = await getCollection('caseStudies');
     <PrimaryButton 
       href="mailto:hello@mattiabombelli.com"
       label="View all case studies"
-      theme="marmalade-mono"
+      theme="marmalade"
       class="col-full"
       hover="mustard"
       hoverMode="normal"
       cta
-      border
       shape={{
         variant: "donut",
-        fill: "marmalade",
+        fill: "meadow",
         themeMode: "invert",
       }}
       icon={{

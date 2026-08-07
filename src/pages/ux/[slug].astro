@@ -56,8 +56,16 @@ const sections = await Promise.all(
                         ? zone.content.value.alignment
                         : null;
 
+                const invertType = !zone.content.discriminant
+                        ? zone.content.value.typography
+                        : null;
+
                 const hasSubtitle = !zone.content.discriminant
                         ? zone.content.value.subtitle
+                        : false;
+
+                const zoneThemeMode = !zone.content.discriminant
+                        ? zone.content.value.theme
                         : false;
 
                 let contentHtml = null;
@@ -87,6 +95,8 @@ const sections = await Promise.all(
                             : null
                     ),
                     textAlignment,
+                    invertType,
+                    zoneThemeMode,
                     contentHtml,
                 }
             })
@@ -131,21 +141,39 @@ const sections = await Promise.all(
         grid-column: 1 / -1;
         grid-template-columns: subgrid;
 
+        &:first-of-type{
+            .zone:nth-child(1 of :has(p, .p)){
+                :global(p:first-of-type:first-letter){
+                    @include drop-cap;
+                }
+            }
+        }
+
         .zone{
             grid-column: span 2;
             order: var(--mobile-order, "initial");
+            background: var(--background);
+            color: var(--foreground);
 
             :global(p){
                 @include justified;
             }
 
+            &[data-theme-mode="invert"]{
+                padding: var(--space-m);
+            }
+
             @media only screen and (min-width: $tablet){
-                &.align-right{
+                &.align-right,
+                &.align-right :global(hgroup p){
                     text-align: right;
+                    text-align-last: unset;
                 }
 
-                &.align-center{
+                &.align-center,
+                &.align-center :global(hgroup p){
                     text-align: center;
+                    text-align-last: unset;
                 }
 
                 grid-column: var(--offset-tablet, 2) / span var(--span-tablet, 2);
@@ -220,7 +248,10 @@ const sections = await Promise.all(
                                     class:list={[
                                         "zone",
                                         zone.textAlignment && zone.textAlignment !== "left" && `align-${zone.textAlignment}`,
+                                        zone.invertType && `invert-types`,
                                     ]}
+                                    data-theme-mode={zone.zoneThemeMode ? "invert" : undefined}
+
                                     style={`
                                         --span-default: ${zone.desktop.columnSpan};
                                         --offset-default: ${zone.desktop.columnOffset};
