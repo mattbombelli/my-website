@@ -297,6 +297,32 @@ a{
 }
 
 /* === Utility classes === */
+@mixin heading($level, $weight: 700, $font: 'sans-serif') {
+    font-family: var(--font-#{$font});
+    line-height: var(--leading-#{$font}-#{$level});
+
+    font-size: var(--text-#{$level});
+    font-weight: $weight;
+
+    &.serif {
+        font-family: var(--font-serif);
+        line-height: var(--leading-serif-#{$level});
+    }
+}
+
+@mixin body-text($level, $weight: 400, $font: 'serif') {
+    font-family: var(--font-#{$font});
+    line-height: var(--leading-#{$font}-#{$level});
+
+    font-size: var(--text-#{$level});
+    font-weight: $weight;
+
+    &.sans-serif {
+        font-family: var(--font-sans-serif);
+        line-height: var(--leading-sans-serif-#{$level});
+    }
+}
+
 .italic{
     font-style: italic;
 }
@@ -619,6 +645,11 @@ hgroup:has(:where(h2, .h2)) :where(p, .p){
         &:has(.zone:last-of-type figure) + :where(section.grid, .grid):has(.zone:first-of-type :is(p, .p):first-child)
         {
             margin-top: var(--space-xl-4xl);
+        }
+
+        &:has(.zone:first-of-type :is(h2, .h2)):first-of-type
+        {
+            margin-top: unset;
         }
 
     } // section.grid

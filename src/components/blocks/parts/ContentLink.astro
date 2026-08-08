@@ -1,0 +1,81 @@
+---
+import '@style/global.scss';
+
+export interface Props{
+    hyperlink: string;
+    label: string;
+    type: 'page' | 'chapter' | 'subchapter';
+    current?: boolean;
+    id?: string;
+}
+
+const {
+    hyperlink,
+    label,
+    type = 'chapter',
+    current,
+    ...rest
+} = Astro.props;
+---
+<style lang="scss">
+    @use '../../../foundations' as *;
+
+    .toc{
+        color: var(--foreground);
+        font-family: var(--font-sans-serif);
+        transition: color var(--duration-default) var(--ease-default);
+        text-decoration: none;
+        transition: unset;
+        display: block;
+
+        &:visited{
+            color: var(--foreground);
+        }
+
+        &:hover,
+        &:focus-visible{
+            text-decoration: underline;
+            text-decoration-thickness: 0.12em;
+            text-underline-offset: .2em;
+        }
+    }
+
+    @media only screen and (min-width: $laptop){
+        .toc{
+            padding: var(--space-xs) 0;
+
+            &.page{ @include heading('h6', 500);}
+
+            &.chapter{ @include body-text('p', 700, 'sans-serif'); }
+
+            &.subchapter{
+                @include body-text('small', 400, 'sans-serif');
+                padding-left: var(--space-xs);
+                border-left: .15em solid var(--paper-dark);
+                transition: border-left var(--duration-default) var(--ease-default),
+                            background-color var(--duration-default) var(--ease-default);
+
+                &:hover,
+                &:focus-visible{
+                    text-decoration: none;
+                    // background-color: var(--paper-dark);
+                    border-left-color: var(--ink-light);
+                }
+            }
+
+            &:hover{
+                color: var(--ink-light);
+            }
+        }
+
+    } // laptop
+
+</style>
+<a
+    href={hyperlink}
+    class:list={[type, "toc"]}
+    {...rest}
+    aria-current={current ? 'location' : undefined}
+>
+    {label}
+</a>

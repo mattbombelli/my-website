@@ -1,0 +1,113 @@
+---
+import '@style/global.scss';
+import ContentLink from '@blocks/parts/ContentLink.astro';
+
+export interface Props{
+    page: string;
+    pageLink: string;
+    chapters: {
+        type: 'h1' | 'h2' | 'h3',
+        label: string,
+        link: string
+    }[];
+}
+
+interface Chapter {
+    type: string;
+    label: string;
+    link: string;
+}
+
+interface GroupedChapter extends Chapter {
+    children: Chapter[];
+}
+
+const {
+    page,
+    pageLink,
+    chapters,
+} = Astro.props;
+
+const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
+    if (chapter.type === 'h1') return acc;
+
+    if (chapter.type === 'h2') {
+        acc.push({ ...chapter, children:[] });
+    } else if (acc.length > 0) {
+        acc[acc.length - 1].children.push(chapter);
+    }
+
+    return acc;
+}, []);
+---
+<style lang="scss">
+    @use '../../foundations/' as *;
+
+    @media only screen and (min-width: $laptop){
+        .table-of-contents{
+            display: flex;
+            flex-direction: column;
+            padding: var(--space-m);
+            row-gap: var(--space-m);
+
+            .toc-heading{
+                display: flex;
+                flex-direction: column;
+            }
+
+            li:has(ul) + li :global(a:first-of-type){
+                margin-top: var(--space-xs);
+            }
+
+            ul{
+                list-style-type: none;
+                padding-left: 0;
+            }
+        }
+    } // $laptop
+    
+
+</style>
+<nav
+    class="table-of-contents"
+    aria-label="Table of contents"
+>
+    <div class="toc-heading">
+        <small class="sans-serif">Table of contents</small>
+        <ContentLink
+            hyperlink={pageLink}
+            type="page"
+            label={page}
+        />
+    </div>
+    <ul>
+        { grouped.map((chapter: GroupedChapter, i: number) => {
+            const chapterId = `toc-chapter-${i}`;
+
+            return (
+                <li>
+                    <ContentLink
+                        type="chapter"
+                        hyperlink={chapter.link}
+                        id={chapterId}
+                        label={chapter.label}
+                    />
+                    { chapter.children.length > 0 && (
+                        <ul aria-labelledby={chapterId}>
+                            { chapter.children.map((subchapter) => 
+                                <li>
+                                    <ContentLink
+                                        type="subchapter"
+                                        label={subchapter.label}
+                                        hyperlink={subchapter.link}
+                                    />
+                                </li>
+                            )}
+                        </ul>
+                    )}
+                </li>
+            )
+
+        })}
+    </ul>
+</nav>

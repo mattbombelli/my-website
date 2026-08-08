@@ -19,8 +19,8 @@
             }
           },
           "desktop": {
-            "columnSpan": "6",
-            "columnOffset": "2",
+            "columnSpan": "4",
+            "columnOffset": "1",
             "rowSpan": "auto",
             "rowOffset": "auto"
           },
@@ -44,7 +44,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "2",
+            "columnOffset": "1",
             "rowSpan": "auto",
             "rowOffset": "auto"
           },
@@ -68,7 +68,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "4",
+            "columnOffset": "3",
             "rowSpan": "auto",
             "rowOffset": "auto"
           },
@@ -100,7 +100,7 @@
           },
           "desktop": {
             "columnSpan": "4",
-            "columnOffset": "2",
+            "columnOffset": "1",
             "rowSpan": "auto",
             "rowOffset": "auto"
           },
@@ -133,7 +133,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "4",
+            "columnOffset": "3",
             "rowSpan": "auto",
             "rowOffset": "1"
           },
@@ -157,7 +157,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "2",
+            "columnOffset": "1",
             "rowSpan": "auto",
             "rowOffset": "1"
           },
@@ -189,7 +189,7 @@
             }
           },
           "desktop": {
-            "columnSpan": "5",
+            "columnSpan": "4",
             "columnOffset": "1",
             "rowSpan": "auto",
             "rowOffset": "auto"
@@ -213,7 +213,7 @@
             }
           },
           "desktop": {
-            "columnSpan": "5",
+            "columnSpan": "4",
             "columnOffset": "1",
             "rowSpan": "auto",
             "rowOffset": "auto"
@@ -246,7 +246,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "2",
+            "columnOffset": "1",
             "rowSpan": "auto",
             "rowOffset": "1"
           },
@@ -270,7 +270,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "2",
+            "columnOffset": "1",
             "rowSpan": "auto",
             "rowOffset": "2"
           },
@@ -294,7 +294,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "4",
+            "columnOffset": "3",
             "rowSpan": "auto",
             "rowOffset": "2"
           },
@@ -327,7 +327,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "4",
+            "columnOffset": "3",
             "rowSpan": "2",
             "rowOffset": "1"
           },
@@ -352,7 +352,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "2",
+            "columnOffset": "1",
             "rowSpan": "2",
             "rowOffset": "2"
           },
@@ -377,7 +377,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "4",
+            "columnOffset": "3",
             "rowSpan": "2",
             "rowOffset": "3"
           },
@@ -402,7 +402,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "2",
+            "columnOffset": "1",
             "rowSpan": "2",
             "rowOffset": "4"
           },
@@ -427,7 +427,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "4",
+            "columnOffset": "3",
             "rowSpan": "2",
             "rowOffset": "5"
           },
@@ -452,7 +452,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "2",
+            "columnOffset": "1",
             "rowSpan": "2",
             "rowOffset": "6"
           },
@@ -484,7 +484,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "2",
+            "columnOffset": "1",
             "rowSpan": "auto",
             "rowOffset": "auto"
           },
@@ -517,7 +517,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "2",
+            "columnOffset": "1",
             "rowSpan": "auto",
             "rowOffset": "auto"
           },
@@ -542,7 +542,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "4",
+            "columnOffset": "3",
             "rowSpan": "auto",
             "rowOffset": "auto"
           },
@@ -566,7 +566,7 @@
           },
           "desktop": {
             "columnSpan": "4",
-            "columnOffset": "2",
+            "columnOffset": "1",
             "rowSpan": "auto",
             "rowOffset": "auto"
           },
@@ -599,7 +599,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "4",
+            "columnOffset": "3",
             "rowSpan": "auto",
             "rowOffset": "1"
           },
@@ -624,7 +624,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "2",
+            "columnOffset": "1",
             "rowSpan": "auto",
             "rowOffset": "1"
           },
@@ -656,7 +656,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "2",
+            "columnOffset": "1",
             "rowSpan": "auto",
             "rowOffset": "auto"
           },
@@ -689,7 +689,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "2",
+            "columnOffset": "1",
             "rowSpan": "auto",
             "rowOffset": "auto"
           },
@@ -714,7 +714,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "4",
+            "columnOffset": "3",
             "rowSpan": "auto",
             "rowOffset": "auto"
           },
@@ -735,7 +735,6 @@
       "description": "A layered ecosystem",
       "zones": [
         {
-          "title": "Heading",
           "content": {
             "discriminant": false,
             "value": {
@@ -747,31 +746,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "2",
-            "rowSpan": "auto",
-            "rowOffset": "1"
-          },
-          "tablet": {
-            "columnSpan": "2",
-            "columnOffset": "3",
-            "rowSpan": "auto",
-            "rowOffset": "1"
-          },
-          "mobileOrder": 0
-        },
-        {
-          "content": {
-            "discriminant": false,
-            "value": {
-              "alignment": "left",
-              "subtitle": false,
-              "typography": false,
-              "theme": false
-            }
-          },
-          "desktop": {
-            "columnSpan": "2",
-            "columnOffset": "2",
+            "columnOffset": "1",
             "rowSpan": "auto",
             "rowOffset": "auto"
           },
@@ -804,7 +779,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "2",
+            "columnOffset": "1",
             "rowSpan": "auto",
             "rowOffset": "1"
           },
@@ -828,7 +803,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "4",
+            "columnOffset": "3",
             "rowSpan": "auto",
             "rowOffset": "1"
           },
@@ -853,7 +828,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "2",
+            "columnOffset": "1",
             "rowSpan": "auto",
             "rowOffset": "2"
           },
@@ -877,7 +852,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "4",
+            "columnOffset": "3",
             "rowSpan": "auto",
             "rowOffset": "2"
           },
@@ -909,7 +884,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "4",
+            "columnOffset": "3",
             "rowSpan": "auto",
             "rowOffset": "auto"
           },
@@ -941,7 +916,7 @@
             }
           },
           "desktop": {
-            "columnSpan": "3",
+            "columnSpan": "2",
             "columnOffset": "1",
             "rowSpan": "auto",
             "rowOffset": "auto"
@@ -966,7 +941,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "4",
+            "columnOffset": "3",
             "rowSpan": "auto",
             "rowOffset": "auto"
           },
@@ -997,7 +972,7 @@
           },
           "desktop": {
             "columnSpan": "4",
-            "columnOffset": "2",
+            "columnOffset": "1",
             "rowSpan": "auto",
             "rowOffset": "auto"
           },
@@ -1021,7 +996,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "2",
+            "columnOffset": "1",
             "rowSpan": "auto",
             "rowOffset": "2"
           },
@@ -1045,7 +1020,7 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "4",
+            "columnOffset": "3",
             "rowSpan": "auto",
             "rowOffset": "2"
           },

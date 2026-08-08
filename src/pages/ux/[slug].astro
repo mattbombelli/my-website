@@ -6,6 +6,8 @@ import { parse } from 'node-html-parser';
 import Markdoc from '@markdoc/markdoc';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { extractHeadings } from '@utils/extractHeadings';
+import TableOfContents from '@blocks/TableOfContents.astro';
 
 import Layout from '../../layouts/Layout.astro';
 import Figure from '@primitives/Figure.astro';
@@ -69,6 +71,11 @@ const sections = await Promise.all(
                         : false;
 
                 let contentHtml = null;
+                let zoneHeadings: {
+                    type: 'h1' | 'h2' | 'h3';
+                    link: string;
+                    label: string
+                }[] = [];
 
                 if (!zone.content.discriminant) {
                     const filePath = join(
@@ -83,9 +90,15 @@ const sections = await Promise.all(
                     const transformed = Markdoc.transform(ast);
                     const html = Markdoc.renderers.html(transformed);
                     const stripped = stripArticleWrapper(html);
+                    
+                    const withSubtitle = hasSubtitle ? wrapSubtitle(stripped) : stripped;
 
-                    contentHtml = hasSubtitle ? wrapSubtitle(stripped) : stripped;
+                    const extracted = extractHeadings(withSubtitle);
+                    contentHtml = extracted.html;
+                    zoneHeadings = extracted.headings;
                 }
+
+
 
                 return {
                     ...zone,
@@ -98,36 +111,60 @@ const sections = await Promise.all(
                     invertType,
                     zoneThemeMode,
                     contentHtml,
+                    zoneHeadings,
                 }
             })
         )
     }))
+); // sections
+
+const allHeadings = sections.flatMap((section) =>
+    section.zones.flatMap((zone) => zone.zoneHeadings)
 );
 ---
 <style lang="scss">
     @use '../../foundations' as *;
 
+    main{
+        position: relative;
+    }
+
+    header{
+        text-align: center;
+        margin-top: var(--space-3xl);
+    }
+
+    aside{
+        :global(nav){
+            position: sticky;
+            top: var(--space-l);
+        }
+        z-index: 1;
+        grid-column: span 2;
+        grid-row: 1;
+    }
+
     article{
+        grid-row: 1;
+        grid-column: span 4;
         display: grid;
+        row-gap: inherit;
         grid-template-columns: repeat(2, 1fr);
         column-gap: var(--gap-x);
-
+        
         @media only screen and (min-width: $tablet){
             grid-template-columns: repeat(4, 1fr);
         }
-
+        
         @media only screen and (min-width: $laptop){
-            grid-template-columns: repeat(6, 1fr);
+            // grid-template-columns: repeat(6, 1fr);
+            grid-template-columns: repeat(4, 1fr);
         }
-
+        
         @media only screen and (min-width: $desktop){
-            grid-template-columns: 1fr repeat(4, .5fr) 1fr;
+            // grid-template-columns: 1fr repeat(4, .5fr) 1fr;
         }
 
-        header{
-            text-align: center;
-            margin-top: var(--space-3xl);
-        }
     }
 
     section.grid, header{
@@ -191,11 +228,16 @@ const sections = await Promise.all(
 </style>
 
 <Layout title={caseStudy.title}>
-    <main>
+    <header class="grid">
+        <h1 class="col-full">{caseStudy.title}</h1>
+    </header>
+    <main class="grid">
+        <aside>
+            <TableOfContents
+                page={caseStudy.title} pageLink="#top" chapters={allHeadings}
+            />
+        </aside>
         <article class="prose">
-            <header class="grid">
-                <h1 class="col-full">{caseStudy.title}</h1>
-            </header>
             {
                 sections.map((section, sectionIndex) => {
 
