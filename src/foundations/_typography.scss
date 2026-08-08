@@ -411,6 +411,10 @@ h1, h2, h3, h4, h5, h6, p, small{
     margin: 0;
 }
 
+h1, h2, h3{
+    scroll-margin-top: var(--space-l);
+}
+
 hgroup:has(:where(h2, .h2)) :where(p, .p){
     font-family: var(--font-serif);
     font-size: var(--text-h5);

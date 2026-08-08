@@ -43,6 +43,7 @@ const {
     @media only screen and (min-width: $laptop){
         .toc{
             padding: var(--space-xs) 0;
+            position: relative;
 
             &.page{ @include heading('h6', 500);}
 
@@ -65,6 +66,26 @@ const {
 
             &:hover{
                 color: var(--ink-light);
+            }
+
+            &.active{
+                color: var(--cobalt-base);
+
+                &.subchapter{
+                    border-left-color: var(--cobalt-base);
+                }
+
+                &::after{
+                    position: absolute;
+                    content: '';
+                    width: var(--space-3xs);
+                    height: var(--space-3xs);
+                    border-radius: var(--radius-pill);
+                    background: var(--cobalt-base);
+                    top: 50%;
+                    transform: translateY(-50%);
+                    right: 0;
+                }
             }
         }
 

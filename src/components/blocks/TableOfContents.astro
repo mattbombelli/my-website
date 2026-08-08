@@ -111,3 +111,54 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
         })}
     </ul>
 </nav>
+
+<script>
+    const nav = document.querySelector('.table-of-contents') as HTMLElement;
+    if (!nav) throw new Error('Table of Contents not found');
+
+    const links = Array.from(nav.querySelectorAll<HTMLAnchorElement>('.toc[href^="#"]'));
+    const headings = links
+        .map((link) => document.querySelector(link.getAttribute('href') || ''))
+        .filter((el): el is HTMLElement => el !== null);
+
+    const setActive = (id: string | null) => {
+        links.forEach((link) => {
+            const isActive = link.getAttribute('href') === `#${id}`;
+            link.classList.toggle('active', isActive);
+            if (isActive) {
+                link.setAttribute('aria-current', 'location');
+            } else {
+                link.removeAttribute('aria-current');
+            }
+        })
+    };
+
+    const intersecting = new Map<HTMLElement, boolean>();
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+        entries.forEach((entry) => {
+            intersecting.set(entry.target as HTMLElement, entry.isIntersecting);
+        });
+
+            const currentlyVisible = headings.filter((heading) => intersecting.get(heading));
+
+            if (currentlyVisible.length > 0) {
+                const current = currentlyVisible[currentlyVisible.length - 1];
+                setActive(current.id);
+            }
+        },
+        {
+            rootMargin: '-10% 0px -80% 0px',
+        }
+    );
+
+    links.forEach((link) => {
+        link.addEventListener('click', () => {
+            const id = link.getAttribute('href')?.replace('#', '') ?? null;
+            setActive(id);
+        })
+    })
+
+    headings.forEach((heading) => observer.observe(heading));
+</script>
