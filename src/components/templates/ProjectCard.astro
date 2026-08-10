@@ -14,13 +14,14 @@ export type props = ButtonProps & FigureProps &{
     title: string;
     excerpt: string;
     button: ButtonProps;
+    readingTime?: string;
     image: FigureProps;
 }
 
 const {
     title,
     excerpt,
-
+    readingTime,
     button,
     image,
 } = Astro.props;
@@ -108,6 +109,9 @@ const {
             label="Read case study"
             {...button}
         />
+        {
+            readingTime && <small class="sans-serif">{readingTime}</small>
+        }
         <p class="justified">
             {excerpt}
         </p>

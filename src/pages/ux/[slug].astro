@@ -8,6 +8,7 @@ import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { extractHeadings } from '@utils/extractHeadings';
 import TableOfContents from '@blocks/TableOfContents.astro';
+import readingTimesData from '../../content/_generated/reading-times.json';
 
 import Layout from '../../layouts/Layout.astro';
 import Figure from '@primitives/Figure.astro';
@@ -20,6 +21,8 @@ export async function getStaticPaths() {
     return slugs.map(slug => ({ params: { slug }}));
 }
 export const prerender = true;
+
+const readingTimes = readingTimesData as { caseStudies: Record<string, string>};
 
 const { slug } = Astro.params;
 if (!slug) throw new Error('Slug not found');
@@ -98,8 +101,6 @@ const sections = await Promise.all(
                     zoneHeadings = extracted.headings;
                 }
 
-
-
                 return {
                     ...zone,
                     resolvedImage: await resolveImage(
@@ -117,6 +118,13 @@ const sections = await Promise.all(
         )
     }))
 ); // sections
+
+const fullArticleHtml = sections
+    .flatMap((section) => section.zones)
+    .map((zone) =>zone.contentHtml ?? '')
+    .join('');
+
+const readingTime = readingTimes.caseStudies[slug];
 
 const allHeadings = sections.flatMap((section) =>
     section.zones.flatMap((zone) => zone.zoneHeadings)
@@ -157,14 +165,8 @@ const allHeadings = sections.flatMap((section) =>
         }
         
         @media only screen and (min-width: $laptop){
-            // grid-template-columns: repeat(6, 1fr);
             grid-template-columns: repeat(4, 1fr);
         }
-        
-        @media only screen and (min-width: $desktop){
-            // grid-template-columns: 1fr repeat(4, .5fr) 1fr;
-        }
-
     }
 
     section.grid, header{
@@ -234,7 +236,10 @@ const allHeadings = sections.flatMap((section) =>
     <main class="grid">
         <aside>
             <TableOfContents
-                page={caseStudy.title} pageLink="#top" chapters={allHeadings}
+                page={caseStudy.title}
+                pageLink="#top"
+                chapters={allHeadings}
+                readingTime={readingTime}
             />
         </aside>
         <article class="prose">

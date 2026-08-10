@@ -3,6 +3,8 @@ import Layout from '@layouts/Layout.astro';
 import PrimaryButton from '@blocks/PrimaryButton.astro';
 import Figure from '@primitives/Figure.astro';
 
+export const prerender = true;
+
 import { resolveImageOrThrow } from '@utils/resolveImageOrThrow.ts';
 const portrait = await resolveImageOrThrow('@images/me.jpg');
 
@@ -131,10 +133,10 @@ import { breakpoints } from '@data/breakpoints.ts';
       `}
       
       widths={[375, 540]}
-      sizes=`
+      sizes={`
         (min-width: ${breakpoints.tablet}) 512px,
         100vw
-      `
+      `}
       formats={['webp']}
       layout='full-width'
       loading='eager'

@@ -10,6 +10,7 @@ export interface Props{
         label: string,
         link: string
     }[];
+    readingTime?: string;
 }
 
 interface Chapter {
@@ -26,6 +27,7 @@ const {
     page,
     pageLink,
     chapters,
+    readingTime,
 } = Astro.props;
 
 const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
@@ -79,6 +81,9 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
             type="page"
             label={page}
         />
+        {
+            readingTime && <small class="sans-serif">{readingTime} read</small>
+        }
     </div>
     <ul>
         { grouped.map((chapter: GroupedChapter, i: number) => {

@@ -2,6 +2,7 @@
   "name": "@keystatic/templates-astro",
   "version": "0.0.65",
   "license": "MIT",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/Thinkmill/keystatic/",
@@ -25,6 +26,7 @@
   "scripts": {
     "dev": "astro dev --host",
     "start": "astro dev",
+    "prebuild": "tsx scripts/generateReadingTimes.ts",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"

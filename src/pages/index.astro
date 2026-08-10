@@ -1,14 +1,26 @@
 ---
-import { getCollection } from 'astro:content';
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '@root/keystatic.config';
 import Layout from '@layouts/Layout.astro';
 import PrimaryButton from '@blocks/PrimaryButton.astro';
 import ProjectCard from '@templates/ProjectCard.astro';
-import Portrait from '@images/me.jpg';
 import { breakpoints } from '@data/breakpoints.ts';
+import { resolveImageOrThrow } from '@utils/resolveImageOrThrow';
+import readingTimesData from '../content/_generated/reading-times.json';
 
 export const prerender = true;
 
-const caseStudies = await getCollection('caseStudies');
+const reader = createReader(process.cwd(), keystaticConfig);
+const slugs = await reader.collections.caseStudies.list();
+
+const readingTimes = readingTimesData as { caseStudies: Record<string, string>};
+
+const caseStudies = await Promise.all(
+  slugs.map(async (slug) => ({
+    slug,
+    ...(await reader.collections.caseStudies.read(slug, { resolveLinkedFiles: true })),
+  }))
+);
 ---
 <style lang="scss">
   @use '../foundations' as *;
@@ -131,39 +143,46 @@ const caseStudies = await getCollection('caseStudies');
     />
   </section>
   <section id="highlighted-projects">
-    {caseStudies.map(caseStudy => (
-      <ProjectCard
-        title={caseStudy.data.title}
-        excerpt={caseStudy.data.excerpt}
-        image={{
-          src: caseStudy.data.cover,
-          alt: caseStudy.data.coverAlt,
-          widths: [375, 540],
-          sizes: `
-              (min-width: ${breakpoints.tablet}) 512px,
-              100vw
-            `,
-          formats: ['webp'],
-          fit: 'cover',
-          layout: 'constrained',
-        }}
-        button={{
-          href: "/ux/" + caseStudy.id,
-          theme: 'marmalade',
-          hover: 'mustard',
-          shape: {
-            variant: 'spring',
-            fill: 'meadow',
-            themeMode: 'invert',
-          },
-          icon: {
-            icon: 'arrowRight',
-            fill: 'chocolate',
-            themeMode: "invert",
-          }
-        }}
-      />
-    ))}
+    {caseStudies.map(async caseStudy => {
+      const cover = await resolveImageOrThrow(caseStudy.cover);
+      return (
+        <ProjectCard
+          title={caseStudy.title}
+          excerpt={caseStudy.excerpt}
+          image={{
+            src: cover,
+            alt: caseStudy.coverAlt,
+            widths: [375, 540],
+            sizes: `
+                (min-width: ${breakpoints.tablet}) 512px,
+                100vw
+              `,
+            formats: ['webp'],
+            fit: 'cover',
+            layout: 'constrained',
+            style: `
+                --blurhash-gradient: url("${cover.placeholder}");
+            `
+          }}
+          readingTime={`${readingTimes.caseStudies[caseStudy.slug]} read`}
+          button={{
+            href: "/ux/" + caseStudy.slug,
+            theme: 'marmalade',
+            hover: 'mustard',
+            shape: {
+              variant: 'spring',
+              fill: 'meadow',
+              themeMode: 'invert',
+            },
+            icon: {
+              icon: 'arrowRight',
+              fill: 'chocolate',
+              themeMode: "invert",
+            }
+          }}
+        />
+      );
+    })}
   </section>
   <section
     id="cta"
