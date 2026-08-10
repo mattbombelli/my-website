@@ -4,7 +4,6 @@ import '@style/global.scss';
 import Link from '@primitives/Link.astro';
 import { mainNavLinks } from '@data/navigation.ts';
 import Icon from '@primitives/Icon.astro';
-import type { link } from 'node:fs';
 
 const currentPage = Astro.url.pathname;
 ---
@@ -45,6 +44,11 @@ const currentPage = Astro.url.pathname;
         aspect-ratio: 1/1;
         cursor: pointer;
         transition: background var(--duration-default) var(--ease-default);
+
+        &:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--ink); // or whatever reads well against your palette
+        }
     }
 
     // general styling for ul within navbar

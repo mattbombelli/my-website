@@ -21,74 +21,119 @@ const {
     @use '../../../foundations' as *;
 
     .toc{
+        position: relative;
         color: var(--foreground);
         font-family: var(--font-sans-serif);
-        transition: color var(--duration-default) var(--ease-default);
-        text-decoration: none;
         transition: unset;
+        text-decoration: none;
         display: block;
+        padding: var(--space-xs) 0;
 
-        &:visited{
-            color: var(--foreground);
+        &:visited {
+        color: var(--foreground);
         }
 
-        &:hover,
-        &:focus-visible{
+        &:focus-visible {
+            text-decoration: underline;
+            text-decoration-thickness: 0.12em;
+            text-underline-offset: .2em;
+
+            outline: none;
+            box-shadow: none;
             text-decoration: underline;
             text-decoration-thickness: 0.12em;
             text-underline-offset: .2em;
         }
-    }
 
-    @media only screen and (min-width: $laptop){
-        .toc{
-            padding: var(--space-xs) 0;
-            position: relative;
+        @media (hover: hover) and (pointer: fine) {
+            transition: color var(--duration-default) var(--ease-default);
 
-            &.page{ @include heading('h6', 500);}
+            &:hover {
+                text-decoration: underline;
+                text-decoration-thickness: 0.12em;
+                text-underline-offset: .2em;
+            }
+        }
 
-            &.chapter{ @include body-text('p', 700, 'sans-serif'); }
+        &.page { @include heading('h5', 500); }
+        &.chapter { @include heading('h6', 500); }
+
+        &.subchapter {
+            @include body-text('p', 400, 'sans-serif');
+            padding-left: var(--space-s);
+            border-left: .15em solid var(--paper-dark);
+        }
+        
+        &.active{
+            color: var(--cobalt-base);
+
+            &:hover{
+                color: var(--cobalt-base);    
+            }
 
             &.subchapter{
+                border-left-color: var(--cobalt-base);
+            }
+
+            &::after{
+                position: absolute;
+                content: '';
+                width: var(--space-3xs);
+                height: var(--space-3xs);
+                border-radius: var(--radius-pill);
+                background: var(--cobalt-base);
+                top: 50%;
+                transform: translateY(-50%);
+                right: 0;
+            }
+        }
+    }
+
+    @media only screen and (min-width: $laptop) {
+        .toc {
+            &.page { @include heading('h6', 500); }
+
+            &.chapter { @include body-text('p', 700, 'sans-serif'); }
+
+            &.subchapter {
                 @include body-text('small', 400, 'sans-serif');
                 padding-left: var(--space-xs);
                 border-left: .15em solid var(--paper-dark);
-                transition: border-left var(--duration-default) var(--ease-default),
-                            background-color var(--duration-default) var(--ease-default);
 
-                &:hover,
-                &:focus-visible{
+                &:focus-visible {
                     text-decoration: none;
-                    // background-color: var(--paper-dark);
                     border-left-color: var(--ink-light);
+                }
+
+                @media (hover: hover) and (pointer: fine) {
+                    transition: border-left var(--duration-default) var(--ease-default),
+                                background-color var(--duration-default) var(--ease-default);
+
+                    &:hover {
+                        text-decoration: none;
+                        border-left-color: var(--ink-light);
+                    }
                 }
             }
 
-            &:hover{
-                color: var(--ink-light);
+            @media (hover: hover) and (pointer: fine) {
+                &:hover {
+                    color: var(--ink-light);
+                }
             }
 
             &.active{
                 color: var(--cobalt-base);
 
+                &:hover{
+                    color: var(--cobalt-base); 
+                }
+
                 &.subchapter{
                     border-left-color: var(--cobalt-base);
                 }
-
-                &::after{
-                    position: absolute;
-                    content: '';
-                    width: var(--space-3xs);
-                    height: var(--space-3xs);
-                    border-radius: var(--radius-pill);
-                    background: var(--cobalt-base);
-                    top: 50%;
-                    transform: translateY(-50%);
-                    right: 0;
-                }
             }
         }
-
     } // laptop
 
 </style>

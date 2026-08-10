@@ -1,6 +1,7 @@
 ---
 import '@style/global.scss';
 import ContentLink from '@blocks/parts/ContentLink.astro';
+import Icon from '@primitives/Icon.astro';
 
 export interface Props{
     page: string;
@@ -45,81 +46,257 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
 <style lang="scss">
     @use '../../foundations/' as *;
 
-    @media only screen and (min-width: $laptop){
-        .table-of-contents{
-            display: flex;
-            flex-direction: column;
-            padding: var(--space-m);
-            row-gap: var(--space-m);
+    .toc-wrapper{
+        button{
+            appearance: none;
+            -webkit-appearance: none;
+            color: var(--foreground);
+            display: inline-grid;
+            place-items: center;
+            background: var(--background);
+            border: none;
+            border-radius: var(--radius-pill);
+            padding: var(--space-xs);
+            aspect-ratio: 1/1;
+            cursor: pointer;
+            width: calc(var(--text-h5) + var(--space-xs) * 2);
+            height: calc(var(--text-h5) + var(--space-xs) * 2);
+            transition: background var(--duration-default) var(--ease-default);
+
+            position: fixed;
+            bottom: var(--space-m);
+            right: var(--space-m);
+            z-index: 1;
+        }
+
+        :global(body:has(dialog[open])){
+            overflow: hidden;
+        }
+
+        #toc-dialog{
+            background: var(--background);
+            margin: 0;
+            border: 0;
+            height: 100dvh;
+            width: 100%;
+            max-width: none;
+            max-height: none;
+            padding: 0;
+
+            &::backdrop{
+                background: var(--background);
+            }
 
             .toc-heading{
-                display: flex;
-                flex-direction: column;
+                padding: var(--space-m) var(--padding-inline);
+                border-bottom: .12em solid var(--paper-dark);
             }
 
-            li:has(ul) + li :global(a:first-of-type){
-                margin-top: var(--space-xs);
+            .table-of-contents{
+                ul{
+                    padding: 0 var(--padding-inline);
+                }
             }
+        }
 
+        .table-of-contents{
             ul{
                 list-style-type: none;
                 padding-left: 0;
+
+                li:has(ul) + li :global(a:first-of-type){
+                    margin-top: var(--space-m);
+                }
+            }
+        }
+
+        @media(prefers-reduced-motion: no-preference){
+
+            @keyframes fadeFromSide{
+                from {
+                    opacity: 0;
+                    translate: -1em 0;
+                }
+                to {
+                    opacity: 1;
+                    translate: 0 0;
+                }
+            }
+
+            dialog{
+                
+                nav{
+                    
+                    .toc-heading > *, ul, li{
+                        animation: fadeFromSide var(--duration-default) var(--ease-default) backwards;
+                    }
+
+                    ul{
+                        animation-delay: 100ms;
+
+                        li {
+                            @for $i from 1 through 12 {
+                                &:nth-child(#{$i}) {
+                                    animation-delay: #{50 + ($i - 1) * 60}ms;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        } // no-preference for motion
+    }
+
+    @media only screen and (min-width: $laptop){
+        .toc-wrapper{
+            position: sticky;
+            top: var(--space-l);
+
+            .table-of-contents{
+                display: flex;
+                flex-direction: column;
+                padding: var(--space-m);
+                row-gap: var(--space-m);
+    
+                .toc-heading{
+                    display: flex;
+                    flex-direction: column;
+                }
+    
+                li:has(ul) + li :global(a:first-of-type){
+                    margin-top: var(--space-xs);
+                }
+            }
+
+            button{
+                display: none;
             }
         }
     } // $laptop
     
 
 </style>
-<nav
-    class="table-of-contents"
-    aria-label="Table of contents"
->
-    <div class="toc-heading">
-        <small class="sans-serif">Table of contents</small>
-        <ContentLink
-            hyperlink={pageLink}
-            type="page"
-            label={page}
-        />
-        {
-            readingTime && <small class="sans-serif">{readingTime} read</small>
-        }
-    </div>
-    <ul>
-        { grouped.map((chapter: GroupedChapter, i: number) => {
-            const chapterId = `toc-chapter-${i}`;
+<div class="toc-wrapper">
+        <nav
+            class="table-of-contents"
+            aria-label="Table of contents"
+        >
+            <div class="toc-heading">
+                <ContentLink
+                hyperlink={pageLink}
+                type="page"
+                label={page}
+                />
+                <small class="sans-serif">{readingTime} read</small>
+            </div>
+            <ul>
+                { grouped.map((chapter: GroupedChapter, i: number) => {
+                    const chapterId = `toc-chapter-${i}`;
 
-            return (
-                <li>
-                    <ContentLink
-                        type="chapter"
-                        hyperlink={chapter.link}
-                        id={chapterId}
-                        label={chapter.label}
-                    />
-                    { chapter.children.length > 0 && (
-                        <ul aria-labelledby={chapterId}>
-                            { chapter.children.map((subchapter) => 
-                                <li>
-                                    <ContentLink
-                                        type="subchapter"
-                                        label={subchapter.label}
-                                        hyperlink={subchapter.link}
-                                    />
-                                </li>
+                    return (
+                        <li>
+                            <ContentLink
+                                type="chapter"
+                                hyperlink={chapter.link}
+                                id={chapterId}
+                                label={chapter.label}
+                            />
+                            { chapter.children.length > 0 && (
+                                <ul aria-labelledby={chapterId}>
+                                    { chapter.children.map((subchapter) => 
+                                        <li>
+                                            <ContentLink
+                                                type="subchapter"
+                                                label={subchapter.label}
+                                                hyperlink={subchapter.link}
+                                            />
+                                        </li>
+                                    )}
+                                </ul>
                             )}
-                        </ul>
-                    )}
-                </li>
-            )
+                        </li>
+                    )
 
-        })}
-    </ul>
-</nav>
+                })}
+            </ul>
+        </nav>
+        <dialog
+            id="toc-dialog"
+            aria-label="Table of contents"
+        >
+            <button
+                id="toc-close"
+                type="button"
+                aria-label="Close table of contents"
+                class="hamburger"
+                data-theme-mode="invert"
+            >
+                <Icon icon="x" scale="h5" aria-hidden="true" themeMode="invert" />
+            </button>
+        </dialog>
 
+        <button
+            id="toc-open"
+            aria-label="Open table of contents"
+            aria-expanded="false"
+            aria-controls="toc-dialog"
+            data-theme="default"
+            data-theme-mode="invert"
+        >
+            <Icon
+                icon="book"
+                scale="h5"
+                aria-hidden="true"
+                fill="default"
+                themeMode="invert"
+            />
+        </button>
+</div>
 <script>
-    const nav = document.querySelector('.table-of-contents') as HTMLElement;
+    // src/components/blocks/TableOfContents.astro (script block)
+    const mql = window.matchMedia('(min-width: 1280px)');
+
+    const wrapper = document.querySelector('.toc-wrapper') as HTMLElement;
+    const dialogEl = document.getElementById('toc-dialog') as HTMLDialogElement;
+    const nav = wrapper.querySelector('.table-of-contents') as HTMLElement;
+    const button = document.getElementById('toc-open') as HTMLButtonElement;
+    const closeButton = document.getElementById('toc-close') as HTMLButtonElement;
+
     if (!nav) throw new Error('Table of Contents not found');
+
+    const desktopToc = () => {
+        if (dialogEl.open) dialogEl.close();
+        wrapper.insertBefore(nav, dialogEl);
+    };
+
+    const mobileToc = () => {
+        dialogEl.prepend(nav);
+    };
+
+    mql.addEventListener('change', (e) => {
+        e.matches ? desktopToc() : mobileToc();
+    });
+
+    (mql.matches ? desktopToc : mobileToc)();
+
+    if (dialogEl instanceof HTMLDialogElement && button instanceof HTMLButtonElement && closeButton instanceof HTMLButtonElement) {
+        const setExpanded = (value: boolean) => button.setAttribute('aria-expanded', value ? 'true' : 'false');
+
+        button.addEventListener('click', () => {
+            dialogEl.showModal();
+            setExpanded(true);
+        });
+
+        closeButton.addEventListener('click', () => {
+            dialogEl.close();
+        });
+
+        dialogEl.addEventListener('close', () => {
+            setExpanded(false);
+            button.focus();
+        });
+    }
 
     const links = Array.from(nav.querySelectorAll<HTMLAnchorElement>('.toc[href^="#"]'));
     const headings = links
@@ -135,35 +312,60 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
             } else {
                 link.removeAttribute('aria-current');
             }
-        })
+        });
     };
 
-    const intersecting = new Map<HTMLElement, boolean>();
+    let suppressObserver = false;
 
-    const observer = new IntersectionObserver(
-        (entries) => {
-        entries.forEach((entry) => {
-            intersecting.set(entry.target as HTMLElement, entry.isIntersecting);
-        });
+    const updateActiveHeading = () => {
+        if (suppressObserver) return;
 
-            const currentlyVisible = headings.filter((heading) => intersecting.get(heading));
+        const triggerY = window.innerHeight * 0.1; // matches rootMargin's 10% starting point
+        let current: HTMLElement | null = null;
 
-            if (currentlyVisible.length > 0) {
-                const current = currentlyVisible[currentlyVisible.length - 1];
-                setActive(current.id);
+        for (const heading of headings) {
+            if (heading.getBoundingClientRect().top <= triggerY) {
+                current = heading;
+            } else {
+                break;
             }
-        },
-        {
-            rootMargin: '-10% 0px -80% 0px',
         }
-    );
+
+        if (current) {
+            setActive(current.id);
+        }
+    };
 
     links.forEach((link) => {
         link.addEventListener('click', () => {
             const id = link.getAttribute('href')?.replace('#', '') ?? null;
             setActive(id);
-        })
-    })
+
+            suppressObserver = true;
+            window.setTimeout(() => { suppressObserver = false; }, 1000); // long enough for smooth-scroll to fully settle
+
+            if (dialogEl.open) {
+                dialogEl.close();
+            }
+        });
+    });
+
+    const observer = new IntersectionObserver(updateActiveHeading, {
+        rootMargin: '-10% 0px -80% 0px',
+    });
 
     headings.forEach((heading) => observer.observe(heading));
+
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+
+    window.addEventListener('load', () => {
+        if (location.hash) {
+            requestAnimationFrame(() => {
+                const target = document.querySelector(location.hash);
+                target?.scrollIntoView();
+            });
+        }
+    });
 </script>

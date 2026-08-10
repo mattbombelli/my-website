@@ -133,8 +133,10 @@ const allHeadings = sections.flatMap((section) =>
 <style lang="scss">
     @use '../../foundations' as *;
 
-    main{
+    main.grid{
         position: relative;
+        padding-left: 0;
+        padding-right: 0;
     }
 
     header{
@@ -142,14 +144,16 @@ const allHeadings = sections.flatMap((section) =>
         margin-top: var(--space-3xl);
     }
 
-    aside{
-        :global(nav){
-            position: sticky;
-            top: var(--space-l);
+    @media only screen and (min-width: $laptop){
+        main.grid{
+            padding: var(--padding-block) var(--padding-inline);
         }
-        z-index: 1;
-        grid-column: span 2;
-        grid-row: 1;
+
+        aside{
+            z-index: 1;
+            grid-column: span 2;
+            grid-row: 1;
+        }
     }
 
     article{
