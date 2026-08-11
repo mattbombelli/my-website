@@ -37,12 +37,6 @@ const {
             text-decoration: underline;
             text-decoration-thickness: 0.12em;
             text-underline-offset: .2em;
-
-            outline: none;
-            box-shadow: none;
-            text-decoration: underline;
-            text-decoration-thickness: 0.12em;
-            text-underline-offset: .2em;
         }
 
         @media (hover: hover) and (pointer: fine) {
@@ -55,7 +49,13 @@ const {
             }
         }
 
-        &.page { @include heading('h5', 500); }
+        &.page {
+            @include heading('h5', 500);
+            &:focus-visible {
+                outline: none;
+                box-shadow: none;
+            }
+        }
         &.chapter { @include heading('h6', 500); }
 
         &.subchapter {

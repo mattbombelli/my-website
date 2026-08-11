@@ -151,7 +151,7 @@ const allHeadings = sections.flatMap((section) =>
 
         aside{
             z-index: 1;
-            grid-column: span 2;
+            grid-column: 1 / span 2;
             grid-row: 1;
         }
     }
@@ -238,14 +238,6 @@ const allHeadings = sections.flatMap((section) =>
         <h1 class="col-full">{caseStudy.title}</h1>
     </header>
     <main class="grid">
-        <aside>
-            <TableOfContents
-                page={caseStudy.title}
-                pageLink="#top"
-                chapters={allHeadings}
-                readingTime={readingTime}
-            />
-        </aside>
         <article class="prose">
             {
                 sections.map((section, sectionIndex) => {
@@ -337,5 +329,13 @@ const allHeadings = sections.flatMap((section) =>
                 })
             }
         </article>
+        <aside>
+            <TableOfContents
+                page={caseStudy.title}
+                pageLink="#top"
+                chapters={allHeadings}
+                readingTime={readingTime}
+            />
+        </aside>
     </main>
 </Layout>

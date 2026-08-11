@@ -1,4 +1,5 @@
 ---
+// src/components/blocks/TableOfContents.astro
 import '@style/global.scss';
 import ContentLink from '@blocks/parts/ContentLink.astro';
 import Icon from '@primitives/Icon.astro';
@@ -47,26 +48,54 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
     @use '../../foundations/' as *;
 
     .toc-wrapper{
-        button{
-            appearance: none;
-            -webkit-appearance: none;
+        .pseudo-nav{
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1;
+            align-items: center;
+            padding-block: var(--space-2xs);
+            background: var(--background);
             color: var(--foreground);
+            visibility: hidden;
+            transform: translateY(-100%);
+
+            @media (prefers-reduced-motion: no-preference) {
+                transition: transform var(--duration-default) var(--ease-default),
+                            visibility 0s var(--duration-default);
+            }
+
+            &.visible {
+                visibility: visible;
+                transform: translateY(0);
+
+                @media (prefers-reduced-motion: no-preference) {
+                    transition: transform var(--duration-default) var(--ease-default),
+                                visibility 0s;
+                }
+            }
+
+            span{
+                justify-self: left;
+                @include body-text('p', 500, 'sans-serif');
+            }
+
+            button{
+                justify-self: right;
+            }
+        }
+
+        button{
             display: inline-grid;
             place-items: center;
-            background: var(--background);
+            background-color: var(--background);
             border: none;
             border-radius: var(--radius-pill);
             padding: var(--space-xs);
             aspect-ratio: 1/1;
             cursor: pointer;
-            width: calc(var(--text-h5) + var(--space-xs) * 2);
-            height: calc(var(--text-h5) + var(--space-xs) * 2);
-            transition: background var(--duration-default) var(--ease-default);
-
-            position: fixed;
-            bottom: var(--space-m);
-            right: var(--space-m);
-            z-index: 1;
+            transition: background-color var(--duration-default) var(--ease-default);
         }
 
         :global(body:has(dialog[open])){
@@ -90,11 +119,21 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
             .toc-heading{
                 padding: var(--space-m) var(--padding-inline);
                 border-bottom: .12em solid var(--paper-dark);
+
+                small{
+                    @include body-text('p', 400, 'sans-serif');
+                    display: block;
+                }
             }
 
             .table-of-contents{
                 ul{
                     padding: 0 var(--padding-inline);
+                }
+
+                & > ul{
+                    margin-top: var(--space-s);
+                    margin-bottom: var(--space-3xl);
                 }
             }
         }
@@ -174,87 +213,102 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
             }
         }
     } // $laptop
-    
-
 </style>
 <div class="toc-wrapper">
-        <nav
-            class="table-of-contents"
-            aria-label="Table of contents"
-        >
-            <div class="toc-heading">
-                <ContentLink
+    <nav
+        class="table-of-contents"
+        aria-label="Table of contents"
+    >
+        <div class="toc-heading">
+            <ContentLink
                 hyperlink={pageLink}
                 type="page"
                 label={page}
-                />
-                <small class="sans-serif">{readingTime} read</small>
-            </div>
-            <ul>
-                { grouped.map((chapter: GroupedChapter, i: number) => {
-                    const chapterId = `toc-chapter-${i}`;
+            />
+            <small class="sans-serif">{readingTime} read</small>
+        </div>
+        <ul>
+            { grouped.map((chapter: GroupedChapter, i: number) => {
+                const chapterId = `toc-chapter-${i}`;
 
-                    return (
-                        <li>
-                            <ContentLink
-                                type="chapter"
-                                hyperlink={chapter.link}
-                                id={chapterId}
-                                label={chapter.label}
-                            />
-                            { chapter.children.length > 0 && (
-                                <ul aria-labelledby={chapterId}>
-                                    { chapter.children.map((subchapter) => 
-                                        <li>
-                                            <ContentLink
-                                                type="subchapter"
-                                                label={subchapter.label}
-                                                hyperlink={subchapter.link}
-                                            />
-                                        </li>
-                                    )}
-                                </ul>
-                            )}
-                        </li>
-                    )
-
-                })}
-            </ul>
-        </nav>
-        <dialog
-            id="toc-dialog"
-            aria-label="Table of contents"
-        >
-            <button
-                id="toc-close"
-                type="button"
-                aria-label="Close table of contents"
-                class="hamburger"
-                data-theme-mode="invert"
-            >
-                <Icon icon="x" scale="h5" aria-hidden="true" themeMode="invert" />
-            </button>
-        </dialog>
-
+                return (
+                    <li>
+                        <ContentLink
+                            type="chapter"
+                            hyperlink={chapter.link}
+                            id={chapterId}
+                            label={chapter.label}
+                        />
+                        { chapter.children.length > 0 && (
+                            <ul aria-labelledby={chapterId}>
+                                { chapter.children.map((subchapter) => 
+                                    <li>
+                                        <ContentLink
+                                            type="subchapter"
+                                            label={subchapter.label}
+                                            hyperlink={subchapter.link}
+                                        />
+                                    </li>
+                                )}
+                            </ul>
+                        )}
+                    </li>
+                )
+            })}
+        </ul>
+    </nav>
+    <dialog
+        id="toc-dialog"
+        aria-label="Table of contents"
+    >
         <button
-            id="toc-open"
-            aria-label="Open table of contents"
+            id="toc-close"
+            type="button"
+            aria-label="Close table of contents"
+            class="hamburger"
+            data-theme-mode="invert"
+        >
+            <Icon icon="x" scale="h5" aria-hidden="true" themeMode="invert" />
+        </button>
+    </dialog>
+
+    <button
+        id="toc-open"
+        aria-label="Table of contents"
+        aria-expanded="false"
+        aria-controls="toc-dialog"
+        data-theme="default"
+        data-theme-mode="invert"
+    >
+        <Icon
+            icon="book"
+            scale="h5"
+            aria-hidden="true"
+            fill="default"
+            themeMode="invert"
+        />
+    </button>
+    <div
+        class="pseudo-nav grid"
+        id="pseudo-nav"
+        data-theme-mode="invert"
+    >
+        <span>{page}</span>
+        <button
+            id="toc-open-scrolled"
+            type="button"
+            aria-label="Table of contents"
             aria-expanded="false"
             aria-controls="toc-dialog"
+            class="hamburger"
             data-theme="default"
             data-theme-mode="invert"
         >
-            <Icon
-                icon="book"
-                scale="h5"
-                aria-hidden="true"
-                fill="default"
-                themeMode="invert"
-            />
+            <Icon icon="book" scale="h5" aria-hidden="true" fill="default" themeMode="invert" />
         </button>
+    </div>
 </div>
 <script>
-    // src/components/blocks/TableOfContents.astro (script block)
     const mql = window.matchMedia('(min-width: 1280px)');
 
     const wrapper = document.querySelector('.toc-wrapper') as HTMLElement;
@@ -262,6 +316,12 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
     const nav = wrapper.querySelector('.table-of-contents') as HTMLElement;
     const button = document.getElementById('toc-open') as HTMLButtonElement;
     const closeButton = document.getElementById('toc-close') as HTMLButtonElement;
+
+    const navEl = document.getElementById('main-menu') as HTMLElement;
+    const navHeight = navEl?.getBoundingClientRect().height ?? 0 + 100;
+
+    const pseudoNav = document.getElementById('pseudo-nav') as HTMLElement;
+    const scrolledButton = document.getElementById('toc-open-scrolled') as HTMLButtonElement;
 
     if (!nav) throw new Error('Table of Contents not found');
 
@@ -280,13 +340,26 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
 
     (mql.matches ? desktopToc : mobileToc)();
 
-    if (dialogEl instanceof HTMLDialogElement && button instanceof HTMLButtonElement && closeButton instanceof HTMLButtonElement) {
-        const setExpanded = (value: boolean) => button.setAttribute('aria-expanded', value ? 'true' : 'false');
+    const updatePseudoNav = () => {
+        pseudoNav.classList.toggle('visible', window.scrollY > navHeight);
+    };
 
-        button.addEventListener('click', () => {
+    window.addEventListener('scroll', updatePseudoNav, { passive: true });
+    updatePseudoNav();
+
+    if (dialogEl instanceof HTMLDialogElement && button instanceof HTMLButtonElement && closeButton instanceof HTMLButtonElement && scrolledButton instanceof HTMLButtonElement) {
+        const setExpanded = (value: boolean) => {
+            button.setAttribute('aria-expanded', value ? 'true' : 'false');
+            scrolledButton.setAttribute('aria-expanded', value ? 'true' : 'false');
+        };
+
+        const openDialog = () => {
             dialogEl.showModal();
             setExpanded(true);
-        });
+        };
+
+        button.addEventListener('click', openDialog);
+        scrolledButton.addEventListener('click', openDialog);
 
         closeButton.addEventListener('click', () => {
             dialogEl.close();
@@ -298,7 +371,7 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
         });
     }
 
-    const links = Array.from(nav.querySelectorAll<HTMLAnchorElement>('.toc[href^="#"]'));
+    const links = Array.from(nav.querySelectorAll<HTMLAnchorElement>('.toc[href^="#"]:not([href="#top"])'));
     const headings = links
         .map((link) => document.querySelector(link.getAttribute('href') || ''))
         .filter((el): el is HTMLElement => el !== null);
@@ -315,12 +388,8 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
         });
     };
 
-    let suppressObserver = false;
-
     const updateActiveHeading = () => {
-        if (suppressObserver) return;
-
-        const triggerY = window.innerHeight * 0.1; // matches rootMargin's 10% starting point
+        const triggerY = window.innerHeight * 0.1;
         let current: HTMLElement | null = null;
 
         for (const heading of headings) {
@@ -331,9 +400,7 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
             }
         }
 
-        if (current) {
-            setActive(current.id);
-        }
+        setActive(current ? current.id : null);
     };
 
     links.forEach((link) => {
@@ -341,20 +408,25 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
             const id = link.getAttribute('href')?.replace('#', '') ?? null;
             setActive(id);
 
-            suppressObserver = true;
-            window.setTimeout(() => { suppressObserver = false; }, 1000); // long enough for smooth-scroll to fully settle
-
             if (dialogEl.open) {
                 dialogEl.close();
             }
         });
     });
 
-    const observer = new IntersectionObserver(updateActiveHeading, {
-        rootMargin: '-10% 0px -80% 0px',
-    });
+    const supportsScrollEnd = 'onscrollend' in window;
 
-    headings.forEach((heading) => observer.observe(heading));
+    if (supportsScrollEnd) {
+        window.addEventListener('scrollend', updateActiveHeading);
+    } else {
+        let fallbackTimer: ReturnType<typeof setTimeout>;
+        window.addEventListener('scroll', () => {
+            clearTimeout(fallbackTimer);
+            fallbackTimer = setTimeout(updateActiveHeading, 150);
+        }, { passive: true });
+    }
+
+    updateActiveHeading();
 
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
