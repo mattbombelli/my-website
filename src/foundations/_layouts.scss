@@ -197,3 +197,12 @@ $desktop: 1440px;
         grid-column: span 6;
     }
 }
+
+/* === Adjustments === */
+article#article-content{
+    scroll-margin-top: var(--space-2xl);
+
+    @media only screen and (min-width: $laptop){
+        scroll-margin-top: var(--space-l);
+    }
+}

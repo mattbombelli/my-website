@@ -47,7 +47,12 @@ const currentPage = Astro.url.pathname;
 
         &:focus-visible {
             outline: none;
-            box-shadow: 0 0 0 2px var(--ink); // or whatever reads well against your palette
+            box-shadow: 0px 0px 0px 0.3em var(--paper-base), 0px 0px 0px 0.4em var(--foreground);
+        }
+
+        &.no-focus-ring:focus-visible {
+            outline: none;
+            box-shadow: none;
         }
     }
 
@@ -332,6 +337,8 @@ const currentPage = Astro.url.pathname;
 </noscript>
 
 <script>
+    import { focusWithoutRing } from '@utils/focusWithoutRing';
+
     const menu = document.getElementById("dialog-menu");
     const buttonOpen = document.getElementById("button-open");
     const buttonClose = document.getElementById("button-close");
@@ -345,10 +352,9 @@ const currentPage = Astro.url.pathname;
 
         buttonOpen.addEventListener("click", () => {
             menu.showModal();
-            buttonClose.focus();
+            focusWithoutRing(buttonClose);
             setExpanded(true);
         });
-
 
         buttonClose.addEventListener("click", () => {
             menu.close();
@@ -356,7 +362,7 @@ const currentPage = Astro.url.pathname;
 
         menu.addEventListener('close', () => {
             setExpanded(false);
-            buttonOpen.focus();
+            focusWithoutRing(buttonOpen);
         })
     }
 </script>

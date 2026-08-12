@@ -91,12 +91,48 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
         }
     } // .toc-button
 
-    .pseudo-nav {
+    .pseudo-nav-wrapper {
         grid-row: 1 / -1;
         grid-column: 1 / -1;
         position: sticky;
         top: 0;
         z-index: 1;
+        display: flex;
+        flex-direction: column;
+
+        @media only screen and (min-width: $laptop) {
+            display: none;
+        }
+
+        progress{
+            opacity: 0;
+            height: var(--space-3xs);
+            border: none;
+            background: transparent;
+            width: 100%;
+            
+
+            &::-webkit-progress-bar {
+                background: transparent;
+            }
+            
+            &::-webkit-progress-value {
+                background: var(--marmalade-base);
+                transition: width var(--duration-default) var(--ease-default);
+            }
+
+            &::-moz-progress-bar {
+                background: var(--marmalade-base);
+            }
+        }
+
+        button.stuck + progress{
+            transition: opacity var(--duration-default) var(--ease-default) 150ms;
+            opacity: 1;
+        }
+    }
+
+    .pseudo-nav {
         margin-left: var(--padding-inline);
         margin-right: var(--padding-inline);
         border-radius: var(--radius-sm);
@@ -116,10 +152,6 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
             margin-left: 0;
             margin-right: 0;
             border-radius: 0;
-        }
-
-        @media only screen and (min-width: $laptop) {
-            display: none;
         }
     } // .pseudo-nav
 
@@ -225,6 +257,7 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
                 background: var(--background);
                 color: var(--foreground);
                 text-decoration: none;
+                display: block;
 
                 &:focus {
                     top: 0;
@@ -255,23 +288,31 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
 </style>
 
 <div id="toc-sentinel"></div>
-<button
-    id="toc-open-scrolled"
-    type="button"
-    aria-label="Table of contents"
-    aria-expanded="false"
-    aria-controls="toc-dialog"
-    class="pseudo-nav toc-button grid"
-    data-theme-mode="normal"
->
-    <span>Table of contents</span>
-    <span class="icon-visual" aria-hidden="true">
-        <Icon icon="list" scale="h5" fill="default" themeMode="normal" />
-    </span>
-</button>
+<div class="pseudo-nav-wrapper">
+    <button
+        id="toc-open-scrolled"
+        type="button"
+        aria-label="Open table of contents"
+        aria-expanded="false"
+        aria-controls="toc-dialog"
+        class="pseudo-nav toc-button grid"
+        data-theme-mode="normal"
+    >
+        <span>Table of contents</span>
+        <span class="icon-visual" aria-hidden="true">
+            <Icon icon="list" scale="h5" fill="default" themeMode="normal" />
+        </span>
+    </button>
+    <progress
+        id="reading-progress"
+        max="100"
+        value="0"
+        aria-label="Reading progress"
+    ></progress>
+</div>
 
 <aside class="toc-wrapper">
-    <a href="#introduction" class="skip-link sans-serif" data-theme-mode="invert">Skip to article</a>
+    <a href="#article-content" class="skip-link sans-serif" data-theme-mode="invert">Skip to article</a>
     <nav
         class="table-of-contents"
         aria-label="Table of contents"
@@ -283,7 +324,7 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
                 label={page}
             />
             <noscript><p class="sans-serif">Table of contents</p></noscript>
-            <small class="sans-serif">{readingTime} read</small>
+            { readingTime && <small class="sans-serif">{readingTime} read</small> }
         </div>
         <ul>
             { grouped.map((chapter: GroupedChapter, i: number) => {
@@ -351,6 +392,8 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
     </style>
 </noscript>
 <script>
+    import { focusWithoutRing } from '@utils/focusWithoutRing';
+
     const mql = window.matchMedia('(min-width: 1280px)');
 
     const wrapper = document.querySelector('.toc-wrapper') as HTMLElement;
@@ -360,16 +403,29 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
 
     const sentinel = document.getElementById('toc-sentinel');
     const scrolledButton = document.getElementById('toc-open-scrolled') as HTMLButtonElement;
+    const progressEl = document.getElementById('reading-progress') as HTMLProgressElement;
 
     if (!nav) throw new Error('Table of Contents not found');
 
     const desktopToc = () => {
+        const hadFocus = nav.contains(document.activeElement);
+        const lastFocusedLink = hadFocus ? document.activeElement as HTMLElement : null;
+
         if (dialogEl.open) dialogEl.close();
         wrapper.insertBefore(nav, dialogEl);
+
+        if (lastFocusedLink) {
+            lastFocusedLink.focus();
+        }
     };
 
     const mobileToc = () => {
+        const hadFocus = nav.contains(document.activeElement);
         dialogEl.appendChild(nav);
+
+        if (hadFocus) {
+            scrolledButton.focus();
+        }
     };
 
     mql.addEventListener('change', (e) => {
@@ -396,6 +452,7 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
 
         const openDialog = () => {
             dialogEl.showModal();
+            focusWithoutRing(closeButton);
             setExpanded(true);
         };
 
@@ -407,6 +464,7 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
 
         dialogEl.addEventListener('close', () => {
             setExpanded(false);
+            focusWithoutRing(scrolledButton);
         });
     }
 
@@ -428,7 +486,7 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
     };
 
     const updateActiveHeading = () => {
-        const triggerY = window.innerHeight * 0.1;
+        const triggerY = window.innerHeight * 0.2;
         let current: HTMLElement | null = null;
 
         for (const heading of headings) {
@@ -441,6 +499,21 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
 
         setActive(current ? current.id : null);
     };
+
+    const updateProgress = () => {
+        const article = document.querySelector('article') as HTMLElement;
+        const articleTop = article.getBoundingClientRect().top + window.scrollY;
+        const articleBottom = articleTop + article.scrollHeight;
+
+        const scrolled = window.scrollY + window.innerHeight - articleTop;
+        const total = articleBottom - articleTop;
+
+        const progress = total > 0 ? Math.min(Math.max((scrolled / total) * 100, 0), 100) : 0;
+        progressEl.value = progress;
+    };
+
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
 
     links.forEach((link) => {
         link.addEventListener('click', () => {
