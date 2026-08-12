@@ -160,9 +160,8 @@ export default config({
                       { label: "Left", value: "1" },
                       { label: "Middle", value: "2" },
                       { label: "Right", value: "3" },
-                      { label: "Full width", value: "4" },
                     ],
-                    defaultValue: "2",
+                    defaultValue: "1",
                   }),
                   rowSpan: fields.select({
                     label: "Rows",
@@ -205,7 +204,6 @@ export default config({
                   columnSpan: fields.select({
                     label: "Columns",
                     options: [
-                      { label: "span 1", value: "1" },
                       { label: "span 2", value: "2" },
                       { label: "span 3", value: "3" },
                       { label: "span 4", value: "4" },
@@ -215,11 +213,11 @@ export default config({
                   columnOffset: fields.select({
                     label: "Column offset",
                     options: [
-                      { label: "1", value: "1" },
-                      { label: "2", value: "2" },
-                      { label: "3", value: "3" },
+                      { label: "Left", value: "1" },
+                      { label: "Middle", value: "2" },
+                      { label: "Right", value: "3" },
                     ],
-                    defaultValue: "2",
+                    defaultValue: "1",
                   }),
                   rowSpan: fields.select({
                     label: "Rows",

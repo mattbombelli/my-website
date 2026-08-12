@@ -524,7 +524,8 @@ ul, ol{
     }
 
     // figure spacings
-    .zone:has(:is(figure):last-child) + .zone:has(:where(p, .p):first-child)
+    .zone:has(:is(figure):last-child) + .zone:has(:where(p, .p):first-child),
+    .zone:has(:is(figure):last-child) + .zone:has(:is(figure):first-child)
     {
         margin-top: var(--space-xl);
     }
@@ -541,9 +542,9 @@ ul, ol{
     }
 
     // lists spacings
-    ul, ol
+    .zone:has(:where(h3, .h3):last-child) + .zone:has(ol:first-child) 
     {
-        margin-top: var(--space-l);
+        margin-top: var(--space-xl);
     }
 
     :where(ul, ol) li:not(:first-of-type)
@@ -571,8 +572,11 @@ ul, ol{
 
         .zone:has(hgroup:last-child) + .zone :where(p, .p):first-child,
 
+        .zone:has(:where(h3, .h3):last-child) + .zone:has(ol:first-child),
+
         .zone:has(:is(figure):last-child) + .zone:has(:where(p, .p):first-child),
         .zone:has(:where(h3, .h3):last-child) + .zone:has(figure:first-child),
+        .zone:has(:is(figure):last-child) + .zone:has(:is(figure):first-child),
         .zone:has(:where(p, .p)) + .zone:has(figure)
         {
             margin-top: unset;

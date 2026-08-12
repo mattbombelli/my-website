@@ -29,7 +29,8 @@
     "prebuild": "tsx scripts/generateReadingTimes.ts",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "reading-times": "tsx scripts/generateReadingTimes.ts"
   },
   "devDependencies": {
     "@types/node": "^26.1.2",
