@@ -407,7 +407,7 @@ a{
 }
 
 /* === Typography adjustments === */
-h1, h2, h3, h4, h5, h6, p, small{
+h1, h2, h3, h4, h5, h6, p, small, ul, ol{
     margin: 0;
 }
 
@@ -425,6 +425,10 @@ hgroup:has(:where(h2, .h2)) :where(p, .p){
     font-style: italic;
     font-weight: 500;
     line-height: var(--leading-serif-h5);
+}
+
+ul, ol{
+    @include body-text('p', 400, 'serif');
 }
 
 /* === Spacing system for prose === */
@@ -458,6 +462,7 @@ hgroup:has(:where(h2, .h2)) :where(p, .p){
     :where(p, .p) + :where(h3, .h3),
     :where(p, .p) + :where(h4, .h4),
     // cross zone
+    .zone:has(:where(p, .p):last-child) + .zone :where(h3, .h3):first-child,
     .zone:has(:where(p, .p):last-child) + .zone :where(h4, .h4):first-child
     {
         margin-top: var(--space-2xl);
@@ -555,12 +560,13 @@ hgroup:has(:where(h2, .h2)) :where(p, .p){
 
     // removes all cross zone meso spaces from $tablet and upwards
     @media only screen and (min-width: $tablet){
+        .zone:has(:where(p, .p):last-child) + .zone :where(h3, .h3):first-child,
         .zone:has(:where(p, .p):last-child) + .zone :where(h4, .h4):first-child,
 
         .zone:has(:where(h2, .h2):last-child) + .zone :where(p, .p):first-child,
         .zone:has(:where(h3, .h3):last-child) + .zone :where(p, .p):first-child,
 
-        .zone:has(:where(h4, .h4)) + .zone :where(p, .p),
+        .zone:has(:where(h4, .h4):last-child) + .zone :where(p, .p):first-child,
         .zone:has(:where(p, .p):last-child) + .zone :where(p, .p):first-child,
 
         .zone:has(hgroup:last-child) + .zone :where(p, .p):first-child,
@@ -627,7 +633,7 @@ hgroup:has(:where(h2, .h2)) :where(p, .p){
             {
                 margin-top: var(--space-xl-3xl);
             }
-        }
+        } // figure
         
         &:has(.zone:first-of-type :is(h1, .h1):first-child),
         &:has(.zone:first-of-type :is(h2, .h2):first-child)
@@ -658,6 +664,11 @@ hgroup:has(:where(h2, .h2)) :where(p, .p){
         &:has(.zone:first-of-type :is(h2, .h2)):first-of-type
         {
             margin-top: unset;
+        }
+
+        &[data-theme="default"][data-theme-mode="invert"]
+        {
+            padding: var(--padding-block) var(--padding-inline);
         }
 
     } // section.grid

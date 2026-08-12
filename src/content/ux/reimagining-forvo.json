@@ -1036,6 +1036,338 @@
       "carousel": false,
       "theme": "normal",
       "rowGap": "var(--gap-y)"
+    },
+    {
+      "description": "User journey",
+      "zones": [
+        {
+          "title": "Header",
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "subtitle": false,
+              "typography": true,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "subtitle": false,
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": true,
+            "value": {
+              "image": "@images/ux/reimagining-forvo/sections/16/zones/2/content/value/image.jpg",
+              "alt": "User journey map for an independent language learner.",
+              "loading": "lazy"
+            }
+          },
+          "desktop": {
+            "columnSpan": "4",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "4",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        }
+      ],
+      "carousel": false,
+      "theme": "normal",
+      "rowGap": "var(--gap-y)"
+    },
+    {
+      "description": "What the journey revealed",
+      "zones": [
+        {
+          "title": "Header",
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "subtitle": false,
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "1"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "1"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "subtitle": false,
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "1"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "1"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "title": "Header",
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "subtitle": false,
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "2"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "2"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "subtitle": false,
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "2"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "2"
+          },
+          "mobileOrder": 0
+        }
+      ],
+      "carousel": false,
+      "theme": "invert",
+      "rowGap": "var(--gap-y-large)"
+    },
+    {
+      "description": "Step 3: Develop",
+      "zones": [
+        {
+          "title": "Header",
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "subtitle": true,
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "4",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "4",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        }
+      ],
+      "carousel": false,
+      "theme": "normal",
+      "rowGap": "var(--gap-y)"
+    },
+    {
+      "description": "Step 3: intro",
+      "zones": [
+        {
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "subtitle": false,
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "subtitle": false,
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        }
+      ],
+      "carousel": false,
+      "theme": "normal",
+      "rowGap": "var(--gap-y)"
+    },
+    {
+      "description": "Adding a word to a collection",
+      "zones": [
+        {
+          "title": "Header",
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "subtitle": false,
+              "typography": true,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "1"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "1"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "subtitle": false,
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "1"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "1"
+          },
+          "mobileOrder": 0
+        }
+      ],
+      "carousel": false,
+      "theme": "normal",
+      "rowGap": "var(--gap-y)"
     }
   ]
 }

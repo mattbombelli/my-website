@@ -148,7 +148,7 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
 
         &.stuck {
             border: 0;
-            border-bottom: .12em solid var(--ink-light);
+            border-bottom: .12em solid var(--paper-dark);
             margin-left: 0;
             margin-right: 0;
             border-radius: 0;
@@ -205,7 +205,7 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
                 list-style-type: none;
                 padding-left: 0;
 
-                li:has(ul) + li :global(a:first-of-type) {
+                li:has(ul) + li :global(a.chapter:first-of-type) {
                     margin-top: var(--space-m);
                 }
             }
@@ -275,9 +275,12 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
                     flex-direction: column;
                 }
 
-                li:has(ul) + li :global(a:first-of-type) {
-                    margin-top: var(--space-xs);
+                ul {
+                    li:has(ul) + li :global(a.chapter:first-of-type) {
+                        margin-top: var(--space-xs);
+                    }
                 }
+
             }
 
             button {
