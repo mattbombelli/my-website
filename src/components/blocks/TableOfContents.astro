@@ -47,62 +47,93 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
 <style lang="scss">
     @use '../../foundations/' as *;
 
-    .toc-wrapper{
-        .pseudo-nav{
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1;
-            align-items: center;
-            padding-block: var(--space-2xs);
-            background: var(--background);
-            color: var(--foreground);
-            visibility: hidden;
-            transform: translateY(-100%);
+    #toc-sentinel {
+        grid-row: 1;
+        grid-column: 1;
+        height: 0;
 
-            @media (prefers-reduced-motion: no-preference) {
-                transition: transform var(--duration-default) var(--ease-default),
-                            visibility 0s var(--duration-default);
-            }
+        @media only screen and (min-width: $laptop) {
+            display: none;
+        }
+    }
 
-            &.visible {
-                visibility: visible;
-                transform: translateY(0);
+    .toc-button {
+        display: grid;
+        align-items: center;
+        padding-block: var(--space-xs);
+        background: var(--background);
+        color: var(--foreground);
+        appearance: none;
+        -webkit-appearance: none;
+        border: none;
+        border-bottom: .12em solid var(--ink-light);
+        cursor: pointer;
 
-                @media (prefers-reduced-motion: no-preference) {
-                    transition: transform var(--duration-default) var(--ease-default),
-                                visibility 0s;
-                }
-            }
-
-            span{
-                justify-self: left;
-                @include body-text('p', 500, 'sans-serif');
-            }
-
-            button{
-                justify-self: right;
-            }
+        &.toc-header{
+            width: 100%;
         }
 
-        button{
+        span, small {
+            justify-self: left;
+            @include body-text('p', 400, 'sans-serif');
+        }
+
+        .icon-visual {
+            justify-self: right;
             display: inline-grid;
             place-items: center;
-            background-color: var(--background);
-            border: none;
-            border-radius: var(--radius-pill);
-            padding: var(--space-xs);
             aspect-ratio: 1/1;
-            cursor: pointer;
-            transition: background-color var(--duration-default) var(--ease-default);
+            grid-column: 2/3;
+
+            @media only screen and (min-width: $tablet) {
+                grid-column: 4/5;
+            }
+        }
+    } // .toc-button
+
+    .pseudo-nav {
+        grid-row: 1 / -1;
+        grid-column: 1 / -1;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        margin-left: var(--padding-inline);
+        margin-right: var(--padding-inline);
+        border-radius: var(--radius-sm);
+        border: .12em solid var(--ink-light);
+
+        @media (prefers-reduced-motion: no-preference) {
+            transition: border-color var(--duration-default) var(--ease-default),
+                        margin-left var(--duration-default) var(--ease-default),
+                        margin-right var(--duration-default) var(--ease-default),
+                        border var(--duration-default) var(--ease-default),
+                        border-radius var(--duration-default) var(--ease-default);
         }
 
-        :global(body:has(dialog[open])){
+        &.stuck {
+            border: 0;
+            border-bottom: .12em solid var(--ink-light);
+            margin-left: 0;
+            margin-right: 0;
+            border-radius: 0;
+        }
+
+        @media only screen and (min-width: $laptop) {
+            display: none;
+        }
+    } // .pseudo-nav
+
+    .toc-wrapper {
+        .skip-link {
+            display: none;
+        }
+
+        :global(body:has(dialog[open])) {
             overflow: hidden;
         }
 
-        #toc-dialog{
+        // Mobile toc
+        #toc-dialog {
             background: var(--background);
             margin: 0;
             border: 0;
@@ -112,46 +143,45 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
             max-height: none;
             padding: 0;
 
-            &::backdrop{
+            &::backdrop {
                 background: var(--background);
             }
 
-            .toc-heading{
+            .toc-heading {
                 padding: var(--space-m) var(--padding-inline);
-                border-bottom: .12em solid var(--paper-dark);
 
-                small{
+                small {
                     @include body-text('p', 400, 'sans-serif');
                     display: block;
                 }
             }
 
-            .table-of-contents{
-                ul{
+            .table-of-contents {
+                ul {
                     padding: 0 var(--padding-inline);
                 }
 
-                & > ul{
+                & > ul {
                     margin-top: var(--space-s);
                     margin-bottom: var(--space-3xl);
                 }
             }
-        }
+        } // #toc-dialog
 
-        .table-of-contents{
-            ul{
+        .table-of-contents {
+            ul {
                 list-style-type: none;
                 padding-left: 0;
 
-                li:has(ul) + li :global(a:first-of-type){
+                li:has(ul) + li :global(a:first-of-type) {
                     margin-top: var(--space-m);
                 }
             }
-        }
+        } // .table-of-contents
 
-        @media(prefers-reduced-motion: no-preference){
+        @media (prefers-reduced-motion: no-preference) {
 
-            @keyframes fadeFromSide{
+            @keyframes fadeFromSide {
                 from {
                     opacity: 0;
                     translate: -1em 0;
@@ -162,15 +192,13 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
                 }
             }
 
-            dialog{
-                
-                nav{
-                    
-                    .toc-heading > *, ul, li{
+            dialog {
+                nav {
+                    .toc-heading > *, ul, li {
                         animation: fadeFromSide var(--duration-default) var(--ease-default) backwards;
                     }
 
-                    ul{
+                    ul {
                         animation-delay: 100ms;
 
                         li {
@@ -181,40 +209,69 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
                             }
                         }
                     }
-
                 }
             }
         } // no-preference for motion
-    }
+    } // .toc-wrapper
 
-    @media only screen and (min-width: $laptop){
-        .toc-wrapper{
-            position: sticky;
-            top: var(--space-l);
+    @media only screen and (min-width: $laptop) {
+        .toc-wrapper {
+            .skip-link {
+                position: absolute;
+                top: -1000px;
+                left: 0;
+                z-index: 100;
+                padding: var(--space-xs) var(--space-s);
+                background: var(--background);
+                color: var(--foreground);
+                text-decoration: none;
 
-            .table-of-contents{
+                &:focus {
+                    top: 0;
+                }
+            }
+
+            .table-of-contents {
                 display: flex;
                 flex-direction: column;
                 padding: var(--space-m);
                 row-gap: var(--space-m);
-    
-                .toc-heading{
+
+                .toc-heading {
                     display: flex;
                     flex-direction: column;
                 }
-    
-                li:has(ul) + li :global(a:first-of-type){
+
+                li:has(ul) + li :global(a:first-of-type) {
                     margin-top: var(--space-xs);
                 }
             }
 
-            button{
+            button {
                 display: none;
             }
         }
     } // $laptop
 </style>
-<div class="toc-wrapper">
+
+<div id="toc-sentinel"></div>
+<button
+    id="toc-open-scrolled"
+    type="button"
+    aria-label="Table of contents"
+    aria-expanded="false"
+    aria-controls="toc-dialog"
+    class="pseudo-nav toc-button grid"
+    data-theme-mode="normal"
+>
+    <span>Table of contents</span>
+    <span class="icon-visual" aria-hidden="true">
+        <Icon icon="list" scale="h5" fill="default" themeMode="normal" />
+    </span>
+</button>
+
+<aside class="toc-wrapper">
+    <a href="#introduction" class="skip-link sans-serif" data-theme-mode="invert">Skip to article</a>
     <nav
         class="table-of-contents"
         aria-label="Table of contents"
@@ -225,6 +282,7 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
                 type="page"
                 label={page}
             />
+            <noscript><p class="sans-serif">Table of contents</p></noscript>
             <small class="sans-serif">{readingTime} read</small>
         </div>
         <ul>
@@ -257,6 +315,7 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
             })}
         </ul>
     </nav>
+
     <dialog
         id="toc-dialog"
         aria-label="Table of contents"
@@ -265,62 +324,41 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
             id="toc-close"
             type="button"
             aria-label="Close table of contents"
-            class="hamburger"
-            data-theme-mode="invert"
+            class="toc-button toc-header grid"
+            data-theme-mode="normal"
         >
-            <Icon icon="x" scale="h5" aria-hidden="true" themeMode="invert" />
+            <span class="sans-serif">Table of contents</span>
+            <span class="icon-visual" aria-hidden="true">
+                <Icon icon="x" scale="h5" fill="default" themeMode="normal" />
+            </span>
         </button>
     </dialog>
+</aside>
 
-    <button
-        id="toc-open"
-        aria-label="Table of contents"
-        aria-expanded="false"
-        aria-controls="toc-dialog"
-        data-theme="default"
-        data-theme-mode="invert"
-    >
-        <Icon
-            icon="book"
-            scale="h5"
-            aria-hidden="true"
-            fill="default"
-            themeMode="invert"
-        />
-    </button>
-    <div
-        class="pseudo-nav grid"
-        id="pseudo-nav"
-        data-theme-mode="invert"
-    >
-        <span>{page}</span>
-        <button
-            id="toc-open-scrolled"
-            type="button"
-            aria-label="Table of contents"
-            aria-expanded="false"
-            aria-controls="toc-dialog"
-            class="hamburger"
-            data-theme="default"
-            data-theme-mode="invert"
-        >
-            <Icon icon="book" scale="h5" aria-hidden="true" fill="default" themeMode="invert" />
-        </button>
-    </div>
-</div>
+<noscript>
+    <style lang="scss">
+        aside{
+            padding: var(--padding-block) var(--padding-inline);
+
+            .toc-heading{
+                a:first-of-type{
+                    display: none;
+                }
+            }
+
+            border-block: .12em solid var(--paper-dark);
+        }
+    </style>
+</noscript>
 <script>
     const mql = window.matchMedia('(min-width: 1280px)');
 
     const wrapper = document.querySelector('.toc-wrapper') as HTMLElement;
     const dialogEl = document.getElementById('toc-dialog') as HTMLDialogElement;
     const nav = wrapper.querySelector('.table-of-contents') as HTMLElement;
-    const button = document.getElementById('toc-open') as HTMLButtonElement;
     const closeButton = document.getElementById('toc-close') as HTMLButtonElement;
 
-    const navEl = document.getElementById('main-menu') as HTMLElement;
-    const navHeight = navEl?.getBoundingClientRect().height ?? 0 + 100;
-
-    const pseudoNav = document.getElementById('pseudo-nav') as HTMLElement;
+    const sentinel = document.getElementById('toc-sentinel');
     const scrolledButton = document.getElementById('toc-open-scrolled') as HTMLButtonElement;
 
     if (!nav) throw new Error('Table of Contents not found');
@@ -331,7 +369,7 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
     };
 
     const mobileToc = () => {
-        dialogEl.prepend(nav);
+        dialogEl.appendChild(nav);
     };
 
     mql.addEventListener('change', (e) => {
@@ -340,16 +378,19 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
 
     (mql.matches ? desktopToc : mobileToc)();
 
-    const updatePseudoNav = () => {
-        pseudoNav.classList.toggle('visible', window.scrollY > navHeight);
-    };
+    if (sentinel && scrolledButton) {
+        const stickyObserver = new IntersectionObserver(
+            ([entry]) => {
+                scrolledButton.classList.toggle('stuck', !entry.isIntersecting);
+            },
+            { threshold: 0 }
+        );
 
-    window.addEventListener('scroll', updatePseudoNav, { passive: true });
-    updatePseudoNav();
+        stickyObserver.observe(sentinel);
+    }
 
-    if (dialogEl instanceof HTMLDialogElement && button instanceof HTMLButtonElement && closeButton instanceof HTMLButtonElement && scrolledButton instanceof HTMLButtonElement) {
+    if (dialogEl instanceof HTMLDialogElement && closeButton instanceof HTMLButtonElement && scrolledButton instanceof HTMLButtonElement) {
         const setExpanded = (value: boolean) => {
-            button.setAttribute('aria-expanded', value ? 'true' : 'false');
             scrolledButton.setAttribute('aria-expanded', value ? 'true' : 'false');
         };
 
@@ -358,7 +399,6 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
             setExpanded(true);
         };
 
-        button.addEventListener('click', openDialog);
         scrolledButton.addEventListener('click', openDialog);
 
         closeButton.addEventListener('click', () => {
@@ -367,7 +407,6 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
 
         dialogEl.addEventListener('close', () => {
             setExpanded(false);
-            button.focus();
         });
     }
 

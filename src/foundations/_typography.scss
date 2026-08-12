@@ -412,7 +412,11 @@ h1, h2, h3, h4, h5, h6, p, small{
 }
 
 h1, h2, h3{
-    scroll-margin-top: var(--space-l);
+    scroll-margin-top: var(--space-2xl);
+
+    @media only screen and (min-width: $laptop){
+        scroll-margin-top: var(--space-l);
+    }
 }
 
 hgroup:has(:where(h2, .h2)) :where(p, .p){

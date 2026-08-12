@@ -137,6 +137,10 @@ const allHeadings = sections.flatMap((section) =>
         position: relative;
         padding-left: 0;
         padding-right: 0;
+
+        aside{
+            display: none;
+        }
     }
 
     header{
@@ -144,31 +148,40 @@ const allHeadings = sections.flatMap((section) =>
         margin-top: var(--space-3xl);
     }
 
+
     @media only screen and (min-width: $laptop){
         main.grid{
             padding: var(--padding-block) var(--padding-inline);
+
+            :global(aside){
+                display: block;
+                
+                z-index: 1;
+                grid-column: 1 / span 2;
+                grid-row: 1;
+                position: sticky;
+                top: var(--space-l);
+                align-self: start;
+            }
         }
 
-        aside{
-            z-index: 1;
-            grid-column: 1 / span 2;
-            grid-row: 1;
-        }
     }
 
     article{
-        grid-row: 1;
-        grid-column: span 4;
+        grid-row: 2;
+        grid-column: span 2;
         display: grid;
         row-gap: inherit;
         grid-template-columns: repeat(2, 1fr);
         column-gap: var(--gap-x);
         
         @media only screen and (min-width: $tablet){
+            grid-column: span 4;
             grid-template-columns: repeat(4, 1fr);
         }
         
         @media only screen and (min-width: $laptop){
+            grid-row: 1;
             grid-template-columns: repeat(4, 1fr);
         }
     }
@@ -238,6 +251,12 @@ const allHeadings = sections.flatMap((section) =>
         <h1 class="col-full">{caseStudy.title}</h1>
     </header>
     <main class="grid">
+        <TableOfContents
+            page={caseStudy.title}
+            pageLink="#top"
+            chapters={allHeadings}
+            readingTime={readingTime}
+        />
         <article class="prose">
             {
                 sections.map((section, sectionIndex) => {
@@ -329,13 +348,5 @@ const allHeadings = sections.flatMap((section) =>
                 })
             }
         </article>
-        <aside>
-            <TableOfContents
-                page={caseStudy.title}
-                pageLink="#top"
-                chapters={allHeadings}
-                readingTime={readingTime}
-            />
-        </aside>
     </main>
 </Layout>
