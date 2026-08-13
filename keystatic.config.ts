@@ -1,4 +1,13 @@
 import { config, fields, collection } from "@keystatic/core";
+import { block } from '@keystatic/core/content-components';
+
+import { themes } from '@data/themes.ts';
+import { shapes } from '@data/shapes.ts';
+import { icons } from '@data/icons.ts';
+
+const themeOptions = themes.map((name) => ({ label: name, value: name }));
+const shapesOptions = Object.keys(shapes).map((name) => ({ label: name, value: name }));
+const iconsOptions = Object.keys(icons).map((name) => ({ label: name, value: name }));
 
 export default config({
   storage: {
@@ -106,6 +115,77 @@ export default config({
                     false: fields.object({
                       content: fields.markdoc({
                         label: 'Content',
+                        components: {
+                          Button: block({
+                            label: 'Button',
+                            schema: {
+                              label: fields.text({ label: 'Label' }),
+                              href: fields.text({ label: 'Link'}),
+                              shape: fields.select({
+                                label: 'Shape',
+                                options: shapesOptions,
+                                defaultValue: 'donut',
+                              }),
+                              icon: fields.select({
+                                label: 'Icon',
+                                options: iconsOptions,
+                                defaultValue: 'arrowRight',
+                              }),
+                              mainTheme: fields.select({
+                                label: 'Main theme',
+                                options: themeOptions,
+                                defaultValue: 'default',
+                              }),
+                              mainThemeMode: fields.select({
+                                label: 'Main theme mode',
+                                options: [
+                                  { label: "Normal (default)", value: "normal"},
+                                  { label: "Invert", value: "invert"},
+                                ],
+                                defaultValue: 'normal',
+                              }),
+                              hoverTheme: fields.select({
+                                label: 'Hover theme',
+                                options: themeOptions,
+                                defaultValue: 'default',
+                              }),
+                              hoverThemeMode: fields.select({
+                                label: 'Hover theme mode',
+                                options: [
+                                  { label: "Normal (default)", value: "normal"},
+                                  { label: "Invert", value: "invert"},
+                                ],
+                                defaultValue: 'normal',
+                              }),
+                              shapeTheme: fields.select({
+                                label: 'Shape theme',
+                                options: themeOptions,
+                                defaultValue: 'default',
+                              }),
+                              shapeThemeMode: fields.select({
+                                label: 'Shape theme mode',
+                                options: [
+                                  { label: "Normal (default)", value: "normal"},
+                                  { label: "Invert", value: "invert"},
+                                ],
+                                defaultValue: 'normal',
+                              }),
+                              iconTheme: fields.select({
+                                label: 'Icon theme',
+                                options: themeOptions,
+                                defaultValue: 'default',
+                              }),
+                              iconThemeMode: fields.select({
+                                label: 'Icon theme mode',
+                                options: [
+                                  { label: "Normal (default)", value: "normal"},
+                                  { label: "Invert", value: "invert"},
+                                ],
+                                defaultValue: 'normal',
+                              }),
+                            }
+                          }),
+                        },
                         extension: 'mdoc',
                       }),
 

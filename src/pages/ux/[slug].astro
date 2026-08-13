@@ -9,6 +9,7 @@ import { join } from 'node:path';
 import { extractHeadings } from '@utils/extractHeadings';
 import TableOfContents from '@blocks/TableOfContents.astro';
 import readingTimesData from '../../content/_generated/reading-times.json';
+import PrimaryButton from '@blocks/PrimaryButton.astro';
 
 import Layout from '../../layouts/Layout.astro';
 import Figure from '@primitives/Figure.astro';
@@ -21,6 +22,28 @@ export async function getStaticPaths() {
     return slugs.map(slug => ({ params: { slug }}));
 }
 export const prerender = true;
+
+const rawMarkdocConfig = {
+    tags: {
+        Button: {
+            render: 'astro-button-placeholder',
+            attributes: {
+                label: { type: String },
+                href: { type: String },
+                shape: { type: String },
+                icon: { type: String },
+                mainTheme: { type: String },
+                mainThemeMode: { type: String},
+                hoverTheme: { type: String },
+                hoverThemeMode: { type: String},
+                shapeTheme: { type: String },
+                shapeThemeMode: { type: String},
+                iconTheme: { type: String },
+                iconThemeMode: { type: String},
+            },
+        },
+    },
+};
 
 const readingTimes = readingTimesData as { caseStudies: Record<string, string>};
 
@@ -52,6 +75,45 @@ function wrapSubtitle(html: string): string {
     return root.toString();
 }
 
+function extractButtons(node: any, buttons: any[] = [], counter = { i: 0 }): any[] {
+    if (node?.name === 'astro-button-placeholder') {
+        const id = `button-placeholder-${counter.i++}`;
+        node.attributes.id = id;
+        buttons.push({ id, ...node.attributes });
+    }
+    if (Array.isArray(node?.children)) {
+        node.children.forEach((child: any) => extractButtons(child, buttons, counter));
+    }
+    return buttons;
+}
+
+function splitOnButtons(html: string, buttons: any[]): { type: 'html' | 'button'; content: string | any }[] {
+    let remaining = html;
+    const segments: { type: 'html' | 'button'; content: string | any }[] = [];
+
+    buttons.forEach((button) => {
+        const marker = `id="${button.id}"`;
+        const markerIndex = remaining.indexOf(marker);
+        if (markerIndex === -1) return;
+
+        const tagStart = remaining.lastIndexOf('<astro-button-placeholder', markerIndex);
+        const openTagEnd = remaining.indexOf('>', markerIndex) + 1;
+
+        const closeTagIndex = remaining.indexOf('</astro-button-placeholder>', openTagEnd);
+        const endIndex = closeTagIndex !== -1
+            ? closeTagIndex + '</astro-button-placeholder>'.length
+            : openTagEnd;
+
+        segments.push({ type: 'html', content: remaining.slice(0, tagStart) });
+        segments.push({ type: 'button', content: button });
+
+        remaining = remaining.slice(endIndex);
+    });
+
+    segments.push({ type: 'html', content: remaining });
+    return segments;
+}
+
 const sections = await Promise.all(
     caseStudy.sections.map(async (section, sectionIndex) => ({
         ...section,
@@ -79,6 +141,7 @@ const sections = await Promise.all(
                     link: string;
                     label: string
                 }[] = [];
+                let segments: { type: 'html' | 'button'; content: string | any }[] = [];
 
                 if (!zone.content.discriminant) {
                     const filePath = join(
@@ -90,15 +153,18 @@ const sections = await Promise.all(
 
                     const raw = await readFile(filePath, 'utf-8');
                     const ast = Markdoc.parse(raw);
-                    const transformed = Markdoc.transform(ast);
+                    const transformed = Markdoc.transform(ast, rawMarkdocConfig);
+                    const buttons = extractButtons(transformed);
                     const html = Markdoc.renderers.html(transformed);
                     const stripped = stripArticleWrapper(html);
                     
                     const withSubtitle = hasSubtitle ? wrapSubtitle(stripped) : stripped;
-
+                    
                     const extracted = extractHeadings(withSubtitle);
                     contentHtml = extracted.html;
                     zoneHeadings = extracted.headings;
+                    
+                    segments = splitOnButtons(contentHtml, buttons);
                 }
 
                 return {
@@ -113,6 +179,7 @@ const sections = await Promise.all(
                     zoneThemeMode,
                     contentHtml,
                     zoneHeadings,
+                    segments,
                 }
             })
         )
@@ -208,6 +275,15 @@ const allHeadings = sections.flatMap((section) =>
 
             :global(p){
                 @include justified;
+            }
+
+            :global(.primary-button){
+                width: 100%;
+                :global(span.button){
+                    flex-basis: unset;
+                    flex-grow: 1;
+                    min-width: unset;
+                }
             }
 
             &[data-theme-mode="invert"]{
@@ -337,7 +413,28 @@ const allHeadings = sections.flatMap((section) =>
                                                     --blurhash-gradient: url("${zone.resolvedImage.placeholder}");
                                                 `}
                                             />
-                                            : zone.contentHtml && <Fragment set:html={zone.contentHtml} />
+                                            : zone.segments?.map((segment) =>
+                                                segment.type === 'html'
+                                                    ? <Fragment set:html={segment.content} />
+                                                    : <PrimaryButton
+                                                        href={segment.content.href}
+                                                        label={segment.content.label}
+                                                        theme={segment.content.mainTheme}
+                                                        themeMode={segment.content.mainThemeMode}
+                                                        hover={segment.content.hoverTheme}
+                                                        hoverMode={segment.content.hoverThemeMode}
+                                                        shape={{
+                                                            variant: segment.content.shape,
+                                                            fill: segment.content.shapeTheme,
+                                                            themeMode: segment.content.shapeThemeMode,
+                                                        }}
+                                                        icon={{
+                                                            icon: segment.content.icon,
+                                                            fill: segment.content.iconTheme,
+                                                            themeMode: segment.content.iconThemeMode,
+                                                        }}
+                                                    />
+                                            )
                                         }
                                     </MarkdocDocument>
                                 </div>

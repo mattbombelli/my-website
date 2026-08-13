@@ -2619,6 +2619,38 @@
       "rowGap": "var(--gap-y)"
     },
     {
+      "description": "CTA: view prototype",
+      "zones": [
+        {
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "subtitle": false,
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        }
+      ],
+      "carousel": false,
+      "theme": "normal",
+      "rowGap": "var(--gap-y)"
+    },
+    {
       "description": "Conclusion",
       "zones": [
         {
