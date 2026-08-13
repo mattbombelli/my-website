@@ -2366,6 +2366,333 @@
             "rowOffset": "4"
           },
           "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": true,
+            "value": {
+              "image": "@images/ux/reimagining-forvo/sections/34/zones/5/content/value/image.png",
+              "alt": "Box as placeholder",
+              "loading": "lazy"
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "5"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "5"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": true,
+            "value": {
+              "image": "@images/ux/reimagining-forvo/sections/34/zones/6/content/value/image.png",
+              "alt": "Box as placeholder",
+              "loading": "lazy"
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "5"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "5"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "center",
+              "subtitle": false,
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "6"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "2",
+            "rowSpan": "auto",
+            "rowOffset": "6"
+          },
+          "mobileOrder": 0
+        }
+      ],
+      "carousel": false,
+      "theme": "normal",
+      "rowGap": "var(--gap-y)"
+    },
+    {
+      "description": "Further iterations",
+      "zones": [
+        {
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "subtitle": false,
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        }
+      ],
+      "carousel": false,
+      "theme": "normal",
+      "rowGap": "var(--gap-y)"
+    },
+    {
+      "description": "Side-by-side: text",
+      "zones": [
+        {
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "subtitle": false,
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        }
+      ],
+      "carousel": false,
+      "theme": "normal",
+      "rowGap": "var(--gap-y)"
+    },
+    {
+      "description": "Side-by-side: search results page carousel",
+      "zones": [
+        {
+          "content": {
+            "discriminant": true,
+            "value": {
+              "image": "@images/ux/reimagining-forvo/sections/37/zones/0/content/value/image.png",
+              "alt": "Box as placeholder",
+              "caption": "The current search results page in the existing app.",
+              "loading": "lazy"
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": true,
+            "value": {
+              "image": "@images/ux/reimagining-forvo/sections/37/zones/1/content/value/image.png",
+              "alt": "Box as placeholder",
+              "caption": "Search results page, accessed from within a collection. The redesign prioritises relevant content, supporting quick and intuitive interactions.",
+              "loading": "lazy"
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        }
+      ],
+      "carousel": true,
+      "theme": "normal",
+      "rowGap": "var(--gap-y)"
+    },
+    {
+      "description": "Side-by-side: word page carousel",
+      "zones": [
+        {
+          "content": {
+            "discriminant": true,
+            "value": {
+              "image": "@images/ux/reimagining-forvo/sections/38/zones/0/content/value/image.png",
+              "alt": "Box as placeholder",
+              "caption": "The current word page in the existing app.",
+              "loading": "lazy"
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": true,
+            "value": {
+              "image": "@images/ux/reimagining-forvo/sections/38/zones/1/content/value/image.png",
+              "alt": "Box as placeholder",
+              "caption": "The word page introduces new tools — practice and flashcards — while restructuring existing content to guide attention more effectively. Core actions are reachable with a single tap.",
+              "loading": "lazy"
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        }
+      ],
+      "carousel": true,
+      "theme": "normal",
+      "rowGap": "var(--gap-y)"
+    },
+    {
+      "description": "Conclusion",
+      "zones": [
+        {
+          "title": "Header",
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "subtitle": false,
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "1"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "1"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "subtitle": false,
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "2"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "2"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "subtitle": false,
+              "typography": false,
+              "theme": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "2"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "2"
+          },
+          "mobileOrder": 0
         }
       ],
       "carousel": false,
