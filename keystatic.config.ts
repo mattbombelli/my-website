@@ -217,9 +217,15 @@ export default config({
                         description: "Invert the zone's theme colors.",
                         defaultValue: false,
                       }),
+
+                      dropCap: fields.checkbox({
+                        label: "Drop cap",
+                        description: "Adds drop cap to the first paragraph found in this zone.",
+                        defaultValue: false,
+                      }),
                     }, {
                       label: 'Text',
-                      layout: [12,6,6,6,6]
+                      layout: [12,6,6,6,6,12]
                     }),
                 }),
 

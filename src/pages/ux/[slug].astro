@@ -1,196 +1,34 @@
 ---
-import { createReader } from '@keystatic/core/reader';
-import { resolveImage } from '../../utils/resolveImage';
-import keystaticConfig from '@root/keystatic.config';
-import { parse } from 'node-html-parser';
-import Markdoc from '@markdoc/markdoc';
-import { readFile } from 'node:fs/promises';
-import { join } from 'node:path';
-import { extractHeadings } from '@utils/extractHeadings';
-import TableOfContents from '@blocks/TableOfContents.astro';
+// src/pages/ux/[slug].astro
+import { reader } from '@utils/reader';
+import { loadProjectSections } from '@utils/loadProjectSections';
 import readingTimesData from '../../content/_generated/reading-times.json';
-import PrimaryButton from '@blocks/PrimaryButton.astro';
 
 import Layout from '../../layouts/Layout.astro';
 import Figure from '@primitives/Figure.astro';
 import MarkdocDocument from '@primitives/MarkdocDocument.astro';
 import Carousel from '@blocks/Carousel.astro';
+import TableOfContents from '@blocks/TableOfContents.astro';
+import PrimaryButton from '@blocks/PrimaryButton.astro';
 
 export async function getStaticPaths() {
-    const reader = createReader(process.cwd(), keystaticConfig);
     const slugs = await reader.collections.caseStudies.list();
-    return slugs.map(slug => ({ params: { slug }}));
+    return slugs.map(slug => ({ params: { slug } }));
 }
 export const prerender = true;
 
-const rawMarkdocConfig = {
-    tags: {
-        Button: {
-            render: 'astro-button-placeholder',
-            attributes: {
-                label: { type: String },
-                href: { type: String },
-                shape: { type: String },
-                icon: { type: String },
-                mainTheme: { type: String },
-                mainThemeMode: { type: String},
-                hoverTheme: { type: String },
-                hoverThemeMode: { type: String},
-                shapeTheme: { type: String },
-                shapeThemeMode: { type: String},
-                iconTheme: { type: String },
-                iconThemeMode: { type: String},
-            },
-        },
-    },
-};
-
-const readingTimes = readingTimesData as { caseStudies: Record<string, string>};
+const readingTimes = readingTimesData as { caseStudies: Record<string, string> };
 
 const { slug } = Astro.params;
 if (!slug) throw new Error('Slug not found');
 
-const reader = createReader(process.cwd(), keystaticConfig);
-const caseStudy = await reader.collections.caseStudies.read(slug, { resolveLinkedFiles: true });
-if (!caseStudy) throw new Error('No post found with this slug');
-
-function stripArticleWrapper(html: string): string {
-    const root = parse(html);
-    const article = root.querySelector('article');
-    const container = article ? article : root;
-    return container.innerHTML;
-}
-
-function wrapSubtitle(html: string): string {
-    const root = parse(html);
-    const heading = root.querySelector('h1, h2');
-    const next = heading?.nextElementSibling;
-
-    if (heading && next && next.tagName === 'P') {
-        const wrapped = `<hgroup>${heading.outerHTML}${next.outerHTML}</hgroup>`;
-        heading.replaceWith(wrapped);
-        next.remove();
-    }
-
-    return root.toString();
-}
-
-function extractButtons(node: any, buttons: any[] = [], counter = { i: 0 }): any[] {
-    if (node?.name === 'astro-button-placeholder') {
-        const id = `button-placeholder-${counter.i++}`;
-        node.attributes.id = id;
-        buttons.push({ id, ...node.attributes });
-    }
-    if (Array.isArray(node?.children)) {
-        node.children.forEach((child: any) => extractButtons(child, buttons, counter));
-    }
-    return buttons;
-}
-
-function splitOnButtons(html: string, buttons: any[]): { type: 'html' | 'button'; content: string | any }[] {
-    let remaining = html;
-    const segments: { type: 'html' | 'button'; content: string | any }[] = [];
-
-    buttons.forEach((button) => {
-        const marker = `id="${button.id}"`;
-        const markerIndex = remaining.indexOf(marker);
-        if (markerIndex === -1) return;
-
-        const tagStart = remaining.lastIndexOf('<astro-button-placeholder', markerIndex);
-        const openTagEnd = remaining.indexOf('>', markerIndex) + 1;
-
-        const closeTagIndex = remaining.indexOf('</astro-button-placeholder>', openTagEnd);
-        const endIndex = closeTagIndex !== -1
-            ? closeTagIndex + '</astro-button-placeholder>'.length
-            : openTagEnd;
-
-        segments.push({ type: 'html', content: remaining.slice(0, tagStart) });
-        segments.push({ type: 'button', content: button });
-
-        remaining = remaining.slice(endIndex);
-    });
-
-    segments.push({ type: 'html', content: remaining });
-    return segments;
-}
-
-const sections = await Promise.all(
-    caseStudy.sections.map(async (section, sectionIndex) => ({
-        ...section,
-        zones: await Promise.all(
-            section.zones.map(async (zone, zoneIndex) => {
-                const textAlignment = !zone.content.discriminant
-                        ? zone.content.value.alignment
-                        : null;
-
-                const invertType = !zone.content.discriminant
-                        ? zone.content.value.typography
-                        : null;
-
-                const hasSubtitle = !zone.content.discriminant
-                        ? zone.content.value.subtitle
-                        : false;
-
-                const zoneThemeMode = !zone.content.discriminant
-                        ? zone.content.value.theme
-                        : false;
-
-                let contentHtml = null;
-                let zoneHeadings: {
-                    type: 'h1' | 'h2' | 'h3';
-                    link: string;
-                    label: string
-                }[] = [];
-                let segments: { type: 'html' | 'button'; content: string | any }[] = [];
-
-                if (!zone.content.discriminant) {
-                    const filePath = join(
-                        process.cwd(),
-                        'src/content/ux',
-                        slug,
-                        `sections/${sectionIndex}/zones/${zoneIndex}/content/value/content.mdoc`
-                    );
-
-                    const raw = await readFile(filePath, 'utf-8');
-                    const ast = Markdoc.parse(raw);
-                    const transformed = Markdoc.transform(ast, rawMarkdocConfig);
-                    const buttons = extractButtons(transformed);
-                    const html = Markdoc.renderers.html(transformed);
-                    const stripped = stripArticleWrapper(html);
-                    
-                    const withSubtitle = hasSubtitle ? wrapSubtitle(stripped) : stripped;
-                    
-                    const extracted = extractHeadings(withSubtitle);
-                    contentHtml = extracted.html;
-                    zoneHeadings = extracted.headings;
-                    
-                    segments = splitOnButtons(contentHtml, buttons);
-                }
-
-                return {
-                    ...zone,
-                    resolvedImage: await resolveImage(
-                        zone.content.discriminant
-                            ? zone.content.value.image
-                            : null
-                    ),
-                    textAlignment,
-                    invertType,
-                    zoneThemeMode,
-                    contentHtml,
-                    zoneHeadings,
-                    segments,
-                }
-            })
-        )
-    }))
-); // sections
+const { project: caseStudy, sections, allHeadings } = await loadProjectSections(
+    reader.collections.caseStudies,
+    slug,
+    'src/content/ux'
+);
 
 const readingTime = readingTimes.caseStudies[slug];
-
-const allHeadings = sections.flatMap((section) =>
-    section.zones.flatMap((zone) => zone.zoneHeadings)
-);
 ---
 <style lang="scss">
     @use '../../foundations' as *;
@@ -224,6 +62,22 @@ const allHeadings = sections.flatMap((section) =>
                 position: sticky;
                 top: var(--space-m);
                 align-self: start;
+                max-height: calc(100dvh - var(--space-m) * 2);
+                overflow-y: auto;
+
+            }
+
+            :global(aside::-webkit-scrollbar) {
+                width: var(--space-2xs);
+            }
+            
+            :global(aside::-webkit-scrollbar-track) {
+                background: transparent;
+            }
+                
+            :global(aside::-webkit-scrollbar-thumb) {
+                background: var(--cobalt-base);
+                border-radius: var(--radius-pill);
             }
         }
 
@@ -259,11 +113,9 @@ const allHeadings = sections.flatMap((section) =>
         grid-column: 1 / -1;
         grid-template-columns: subgrid;
 
-        &:first-of-type{
-            .zone:nth-child(1 of :has(p, .p)){
-                :global(p:first-of-type:first-letter){
-                    @include drop-cap;
-                }
+        .zone.has-drop-cap {
+            :global(p:first-of-type:first-letter) {
+                @include drop-cap;
             }
         }
 
@@ -385,6 +237,7 @@ const allHeadings = sections.flatMap((section) =>
                                         "zone",
                                         zone.textAlignment && zone.textAlignment !== "left" && `align-${zone.textAlignment}`,
                                         zone.invertType && `invert-types`,
+                                        zone.hasDropCap && `has-drop-cap`,
                                     ]}
                                     data-theme-mode={zone.zoneThemeMode ? "invert" : undefined}
 

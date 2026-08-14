@@ -11,6 +11,32 @@ import {
     splitOnButtons,
 } from '@utils/markdocProcessing';
 
+// src/utils/loadProjectSections.ts
+
+interface Zone {
+    content: { discriminant: boolean; value: any };
+    resolvedImage: any;
+    textAlignment: string | null;
+    invertType: any;
+    zoneThemeMode: any;
+    hasDropCap: boolean;
+    contentHtml: string | null;
+    zoneHeadings: { type: 'h1' | 'h2' | 'h3'; link: string; label: string }[];
+    segments: { type: 'html' | 'button'; content: string | any }[];
+    desktop: any;
+    tablet: any;
+    mobileOrder: number | null;
+}
+
+interface Section {
+    zones: Zone[];
+    carousel: boolean;
+    description: string;
+    rowGap: string;
+    theme: string;
+    [key: string]: any;
+}
+
 async function processZone(
     zone: any,
     sectionIndex: number,
@@ -22,6 +48,7 @@ async function processZone(
     const invertType = !zone.content.discriminant ? zone.content.value.typography : null;
     const hasSubtitle = !zone.content.discriminant ? zone.content.value.subtitle : false;
     const zoneThemeMode = !zone.content.discriminant ? zone.content.value.theme : false;
+    const hasDropCap = !zone.content.discriminant ? zone.content.value.dropCap : false;
 
     let contentHtml = null;
     let zoneHeadings: { type: 'h1' | 'h2' | 'h3'; link: string; label: string }[] = [];
@@ -58,13 +85,14 @@ async function processZone(
         textAlignment,
         invertType,
         zoneThemeMode,
+        hasDropCap,
         contentHtml,
         zoneHeadings,
         segments,
     };
 }
 
-export async function loadProjectSections(collection: any, slug: string, contentBasePath: string) {
+export async function loadProjectSections(collection: any, slug: string, contentBasePath: string) : Promise<{ project: any; sections: Section[]; allHeadings: Zone['zoneHeadings'] }> {
     const project = await collection.read(slug, { resolveLinkedFiles: true });
     if (!project) throw new Error(`No entry found for slug: ${slug}`);
 

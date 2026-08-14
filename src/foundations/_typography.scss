@@ -431,6 +431,19 @@ ul, ol{
     @include body-text('p', 400, 'serif');
 }
 
+blockquote{
+    border-left: var(--space-2xs) solid hsl(from var(--paper-dark) h s l / .8);
+    background-color: hsl(from var(--paper-dark) h s l / .2);
+    margin: 0;
+    padding: var(--space-s);
+
+    & > p:first-child:has(> strong:first-child) {
+        > strong:first-child {
+            @include heading('h5', 500);
+        }
+    }
+}
+
 /* === Spacing system for prose === */
 .prose{
     // micro space
@@ -438,7 +451,7 @@ ul, ol{
     {
         font-family: var(--font-sans-serif);
         font-size: var(--text-p);
-        line-height: var(--leading-sans-serif-p); 
+        line-height: var(--leading-sans-serif-p);
     }
 
     /* meso space: spacing between elements.
@@ -553,11 +566,7 @@ ul, ol{
     }
 
     // blockquotes spacings
-    blockquote
-    {
-        padding: var(--space-s) 0 var(--space-s) var(--space-s);
-        border-left: .2em solid var(--foreground);
-    }
+
 
     // removes all cross zone meso spaces from $tablet and upwards
     @media only screen and (min-width: $tablet){
