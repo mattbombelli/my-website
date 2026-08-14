@@ -2778,7 +2778,7 @@
           "content": {
             "discriminant": false,
             "value": {
-              "alignment": "left",
+              "alignment": "center",
               "subtitle": false,
               "typography": false,
               "theme": false,
@@ -2786,14 +2786,14 @@
             }
           },
           "desktop": {
-            "columnSpan": "2",
-            "columnOffset": "2",
+            "columnSpan": "4",
+            "columnOffset": "1",
             "rowSpan": "auto",
             "rowOffset": "auto"
           },
           "tablet": {
-            "columnSpan": "2",
-            "columnOffset": "2",
+            "columnSpan": "4",
+            "columnOffset": "1",
             "rowSpan": "auto",
             "rowOffset": "auto"
           },

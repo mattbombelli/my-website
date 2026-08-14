@@ -541,10 +541,15 @@ const grouped = chapters.reduce<GroupedChapter[]>((acc, chapter) => {
     if (supportsScrollEnd) {
         window.addEventListener('scrollend', updateActiveHeading);
     } else {
-        let fallbackTimer: ReturnType<typeof setTimeout>;
+        let ticking = false;
         window.addEventListener('scroll', () => {
-            clearTimeout(fallbackTimer);
-            fallbackTimer = setTimeout(updateActiveHeading, 150);
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    updateActiveHeading();
+                    ticking = false;
+                });
+                ticking = true;
+            }
         }, { passive: true });
     }
 
