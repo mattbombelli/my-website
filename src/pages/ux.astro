@@ -1,10 +1,81 @@
 ---
-import Layout from '@layouts/Layout.astro';
----
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '@root/keystatic.config';
+import { resolveImageOrThrow } from '@utils/resolveImageOrThrow';
+import readingTimesData from '../content/_generated/reading-times.json';
+import { breakpoints } from '@data/breakpoints.ts';
 
-<Layout title="UX case studies">
-  <div class="grid">
-    <h1>Work in progress</h1>
-    <p>This page will be available soon.</p>
+import Layout from '@layouts/Layout.astro';
+import ProjectCard from '@templates/ProjectCard.astro';
+
+export const prerender = true;
+
+const reader = createReader(process.cwd(), keystaticConfig);
+const slugs = await reader.collections.caseStudies.list();
+
+const readingTimes = readingTimesData as { caseStudies: Record<string, string>};
+
+const caseStudies = await Promise.all(
+  slugs.map(async (slug) => ({
+    slug,
+    ...(await reader.collections.caseStudies.read(slug, { resolveLinkedFiles: true })),
+  }))
+);
+---
+<style lang="scss">
+
+  .projects{
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-y);
+    padding-top: var(--space-3xl);
+  }
+
+</style>
+
+<Layout title="Projects">
+  <div class="projects">
+    <section>
+      {caseStudies.map(async caseStudy => {
+        const cover = await resolveImageOrThrow(caseStudy.cover);
+        return (
+          <ProjectCard
+            title={caseStudy.title}
+            excerpt={caseStudy.excerpt}
+            image={{
+              src: cover,
+              alt: caseStudy.coverAlt,
+              widths: [375, 540],
+              sizes: `
+                  (min-width: ${breakpoints.tablet}) 512px,
+                  100vw
+                `,
+              formats: ['webp'],
+              fit: 'cover',
+              layout: 'constrained',
+              style: `
+                  --blurhash-gradient: url("${cover.placeholder}");
+              `
+            }}
+            readingTime={`${readingTimes.caseStudies[caseStudy.slug]} read`}
+            button={{
+              href: "/ux/" + caseStudy.slug,
+              theme: 'marmalade',
+              hover: 'mustard',
+              shape: {
+                variant: 'spring',
+                fill: 'meadow',
+                themeMode: 'invert',
+              },
+              icon: {
+                icon: 'arrowRight',
+                fill: 'chocolate',
+                themeMode: "invert",
+              }
+            }}
+          />
+        );
+      })}
+    </section>
   </div>
 </Layout>

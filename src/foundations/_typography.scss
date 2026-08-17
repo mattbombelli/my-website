@@ -687,6 +687,8 @@ blockquote{
     } // section.grid
 } // prose
 
+#article-content section.grid:nth-of-type(1){ margin-top: 0;}
+
 main:has(article.prose) + footer{
     margin-top: var(--space-3xl);
 }

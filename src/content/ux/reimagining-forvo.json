@@ -1376,39 +1376,6 @@
             "rowOffset": "auto"
           },
           "mobileOrder": 0
-        }
-      ],
-      "carousel": false,
-      "theme": "normal",
-      "rowGap": "var(--gap-y)"
-    },
-    {
-      "description": "Step 3: intro",
-      "zones": [
-        {
-          "content": {
-            "discriminant": false,
-            "value": {
-              "alignment": "left",
-              "subtitle": false,
-              "typography": false,
-              "theme": false,
-              "dropCap": false
-            }
-          },
-          "desktop": {
-            "columnSpan": "2",
-            "columnOffset": "1",
-            "rowSpan": "auto",
-            "rowOffset": "auto"
-          },
-          "tablet": {
-            "columnSpan": "2",
-            "columnOffset": "1",
-            "rowSpan": "auto",
-            "rowOffset": "auto"
-          },
-          "mobileOrder": 0
         },
         {
           "content": {
@@ -1423,13 +1390,13 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "3",
+            "columnOffset": "1",
             "rowSpan": "auto",
             "rowOffset": "auto"
           },
           "tablet": {
             "columnSpan": "2",
-            "columnOffset": "3",
+            "columnOffset": "1",
             "rowSpan": "auto",
             "rowOffset": "auto"
           },
@@ -1539,7 +1506,7 @@
           "content": {
             "discriminant": true,
             "value": {
-              "image": "@images/ux/reimagining-forvo/sections/24/zones/0/content/value/image.png",
+              "image": "@images/ux/reimagining-forvo/sections/23/zones/0/content/value/image.png",
               "alt": "Blue square as placeholder",
               "caption": "First, language selection. Maya already has a target language — returning results across all languages adds noise. If her target isn't available, the system could offer to request a pronunciation, which Forvo already does.",
               "loading": "lazy"
@@ -1563,7 +1530,7 @@
           "content": {
             "discriminant": true,
             "value": {
-              "image": "@images/ux/reimagining-forvo/sections/24/zones/1/content/value/image.png",
+              "image": "@images/ux/reimagining-forvo/sections/23/zones/1/content/value/image.png",
               "alt": "Pink square as placeholder",
               "caption": "Second, translation. Forvo offers translations, but only through a separate search. Displaying them directly alongside the word would help Maya connect pronunciation with meaning immediately — reducing cognitive load and strengthening retention.",
               "loading": "lazy"
@@ -1587,7 +1554,7 @@
           "content": {
             "discriminant": true,
             "value": {
-              "image": "@images/ux/reimagining-forvo/sections/24/zones/2/content/value/image.png",
+              "image": "@images/ux/reimagining-forvo/sections/23/zones/2/content/value/image.png",
               "alt": "Yellow square as placeholder",
               "caption": "Third, saving. A single \"Favourites\" folder loses usefulness as the collection grows — context disappears, and finding a specific word becomes its own obstacle. User-defined folders or collections would solve this simply.",
               "loading": "lazy"
@@ -1644,7 +1611,7 @@
           "content": {
             "discriminant": true,
             "value": {
-              "image": "@images/ux/reimagining-forvo/sections/25/zones/1/content/value/image.png",
+              "image": "@images/ux/reimagining-forvo/sections/24/zones/1/content/value/image.png",
               "alt": "Blue square as placeholder",
               "caption": "A piece of the moodboard I put together while studying a direction for Forvo’s brand",
               "loading": "lazy"
@@ -1853,7 +1820,7 @@
           "content": {
             "discriminant": true,
             "value": {
-              "image": "@images/ux/reimagining-forvo/sections/29/zones/1/content/value/image.png",
+              "image": "@images/ux/reimagining-forvo/sections/28/zones/1/content/value/image.png",
               "alt": "Yellow box as placeholder",
               "caption": "A revised footer for the Forvo app, which rotates around: discovery (search page), storing (library), learning (practice) and community (contribute).",
               "loading": "lazy"
@@ -1961,7 +1928,7 @@
           "content": {
             "discriminant": true,
             "value": {
-              "image": "@images/ux/reimagining-forvo/sections/30/zones/2/content/value/image.png",
+              "image": "@images/ux/reimagining-forvo/sections/29/zones/2/content/value/image.png",
               "alt": "Pink box as placeholder",
               "caption": "This opens a search page, already filtered to Japanese, clearly indicating she's adding words to this specific collection — inspired by Spotify's \"Add to Playlist\" workflow:",
               "loading": "lazy"
@@ -1985,7 +1952,7 @@
           "content": {
             "discriminant": true,
             "value": {
-              "image": "@images/ux/reimagining-forvo/sections/30/zones/3/content/value/image.png",
+              "image": "@images/ux/reimagining-forvo/sections/29/zones/3/content/value/image.png",
               "alt": "Blue box as placeholder",
               "caption": "Maya can search for a word, view results, and either add the pronunciation to her collection right away or visit the word page for more context. If a result doesn't exist, she can request a pronunciation with a single tap.",
               "loading": "lazy"
@@ -2068,7 +2035,7 @@
           "content": {
             "discriminant": true,
             "value": {
-              "image": "@images/ux/reimagining-forvo/sections/31/zones/2/content/value/image.png",
+              "image": "@images/ux/reimagining-forvo/sections/30/zones/2/content/value/image.png",
               "alt": "Blue box as placeholder",
               "caption": "User flow for adding a word to a collection, accounting for cases where a pronunciation isn’t in the database or an error occurs during saving.  Parkinson's Law informed this process: it revealed that the user doesn’t need to visit the word page to save it—a single tap from the search results can suffice if the pronunciation meets their needs.",
               "loading": "lazy"
@@ -2100,7 +2067,7 @@
           "content": {
             "discriminant": true,
             "value": {
-              "image": "@images/ux/reimagining-forvo/sections/32/zones/0/content/value/image.png",
+              "image": "@images/ux/reimagining-forvo/sections/31/zones/0/content/value/image.png",
               "alt": "Blue box for placeholder",
               "caption": "User flow for adding a word to a collection, accounting for cases where a pronunciation isn’t in the database or an error occurs during saving.  Parkinson's Law informed this process: it revealed that the user doesn’t need to visit the word page to save it—a single tap from the search results can suffice if the pronunciation meets their needs.",
               "loading": "lazy"
@@ -2124,7 +2091,7 @@
           "content": {
             "discriminant": true,
             "value": {
-              "image": "@images/ux/reimagining-forvo/sections/32/zones/1/content/value/image.png",
+              "image": "@images/ux/reimagining-forvo/sections/31/zones/1/content/value/image.png",
               "alt": "Orange box as placeholder",
               "caption": "Explorations of the “search” page and results: rich context was the goal, but too much information quickly created clutter.",
               "loading": "lazy"
@@ -2148,7 +2115,7 @@
           "content": {
             "discriminant": true,
             "value": {
-              "image": "@images/ux/reimagining-forvo/sections/32/zones/2/content/value/image.png",
+              "image": "@images/ux/reimagining-forvo/sections/31/zones/2/content/value/image.png",
               "alt": "Burgundy box for placeholder",
               "caption": "Concept for the “library” page: a central hub for all collections, with a top toggle for the currently selected language.",
               "loading": "lazy"
@@ -2239,7 +2206,7 @@
           "content": {
             "discriminant": true,
             "value": {
-              "image": "@images/ux/reimagining-forvo/sections/34/zones/0/content/value/image.png",
+              "image": "@images/ux/reimagining-forvo/sections/33/zones/0/content/value/image.png",
               "alt": "Blue box as placeholder",
               "caption": "Paper mockup of the Collection page.",
               "loading": "lazy"
@@ -2263,7 +2230,7 @@
           "content": {
             "discriminant": true,
             "value": {
-              "image": "@images/ux/reimagining-forvo/sections/34/zones/1/content/value/image.png",
+              "image": "@images/ux/reimagining-forvo/sections/33/zones/1/content/value/image.png",
               "alt": "Burgundy box as placeholder",
               "caption": "Its very low-fidelity counterpart in Figma.",
               "loading": "lazy"
@@ -2320,7 +2287,7 @@
           "content": {
             "discriminant": true,
             "value": {
-              "image": "@images/ux/reimagining-forvo/sections/35/zones/1/content/value/image.png",
+              "image": "@images/ux/reimagining-forvo/sections/34/zones/1/content/value/image.png",
               "alt": "Yellow box as placeholder",
               "loading": "lazy"
             }
@@ -2343,7 +2310,7 @@
           "content": {
             "discriminant": true,
             "value": {
-              "image": "@images/ux/reimagining-forvo/sections/35/zones/2/content/value/image.png",
+              "image": "@images/ux/reimagining-forvo/sections/34/zones/2/content/value/image.png",
               "alt": "Pink box as placeholder",
               "loading": "lazy"
             }
@@ -2450,7 +2417,7 @@
           "content": {
             "discriminant": true,
             "value": {
-              "image": "@images/ux/reimagining-forvo/sections/36/zones/2/content/value/image.png",
+              "image": "@images/ux/reimagining-forvo/sections/35/zones/2/content/value/image.png",
               "alt": "Box as placeholder",
               "loading": "lazy"
             }
@@ -2473,7 +2440,7 @@
           "content": {
             "discriminant": true,
             "value": {
-              "image": "@images/ux/reimagining-forvo/sections/36/zones/3/content/value/image.png",
+              "image": "@images/ux/reimagining-forvo/sections/35/zones/3/content/value/image.png",
               "alt": "Box as placeholder",
               "loading": "lazy"
             }
@@ -2521,7 +2488,7 @@
           "content": {
             "discriminant": true,
             "value": {
-              "image": "@images/ux/reimagining-forvo/sections/36/zones/5/content/value/image.png",
+              "image": "@images/ux/reimagining-forvo/sections/35/zones/5/content/value/image.png",
               "alt": "Box as placeholder",
               "loading": "lazy"
             }
@@ -2544,7 +2511,7 @@
           "content": {
             "discriminant": true,
             "value": {
-              "image": "@images/ux/reimagining-forvo/sections/36/zones/6/content/value/image.png",
+              "image": "@images/ux/reimagining-forvo/sections/35/zones/6/content/value/image.png",
               "alt": "Box as placeholder",
               "loading": "lazy"
             }
@@ -2620,6 +2587,98 @@
             "rowOffset": "auto"
           },
           "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": true,
+            "value": {
+              "image": "@images/ux/reimagining-forvo/sections/36/zones/1/content/value/image.png",
+              "alt": "Blue box as placeholder",
+              "loading": "lazy"
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "2"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "2"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": true,
+            "value": {
+              "image": "@images/ux/reimagining-forvo/sections/36/zones/2/content/value/image.png",
+              "alt": "Orange box as placeholder",
+              "loading": "lazy"
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "2"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "2"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": true,
+            "value": {
+              "image": "@images/ux/reimagining-forvo/sections/36/zones/3/content/value/image.png",
+              "alt": "Pink box as placeholder",
+              "loading": "lazy"
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "3"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "3"
+          },
+          "mobileOrder": 0
+        },
+        {
+          "content": {
+            "discriminant": true,
+            "value": {
+              "image": "@images/ux/reimagining-forvo/sections/36/zones/4/content/value/image.png",
+              "alt": "Burgundy box as placeholder",
+              "loading": "lazy"
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "3"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "3",
+            "rowSpan": "auto",
+            "rowOffset": "3"
+          },
+          "mobileOrder": 0
         }
       ],
       "carousel": false,
@@ -2666,7 +2725,7 @@
           "content": {
             "discriminant": true,
             "value": {
-              "image": "@images/ux/reimagining-forvo/sections/39/zones/0/content/value/image.png",
+              "image": "@images/ux/reimagining-forvo/sections/38/zones/0/content/value/image.png",
               "alt": "Box as placeholder",
               "caption": "The current search results page in the existing app.",
               "loading": "lazy"
@@ -2690,7 +2749,7 @@
           "content": {
             "discriminant": true,
             "value": {
-              "image": "@images/ux/reimagining-forvo/sections/39/zones/1/content/value/image.png",
+              "image": "@images/ux/reimagining-forvo/sections/38/zones/1/content/value/image.png",
               "alt": "Box as placeholder",
               "caption": "Search results page, accessed from within a collection. The redesign prioritises relevant content, supporting quick and intuitive interactions.",
               "loading": "lazy"
@@ -2722,7 +2781,7 @@
           "content": {
             "discriminant": true,
             "value": {
-              "image": "@images/ux/reimagining-forvo/sections/40/zones/0/content/value/image.png",
+              "image": "@images/ux/reimagining-forvo/sections/39/zones/0/content/value/image.png",
               "alt": "Box as placeholder",
               "caption": "The current word page in the existing app.",
               "loading": "lazy"
@@ -2746,7 +2805,7 @@
           "content": {
             "discriminant": true,
             "value": {
-              "image": "@images/ux/reimagining-forvo/sections/40/zones/1/content/value/image.png",
+              "image": "@images/ux/reimagining-forvo/sections/39/zones/1/content/value/image.png",
               "alt": "Box as placeholder",
               "caption": "The word page introduces new tools — practice and flashcards — while restructuring existing content to guide attention more effectively. Core actions are reachable with a single tap.",
               "loading": "lazy"

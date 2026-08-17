@@ -19,6 +19,7 @@ export interface Props{
     hoverMode?: 'normal' | 'invert';
     border?: boolean;
     noDecoration?: boolean;
+    target?: '_self' | '_blank';
 
     // decorations
     shape: ShapeProps;
@@ -36,6 +37,7 @@ const{
     hoverMode = "normal",
     border = false,
     noDecoration = false,
+    target = "_self",
 
     shape,
     icon,
@@ -219,6 +221,7 @@ const{
     data-hover-mode={hoverMode}
     data-theme={theme}
     data-theme-mode={themeMode}
+    target={target}
 >
 
     <span

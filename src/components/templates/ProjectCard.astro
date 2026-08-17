@@ -101,6 +101,12 @@ const {
 <article class="grid full-bleed project">
     <Figure
         {...image}
+        widths={[375, 540, 768, 1024, 1453, 1920]}
+        sizes={`
+            (min-width: ${breakpoints.laptop}) 66vw,
+            (min-width: ${breakpoints.tablet}) 50vw,
+            100vw
+        `}
         class="full-bleed"
     />
     <div class="metadata">
