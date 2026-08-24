@@ -2,7 +2,7 @@
   "title": "Reimagining Forvo",
   "cover": "@images/ux/reimagining-forvo/cover.jpg",
   "coverAlt": "A hand holding a smartphone, showing the proposed redesign of the Forvo mobile app.",
-  "excerpt": "Cepalin snailfish flounder snubnose eel wallago lake whitefish bango smelt flying gurnard, roanoke bass batfish pike. Bluntnose knifefish, Black scabbardfish pejerrey Russian sturgeon cichlid bobtail snipe eel.",
+  "excerpt": "Forvo is a pronunciation app that offers \"all the words in the world, pronounced\". With this project, part of my extended education towards UX research, I focused on redesigning its mobile app through a new lens.",
   "sections": [
     {
       "description": "Disclaimer",
@@ -1424,15 +1424,15 @@
           },
           "desktop": {
             "columnSpan": "2",
-            "columnOffset": "3",
+            "columnOffset": "1",
             "rowSpan": "auto",
-            "rowOffset": "1"
+            "rowOffset": "auto"
           },
           "tablet": {
             "columnSpan": "2",
-            "columnOffset": "3",
+            "columnOffset": "1",
             "rowSpan": "auto",
-            "rowOffset": "1"
+            "rowOffset": "auto"
           },
           "mobileOrder": 0
         },
@@ -1451,13 +1451,13 @@
             "columnSpan": "2",
             "columnOffset": "1",
             "rowSpan": "auto",
-            "rowOffset": "1"
+            "rowOffset": "auto"
           },
           "tablet": {
             "columnSpan": "2",
             "columnOffset": "1",
             "rowSpan": "auto",
-            "rowOffset": "1"
+            "rowOffset": "auto"
           },
           "mobileOrder": 0
         }

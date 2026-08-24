@@ -16,6 +16,8 @@ import { breakpoints } from '@data/breakpoints.ts';
   section.grid{
     &#ingredients{
       gap: var(--space-2xl);
+      background: var(--background);
+      color: var(--foreground);
 
       div{
         display: flex;
@@ -33,6 +35,8 @@ import { breakpoints } from '@data/breakpoints.ts';
     }
 
     &#instructions{
+      background: var(--background);
+      color: var(--foreground);
       --instructions-padding-block: var(--space-2xl);
       padding: var(--instructions-padding-block) var(--padding-inline);
 
@@ -77,6 +81,7 @@ import { breakpoints } from '@data/breakpoints.ts';
   @media only screen and (min-width: $tablet){
     :global(figure.col-center.full-bleed){
       max-width: 512px;
+      justify-self: center;
     }
     section.grid{
       &#header{
@@ -146,7 +151,7 @@ import { breakpoints } from '@data/breakpoints.ts';
     <h1 class="h2 col-full">One part design, one part arts, one part craftsmanship</h1>
     <h2 class="h3 serif italic col-full">Your recipe for a multi-functional UXer</h2>
   </section>
-  <section id="ingredients" class="grid">
+  <section id="ingredients" class="grid" data-theme="verdant">
       <div class="col-left-half">
         <h3 class="serif italic">Ingredients</h3>
         <ul class="h5">
@@ -167,7 +172,7 @@ import { breakpoints } from '@data/breakpoints.ts';
         </ul>
       </div>
   </section>
-  <section id="instructions" class="grid">
+  <section id="instructions" class="grid" data-theme="verdant">
     <h2 class="serif italic col-full">Instructions</h2>
     <div class="prose col-left-half">
       <p class="h6 sans-serif weight-regular justified drop-cap">
@@ -224,7 +229,7 @@ import { breakpoints } from '@data/breakpoints.ts';
       Every design has its influences. Here’s a small part of this one’s family tree:
     </p>
     <p class="col-left-wide h6 sans-serif weight-regular">
-      Inspirations include: <a href="https://monocle.com/magazine/issues/" target="_blank">Monocle</a>, <a href="https://www.kinfolk.com/" target="_blank">Kinfolk</a>, <a href="https://aperture.org/magazine" target="_blank">Aperture</a> and <a href="https://uppercasemagazine.com/" target="_blank">Uppercase</a> printed magazines; <a href="https://memphis.it/en/" target="_blank">Memphis Group’s</a> style, and risograph color palettes. <br />
+      Inspirations include: <a href="https://monocle.com/magazine/issues/" target="_blank">Monocle</a>, <a href="https://www.kinfolk.com/" target="_blank">Kinfolk</a>, <a href="https://aperture.org/magazine" target="_blank">Aperture</a> and <a href="https://uppercasemagazine.com/" target="_blank">Uppercase</a> printed magazines; <a href="https://memphis.it/en/" target="_blank">Memphis Group’s</a> style, and risograph color palettes. <a href="https://en.wikipedia.org/wiki/Exercises_in_Style" target="_blank" class="italic">Exercices de style</a> by Raymond Queneau for copywriting.<br />
       Typography: <a href="https://www.atipofoundry.com/fonts/nudica" target="_blank">Nudica</a> by atipo foundry; <a href="https://fonts.google.com/specimen/Libre+Baskerville?preview.script=Latn" target="_blank">Libre Baskerville</a> by Impallary Type.
     </p>
     <p class="col-left-wide h6 sans-serif weight-regular">

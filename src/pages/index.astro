@@ -5,8 +5,11 @@ import Layout from '@layouts/Layout.astro';
 import PrimaryButton from '@blocks/PrimaryButton.astro';
 import ProjectCard from '@templates/ProjectCard.astro';
 import { breakpoints } from '@data/breakpoints.ts';
-import { resolveImageOrThrow } from '@utils/resolveImageOrThrow';
+import { resolveImageOrThrow } from '@utils/resolveImageOrThrow.ts';
+import { resolveImageWithPlaceholder } from '@utils/resolveImageWithPlaceholder.ts';
 import readingTimesData from '../content/_generated/reading-times.json';
+import Figure from '@primitives/Figure.astro';
+import Icon from '@primitives/Icon.astro';
 
 export const prerender = true;
 
@@ -21,126 +24,224 @@ const caseStudies = await Promise.all(
     ...(await reader.collections.caseStudies.read(slug, { resolveLinkedFiles: true })),
   }))
 );
+
+const { image: cover, placeholderStyle } = await resolveImageWithPlaceholder('@images/face.png');
 ---
 <style lang="scss">
   @use '../foundations' as *;
+    section{
 
-  section{
-    &:nth-of-type(1){
-      color:var(--foreground);
-      background:var(--background);
+      &#intro{
+        background: var(--background);
+        
+        &[data-theme="meadow"]{
 
-      pre{
-        grid-column: span 2;
-      }
-    }
+          a:visited{
+            color: var(--ink-base);
+          }
+        }
 
-    &#about-me{
-      --section-padding-block: var(--space-4xl);
-      --section-gap: var(--space-2xl);
+        .cover-container{
+          width: 70%;
+          align-self: center;
+          :global(figure img){
+            background: transparent;
+          }
+        }
 
-      padding: var(--section-padding-block) var(--padding-inline);
-      row-gap: var(--section-gap);
+        h1{
+          grid-column: span 2;
+          grid-row: 2 / 3;
 
-      background:var(--background);
-      p{
-        color: var(--foreground);
-      }
+          align-self: center;
+        }
 
-      :global(a){
-        justify-self: center;
-      }
-    }
+        .description{
+          display: flex;
+          flex-direction: column;
+          gap: var(--space-l);
+
+          grid-column: span 2;
+          grid-row: 3 / 4;
+
+          p{
+            @include body-text("h5", 400, "sans-serif");
+          }
+        }
+
+        @media only screen and (min-width: $tablet){
+          padding-block: var(--padding-block-extra);
+
+          grid-template-columns: .5fr 1fr 1fr 1.2fr;
+          grid-template-areas: "cover heading heading ."
+                                "description description description description";
+
+          .cover-container{
+            grid-area: cover;
+            width: 100%;
+          }
+
+          h1{ grid-area: heading; }
+
+          .description{
+            grid-area: description;
+
+            p{
+              @include body-text("h4", 400, "sans-serif");
+            }
+          }
+
+        } // $tablet
+
+        @media only screen and (min-width: $laptop){
+          grid-template-columns: .5fr repeat(5, 1fr);
+          grid-template-areas: "cover heading heading . . ."
+                              "description description description description description .";
+
+        } // $laptop
+
+        @media only screen and (min-width: $desktop){
+          grid-template-areas: "cover heading heading . . ."
+                              "description description description description . .";
+        }
+
+      } // #intro
+
+      &#expertise{
+        gap: var(--space-xl);
+
+        .list{
+          gap: var(--space-s);
+          
+          ul{
+            list-style-type: none;
+            padding-left: 0;
+          }
+          
+          &:nth-of-type(1){ 
+            display: flex;
+            flex-direction: column;
+
+            grid-row: 1/2;
+            grid-column: span 2;
+          }
+
+          &:nth-of-type(2){ 
+            grid-row: 2/3;
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: subgrid;
+
+            h2{ grid-column: span 2;}
+
+            hr{
+              grid-column: 1 / -1;
+              width:100%;
+              border: 0;
+              margin: 0;
+              background: var(--paper-dark);
+              height: calc( var(--space-3xs) / 2 );
+            }
+
+            div{
+              display: flex;
+              flex-direction: column;
+              gap: inherit;
+              grid-column: span 1;
+            }
+          }
+
+          h2, h3{
+            @include body-text("p", 700, "sans-serif");
+          }
+        }
+
+        @media only screen and (min-width: $tablet){
+          .list:nth-of-type(2){
+            div{
+              grid-column: span 2;
+            }
+          }
+        }
+
+        @media only screen and (min-width: $laptop){
+          padding-block: var(--padding-block-extra);
+          .list{
+            &:nth-of-type(1){
+              gap: calc( ( var(--space-s) * 2 ) + ( var(--space-3xs) / 2 ) );
+            }
+            &:nth-of-type(2){
+              grid-row: 1 / 2;
+              grid-column: 3 / span 4;
+            }
+          }
+        }
+      } // #expertise
+
+    } // section
 
     &#highlighted-projects{
       display: flex;
       flex-direction: column;
       gap: var(--gap-y);
-      padding-top: var(--space-3xl);
     }
-
-    &#cta{
-      --cta-padding-block: var(--space-3xl);
-      padding: var(--cta-padding-block) var(--padding-inline);
-
-      @media only screen and (min-width: $tablet){
-        --cta-padding-block: var(--space-4xl);
-      }
-
-      :global(a){
-        justify-self: center;
-      }
-    }
-  } // section.grid
-
-  @media only screen and (min-width: $tablet){
-    section.grid{
-      &#about-me{
-        p{
-          grid-column: span 3 / 5;
-        }
-        :global(a){
-          grid-column: span 4;
-          justify-self: right;
-        }
-      }
-    } // section.grid
-  } // $tablet
-
-  @media only screen and (min-width: $laptop){
-    section.grid{
-      &#about-me{
-        p{
-          grid-column: span 3 / 7;
-        }
-        :global(a){
-          grid-column: span 4 / 7;
-          justify-self: right;
-        }
-      }
-    } // section.grid
-  } // $laptop
 </style>
 
 <Layout title="Home">
-  <section class="grid">
-    <h1>Welcome to my website! Benvenuti nel mio sito</h1>
-    <pre>
-    /\_____/\
-   /  o   o  \
-  ( ==  ^  == )
-   )         (
-  (           )
- ( (  )   (  ) )
-(__(__)___(__)__)
-      
-    </pre>
+  <section id="intro" class="grid" data-theme="meadow">
+    <div class="cover-container">
+      <Figure
+        src={cover}
+        alt="Drawing of an example of a user"
+        style={placeholderStyle}
+      />
+    </div>
+    <h1 class="h2">Good design is for everyone.</h1>
+    <div class="description">
+      <p>
+        I am Mattia, a designer specializing in UX: from research and testing, to design systems and prototyping. Accessibility is at the core of my practice. Human-centred & ethical design is my philosophy.
+      </p>
+      <p>
+        Currently Senior Designer at <a href="https://www.keycafe.com/s/" target="_blank">Keycafe</a>. <Icon icon="externalLink" />
+      </p>
+    </div>
   </section>
-  <section
-    id="about-me"
-    class="grid"
-    data-theme="meadow-mono"
-    data-theme-mode="invert"
-  >
-    <p class="h4 weight-regular col-right-half justified">
-      I am Mattia and this is where I talk a bit about me. I explain my values as designer, my vision, and what I care about. This will be the description where I talk a bit about me. I explain my values as designer, my vision, and what I care about.
-    </p>
-    <PrimaryButton 
-      href="/about"
-      label="More about me"
-      theme="meadow-mono"
-      class="col-right-wide"
-      hover="default"
-      shape={{
-        variant: "trapezoid",
-        fill: "meadow-mono",
-        themeMode: "invert",
-      }}
-      icon={{
-        icon: "arrowRight",
-        fill: "flame-mono",
-      }}
-    />
+  <section class="grid" id="expertise">
+    <div class="list">
+      <h2>Disciplines</h2>
+      <ul>
+        <li class="weight-bold sans-serif">UI /</li>
+        <li class="weight-bold sans-serif">UX /</li>
+        <li class="weight-bold sans-serif">Frontend development /</li>
+        <li class="sans-serif">Illustration /</li>
+        <li class="sans-serif">3D /</li>
+        <li class="sans-serif">Graphic design /</li>
+      </ul>
+    </div>
+
+    <div class="list">
+      <h2>Tools of the trade</h2>
+      <hr>
+      <div>
+        <h3>Design</h3>
+        <ul>
+          <li class="sans-serif">Figma</li>
+          <li class="sans-serif">Illustrator</li>
+          <li class="sans-serif">Blender</li>
+          <li class="sans-serif">InDesign</li>
+          <li class="sans-serif">After Effects</li>
+        </ul>
+      </div>
+      <div>
+      <h3>Development</h3>
+        <ul>
+          <li class="sans-serif">HTML/CSS</li>
+          <li class="sans-serif">Javascript</li>
+          <li class="sans-serif">Astro.js</li>
+          <li class="sans-serif">Webflow</li>
+        </ul>
+      </div>
+    </div>
   </section>
   <section id="highlighted-projects">
     {caseStudies.map(async caseStudy => {
@@ -168,6 +269,7 @@ const caseStudies = await Promise.all(
           button={{
             href: "/ux/" + caseStudy.slug,
             theme: 'marmalade',
+            themeMode: 'normal',
             hover: 'mustard',
             shape: {
               variant: 'spring',
@@ -176,37 +278,14 @@ const caseStudies = await Promise.all(
             },
             icon: {
               icon: 'arrowRight',
-              fill: 'chocolate',
+              fill: 'cove',
               themeMode: "invert",
             }
           }}
+          style={`--metadata-bg: var(--paper-base);`}
         />
       );
     })}
-  </section>
-  <section
-    id="cta"
-    class="grid"
-  >
-    <PrimaryButton 
-      href="mailto:hello@mattiabombelli.com"
-      label="View all case studies"
-      theme="marmalade"
-      class="col-full"
-      hover="mustard"
-      hoverMode="normal"
-      cta
-      shape={{
-        variant: "donut",
-        fill: "meadow",
-        themeMode: "invert",
-      }}
-      icon={{
-        icon: "arrowRight",
-        fill: "chocolate",
-        themeMode: "invert",
-      }}
-    />
   </section>
 </Layout>
 

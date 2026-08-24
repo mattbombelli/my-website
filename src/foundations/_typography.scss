@@ -6,10 +6,14 @@
 
 */
 
+/* @link https://utopia.fyi/type/calculator?c=375,16,1.25,1440,18,1.25,9,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+
 @use 'layouts' as *;
 
 :root{
     // Font sizes
+    --text-display-lg: clamp(5.9605rem, 5.6981rem + 1.1193vw, 6.7055rem);
+    --text-display: clamp(4.7684rem, 4.5585rem + 0.8955vw, 5.3644rem);
     --text-h1: clamp(3.8147rem, 3.6468rem + 0.7164vw, 4.2915rem);
     --text-h2: clamp(3.0518rem, 2.9174rem + 0.5731vw, 3.4332rem);
     --text-h3: clamp(2.4414rem, 2.3339rem + 0.4585vw, 2.7466rem);
@@ -130,6 +134,27 @@
 }
 
 /* === Type specs === */
+.display, .display-lg{
+    font-family: var(--font-sans-serif);
+    line-height: var(--leading-sans-serif-h1);
+
+    font-weight: 700;
+
+    &.display{
+        font-size: var(--text-display);
+    }
+
+    &.display-lg{
+        font-size: var(--text-display-lg);
+    }
+
+    &.serif{
+        font-family: var(--font-serif);
+        line-height: var(--leading-serif-h1);
+    }
+}
+
+
 h1, .h1{
     font-family: var(--font-sans-serif);
     line-height: var(--leading-sans-serif-h1);
@@ -153,6 +178,24 @@ h2, .h2{
     &.serif{
         font-family: var(--font-serif);
         line-height: var(--leading-serif-h2);
+    }
+}
+
+h1, .h1 {
+    font-size: min(var(--text-h1), 10vw);
+}
+
+h2, .h2 {
+    font-size: min(var(--text-h2), 8vw);
+}
+
+@media only screen and (min-width: $tablet) {
+    h1, .h1 {
+        font-size: var(--text-h1);
+    }
+
+    h2, .h2 {
+        font-size: var(--text-h2);
     }
 }
 
@@ -337,6 +380,10 @@ a{
 
 .weight-regular{
     font-weight: 400;
+}
+
+.weight-bold{
+    font-weight: 700;
 }
 
 .justified{

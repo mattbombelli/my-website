@@ -1,36 +1,27 @@
 ---
 import { reader } from '@utils/reader';
 import { loadProjectSections } from '@utils/loadProjectSections';
-import readingTimesData from '../../content/_generated/reading-times.json';
-import { resolveImageOrThrow } from '@utils/resolveImageOrThrow';
 
 import Layout from '../../layouts/Layout.astro';
 import Figure from '@primitives/Figure.astro';
 import MarkdocDocument from '@primitives/MarkdocDocument.astro';
 import Carousel from '@blocks/Carousel.astro';
-import TableOfContents from '@blocks/TableOfContents.astro';
 import PrimaryButton from '@blocks/PrimaryButton.astro';
 
 export async function getStaticPaths() {
-    const slugs = await reader.collections.caseStudies.list();
+    const slugs = await reader.collections.illustrations.list();
     return slugs.map(slug => ({ params: { slug } }));
 }
 export const prerender = true;
 
-const readingTimes = readingTimesData as { caseStudies: Record<string, string> };
-
 const { slug } = Astro.params;
 if (!slug) throw new Error('Slug not found');
 
-const { project: caseStudy, sections, allHeadings } = await loadProjectSections(
-    reader.collections.caseStudies,
+const { project: caseStudy, sections } = await loadProjectSections(
+    reader.collections.illustrations,
     slug,
-    'src/content/ux'
+    'src/content/illustration'
 );
-
-const readingTime = readingTimes.caseStudies[slug];
-
-const cover = await resolveImageOrThrow(caseStudy.cover);
 ---
 <style lang="scss">
     @use '../../foundations' as *;
@@ -52,15 +43,6 @@ const cover = await resolveImageOrThrow(caseStudy.cover);
 
 
     @media only screen and (min-width: $laptop){
-        header{
-            h1{
-                font-size: var(--text-display-lg);
-            }
-            :global(figure){
-                grid-column: 2 / span 4;
-            }
-        }
-
         main.grid{
             padding: var(--padding-block) var(--padding-inline);
 
@@ -183,18 +165,8 @@ const cover = await resolveImageOrThrow(caseStudy.cover);
 <Layout title={caseStudy.title}>
     <header class="grid">
         <h1 class="col-full">{caseStudy.title}</h1>
-        <Figure
-            src={cover}
-            alt={caseStudy.coverAlt}
-        />
     </header>
     <main class="grid">
-        <TableOfContents
-            page={caseStudy.title}
-            pageLink="#top"
-            chapters={allHeadings}
-            readingTime={readingTime}
-        />
         <article
             id="article-content"
             class="prose"

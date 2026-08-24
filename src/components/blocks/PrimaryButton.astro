@@ -184,6 +184,7 @@ const{
                     border-radius: var(--radius-pill);
                     padding:var(--space-m);
                     background: var(--background);
+                    
                     :global(svg){
                         height:100%;
                     }
@@ -191,6 +192,10 @@ const{
                     transform-origin: center top;
                     @media(prefers-reduced-motion: no-preference){
                         transition: transform var(--duration-slow) var(--ease-press);
+                    }
+
+                    &.icon{
+                        padding: var(--space-s);
                     }
                 }
             }
@@ -240,6 +245,7 @@ const{
         {...shape}
         />
         <span
+            class="icon"
             data-theme={icon.fill}
             data-theme-mode={icon.themeMode}
         >

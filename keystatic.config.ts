@@ -33,7 +33,7 @@ export default config({
     storage: { kind: "local" },
     ui: {
         brand: { name: "Mattia Bombelli" },
-        navigation: ["caseStudies", "---", "blog"],
+        navigation: ["---", "caseStudies", "illustrations", "---", "blog"],
     },
     collections: {
         caseStudies: collection({
@@ -65,6 +65,37 @@ export default config({
                 }),
                 sections: caseStudySections,
             },
+        }),
+
+        illustrations: collection({
+            label: "Illustrations",
+            slugField: "title",
+            path: "src/content/illustration/*",
+            entryLayout: "content",
+            columns: ["title"],
+            format: { data: "json" },
+            schema: {
+                title: fields.slug({ name: { label: "Title" } }),
+                cover: fields.image({
+                    label: "Cover image",
+                    description: "Questa immagine verrà usata come copertina per il progetto.",
+                    directory: "src/assets/images/illustration/",
+                    publicPath: "@images/illustration/",
+                    validation: { isRequired: true },
+                }),
+                coverAlt: fields.text({
+                    label: "Cover alt",
+                    description: "Defines alt text for cover image.",
+                    validation: { isRequired: true },
+                }),
+                excerpt: fields.text({
+                    label: "Excerpt",
+                    description: "Massimo 500 caratteri.",
+                    multiline: true,
+                    validation: { isRequired: false, length: { max: 500 } },
+                }),
+                sections: projectSections,
+            }
         }),
 
         blog: collection({

@@ -1,0 +1,40 @@
+{
+  "title": "Juline",
+  "cover": "@images/illustration/juline/cover.webp",
+  "coverAlt": "A man \"digging\" a sea wave to make it move. Pencil on paper.",
+  "sections": [
+    {
+      "description": "Test",
+      "zones": [
+        {
+          "content": {
+            "discriminant": false,
+            "value": {
+              "alignment": "left",
+              "subtitle": false,
+              "typography": false,
+              "theme": false,
+              "dropCap": false
+            }
+          },
+          "desktop": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "tablet": {
+            "columnSpan": "2",
+            "columnOffset": "1",
+            "rowSpan": "auto",
+            "rowOffset": "auto"
+          },
+          "mobileOrder": 0
+        }
+      ],
+      "carousel": false,
+      "theme": "normal",
+      "rowGap": "var(--gap-y)"
+    }
+  ]
+}

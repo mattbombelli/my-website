@@ -16,6 +16,7 @@ export type props = ButtonProps & FigureProps &{
     button: ButtonProps;
     readingTime?: string;
     image: FigureProps;
+    style?: string;
 }
 
 const {
@@ -24,27 +25,50 @@ const {
     readingTime,
     button,
     image,
+    style,
 } = Astro.props;
 ---
 <style lang="scss">
     @use '../../foundations' as *;
 
-    article.project{
-        border-top: 1px dashed var(--foreground);
-        :global(figure){
+    article.project.grid.full-bleed{
+        --metadata-bg: var(--background);
+        padding: 0;
+        gap: unset;
+
+        .figure-container{
             order: 2;
             grid-column: span 2;
             aspect-ratio: 1/1;
             overflow:hidden;
         }
+
         .metadata{
-            padding: 0 var(--padding-inline);
+            padding: var(--padding-block) var(--padding-inline);
             order: 1;
             grid-column: span 2;
             display:flex;
             flex-direction: column;
             gap: var(--space-l);
             align-items: stretch;
+            background: var(--metadata-bg);
+
+            p{
+                font-weight: 400;
+            }
+
+            .metadata-heading{
+                display: flex;
+                flex-direction: column;
+                gap: var(--gap-y);
+            }
+
+            .excerpt-container{
+                display: flex;
+                flex-direction: column;
+                gap: var(--gap-y);
+                align-items: stretch;    
+            }
 
             :global(a span){
                 flex-basis: 100%;
@@ -52,14 +76,37 @@ const {
         }
 
         @media only screen and (min-width: $tablet){
-            :global(figure){
+            padding: 0;
+            height: 100dvh;
+
+            .figure-container{
                 order: 1;
+                padding: var(--padding-block) var(--padding-inline);
+                padding: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                place-items: center;
+
+                :global(figure){
+                    height: 100%;
+                    width: 100%;
+                }
+
+                :global(figure img){
+                    object-fit: cover;
+                    object-position: center;
+                }
             }
 
             .metadata{
+                padding: var(--padding-inline);
                 order: 2;
                 grid-column: span 2 / 5;
-                padding: 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: stretch;
 
                 :global(a){
                     --a-height: var(--space-2xl);
@@ -69,7 +116,7 @@ const {
                     flex-basis: unset;
                     flex-grow: 1;
                     min-width: unset;
-                    padding: 0;
+                    // padding: 0;
                 }
 
                 :global(a .decoration){
@@ -79,47 +126,58 @@ const {
         }
 
         @media only screen and (min-width: $laptop){
-            :global(figure){
+            .figure-container{
+                grid-column: span 3;
+            }
+            .metadata{
+                grid-column: span 3 / 7;
+
+                h2{
+                    font-size: var(--text-display-lg);
+                }
+            }
+        }
+
+        @media only screen and (min-width: $desktop){
+            .figure-container{
                 grid-column: span 3;
             }
             .metadata{
                 grid-column: span 3 / 7;
             }
         }
-
-        @media only screen and (min-width: $desktop){
-            :global(figure){
-                grid-column: span 4;
-            }
-            .metadata{
-                grid-column: span 2 / 7;
-            }
-        }
     }
 </style>
 
 <article class="grid full-bleed project">
-    <Figure
-        {...image}
-        widths={[375, 540, 768, 1024, 1453, 1920]}
-        sizes={`
-            (min-width: ${breakpoints.laptop}) 66vw,
-            (min-width: ${breakpoints.tablet}) 50vw,
-            100vw
-        `}
-        class="full-bleed"
-    />
-    <div class="metadata">
-        <h2>{title}</h2>
-        <PrimaryButton
-            label="Read case study"
-            {...button}
+    <div class="figure-container">
+        <Figure
+            {...image}
+            widths={[375, 540, 768, 1024, 1453, 1920]}
+            sizes={`
+                (min-width: ${breakpoints.laptop}) 66vw,
+                (min-width: ${breakpoints.tablet}) 50vw,
+                100vw
+            `}
+            class="full-bleed"
         />
+    </div>
+    <div
+        class="metadata"
+        style={style}
+    >
+        <div class="metadata-heading">
+            <h2>{title}</h2>
+            <PrimaryButton
+                label="Read case study"
+                {...button}
+            />
+        </div>
+        <p class="sans-serif h5">
+            {excerpt}
+        </p>
         {
             readingTime && <p class="sans-serif">{readingTime}</p>
         }
-        <p class="justified">
-            {excerpt}
-        </p>
     </div>
 </article>
