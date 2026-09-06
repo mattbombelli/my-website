@@ -14,7 +14,7 @@ import { breakpoints } from '@data/breakpoints.ts';
   @use '../foundations' as *;
 
   section.grid{
-    &#ingredients{
+    &#recipe{
       gap: var(--space-2xl);
       background: var(--background);
       color: var(--foreground);
@@ -22,7 +22,7 @@ import { breakpoints } from '@data/breakpoints.ts';
       div{
         display: flex;
         flex-direction: column;
-        gap: var(--space-m);
+        // gap: var(--space-m);
       }
 
       ul{
@@ -32,17 +32,15 @@ import { breakpoints } from '@data/breakpoints.ts';
         gap: var(--space-m);
         padding:0;
       }
+
+      #instructions{
+        grid-column: span 2;
+      }
     }
 
-    &#instructions{
+    &#recipe{
       background: var(--background);
       color: var(--foreground);
-      --instructions-padding-block: var(--space-2xl);
-      padding: var(--instructions-padding-block) var(--padding-inline);
-
-      @media only screen and (min-width: $tablet){
-        --instructions-padding-block: var(--space-3xl);
-      }
     }
     
     &#ethics{
@@ -95,13 +93,26 @@ import { breakpoints } from '@data/breakpoints.ts';
         }
       }
 
-      &#ingredients{
-        column-gap: var(--gap-x);
-        row-gap: var(--gap-y);
+      &#recipe{
+        grid-template-areas:
+          "ingredients ingredients instructions instructions"
+          "toppings toppings instructions instructions"
+        ;
 
-        div:last-of-type{
-          padding-left: var(--space-m);
-          border-left: 2px solid var(--foreground);
+        .ingredients{
+          grid-area: ingredients;
+        }
+
+        .toppings{
+          grid-area: toppings;
+        }
+
+        #instructions{
+          // grid-column: 1 / -1;
+          grid-area: instructions;
+          // column-gap: inherit;
+          // display: grid;
+          // grid-template-columns: subgrid;
         }
       }
 
@@ -123,6 +134,13 @@ import { breakpoints } from '@data/breakpoints.ts';
           grid-column: 2 / span 4;
           text-indent: var(--space-2xl);
         }
+      }
+
+      &#recipe{
+        grid-template-areas:
+          "ingredients ingredients ingredients instructions instructions instructions"
+          "toppings toppings toppings instructions instructions instructions"
+        ;
       }
     }
   }
@@ -151,51 +169,54 @@ import { breakpoints } from '@data/breakpoints.ts';
     <h1 class="h2 col-full">One part design, one part arts, one part craftsmanship</h1>
     <h2 class="h3 serif italic col-full">Your recipe for a multi-functional UXer</h2>
   </section>
-  <section id="ingredients" class="grid" data-theme="verdant">
-      <div class="col-left-half">
-        <h3 class="serif italic">Ingredients</h3>
-        <ul class="h5">
-          <li>1 Mattia</li>
-          <li>1 tsp frontend web dev</li>
-          <li>100g Gothic Art</li>
-          <li>200g illustration</li>
-          <li>2tbsp leathercrafting</li>
-        </ul>
-      </div>
-      <div class="col-right-half">
-        <h3 class="serif italic">Toppings</h3>
-        <ul class="h5">
-          <li>1 adorable turtle</li>
-          <li>Cooking</li>
-          <li>Music</li>
-          <li>Photography</li>
-        </ul>
-      </div>
-  </section>
-  <section id="instructions" class="grid" data-theme="verdant">
-    <h2 class="serif italic col-full">Instructions</h2>
-    <div class="prose col-left-half">
-      <p class="h6 sans-serif weight-regular justified drop-cap">
-        Marinate Mattia with French Expressionism and Gothic art, then add some finely chopped ardour for illustration and storytelling.</p>
-      <p class="h6 sans-serif weight-regular justified">
-        Store him in the Illustration & Animation school of the European Institute of Design (IED) in Milan, Italy, for a few years.
-      </p>
-      <p class="h6 sans-serif weight-regular justified">
-        Once marinated, move him to Vancouver, Canada: keep stirring until he becomes a web developer through further college studies.
-      </p>
+  
+  <section id="recipe" class="grid" data-theme="chocolate">
+    <div class="ingredients col-left-half">
+      <h3 class="serif italic">Ingredients</h3>
+      <ul class="h5">
+        <li>1 Mattia</li>
+        <li>1 tsp frontend web dev</li>
+        <li>100g Gothic Art</li>
+        <li>200g illustration</li>
+        <li>2tbsp leathercrafting</li>
+      </ul>
     </div>
-    <div class="prose col-right-half">
-      <p class="h6 sans-serif weight-regular justified">
-        Sauté in freelancing work. Once done, transfer to Keycafe and gently pat him with an extensive variety of multidisciplinary design projects.  Repeat for several years until he becomes the company's Senior Designer.
-      </p>
-      <p class="h6 sans-serif weight-regular justified">
-        To serve, spread with a lovely turtle named Juanita. Top with a fascination for languages and music production. Serve warm.
-      </p>
-      <p class="h6 sans-serif weight-regular justified">
-        Good job! You can now enjoy your new multi-functional designer.
-      </p>
+    <div class="toppings col-right-half">
+      <h3 class="serif italic">Toppings</h3>
+      <ul class="h5">
+        <li>1 adorable turtle</li>
+        <li>Cooking</li>
+        <li>Music</li>
+        <li>Photography</li>
+      </ul>
+    </div>
+
+    <div id="instructions">
+      <h2 class="serif italic col-full">Instructions</h2>
+      <div class="prose col-left-half">
+        <p class="h6 sans-serif weight-regular justified drop-cap">
+          Marinate Mattia with French Expressionism and Gothic art, then add some finely chopped ardour for illustration and storytelling.</p>
+        <p class="h6 sans-serif weight-regular justified">
+          Store him in the Illustration & Animation school of the European Institute of Design (IED) in Milan, Italy, for a few years.
+        </p>
+        <p class="h6 sans-serif weight-regular justified">
+          Once marinated, move him to Vancouver, Canada: keep stirring until he becomes a web developer through further college studies.
+        </p>
+      </div>
+      <div class="prose col-right-half">
+        <p class="h6 sans-serif weight-regular justified">
+          Sauté in freelancing work. Once done, transfer to Keycafe and gently pat him with an extensive variety of multidisciplinary design projects.  Repeat for several years until he becomes the company's Senior Designer.
+        </p>
+        <p class="h6 sans-serif weight-regular justified">
+          To serve, spread with a lovely turtle named Juanita. Top with a fascination for languages and music production. Serve warm.
+        </p>
+        <p class="h6 sans-serif weight-regular justified">
+          Good job! You can now enjoy your new multi-functional designer.
+        </p>
+      </div>
     </div>
   </section>
+
   <section id="ethics" class="grid" data-theme-mode="invert">
     <p class="h6 sans-serif weight-regular col-full">
       Store him in the Illustration & Animation school of the European Institute of Design (IED) in Milan, Italy, for a few years. Store him in the Illustration & Animation school of the European Institute of Design (IED) in Milan, Italy, for a few years.

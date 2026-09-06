@@ -3,6 +3,12 @@
   "cover": "@images/ux/reimagining-forvo/cover.jpg",
   "coverAlt": "A hand holding a smartphone, showing the proposed redesign of the Forvo mobile app.",
   "excerpt": "Forvo is a pronunciation app that offers \"all the words in the world, pronounced\". With this project, part of my extended education towards UX research, I focused on redesigning its mobile app through a new lens.",
+  "tags": [
+    "UI",
+    "Research",
+    "Method",
+    "UX"
+  ],
   "sections": [
     {
       "description": "Disclaimer",

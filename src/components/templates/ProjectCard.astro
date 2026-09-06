@@ -15,6 +15,7 @@ export type props = ButtonProps & FigureProps &{
     excerpt: string;
     button: ButtonProps;
     readingTime?: string;
+    tags?: string[];
     image: FigureProps;
     style?: string;
 }
@@ -23,6 +24,7 @@ const {
     title,
     excerpt,
     readingTime,
+    tags,
     button,
     image,
     style,
@@ -45,6 +47,7 @@ const {
 
         .metadata{
             padding: var(--padding-block) var(--padding-inline);
+            padding-bottom: var(--space-xl);
             order: 1;
             grid-column: span 2;
             display:flex;
@@ -73,7 +76,23 @@ const {
             :global(a span){
                 flex-basis: 100%;
             }
-        }
+
+            .pill{
+                display: inline-block;
+                padding: var(--space-xs) var(--space-s);
+                border-radius: var(--radius-pill);
+                min-width: var(--space-2xl);
+                text-align: center;
+
+                &.reading-time{
+                    background: var(--paper-dark);
+                }
+
+                &.tag{
+                    background: var(--sunflower-light);
+                }
+            }
+        } // metadata
 
         @media only screen and (min-width: $tablet){
             padding: 0;
@@ -105,7 +124,6 @@ const {
                 grid-column: span 2 / 5;
                 display: flex;
                 flex-direction: column;
-                justify-content: space-between;
                 align-items: stretch;
 
                 :global(a){
@@ -166,18 +184,22 @@ const {
         class="metadata"
         style={style}
     >
-        <div class="metadata-heading">
-            <h2>{title}</h2>
-            <PrimaryButton
-                label="Read case study"
-                {...button}
-            />
-        </div>
+        <h2>{title}</h2>
+        {
+            (readingTime || tags) &&
+            <div class="pills">
+                <p class="sans-serif reading-time pill">{readingTime}</p>
+                {tags?.map((tag: string) => (
+                    <p class="sans-serif pill tag">{tag}</p>
+                ))}
+            </div>
+        }
         <p class="sans-serif h5">
             {excerpt}
         </p>
-        {
-            readingTime && <p class="sans-serif">{readingTime}</p>
-        }
+        <PrimaryButton
+            label="Read case study"
+            {...button}
+        />
     </div>
 </article>

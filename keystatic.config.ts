@@ -63,6 +63,17 @@ export default config({
                     multiline: true,
                     validation: { isRequired: true, length: { max: 500 } },
                 }),
+                tags: fields.multiselect({
+                    label: "Project tags",
+                    options: [
+                        { label: "UI", value: "UI" },
+                        { label: "UX", value: "UX" },
+                        { label: "Design system", value: "Design systems" },
+                        { label: "Research", value: "Research" },
+                        { label: "Testing", value: "Testing" },
+                        { label: "Method", value: "Method" },
+                    ],
+                }),
                 sections: caseStudySections,
             },
         }),

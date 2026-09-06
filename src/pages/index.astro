@@ -10,6 +10,7 @@ import { resolveImageWithPlaceholder } from '@utils/resolveImageWithPlaceholder.
 import readingTimesData from '../content/_generated/reading-times.json';
 import Figure from '@primitives/Figure.astro';
 import Icon from '@primitives/Icon.astro';
+import RevealParagraph from '@primitives/RevealParagraph.astro';
 
 export const prerender = true;
 
@@ -30,30 +31,19 @@ const { image: cover, placeholderStyle } = await resolveImageWithPlaceholder('@i
 <style lang="scss">
   @use '../foundations' as *;
     section{
-
       &#intro{
+        border-top-width: var(--space-xl);
+        border-top-style: solid;
+        border-top-color: var(--marmalade-base);
         background: var(--background);
-        
-        &[data-theme="meadow"]{
 
-          a:visited{
-            color: var(--ink-base);
-          }
-        }
-
-        .cover-container{
-          width: 70%;
-          align-self: center;
-          :global(figure img){
-            background: transparent;
-          }
-        }
-
-        h1{
+        :global(h1){
           grid-column: span 2;
-          grid-row: 2 / 3;
-
-          align-self: center;
+          // letter-spacing: -1.1;
+        }
+        
+        a:visited{
+          color: var(--ink-base);
         }
 
         .description{
@@ -62,53 +52,36 @@ const { image: cover, placeholderStyle } = await resolveImageWithPlaceholder('@i
           gap: var(--space-l);
 
           grid-column: span 2;
-          grid-row: 3 / 4;
 
-          p{
+          :global(p){
             @include body-text("h5", 400, "sans-serif");
           }
         }
 
         @media only screen and (min-width: $tablet){
-          padding-block: var(--padding-block-extra);
-
-          grid-template-columns: .5fr 1fr 1fr 1.2fr;
-          grid-template-areas: "cover heading heading ."
-                                "description description description description";
-
-          .cover-container{
-            grid-area: cover;
-            width: 100%;
-          }
-
-          h1{ grid-area: heading; }
-
           .description{
-            grid-area: description;
-
-            p{
-              @include body-text("h4", 400, "sans-serif");
+            :global(p){
+              @include body-text("h3", 400, "sans-serif");
             }
           }
 
+          .description{
+            grid-column: span 3;
+          }
         } // $tablet
 
         @media only screen and (min-width: $laptop){
-          grid-template-columns: .5fr repeat(5, 1fr);
-          grid-template-areas: "cover heading heading . . ."
-                              "description description description description description .";
-
         } // $laptop
 
         @media only screen and (min-width: $desktop){
-          grid-template-areas: "cover heading heading . . ."
-                              "description description description description . .";
         }
 
       } // #intro
 
       &#expertise{
         gap: var(--space-xl);
+        background: var(--background);
+        color: var(--foreground);
 
         .list{
           gap: var(--space-s);
@@ -139,7 +112,7 @@ const { image: cover, placeholderStyle } = await resolveImageWithPlaceholder('@i
               width:100%;
               border: 0;
               margin: 0;
-              background: var(--paper-dark);
+              background: var(--foreground);
               height: calc( var(--space-3xs) / 2 );
             }
 
@@ -178,35 +151,30 @@ const { image: cover, placeholderStyle } = await resolveImageWithPlaceholder('@i
         }
       } // #expertise
 
+      &#highlighted-projects{
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap-y);
+        margin-bottom: var(--space-xl-4xl);
+      }
+
     } // section
 
-    &#highlighted-projects{
-      display: flex;
-      flex-direction: column;
-      gap: var(--gap-y);
-    }
 </style>
 
 <Layout title="Home">
-  <section id="intro" class="grid" data-theme="meadow">
-    <div class="cover-container">
-      <Figure
-        src={cover}
-        alt="Drawing of an example of a user"
-        style={placeholderStyle}
-      />
-    </div>
-    <h1 class="h2">Good design is for everyone.</h1>
+  <section id="intro" class="grid" data-theme="default">
     <div class="description">
-      <p>
+      <RevealParagraph as="h1" class="full-screen">Good design is for everyone.</RevealParagraph>
+      <RevealParagraph>
         I am Mattia, a designer specializing in UX: from research and testing, to design systems and prototyping. Accessibility is at the core of my practice. Human-centred & ethical design is my philosophy.
-      </p>
-      <p>
-        Currently Senior Designer at <a href="https://www.keycafe.com/s/" target="_blank">Keycafe</a>. <Icon icon="externalLink" />
-      </p>
+      </RevealParagraph>
+      <RevealParagraph>
+        Currently Senior Designer at <a href="https://www.keycafe.com/s/" target="_blank">Keycafe.</a> <Icon icon="externalLink" />
+      </RevealParagraph>
     </div>
   </section>
-  <section class="grid" id="expertise">
+  <section class="grid" id="expertise" data-theme="jungle">
     <div class="list">
       <h2>Disciplines</h2>
       <ul>
@@ -266,6 +234,7 @@ const { image: cover, placeholderStyle } = await resolveImageWithPlaceholder('@i
             `
           }}
           readingTime={`${readingTimes.caseStudies[caseStudy.slug]} read`}
+          tags={caseStudy.tags}
           button={{
             href: "/ux/" + caseStudy.slug,
             theme: 'marmalade',
@@ -289,3 +258,54 @@ const { image: cover, placeholderStyle } = await resolveImageWithPlaceholder('@i
   </section>
 </Layout>
 
+<script>
+  function fitToViewport(el: HTMLElement) {
+  let span = el.querySelector<HTMLElement>(':scope > span.fit-measure');
+
+  if (!span) {
+    span = document.createElement('span');
+    span.className = 'fit-measure';
+    span.style.whiteSpace = 'nowrap';
+    while (el.firstChild) span.appendChild(el.firstChild);
+    el.appendChild(span);
+  }
+
+  const target = el.clientWidth;
+
+  el.style.fontSize = '100px';
+  let w = span.getBoundingClientRect().width;
+  el.style.fontSize = `${(100 * target) / w}px`;
+
+  w = span.getBoundingClientRect().width;
+  const current = parseFloat(el.style.fontSize);
+  el.style.fontSize = `${current * (target / w)}px`;
+}
+const heading = document.querySelector<HTMLElement>('.full-screen');
+
+if (heading) {
+  fitToViewport(heading);
+
+  let ticking = false;
+  window.addEventListener('resize', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        fitToViewport(heading);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+}
+
+// const navEl = document.getElementById('main-menu');
+
+// const setNavHeight = () => {
+//     const height = navEl?.getBoundingClientRect().height ?? 0;
+//     document.documentElement.style.setProperty('--nav-height', `${height}px`);
+// };
+
+// setNavHeight();
+// document.documentElement.classList.add('js-ready');
+
+// window.addEventListener('resize', setNavHeight, { passive: true });
+</script>

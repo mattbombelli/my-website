@@ -1,0 +1,153 @@
+---
+export interface Props {
+    class?: string;
+    as?: 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+    revealOrder?: number;
+}
+
+const { class: className, as: Tag = 'p', revealOrder = 0 } = Astro.props;
+---
+<style lang="scss">
+    .reveal-paragraph {
+        visibility: hidden;
+
+        &.ready {
+            visibility: visible;
+        }
+
+        :global(.word-wrap) {
+            display: inline-block;
+            overflow: hidden;
+            vertical-align: top;
+        }
+
+        :global(.word) {
+            display: inline-block;
+
+            @media (prefers-reduced-motion: no-preference) {
+                translate: 0 100%;
+                opacity: 0;
+                transition: translate var(--duration-slow) var(--ease-default),
+                            opacity var(--duration-slow) var(--ease-default);
+                transition-delay: var(--delay, 0ms);
+            }
+        }
+
+        :global(.word.in-view) {
+            @media (prefers-reduced-motion: no-preference) {
+                translate: 0 0;
+                opacity: 1;
+            }
+        }
+
+        :global(a:focus-visible) {
+            outline-offset: -2px;
+        }
+    }
+</style>
+
+<Tag class:list={["reveal-paragraph", className]} data-reveal-order={revealOrder}>
+    <slot />
+</Tag>
+
+<noscript>
+    <style>
+        .reveal-paragraph {
+            visibility: visible !important;
+        }
+    </style>
+</noscript>
+
+<script>
+    const STAGGER = 10;
+    const PAUSE = 200;
+
+    function wrapWord(word: string, index: number): HTMLElement {
+        const wrap = document.createElement('span');
+        wrap.className = 'word-wrap';
+        const inner = document.createElement('span');
+        inner.className = 'word';
+        inner.textContent = word;
+        inner.style.setProperty('--i', String(index));
+        wrap.appendChild(inner);
+        return wrap;
+    }
+
+    function splitNode(el: HTMLElement) {
+        const originalNodes = Array.from(el.childNodes);
+        el.innerHTML = '';
+        let wordIndex = 0;
+
+        originalNodes.forEach((node) => {
+            if (node.nodeType === Node.TEXT_NODE) {
+                const words = (node.textContent ?? '').split(/\s+/).filter(Boolean);
+                words.forEach((word) => {
+                    el.appendChild(wrapWord(word, wordIndex++));
+                    el.appendChild(document.createTextNode(' '));
+                });
+            } else if (node.nodeType === Node.ELEMENT_NODE) {
+                const clone = node.cloneNode(true) as HTMLElement;
+                const wrap = document.createElement('span');
+                wrap.className = 'word-wrap';
+                clone.classList.add('word');
+                clone.style.setProperty('--i', String(wordIndex++));
+                wrap.appendChild(clone);
+                el.appendChild(wrap);
+                el.appendChild(document.createTextNode(' '));
+            }
+        });
+    }
+
+    function isInViewport(el: HTMLElement): boolean {
+        const rect = el.getBoundingClientRect();
+        return rect.top < window.innerHeight && rect.bottom > 0;
+    }
+
+    const paragraphs = Array.from(
+        document.querySelectorAll<HTMLElement>('.reveal-paragraph')
+    ).sort((a, b) => {
+        const orderA = Number(a.dataset.revealOrder ?? 0);
+        const orderB = Number(b.dataset.revealOrder ?? 0);
+        return orderA - orderB;
+    });
+
+    let cumulativeDelay = 0;
+
+    paragraphs.forEach((p) => {
+        splitNode(p);
+        p.classList.add('ready');
+
+        const words = p.querySelectorAll<HTMLElement>('.word');
+        const baseDelay = cumulativeDelay;
+
+        words.forEach((word) => {
+            const i = Number(word.style.getPropertyValue('--i'));
+            word.style.setProperty('--delay', `${baseDelay + i * STAGGER}ms`);
+        });
+
+        cumulativeDelay = baseDelay + words.length * STAGGER + PAUSE;
+
+        const revealParagraph = () => {
+            words.forEach((word) => {
+                requestAnimationFrame(() => word.classList.add('in-view'));
+            });
+        };
+
+        if (isInViewport(p)) {
+            revealParagraph();
+        } else {
+            const paragraphObserver = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            revealParagraph();
+                            paragraphObserver.unobserve(entry.target);
+                        }
+                    });
+                },
+                { threshold: 0.3 }
+            );
+            paragraphObserver.observe(p);
+        }
+    });
+</script>

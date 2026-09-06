@@ -186,6 +186,7 @@ const cover = await resolveImageOrThrow(caseStudy.cover);
         <Figure
             src={cover}
             alt={caseStudy.coverAlt}
+            loading="eager"
         />
     </header>
     <main class="grid">
