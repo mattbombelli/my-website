@@ -59,9 +59,6 @@ const { class: className, as: Tag = 'p', revealOrder = 0 } = Astro.props;
 </noscript>
 
 <script>
-    const STAGGER = 10;
-    const PAUSE = 200;
-
     function wrapWord(word: string, index: number): HTMLElement {
         const wrap = document.createElement('span');
         wrap.className = 'word-wrap';
@@ -103,51 +100,62 @@ const { class: className, as: Tag = 'p', revealOrder = 0 } = Astro.props;
         return rect.top < window.innerHeight && rect.bottom > 0;
     }
 
-    const paragraphs = Array.from(
-        document.querySelectorAll<HTMLElement>('.reveal-paragraph')
-    ).sort((a, b) => {
-        const orderA = Number(a.dataset.revealOrder ?? 0);
-        const orderB = Number(b.dataset.revealOrder ?? 0);
-        return orderA - orderB;
-    });
+    function setupReveal() {
+        const STAGGER = 10;
+        const PAUSE = 200;
 
-    let cumulativeDelay = 0;
-
-    paragraphs.forEach((p) => {
-        splitNode(p);
-        p.classList.add('ready');
-
-        const words = p.querySelectorAll<HTMLElement>('.word');
-        const baseDelay = cumulativeDelay;
-
-        words.forEach((word) => {
-            const i = Number(word.style.getPropertyValue('--i'));
-            word.style.setProperty('--delay', `${baseDelay + i * STAGGER}ms`);
+        const paragraphs = Array.from(
+            document.querySelectorAll<HTMLElement>('.reveal-paragraph')
+        ).sort((a, b) => {
+            const orderA = Number(a.dataset.revealOrder ?? 0);
+            const orderB = Number(b.dataset.revealOrder ?? 0);
+            return orderA - orderB;
         });
 
-        cumulativeDelay = baseDelay + words.length * STAGGER + PAUSE;
+        let cumulativeDelay = 0;
 
-        const revealParagraph = () => {
+        paragraphs.forEach((p) => {
+            if (!p.dataset.split) {
+                splitNode(p);
+                p.dataset.split = 'true';
+            }
+
+            p.classList.add('ready');
+
+            const words = p.querySelectorAll<HTMLElement>('.word');
+            const baseDelay = cumulativeDelay;
+
             words.forEach((word) => {
-                requestAnimationFrame(() => word.classList.add('in-view'));
+                const i = Number(word.style.getPropertyValue('--i'));
+                word.style.setProperty('--delay', `${baseDelay + i * STAGGER}ms`);
             });
-        };
 
-        if (isInViewport(p)) {
-            revealParagraph();
-        } else {
-            const paragraphObserver = new IntersectionObserver(
-                (entries) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            revealParagraph();
-                            paragraphObserver.unobserve(entry.target);
-                        }
-                    });
-                },
-                { threshold: 0.3 }
-            );
-            paragraphObserver.observe(p);
-        }
-    });
+            cumulativeDelay = baseDelay + words.length * STAGGER + PAUSE;
+
+            const revealParagraph = () => {
+                words.forEach((word) => {
+                    requestAnimationFrame(() => word.classList.add('in-view'));
+                });
+            };
+
+            if (isInViewport(p)) {
+                revealParagraph();
+            } else {
+                const paragraphObserver = new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting) {
+                                revealParagraph();
+                                paragraphObserver.unobserve(entry.target);
+                            }
+                        });
+                    },
+                    { threshold: 0.3 }
+                );
+                paragraphObserver.observe(p);
+            }
+        });
+    }
+
+    document.addEventListener('astro:page-load', setupReveal);
 </script>

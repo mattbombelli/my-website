@@ -58,6 +58,7 @@ const caseStudies = await Promise.all(
               `
             }}
             readingTime={`${readingTimes.caseStudies[caseStudy.slug]} read`}
+            tags={caseStudy.tags}
             button={{
               href: "/ux/" + caseStudy.slug,
               theme: 'marmalade',

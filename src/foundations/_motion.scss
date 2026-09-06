@@ -26,3 +26,103 @@ html {
         scroll-behavior: auto !important;
     }
 }
+
+@media (prefers-reduced-motion: no-preference) {
+
+    /* disable default cross-fade */
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+        animation: none;
+        mix-blend-mode: normal;
+    }
+
+    /* macro-out and macro-in share same old/new behaviour */
+    :root:active-view-transition-type(macro-out),
+    :root:active-view-transition-type(macro-in) {
+        &::view-transition-old(root) {
+            animation: blur-out var(--duration-slow) var(--ease-default) forwards;
+        }
+
+        &::view-transition-new(root) {
+            animation: none;
+        }
+    }
+
+    /* panel direction differs per type */
+    :root:active-view-transition-type(macro-out) {
+        &::view-transition::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: -33vw;
+            width: 33vw;
+            height: 100vh;
+            background: var(--cobalt-base);
+            animation: panel-ltr var(--duration-slow) var(--ease-default) forwards;
+            z-index: 9999;
+        }
+    }
+
+    :root:active-view-transition-type(macro-in) {
+        &::view-transition::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            right: -33vw;
+            width: 33vw;
+            height: 100vh;
+            background: var(--cobalt-base);
+            animation: panel-rtl var(--duration-slow) var(--ease-default) forwards;
+            z-index: 9999;
+        }
+    }
+
+    /* micro */
+    :root:active-view-transition-type(micro) {
+        &::view-transition-old(root) {
+            animation: fade-out var(--duration-default) var(--ease-default) forwards;
+        }
+
+        &::view-transition-new(root) {
+            animation: fade-in var(--duration-default) var(--ease-default) forwards;
+        }
+    }
+
+    @keyframes blur-out {
+        from { filter: blur(0); }
+        to   { filter: blur(8px); }
+    }
+
+    @keyframes panel-ltr {
+        0%   { transform: translateX(0); }
+        50%  { transform: translateX(166vw); }
+        100% { transform: translateX(166vw); }
+    }
+
+    @keyframes panel-rtl {
+        0%   { transform: translateX(0); }
+        50%  { transform: translateX(-166vw); }
+        100% { transform: translateX(-166vw); }
+    }
+
+    @keyframes fade-out {
+        from { opacity: 1; }
+        to   { opacity: 0; }
+    }
+
+    @keyframes fade-in {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+}
+
+:root:active-view-transition {
+    &::view-transition-old(root) {
+        animation: blur-out 2s ease forwards;
+    }
+}
+
+@keyframes blur-out {
+    from { filter: blur(0); }
+    to { filter: blur(20px); }
+}

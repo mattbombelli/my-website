@@ -22,7 +22,9 @@ import { breakpoints } from '@data/breakpoints.ts';
       div{
         display: flex;
         flex-direction: column;
-        // gap: var(--space-m);
+        &.ingredients, &.toppings{
+          gap: var(--space-l);
+        }
       }
 
       ul{
@@ -31,10 +33,21 @@ import { breakpoints } from '@data/breakpoints.ts';
         flex-direction: column;
         gap: var(--space-m);
         padding:0;
+
+        li{
+          padding: var(--space-xs) var(--space-m);
+          border: 1px solid var(--foreground);
+          border-radius: var(--radius-pill);
+          align-self: start;
+        }
       }
 
       #instructions{
         grid-column: span 2;
+
+        h2 + div:has(p){
+          margin-top: var(--space-l);
+        }
       }
     }
 
@@ -108,11 +121,7 @@ import { breakpoints } from '@data/breakpoints.ts';
         }
 
         #instructions{
-          // grid-column: 1 / -1;
           grid-area: instructions;
-          // column-gap: inherit;
-          // display: grid;
-          // grid-template-columns: subgrid;
         }
       }
 
@@ -141,6 +150,17 @@ import { breakpoints } from '@data/breakpoints.ts';
           "ingredients ingredients ingredients instructions instructions instructions"
           "toppings toppings toppings instructions instructions instructions"
         ;
+      }
+    }
+  }
+
+  @media only screen and (min-width: $wide){
+    section.grid{
+      &#recipe{
+          grid-template-areas:
+            "ingredients toppings . instructions instructions instructions"
+            "ingredients toppings . instructions instructions instructions"
+          ;
       }
     }
   }
@@ -173,7 +193,7 @@ import { breakpoints } from '@data/breakpoints.ts';
   <section id="recipe" class="grid" data-theme="chocolate">
     <div class="ingredients col-left-half">
       <h3 class="serif italic">Ingredients</h3>
-      <ul class="h5">
+      <ul class="h6">
         <li>1 Mattia</li>
         <li>1 tsp frontend web dev</li>
         <li>100g Gothic Art</li>
@@ -183,7 +203,7 @@ import { breakpoints } from '@data/breakpoints.ts';
     </div>
     <div class="toppings col-right-half">
       <h3 class="serif italic">Toppings</h3>
-      <ul class="h5">
+      <ul class="h6">
         <li>1 adorable turtle</li>
         <li>Cooking</li>
         <li>Music</li>

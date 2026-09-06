@@ -2,10 +2,22 @@
 import '@style/global.scss';
 import Navbar from '@blocks/Navbar.astro';
 import Footer from '@blocks/Footer.astro';
+import { ClientRouter } from 'astro:transitions';
 
 export interface Props {
 	title: string;
 }
+
+const baseTransition = {
+  forwards: {
+    old: { name: 'blur-out', duration: '0.5s', easing: 'ease-in-out', fillMode: 'both' },
+    new: { name: 'fade-in', duration: '0.5s', easing: 'ease-in-out', fillMode: 'both' },
+  },
+  backwards: {
+    old: { name: 'blur-out', duration: '0.5s', easing: 'ease-in-out', fillMode: 'both' },
+    new: { name: 'fade-in', duration: '0.5s', easing: 'ease-in-out', fillMode: 'both' },
+  },
+};
 
 const { title } = Astro.props;
 ---
@@ -14,11 +26,53 @@ const { title } = Astro.props;
 		background: var(--background);
 		color: var(--foreground);
 	}
+
+	#transition-panel {
+		position: fixed;
+		top: 0;
+		left: -33vw;
+		width: 33vw;
+		height: 100vh;
+		background: var(--cobalt-base);
+		z-index: 9999;
+		view-transition-name: panel;
+		pointer-events: none;
+	}
+</style>
+<style is:global>
+  @keyframes blur-out {
+    from { filter: blur(0); opacity: 1; }
+    to { filter: blur(8px); opacity: 0; }
+  }
+  
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
 </style>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" transition:animate={baseTransition}>
 	<head>
+		<ClientRouter />
+		<script>
+			document.addEventListener('astro:before-preparation', (e) => {
+				const event = e as any;
+				console.log('from:', event.from.pathname, 'to:', event.to.pathname);
+				const fromHome = event.from.pathname === '/';
+				const toHome = event.to.pathname === '/';
+				
+				if (fromHome) {
+					event.viewTransitionType = new Set(['macro-out']);
+				} else if (toHome) {
+					event.viewTransitionType = new Set(['macro-in']);
+				} else {
+					event.viewTransitionType = new Set(['micro']);
+				}
+
+				console.log('type:', event.viewTransitionType);
+			});
+		</script>
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description">
 		<meta name="viewport" content="width=device-width" />
@@ -37,7 +91,9 @@ const { title } = Astro.props;
 	</head>
 	<body>
 		<Navbar />
-		<slot />
+		<div class="page-content">
+			<slot />
+		</div>
 		<Footer />
 	</body>
 </html>
