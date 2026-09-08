@@ -23,6 +23,7 @@ const {
     id,
     'aria-label': ariaLabel,
     'aria-hidden': ariaHidden,
+    alt,
     ...rest
 } = Astro.props;
 
@@ -32,6 +33,8 @@ const aspectRatio = src && typeof src === 'object' && 'width' in src && 'height'
     : undefined;
 
 const mergedStyle = `${style ?? ''}${aspectRatio ? ` aspect-ratio: ${aspectRatio};` : ''}`;
+
+// const finalAriaLabel = ariaLabel ?? (!caption ? alt : undefined);
 ---
 <style lang="scss">
     @use '../../foundations' as *;
@@ -78,7 +81,8 @@ const mergedStyle = `${style ?? ''}${aspectRatio ? ` aspect-ratio: ${aspectRatio
     aria-hidden={ariaHidden}
     style={mergedStyle}
 >
-    <Picture 
+    <Picture
+        alt={alt}
         {...rest}
     />
     {caption && <figcaption class="small italic sans-serif">{caption}</figcaption>}

@@ -11,20 +11,6 @@ const { class: className, as: Tag = 'p', revealOrder = 0 } = Astro.props;
     .reveal-paragraph {
         visibility: hidden;
 
-        :global(.group-reveal) {
-            @media (prefers-reduced-motion: no-preference) {
-                background-color: transparent;
-                transition: background-color var(--duration-slow) var(--ease-default);
-                transition-delay: var(--delay, 0ms);
-            }
-        }
-
-        :global(.group-reveal.in-view) {
-            @media (prefers-reduced-motion: no-preference) {
-                background-color: var(--sunflower-light);
-            }
-        }
-
         &.ready {
             visibility: visible;
         }
@@ -45,11 +31,6 @@ const { class: className, as: Tag = 'p', revealOrder = 0 } = Astro.props;
                             opacity var(--duration-slow) var(--ease-default);
                 transition-delay: var(--delay, 0ms);
             }
-        }
-
-        :global(.word-wrap),
-        :global(.word) {
-            text-decoration: inherit;
         }
 
         :global(.word.in-view) {
@@ -89,40 +70,6 @@ const { class: className, as: Tag = 'p', revealOrder = 0 } = Astro.props;
         return wrap;
     }
 
-    function splitTextNodesInPlace(el: HTMLElement, nextIndex: () => number) {
-        Array.from(el.childNodes).forEach((node) => {
-            if (node.nodeType === Node.TEXT_NODE) {
-                const words = (node.textContent ?? '').split(/\s+/).filter(Boolean);
-                if (words.length === 0) return;
-                const frag = document.createDocumentFragment();
-                words.forEach((word, idx) => {
-                    frag.appendChild(wrapWord(word, nextIndex()));
-                    if (idx < words.length - 1) {
-                        frag.appendChild(document.createTextNode(' '));
-                    }
-                });
-                el.replaceChild(frag, node);
-            } else if (node.nodeType === Node.ELEMENT_NODE) {
-                const child = node as HTMLElement;
-
-                if ((child.textContent ?? '').trim() === '') {
-                    const wrap = document.createElement('span');
-                    wrap.className = 'word-wrap';
-
-                    const inner = document.createElement('span');
-                    inner.className = 'word';
-                    inner.style.setProperty('--i', String(nextIndex()));
-
-                    el.replaceChild(wrap, child);
-                    inner.appendChild(child);
-                    wrap.appendChild(inner);
-                } else {
-                    splitTextNodesInPlace(child, nextIndex);
-                }
-            }
-        });
-    }
-
     function splitNode(el: HTMLElement) {
         const originalNodes = Array.from(el.childNodes);
         el.innerHTML = '';
@@ -136,35 +83,13 @@ const { class: className, as: Tag = 'p', revealOrder = 0 } = Astro.props;
                     el.appendChild(document.createTextNode(' '));
                 });
             } else if (node.nodeType === Node.ELEMENT_NODE) {
-                const elNode = node as HTMLElement;
-                const groupIndex = wordIndex;
-
-                if (elNode.tagName === 'MARK') {
-                    // Marks: rebuilt from text. No trailing space inside —
-                    // it would extend the background past the real one.
-                    // Never given .word / inline-block, so its box, padding
-                    // and box-decoration-break stay identical to the real one.
-                    const clone = elNode.cloneNode(false) as HTMLElement;
-                    const innerWords = (elNode.textContent ?? '').split(/\s+/).filter(Boolean);
-
-                    innerWords.forEach((word, idx) => {
-                        clone.appendChild(wrapWord(word, wordIndex++));
-                        if (idx < innerWords.length - 1) {
-                            clone.appendChild(document.createTextNode(' '));
-                        }
-                    });
-
-                    clone.classList.add('group-reveal');
-                    clone.style.setProperty('--i', String(groupIndex));
-                    el.appendChild(clone);
-                } else {
-                    // Links etc: deep clone so icons and nested markup survive,
-                    // then split only the text nodes inside.
-                    const clone = elNode.cloneNode(true) as HTMLElement;
-                    splitTextNodesInPlace(clone, () => wordIndex++);
-                    el.appendChild(clone);
-                }
-
+                const clone = node.cloneNode(true) as HTMLElement;
+                const wrap = document.createElement('span');
+                wrap.className = 'word-wrap';
+                clone.classList.add('word');
+                clone.style.setProperty('--i', String(wordIndex++));
+                wrap.appendChild(clone);
+                el.appendChild(wrap);
                 el.appendChild(document.createTextNode(' '));
             }
         });
@@ -178,7 +103,6 @@ const { class: className, as: Tag = 'p', revealOrder = 0 } = Astro.props;
     function setupReveal() {
         const STAGGER = 10;
         const PAUSE = 200;
-        const REVEAL_DURATION = 500; // keep in sync with --duration-slow
 
         const paragraphs = Array.from(
             document.querySelectorAll<HTMLElement>('.reveal-paragraph')
@@ -191,11 +115,7 @@ const { class: className, as: Tag = 'p', revealOrder = 0 } = Astro.props;
         let cumulativeDelay = 0;
 
         paragraphs.forEach((p) => {
-            let originalHtml: string | null = null;
-
             if (!p.dataset.split) {
-                originalHtml = p.innerHTML;
-                p.setAttribute('aria-hidden', 'true'); // only for the animated window
                 splitNode(p);
                 p.dataset.split = 'true';
             }
@@ -203,7 +123,6 @@ const { class: className, as: Tag = 'p', revealOrder = 0 } = Astro.props;
             p.classList.add('ready');
 
             const words = p.querySelectorAll<HTMLElement>('.word');
-            const groups = p.querySelectorAll<HTMLElement>('.group-reveal');
             const baseDelay = cumulativeDelay;
 
             words.forEach((word) => {
@@ -211,28 +130,12 @@ const { class: className, as: Tag = 'p', revealOrder = 0 } = Astro.props;
                 word.style.setProperty('--delay', `${baseDelay + i * STAGGER}ms`);
             });
 
-            groups.forEach((group) => {
-                const i = Number(group.style.getPropertyValue('--i'));
-                group.style.setProperty('--delay', `${baseDelay + i * STAGGER}ms`);
-            });
-
-            const totalRevealTime = baseDelay + words.length * STAGGER + REVEAL_DURATION;
             cumulativeDelay = baseDelay + words.length * STAGGER + PAUSE;
 
             const revealParagraph = () => {
                 words.forEach((word) => {
                     requestAnimationFrame(() => word.classList.add('in-view'));
                 });
-                groups.forEach((group) => {
-                    requestAnimationFrame(() => group.classList.add('in-view'));
-                });
-
-                if (originalHtml !== null) {
-                    setTimeout(() => {
-                        p.innerHTML = originalHtml as string;
-                        p.removeAttribute('aria-hidden');
-                    }, totalRevealTime);
-                }
             };
 
             if (isInViewport(p)) {

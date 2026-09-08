@@ -2,6 +2,7 @@
 import Layout from '@layouts/Layout.astro';
 import PrimaryButton from '@blocks/PrimaryButton.astro';
 import Figure from '@primitives/Figure.astro';
+import RevealParagraph from '@primitives/RevealParagraph.astro';
 
 export const prerender = true;
 
@@ -13,17 +14,28 @@ import { breakpoints } from '@data/breakpoints.ts';
 <style lang="scss">
   @use '../foundations' as *;
 
+  :global(body){
+    transition: background var(--duration-slow) var(--ease-default);
+  }
+
   section.grid{
     &#recipe{
-      gap: var(--space-2xl);
+      gap: var(--gap-y-large);
       background: var(--background);
       color: var(--foreground);
+      padding-block: var(--padding-block-extra);
+      position: relative;
+
+      .ingredients-container{
+        grid-column: span 2;
+        gap: var(--space-xl);
+      }
 
       div{
         display: flex;
         flex-direction: column;
         &.ingredients, &.toppings{
-          gap: var(--space-l);
+          gap: var(--space-m);
         }
       }
 
@@ -31,29 +43,22 @@ import { breakpoints } from '@data/breakpoints.ts';
         list-style-type: none;
         display:flex;
         flex-direction: column;
-        gap: var(--space-m);
+        gap: var(--space-xs);
         padding:0;
 
         li{
-          padding: var(--space-xs) var(--space-m);
-          border: 1px solid var(--foreground);
-          border-radius: var(--radius-pill);
           align-self: start;
         }
       }
 
       #instructions{
         grid-column: span 2;
+        gap: var(--space-xl);
 
-        h2 + div:has(p){
-          margin-top: var(--space-l);
+        div{
+          gap: var(--space-m);
         }
       }
-    }
-
-    &#recipe{
-      background: var(--background);
-      color: var(--foreground);
     }
     
     &#ethics{
@@ -94,12 +99,13 @@ import { breakpoints } from '@data/breakpoints.ts';
       max-width: 512px;
       justify-self: center;
     }
+
     section.grid{
       &#header{
         padding-top: var(--space-3xl);
         padding-bottom: var(--space-4xl);
 
-        h1, h2{
+        :global(h1), :global(h2){
           text-align: center;
           max-width: 70%;
           justify-self: center;
@@ -107,17 +113,29 @@ import { breakpoints } from '@data/breakpoints.ts';
       }
 
       &#recipe{
+        column-gap: var(--gap-x);
         grid-template-areas:
-          "ingredients ingredients instructions instructions"
-          "toppings toppings instructions instructions"
+          "instructions instructions ingredients ingredients"
         ;
 
-        .ingredients{
+        .ingredients-container{
+          padding-left: var(--space-m);
+          border-left: calc(var(--space-3xs) / 2) solid var(--foreground);
+          padding-left: unset;
+          border-left: none;
           grid-area: ingredients;
         }
 
+        .ingredients{
+          padding-left: var(--space-m);
+          border-left: calc(var(--space-3xs) / 2) solid var(--foreground);
+          align-self: start;
+        }
+
         .toppings{
-          grid-area: toppings;
+          padding-left: var(--space-m);
+          border-left: calc(var(--space-3xs) / 2) solid var(--foreground);
+          align-self: start;
         }
 
         #instructions{
@@ -146,10 +164,14 @@ import { breakpoints } from '@data/breakpoints.ts';
       }
 
       &#recipe{
+        // grid-template-columns: .2fr .2fr .7fr .4fr .2fr .2fr;
         grid-template-areas:
-          "ingredients ingredients ingredients instructions instructions instructions"
-          "toppings toppings toppings instructions instructions instructions"
+          ". instructions instructions ingredients ingredients ."
         ;
+
+        .ingredients-container{
+          flex-direction: row;
+        }
       }
     }
   }
@@ -157,10 +179,15 @@ import { breakpoints } from '@data/breakpoints.ts';
   @media only screen and (min-width: $wide){
     section.grid{
       &#recipe{
-          grid-template-areas:
-            "ingredients toppings . instructions instructions instructions"
-            "ingredients toppings . instructions instructions instructions"
-          ;
+          // grid-template-areas:
+          //   "ingredients toppings . instructions instructions instructions"
+          //   "ingredients toppings . instructions instructions instructions"
+          // ;
+          #instructions{
+            :global(p){
+              @include heading("h6", 400, "sans-serif");
+            }
+          }
       }
     }
   }
@@ -186,51 +213,52 @@ import { breakpoints } from '@data/breakpoints.ts';
     />
   </section>
   <section id="header" class="grid">
-    <h1 class="h2 col-full">One part design, one part arts, one part craftsmanship</h1>
-    <h2 class="h3 serif italic col-full">Your recipe for a multi-functional UXer</h2>
+    <RevealParagraph as="h1" class="h2 col-full">One part design, one part arts, one part craftsmanship</RevealParagraph>
+    <RevealParagraph as="h2" class="h3 serif italic col-full">Your recipe for a multi-functional UXer</RevealParagraph>
   </section>
   
-  <section id="recipe" class="grid" data-theme="chocolate">
-    <div class="ingredients col-left-half">
-      <h3 class="serif italic">Ingredients</h3>
-      <ul class="h6">
-        <li>1 Mattia</li>
-        <li>1 tsp frontend web dev</li>
-        <li>100g Gothic Art</li>
-        <li>200g illustration</li>
-        <li>2tbsp leathercrafting</li>
-      </ul>
-    </div>
-    <div class="toppings col-right-half">
-      <h3 class="serif italic">Toppings</h3>
-      <ul class="h6">
-        <li>1 adorable turtle</li>
-        <li>Cooking</li>
-        <li>Music</li>
-        <li>Photography</li>
-      </ul>
+  <section id="recipe" class="grid" data-theme="algae">
+    <div class="ingredients-container">
+      <div class="ingredients col-left-half">
+        <h3 class="h5 serif italic">Ingredients</h3>
+        <ul class="sans-serif">
+          <li>1 Mattia</li>
+          <li>1 tsp frontend web dev</li>
+          <li>100g Gothic Art</li>
+          <li>200g illustration</li>
+          <li>2tbsp leathercrafting</li>
+        </ul>
+      </div>
+      <div class="toppings col-right-half">
+        <h3 class="h5 serif italic">Toppings</h3>
+        <ul class="sans-serif">
+          <li>1 adorable turtle</li>
+          <li>Cooking</li>
+          <li>Music</li>
+          <li>Photography</li>
+        </ul>
+      </div>
     </div>
 
     <div id="instructions">
-      <h2 class="serif italic col-full">Instructions</h2>
-      <div class="prose col-left-half">
-        <p class="h6 sans-serif weight-regular justified drop-cap">
+      <div class="col-left-half">
+        <p class="sans-serif weight-regular justified drop-cap">
           Marinate Mattia with French Expressionism and Gothic art, then add some finely chopped ardour for illustration and storytelling.</p>
-        <p class="h6 sans-serif weight-regular justified">
+        <p class="sans-serif weight-regular justified">
           Store him in the Illustration & Animation school of the European Institute of Design (IED) in Milan, Italy, for a few years.
         </p>
-        <p class="h6 sans-serif weight-regular justified">
+        <p class="sans-serif weight-regular justified">
           Once marinated, move him to Vancouver, Canada: keep stirring until he becomes a web developer through further college studies.
         </p>
       </div>
       <div class="prose col-right-half">
-        <p class="h6 sans-serif weight-regular justified">
+        <p class="sans-serif weight-regular justified">
           Sauté in freelancing work. Once done, transfer to Keycafe and gently pat him with an extensive variety of multidisciplinary design projects.  Repeat for several years until he becomes the company's Senior Designer.
         </p>
-        <p class="h6 sans-serif weight-regular justified">
+        <p class="sans-serif weight-regular justified">
           To serve, spread with a lovely turtle named Juanita. Top with a fascination for languages and music production. Serve warm.
         </p>
-        <p class="h6 sans-serif weight-regular justified">
+        <p class="sans-serif weight-regular justified">
           Good job! You can now enjoy your new multi-functional designer.
         </p>
       </div>
@@ -270,7 +298,7 @@ import { breakpoints } from '@data/breakpoints.ts';
       Every design has its influences. Here’s a small part of this one’s family tree:
     </p>
     <p class="col-left-wide h6 sans-serif weight-regular">
-      Inspirations include: <a href="https://monocle.com/magazine/issues/" target="_blank">Monocle</a>, <a href="https://www.kinfolk.com/" target="_blank">Kinfolk</a>, <a href="https://aperture.org/magazine" target="_blank">Aperture</a> and <a href="https://uppercasemagazine.com/" target="_blank">Uppercase</a> printed magazines; <a href="https://memphis.it/en/" target="_blank">Memphis Group’s</a> style, and risograph color palettes. <a href="https://en.wikipedia.org/wiki/Exercises_in_Style" target="_blank" class="italic">Exercices de style</a> by Raymond Queneau for copywriting.<br />
+      Inspirations include: <a href="https://monocle.com/magazine/issues/" target="_blank">Monocle</a>, <a href="https://www.kinfolk.com/" target="_blank">Kinfolk</a>, <a href="https://aperture.org/magazine" target="_blank">Aperture</a> and <a href="https://uppercasemagazine.com/" target="_blank">Uppercase</a> printed magazines; <a href="https://memphis.it/en/" target="_blank">Memphis Group’s</a> style, and risograph color palettes. <a href="https://en.wikipedia.org/wiki/Exercises_in_Style" target="_blank" class="italic" lang="fr">Exercices de style</a> by Raymond Queneau for copywriting.<br />
       Typography: <a href="https://www.atipofoundry.com/fonts/nudica" target="_blank">Nudica</a> by atipo foundry; <a href="https://fonts.google.com/specimen/Libre+Baskerville?preview.script=Latn" target="_blank">Libre Baskerville</a> by Impallary Type.
     </p>
     <p class="col-left-wide h6 sans-serif weight-regular">

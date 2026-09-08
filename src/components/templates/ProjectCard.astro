@@ -81,6 +81,7 @@ const {
 
             .pills{
                 display: flex;
+                flex-wrap: wrap;
 
                 .pill{
                     display: flex;
@@ -199,7 +200,7 @@ const {
             (readingTime || tags) &&
             <div class="pills-gooey">
                 <div class="pills">
-                    <p class="sans-serif reading-time pill"><Icon icon="clock" />{readingTime}</p>
+                    <p class="sans-serif reading-time pill"><Icon icon="clock" aria-hidden="true" />{readingTime}</p>
                     {tags?.map((tag: string) => (
                         <p class="sans-serif pill tag">#{tag}</p>
                     ))}

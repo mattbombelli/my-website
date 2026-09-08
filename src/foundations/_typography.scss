@@ -491,6 +491,16 @@ blockquote{
     }
 }
 
+mark{
+    background-color: var(--sunflower-light);
+    // background: linear-gradient(to top, var(--marmalade-light), var(--sunflower-light));
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    border-radius: var(--radius-sm);
+    padding-inline: var(--space-3xs);
+    white-space: nowrap;
+}
+
 /* === Spacing system for prose === */
 .prose{
     // micro space

@@ -53,6 +53,11 @@
     --meadow-base: hsl(123, 27%, 48%);
     --meadow-dark: hsl(163, 100%, 15%);
 
+    // Lemon
+    --lemon-light: hsl(60, 75%, 51%);
+    --lemon-base: hsl(64, 71%, 33%);
+    --lemon-dark: hsl(78, 90%, 19%);
+
     // Utility variables
     --ink: var(--ink-base);
     --paper: var(--paper-base);
@@ -208,6 +213,23 @@
     }    
 }
 
+[data-theme='lemon']{
+    --ink: var(--ink-base);
+    --paper: var(--lemon-base);
+
+    --foreground: var(--ink);
+    --background: var(--paper);
+}
+@media(hover:hover) and (pointer:fine){
+    [data-hover='lemon']:hover,
+    [data-hover='lemon']:focus-visible{
+        --ink: var(--ink-base);
+        --paper: var(--lemon-base);
+
+        --foreground: var(--ink);
+        --background: var(--paper);
+    }    
+}
 
 // Monochromes
 [data-theme='sunflower-mono']{
@@ -458,6 +480,24 @@
     [data-hover='jungle']:focus-visible{
         --ink: var(--meadow-dark);
         --paper: var(--marmalade-light);
+
+        --foreground: var(--ink);
+        --background: var(--paper);
+    }    
+}
+
+[data-theme='algae']{
+    --ink: var(--meadow-dark);
+    --paper: var(--lemon-light);
+
+    --foreground: var(--ink);
+    --background: var(--paper);
+}
+@media(hover:hover) and (pointer:fine){
+    [data-hover='algae']:hover,
+    [data-hover='algae']:focus-visible{
+        --ink: var(--meadow-dark);
+        --paper: var(--lemon-light);
 
         --foreground: var(--ink);
         --background: var(--paper);

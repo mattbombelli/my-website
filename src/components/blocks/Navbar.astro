@@ -338,31 +338,32 @@ const currentPage = Astro.url.pathname;
 
 <script>
     import { focusWithoutRing } from '@utils/focusWithoutRing';
+        document.addEventListener('astro:page-load', () => {
 
-    const menu = document.getElementById("dialog-menu");
-    const buttonOpen = document.getElementById("button-open");
-    const buttonClose = document.getElementById("button-close");
+        const menu = document.getElementById("dialog-menu");
+        const buttonOpen = document.getElementById("button-open");
+        const buttonClose = document.getElementById("button-close");
 
-    if (menu instanceof HTMLDialogElement &&
-        buttonOpen instanceof HTMLButtonElement &&
-        buttonClose instanceof HTMLButtonElement
-    ) {
+        if (menu instanceof HTMLDialogElement &&
+            buttonOpen instanceof HTMLButtonElement &&
+            buttonClose instanceof HTMLButtonElement
+        ) {
+            const setExpanded = (value: boolean) => buttonOpen.setAttribute('aria-expanded', value ? 'true' : 'false');
 
-        const setExpanded = (value: boolean) => buttonOpen.setAttribute('aria-expanded', value ? 'true' : 'false');
+            buttonOpen.addEventListener("click", () => {
+                menu.showModal();
+                focusWithoutRing(buttonClose);
+                setExpanded(true);
+            });
 
-        buttonOpen.addEventListener("click", () => {
-            menu.showModal();
-            focusWithoutRing(buttonClose);
-            setExpanded(true);
-        });
+            buttonClose.addEventListener("click", () => {
+                menu.close();
+            });
 
-        buttonClose.addEventListener("click", () => {
-            menu.close();
-        });
-
-        menu.addEventListener('close', () => {
-            setExpanded(false);
-            focusWithoutRing(buttonOpen);
-        })
-    }
+            menu.addEventListener('close', () => {
+                setExpanded(false);
+                focusWithoutRing(buttonOpen);
+            });
+        }
+    });
 </script>
